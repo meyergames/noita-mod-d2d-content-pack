@@ -10,7 +10,7 @@
     ></GameEffectComponent >
 
     <LuaComponent
-      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_divine_joke_on.lua"
+      script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/effect_divine_joke_on.lua"
       execute_every_n_frame="1"
         execute_times="1"
       >
@@ -18,13 +18,13 @@
 	
 	<LuaComponent 
 		_enabled="1" 
-		script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_divine_joke_update.lua" 
+		script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/effect_divine_joke_update.lua" 
 		execute_every_n_frame="60">
 	</LuaComponent>
 
     <!-- this script is triggered when the GameEffect is REMOVED -->
     <!--<LuaComponent
-      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_divine_joke_off.lua"
+      script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/effect_divine_joke_off.lua"
       execute_every_n_frame="-1"
         execute_on_added="0"
         execute_on_removed="1"

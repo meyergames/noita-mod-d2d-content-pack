@@ -3,13 +3,13 @@ ctq_perks = {
 		id = "CTQ_TIME_TRIAL",
 		ui_name = "Time Trial",
 		ui_description = "The gods challenge you to a race.\nReach the next Holy Mountain within 60 seconds to be greatly rewarded.",
-		ui_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_time_trial_016.png",
-		perk_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_time_trial.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial.png",
 		stackable = STACKABLE_NO, -- doesn't work for now (smth with the effect's internal variable tracking)
 		one_off_effect = true,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-            LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_runordie.xml" )
+            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_time_trial.xml" )
 		end,
 	},
 
@@ -17,13 +17,13 @@ ctq_perks = {
 		id = "CTQ_RING_OF_LIFE",
 		ui_name = "Ring Of Life",
 		ui_description = "Teleport to safety upon reaching critical health.",
-		ui_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_ringoflife_016.png",
-		perk_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_ringoflife.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife.png",
 		stackable = STACKABLE_NO,
 		one_off_effect = true,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-            LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_ringoflife.xml" )
+            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ringoflife.xml" )
         end,
 	},
 
@@ -31,13 +31,13 @@ ctq_perks = {
 --		id = "CTQ_STENDARI_ESSENCE",
 --		ui_name = "Stendari Essence",
 --		ui_description = "Fire heals you, but water damages you.",
---		ui_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_stendari_essence_016.png",
---		perk_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_stendari_essence.png",
+--		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_stendari_essence_016.png",
+--		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_stendari_essence.png",
 --		stackable = STACKABLE_NO,
 --		one_off_effect = false,
 --		usable_by_enemies = true,
 --		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_healing_fire.xml" )
+--            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_healing_fire.xml" )
 --        end,
 --	},
 
@@ -45,14 +45,14 @@ ctq_perks = {
 		id = "CTQ_BOMBERMAN",
 		ui_name = "Bomberman",
 		ui_description = "You are infused with explosive power.\nDoes not work if you are immune to explosions.",
-		ui_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_bomberman_016.png",
-		perk_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_bomberman.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_bomberman_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_bomberman.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
 --		remove_other_perks = { "PROTECTION_EXPLOSION" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_bomberman.xml" )
+--            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_bomberman.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
 				            extra_modifier = "ctq_bomberman_boost",
@@ -64,14 +64,14 @@ ctq_perks = {
 		id = "CTQ_THUNDERLORD",
 		ui_name = "Thunderlord",
 		ui_description = "You are infused with electric power.\nDoes not work if you are immune to electricity.",
-		ui_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_thunderlord_016.png",
-		perk_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_thunderlord.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_thunderlord_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_thunderlord.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
 --		remove_other_perks = { "PROTECTION_ELECTRICITY" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_energizer.xml" )
+--            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_energizer.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
 				            extra_modifier = "ctq_thunderlord_boost",
@@ -83,14 +83,14 @@ ctq_perks = {
 		id = "CTQ_PYRELORD",
 		ui_name = "Pyrelord",
 		ui_description = "You are infused with fiery power.\nDoes not work if you are immune to fire.",
-		ui_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_pyrelord_016.png",
-		perk_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_pyrelord.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
 --		remove_other_perks = { "PROTECTION_ELECTRICITY" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
-            LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_pyrelord.xml" )
+            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_pyrelord.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
 				            extra_modifier = "ctq_pyrelord_boost",
@@ -102,13 +102,13 @@ ctq_perks = {
 --		id = "CTQ_PANIC_MODE",
 --		ui_name = "Panic Mode",
 --		ui_description = "Upon taking heavy damage, gain a short burst of speed.",
---		ui_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_ringoflife_016.png",
---		perk_icon = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_ringoflife.png",
+--		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife_016.png",
+--		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife.png",
 --		stackable = STACKABLE_NO,
 --		one_off_effect = true,
 --		usable_by_enemies = false,
 --		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_ringoflife.xml" )
+--            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ringoflife.xml" )
 --        end,
 --        _remove = function( entity_id )
 --            -- do nothing

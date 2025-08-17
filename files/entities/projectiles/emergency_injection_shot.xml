@@ -10,7 +10,7 @@
 
     <!--this is basically a function call that happens when the GameEffect is ACTIVATED-->
     <LuaComponent
-      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/borrowed_time_effect_on.lua"
+      script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/borrowed_time_effect_on.lua"
       execute_every_n_frame="1"
         execute_times="1"
       >
@@ -19,13 +19,13 @@
     <!--this is basically a function call that happens when the GameEffect is... remover?-->
 	<LuaComponent 
 		_enabled="1" 
-		script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/borrowed_time_effect_remover.lua" 
+		script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/borrowed_time_effect_remover.lua" 
 		execute_every_n_frame="1">
 	</LuaComponent>
 
     <!--this is basically a function call that happens when the GameEffect is REMOVED-->
     <LuaComponent
-      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/borrowed_time_effect_off.lua"
+      script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/borrowed_time_effect_off.lua"
       execute_every_n_frame="-1"
         execute_on_removed="1"
       >
@@ -36,7 +36,7 @@
 	    execute_every_n_frame="1"
 		remove_after_executed="1"
 		execute_on_added="1"
-	    script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/borrowed_time_status.lua"
+	    script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/borrowed_time_status.lua"
 	></LuaComponent>
 
 </Entity>

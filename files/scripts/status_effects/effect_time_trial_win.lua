@@ -29,14 +29,14 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         GamePrintImportant( "The gods are disappointed in you", "They accuse you of cheating" )
         GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )
         GameScreenshake( 75 )
-        LoadGameEffectEntityTo( owner, "mods/cheytaq_first_mod/files/entities/misc/effect_time_trial_lost.xml" )
+        LoadGameEffectEntityTo( owner, "mods/RiskRewardBundle/files/entities/misc/effect_time_trial_lost.xml" )
 
         remove_perk( "CTQ_TIME_TRIAL" )
         EntityAddComponent2( owner, "UIIconComponent",
         {
             name = "Time Trial: Lost",
             description = "You lost the time trial, earning nothing.",
-            icon_sprite_file = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_time_trial_016_lost.png",
+            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016_lost.png",
             display_above_head = false,
             display_in_hud = true,
             is_perk = true,
@@ -89,7 +89,7 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         {
             name = "Time Trial: Won",
             description = "You were rewarded with doubled max health, increased move speed and a chest.",
-            icon_sprite_file = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_time_trial_016_won.png",
+            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016_won.png",
             display_above_head = false,
             display_in_hud = true,
             is_perk = true,

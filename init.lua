@@ -1,19 +1,19 @@
-ModLuaFileAppend("data/scripts/lib/utilities.lua", "mods/cheytaq_first_mod/files/scripts/utilities.lua")
+ModLuaFileAppend("data/scripts/lib/utilities.lua", "mods/RiskRewardBundle/files/scripts/utilities.lua")
 
-ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/cheytaq_first_mod/files/scripts/actions.lua")
-ModLuaFileAppend("data/scripts/gun/gun_extra_modifiers.lua", "mods/cheytaq_first_mod/files/scripts/gun_extra_modifiers.lua")
---ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/cheytaq_first_mod/files/scripts/perks.lua")
-ModLuaFileAppend("data/scripts/status_effects/status_list.lua", "mods/cheytaq_first_mod/files/scripts/status_effects/status_list.lua")
-ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/cheytaq_first_mod/files/scripts/items.lua")
-ModMaterialsFileAdd("mods/cheytaq_first_mod/files/materials/materials.xml")
+ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/RiskRewardBundle/files/scripts/actions.lua")
+ModLuaFileAppend("data/scripts/gun/gun_extra_modifiers.lua", "mods/RiskRewardBundle/files/scripts/gun_extra_modifiers.lua")
+--ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/RiskRewardBundle/files/scripts/perks.lua")
+ModLuaFileAppend("data/scripts/status_effects/status_list.lua", "mods/RiskRewardBundle/files/scripts/status_effects/status_list.lua")
+ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/RiskRewardBundle/files/scripts/items.lua")
+ModMaterialsFileAdd("mods/RiskRewardBundle/files/materials/materials.xml")
 
-ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/cheytaq_first_mod/files/scripts/items/heart_fullhp_temple_custom.lua")
-ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/cheytaq_first_mod/files/scripts/items/orb_pickup_custom.lua")
+ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/RiskRewardBundle/files/scripts/items/heart_fullhp_temple_custom.lua")
+ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/RiskRewardBundle/files/scripts/items/orb_pickup_custom.lua")
 
 function OnModPostInit()
-    ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/cheytaq_first_mod/files/scripts/perks.lua")
+    ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/RiskRewardBundle/files/scripts/perks.lua")
 
-    dofile_once( "mods/cheytaq_first_mod/files/scripts/actions.lua" )
+    dofile_once( "mods/RiskRewardBundle/files/scripts/actions.lua" )
     OrganiseProgress()
 end
 
@@ -51,6 +51,6 @@ function OnPlayerSpawned(player)
     
 
     --spawn items
---    EntityLoad( "mods/cheytaq_first_mod/files/entities/misc/speedrun_finish_hitbox.xml", 0, 0 )
---    EntityLoad( "mods/cheytaq_first_mod/files/entities/misc/speedrun_finish_hitbox.xml", -681, 4992 )
+--    EntityLoad( "mods/RiskRewardBundle/files/entities/misc/speedrun_finish_hitbox.xml", 0, 0 )
+--    EntityLoad( "mods/RiskRewardBundle/files/entities/misc/speedrun_finish_hitbox.xml", -681, 4992 )
 end

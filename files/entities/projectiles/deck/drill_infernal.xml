@@ -78,7 +78,7 @@
   </ProjectileComponent>
   
   <SpriteParticleEmitterComponent
-    sprite_file="mods/cheytaq_first_mod/files/gfx/projectiles_gfx/smoke_orange_big.xml" 
+    sprite_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/smoke_orange_big.xml" 
     delay="0"
     lifetime="0"
 	emissive="1"

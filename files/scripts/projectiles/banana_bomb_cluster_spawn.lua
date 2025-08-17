@@ -11,5 +11,5 @@ local e_x, e_y = EntityGetTransform( entity_id )
 for i = 1, SPAWN_AMOUNT do
     local rdir_x, rdir_y = vec_rotate( 0, 1, Random( -22.5, 22.5 ) )
     local speed = Random( 200, 350 )
-    shoot_projectile( entity_id, "mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_small.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
+    shoot_projectile( entity_id, "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_small.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
 end

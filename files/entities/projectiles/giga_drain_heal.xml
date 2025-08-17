@@ -1,7 +1,7 @@
 <Entity>
     <LuaComponent 
         _enabled="1" 
-        script_source_file="mods/cheytaq_first_mod/files/scripts/projectiles/giga_drain_heal.lua" 
+        script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/giga_drain_heal.lua" 
         execute_every_n_frame="0"
         remove_after_executed="1"
     ></LuaComponent>

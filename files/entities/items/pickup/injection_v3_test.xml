@@ -37,7 +37,7 @@
         max_child_items="0"
         is_pickable="1"
         is_equipable_forced="1"
-        ui_sprite="mods/cheytaq_first_mod/files/gfx/ui_gfx/emergency_injection.png"
+        ui_sprite="mods/RiskRewardBundle/files/gfx/ui_gfx/emergency_injection.png"
         ui_description="A dubious mixture of healthium and some pitch-black liquid..."
         preferred_inventory="QUICK"
     ></ItemComponent>
@@ -80,7 +80,7 @@
     <AbilityComponent
 	    _tags="enabled_in_hand"
 	    ui_name="Emergency Injection"
-	    entity_file="mods/cheytaq_first_mod/files/entities/misc/effect_virus.xml"
+	    entity_file="mods/RiskRewardBundle/files/entities/misc/effect_virus.xml"
 	    rotate_hand_amount="0.05"
 	    throw_as_item="0"
 	    simulate_throw_as_item="0"

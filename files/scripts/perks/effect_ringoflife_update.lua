@@ -51,11 +51,11 @@ if ( player_hp <= player_max_hp * 0.1 ) then
         {
             name = "Ring Of Life (shattered)",
             description = "It's of no use now.",
-            icon_sprite_file = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_ringoflife_016_spent.png",
+            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife_016_spent.png",
             display_above_head = false,
             display_in_hud = true,
             is_perk = true,
         })
     end
-    --LoadGameEffectEntityTo( entity_who_picked, "mods/cheytaq_first_mod/files/entities/misc/effect_ringoflife.xml" )
+    --LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ringoflife.xml" )
 end

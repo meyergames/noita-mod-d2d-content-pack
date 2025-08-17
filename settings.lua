@@ -80,7 +80,7 @@ function ModSettingsGui( gui, in_main_menu )
 
 		
 		-- SPELLS
-		dofile("mods/cheytaq_first_mod/files/scripts/actions.lua")
+		dofile("mods/RiskRewardBundle/files/scripts/actions.lua")
 		GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
 		if GuiButton( gui, new_id(), 0, 0, "Enable All Spells" )then
 			for k, v in pairs( ctq_actions ) do
@@ -148,7 +148,7 @@ function ModSettingsGui( gui, in_main_menu )
 
 
         -- PERKS
-		dofile("mods/cheytaq_first_mod/files/scripts/perks.lua")
+		dofile("mods/RiskRewardBundle/files/scripts/perks.lua")
 		GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
 		if GuiButton( gui, new_id(), 0, 0, "Enable All Perks" )then
 			for k, v in pairs( ctq_perks ) do

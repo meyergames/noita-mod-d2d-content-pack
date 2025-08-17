@@ -58,7 +58,7 @@ local dist = get_distance( p_x, p_y, e_x, e_y )
 --end
 
 
-EntityLoad( "mods/cheytaq_first_mod/files/entities/projectiles/giga_drain_explosion.xml", e_x, e_y )
+EntityLoad( "mods/RiskRewardBundle/files/entities/projectiles/giga_drain_explosion.xml", e_x, e_y )
 GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/megalaser/create", e_x, e_y )
 
 local dir_x, dir_y = vec_normalize( p_x - e_x, p_y - e_y )
@@ -67,7 +67,7 @@ local bubble_amt = math.min( math.max( math.ceil( e_max_hp ), 1 ), 20 )
 for i = 1, bubble_amt do
     local rdir_x, rdir_y = vec_rotate( dir_x, dir_y, Random( -22.5, 22.5 ) )
     local speed = Random( 10, 40 )
-    shoot_projectile( entity_id, "mods/cheytaq_first_mod/files/entities/projectiles/deck/giga_drain_bubble.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
+    shoot_projectile( entity_id, "mods/RiskRewardBundle/files/entities/projectiles/deck/giga_drain_bubble.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
 end
 
 local damage_to_be_dealt = DAMAGE * ComponentObjectGetValue2( e_dcomp, "damage_multipliers", "drill" )
@@ -77,7 +77,7 @@ for i = 1, max_hp_bubble_amt do
     if ( e_hp <= damage_to_be_dealt or Random( 0, 20 ) == 1 ) then
         local rdir_x, rdir_y = vec_rotate( dir_x, dir_y, Random( -22.5, 22.5 ) )
         local speed = Random( 10, 40 )
-        shoot_projectile( entity_id, "mods/cheytaq_first_mod/files/entities/projectiles/deck/giga_drain_max_hp_bubble.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
+        shoot_projectile( entity_id, "mods/RiskRewardBundle/files/entities/projectiles/deck/giga_drain_max_hp_bubble.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
     end
 --    local gained_max_hp = math.min( heal_amount * 0.5 )
 --    ComponentSetValue( p_dcomp, "max_hp", p_max_hp + gained_max_hp  )

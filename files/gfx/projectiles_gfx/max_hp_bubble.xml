@@ -1,5 +1,5 @@
 <Sprite
- filename="mods/cheytaq_first_mod/files/gfx/projectiles_gfx/max_hp_bubble.png"
+ filename="mods/RiskRewardBundle/files/gfx/projectiles_gfx/max_hp_bubble.png"
  offset_x="4"
  offset_y="4"
  default_animation="fireball" >

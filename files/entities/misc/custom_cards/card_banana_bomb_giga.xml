@@ -7,7 +7,7 @@
 	    </ItemComponent>
 
 		<SpriteComponent 
-			image_file="mods/cheytaq_first_mod/files/gfx/ui_gfx/banana_bomb_giga.png" 
+			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_giga.png" 
 		></SpriteComponent>
 		
 		<ItemActionComponent 
@@ -25,7 +25,7 @@
 	<AbilityComponent
 		_tags="enabled_in_hand"
 		ui_name="Giga Banana Bomb"
-		entity_file="mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_giga.xml"
+		entity_file="mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"
 		rotate_hand_amount="0.05"
 		throw_as_item="1" 
 		simulate_throw_as_item="1"

@@ -31,14 +31,14 @@ local update_count = getInternalVariableValue( owner, "time_trial_update_count",
 --GamePrint( "Update count at time of effect removal: " .. update_count )
 if ( update_count == 59 and has_reached_finish == 0 ) then
     GamePrintImportant( "You failed the time trial", "The gods feel like pranking you..." )
-    LoadGameEffectEntityTo( owner, "mods/cheytaq_first_mod/files/entities/misc/effect_time_trial_lost.xml" )
+    LoadGameEffectEntityTo( owner, "mods/RiskRewardBundle/files/entities/misc/effect_time_trial_lost.xml" )
 
     remove_perk( "CTQ_TIME_TRIAL" )
     EntityAddComponent2( owner, "UIIconComponent",
     {
         name = "Time Trial: Lost",
         description = "You lost the time trial, earning nothing.",
-        icon_sprite_file = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_time_trial_016_lost.png",
+        icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016_lost.png",
         display_above_head = false,
         display_in_hud = true,
         is_perk = true,

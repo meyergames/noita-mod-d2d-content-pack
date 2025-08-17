@@ -110,7 +110,7 @@
       stains_enabled="0"
       is_digger="0"
       audio_enabled="0"
-      load_this_entity="mods/cheytaq_first_mod/files/entities/projectiles/giga_drain_explosion.xml" >
+      load_this_entity="mods/RiskRewardBundle/files/entities/projectiles/giga_drain_explosion.xml" >
     </config_explosion>
     <damage_by_type slice="0.51" >
     </damage_by_type>
@@ -143,7 +143,7 @@
 
     <HitEffectComponent 
         effect_hit="LOAD_ENTITY"
-        value_string="mods/cheytaq_first_mod/files/entities/projectiles/giga_drain_heal.xml" >
+        value_string="mods/RiskRewardBundle/files/entities/projectiles/giga_drain_heal.xml" >
     </HitEffectComponent >
   
     <AudioLoopComponent

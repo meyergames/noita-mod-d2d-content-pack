@@ -16,7 +16,6 @@ function add_status_effect( game_effect_entity, icon_file, name, description, ab
             is_perk = false,
         })
     end
-    GamePrint("Check: borrowed_time_status")
 end
 --
 --local entity_id = GetUpdatedEntityID()

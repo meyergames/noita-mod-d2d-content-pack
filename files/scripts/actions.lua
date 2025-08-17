@@ -3,7 +3,7 @@ ctq_actions = {
 --	    id                  = "CTQ_MEDKIT",
 --	    name 		        = "Medkit",
 --	    description         = "Restores health, at the cost of some maximum health",
---	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/bandaid.png",
+--	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/bandaid.png",
 --	    type 		        = ACTION_TYPE_UTILITY,
 --	    spawn_level         = "0,1,2,3,4,5", -- X_RAY
 --	    spawn_probability   = "1.2,1.1,1.0,0.8,0.5,0.2", -- X_RAY
@@ -13,7 +13,7 @@ ctq_actions = {
 --	    action              = function()
 --                                c.damage_healing_add = "-2"
 --                                current_reload_time = current_reload_time + 30
---                                add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/bandaid.xml")
+--                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/bandaid.xml")
 --                                c.action_never_unlimited = false -- losing max hp is a big enough drawback
 --
 --			                    local entity_id = GetUpdatedEntityID()
@@ -42,7 +42,7 @@ ctq_actions = {
 --	    id                  = "CTQ_EMERGENCY_INJECTION",
 --	    name 		        = "Emergency Injection",
 --	    description         = "A dubious mixture of healthium and some pitch-black liquid...",
---	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/emergency_injection.png",
+--	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/emergency_injection.png",
 --	    type 		        = ACTION_TYPE_UTILITY,
 --	    spawn_level         = "0,1,2,3,4,5,6", -- X_RAY
 --	    spawn_probability   = "0.6,0.7,0.8,0.9,1.0,1.1,1.2", -- X_RAY
@@ -50,7 +50,7 @@ ctq_actions = {
 --	    max_uses            = 1,
 --	    mana                = 100,
 --	    action              = function()
---                                add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/bandaid.xml")
+--                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/bandaid.xml")
 --                                c.action_never_unlimited = true
 --
 --			                    local entity_id = GetUpdatedEntityID()
@@ -76,7 +76,7 @@ ctq_actions = {
 	    name 		        = "Overclock",
 	    description         = "Pushes your wand to its limits; may cause overheating",
         inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/overclock.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/overclock.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.6,0.8,0.9,1.0,1.0,1.0",
@@ -85,7 +85,7 @@ ctq_actions = {
 	    action              = function()
                                 local entity_id = GetUpdatedEntityID()
                                 -- TODO: increase overheat chance if player's mana is low
---                                local ezwand = dofile_once( "mods/cheytaq_first_mod/files/scripts/ezwand.lua" )
+--                                local ezwand = dofile_once( "mods/RiskRewardBundle/files/scripts/ezwand.lua" )
 --                                local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
 --                                local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
 --                                local wand = ezwand(active_wand)
@@ -104,9 +104,9 @@ ctq_actions = {
                                     if( rand2 < 1 ) then -- 2/250 or 1/125
                                         EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
                                     elseif( rand2 < 3 ) then -- 2/250 or 1/125
-                                        add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/deck/small_explosion.xml")
+                                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
                                     elseif( rand2 < 5 ) then -- 2/250 or 1/125
-                                        add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/overclock.xml")
+                                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/overclock.xml")
                                     else -- 3/250 or 1/83
                                         add_projectile("data/entities/projectiles/deck/fizzle.xml")
                                     end
@@ -124,7 +124,7 @@ ctq_actions = {
 	    name 		        = "Payday",
 	    description         = "Use your money as ammo!",
         inject_after        = { "SUMMON_ROCK" },
-	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/payday.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/payday.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- SUMMON_ROCK
 		spawn_probability   = "0.7,0.7,0.5,0.5,0.2,0.6,0.6", -- SUMMON_ROCK (-0.1)
@@ -142,7 +142,7 @@ ctq_actions = {
     	                            local money = ComponentGetValue2(wallet, "money")
                                     if (money ~= nil) then
                                         if ( money >= 10 ) then
-			                                add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/deck/payday_nugget.xml")
+			                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/payday_nugget.xml")
                                             ComponentSetValue2(wallet, "money", money - 10)
                                         else
                                             GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
@@ -157,7 +157,7 @@ ctq_actions = {
 	    name 		        = "Sniper Bolt",
 	    description         = "A fast and lethal piercing shot",
         inject_after        = { "ARROW" },
-	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/snipe_shot.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/snipe_shot.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "0.4,1,2,2",
@@ -165,7 +165,7 @@ ctq_actions = {
 	    mana                = 40,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 45
-                                add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/sniper_bullet_custom.xml")
+                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/sniper_bullet_custom.xml")
 	                        end,
     },
 
@@ -174,7 +174,7 @@ ctq_actions = {
 	    name 		        = "Sniper Bolt With Trigger",
 	    description         = "A piercing shot that casts another spell upon collision",
         inject_after        = { "CTQ_SNIPE_SHOT", "ARROW" },
-	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/snipe_shot_trigger.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/snipe_shot_trigger.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.5,0.8,0.8,0.9,1,1",
@@ -182,8 +182,8 @@ ctq_actions = {
 	    mana                = 70,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 67
---                                add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/sniper_bullet_custom.xml")
-                    			add_projectile_trigger_hit_world("mods/cheytaq_first_mod/files/entities/projectiles/sniper_bullet_custom.xml", 1)
+--                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/sniper_bullet_custom.xml")
+                    			add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/sniper_bullet_custom.xml", 1)
 	                        end,
     },
 
@@ -192,14 +192,14 @@ ctq_actions = {
 	    name 		        = "Small Explosion",
 	    description         = "Safe for everyone!*",
         inject_after        = { "EXPLOSION" },
-	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/small_explosion.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/small_explosion.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "1.2,1,0.8,0.6",
 	    price               = 120,
 	    mana                = 30,
 	    action              = function()
-			                    add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/deck/small_explosion.xml")
+			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
 			                    c.screenshake = c.screenshake + 1.25
 	                        end,
@@ -210,7 +210,7 @@ ctq_actions = {
 	    name 		        = "Giga Drain",
 	    description         = "Drains organic creatures of their life force",
         inject_after        = { "CHAINSAW" },
-	    sprite 		        = "mods/cheytaq_first_mod/files/gfx/ui_gfx/giga_drain.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/giga_drain.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.5,0.8,1,1.1,1,0.8,0.5",
@@ -219,7 +219,7 @@ ctq_actions = {
 	    action              = function()
 		                        c.fire_rate_wait = current_reload_time + 8
 		                        current_reload_time = current_reload_time + 20
-                                add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/giga_drain_bullet_(BACKUP).xml")
+                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/giga_drain_bullet_(BACKUP).xml")
 	                        end,
     },
 
@@ -228,8 +228,8 @@ ctq_actions = {
 		name 		        = "Ghost Trigger",
 		description         = "A harmless bolt that casts another spell upon collision",
         inject_after        = { "SPARK_BOLT_TIMER" },
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/ghost_trigger.png",
-		related_projectiles	= {"mods/cheytaq_first_mod/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghost_trigger.png",
+		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
 		spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
@@ -238,7 +238,7 @@ ctq_actions = {
 		action 		        = function()
                                 c.damage_null_all = 1
 			                    c.fire_rate_wait = c.fire_rate_wait - 5
-			                    add_projectile_trigger_hit_world("mods/cheytaq_first_mod/files/entities/projectiles/deck/ghost_trigger_bullet.xml", 1)
+			                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml", 1)
 		                    end,
 	},
 
@@ -247,8 +247,8 @@ ctq_actions = {
 		name 		        = "Ghostly Messenger",
         inject_after        = { "CTQ_GHOST_TRIGGER", "SPARK_BOLT_TIMER" },
 		description         = "Penetrates all terrain to cast another spell upon collision",
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/ghostly_messenger.png",
-		related_projectiles	= {"mods/cheytaq_first_mod/files/entities/projectiles/deck/ghostly_messenger.xml"},
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghostly_messenger.png",
+		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "2,3,4,5,6",
 		spawn_probability   = "0.3,0.5,0.7,0.9,1",
@@ -258,7 +258,7 @@ ctq_actions = {
                                 c.damage_null_all = 1
 			                    c.fire_rate_wait = c.fire_rate_wait + 45
 		                        current_reload_time = current_reload_time + 93
-			                    add_projectile_trigger_hit_world("mods/cheytaq_first_mod/files/entities/projectiles/deck/ghostly_messenger.xml", 1)
+			                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml", 1)
 		                    end,
 	},
 
@@ -267,19 +267,19 @@ ctq_actions = {
 		name 		        = "Banana Bomb",
 		description         = "The soft fruit of doom",
         inject_after        = { "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/banana_bomb.png",
-		related_projectiles	= {"mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb.xml"},
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb.png",
+		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- DYNAMITE
 		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
 		price               = 190,
 		mana                = 60,
         max_uses            = 10,
-        custom_xml_file     = "mods/cheytaq_first_mod/files/entities/misc/custom_cards/card_banana_bomb.xml",
+        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
 			                    c.spread_degrees = c.spread_degrees + 6.0
-			                    add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb.xml", 1)
+			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml", 1)
 		                    end,
 	},
 
@@ -288,19 +288,19 @@ ctq_actions = {
 		name 		        = "Super Banana Bomb",
 		description         = "The soft fruit of recursive doom",
         inject_after        = { "CTQ_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/banana_bomb_super.png",
-		related_projectiles	= {"mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_super.xml"},
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_super.png",
+		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- BOMB
 		spawn_probability   = "0.5,0.6,0.7,0.4,0.3,0.2,0.1",
 		price               = 380,
 		mana                = 120,
         max_uses            = 3,
-        custom_xml_file     = "mods/cheytaq_first_mod/files/entities/misc/custom_cards/card_banana_bomb_super.xml",
+        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb_super.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
 			                    c.spread_degrees = c.spread_degrees + 6.0
-			                    add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_super.xml", 1)
+			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml", 1)
 		                    end,
 	},
 
@@ -309,19 +309,19 @@ ctq_actions = {
 		name 		        = "Giga Banana Bomb",
 		description         = "The softest fruit of the most recursive doom",
         inject_after        = { "CTQ_BANANA_BOMB_SUPER", "CTQ_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/banana_bomb_giga.png",
-		related_projectiles	= {"mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_giga.xml"},
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_giga.png",
+		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- BOMB
 		spawn_probability   = "0.1,0.2,0.3,0.4,0.4,0.5,0.5",
 		price               = 570,
 		mana                = 180,
         max_uses            = 2,
-        custom_xml_file     = "mods/cheytaq_first_mod/files/entities/misc/custom_cards/card_banana_bomb_giga.xml",
+        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb_giga.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
 			                    c.spread_degrees = c.spread_degrees + 6.0
-			                    add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_giga.xml", 1)
+			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml", 1)
 		                    end,
 	},
 
@@ -330,21 +330,21 @@ ctq_actions = {
 		name 		        = "Bag Of Bombs",
 		description         = "Who knows what you'll get...",
         inject_after        = { "DYNAMITE" },
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/bag_of_bombs.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/bag_of_bombs.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- DYNAMITE
 		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
 		price               = 250,
 		mana                = 75,
         max_uses            = 15,
---        custom_xml_file     = "mods/cheytaq_first_mod/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
+--        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
 		action 		        = function()
                                 local rand = Random( 0, 1000 )
                                 if( rand < 250 ) then -- 25%
 			                        add_projectile("data/entities/projectiles/bomb.xml")
 			                        c.fire_rate_wait = c.fire_rate_wait + 100
                                 elseif( rand < 400 ) then -- 15%
-			                        add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb.xml", 1)
+			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 6.0
                                 elseif( rand < 500 ) then -- 10% (1/10)
@@ -352,10 +352,10 @@ ctq_actions = {
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 12.0
                                 elseif( rand < 550 ) then -- 5% (1/20)
-			                        add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/bomb_dud.xml", 1)
+			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/bomb_dud.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 100
                                 elseif( rand < 570 ) then -- 2% (1/50)
-			                        add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_super.xml", 1)
+			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 6.0
                                 elseif( rand < 580 ) then -- 1% (1/100)
@@ -364,7 +364,7 @@ ctq_actions = {
 			                        shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
 			                        c.fire_rate_wait = c.fire_rate_wait + 40
                                 elseif( rand < 585 ) then -- 0.5% (1/200)
-			                        add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_giga.xml", 1)
+			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 6.0
                                 elseif( rand < 590 ) then -- 0.5% (1/200)
@@ -383,7 +383,7 @@ ctq_actions = {
 		id                  = "CTQ_DRILL_VOLCANIC",
 		name 		        = "Volcanic Drill",
 		description         = "Perfectly suited for any and all mining operations",
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/spell_icon_drill_volcanic.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_volcanic.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "2,3,4,5,6",
 		spawn_probability   = "0.5,0.6,0.7,0.8,0.9",
@@ -391,7 +391,7 @@ ctq_actions = {
 		mana                = 30,
 		sound_loop_tag      = "sound_digger",
 		action 		        = function()
-			                    add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/deck/drill_volcanic.xml")
+			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_volcanic.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1
 			                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
 		                    end,
@@ -401,7 +401,7 @@ ctq_actions = {
 		id                  = "CTQ_DRILL_INFERNAL",
 		name 		        = "Infernal Drill",
 		description         = "Not even brickwork is safe",
-		sprite              = "mods/cheytaq_first_mod/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "4,5,6",
 		spawn_probability   = "0.4,0.6,0.8",
@@ -409,7 +409,7 @@ ctq_actions = {
 		mana                = 90,
 		sound_loop_tag      = "sound_digger",
 		action 		        = function()
-			                    add_projectile("mods/cheytaq_first_mod/files/entities/projectiles/deck/drill_infernal.xml")
+			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_infernal.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1
 			                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
 		                    end,

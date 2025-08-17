@@ -13,7 +13,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 --	local vel_y = math.sin( theta ) * length
 --	theta = theta + angle_inc
 --	
---	shoot_projectile( entity_id, "mods/cheytaq_first_mod/files/entities/projectiles/deck/giga_drain_bubble.xml", pos_x, pos_y, vel_x, vel_y )
+--	shoot_projectile( entity_id, "mods/RiskRewardBundle/files/entities/projectiles/deck/giga_drain_bubble.xml", pos_x, pos_y, vel_x, vel_y )
 --end
 
 local entity_id    = GetUpdatedEntityID()

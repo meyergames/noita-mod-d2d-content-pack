@@ -3,7 +3,7 @@
   <Base file="data/entities/base_projectile_physics.xml">
 
     <PhysicsImageShapeComponent 
-      image_file="mods/cheytaq_first_mod/files/gfx/projectiles_gfx/projectile_banana_small.png"
+      image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/projectile_banana_small.png"
       material="fuse_tnt" >
     </PhysicsImageShapeComponent>
 

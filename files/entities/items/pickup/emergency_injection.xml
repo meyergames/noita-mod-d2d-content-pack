@@ -21,7 +21,7 @@
   <PhysicsImageShapeComponent 
     body_id="1"
     centered="1"
-    image_file="mods/cheytaq_first_mod/files/gfx/items_gfx/injection_needle.png"
+    image_file="mods/RiskRewardBundle/files/gfx/items_gfx/injection_needle.png"
     material="needle_glass_box2d"
   ></PhysicsImageShapeComponent>
     <!--image_file="data/items_gfx/potion_normals.png"-->
@@ -47,7 +47,7 @@
     execute_on_added="1"
     remove_after_executed="1"
     call_init_function="1"
-    script_source_file="mods/cheytaq_first_mod/files/scripts/items/emergency_injection_init.lua" 
+    script_source_file="mods/RiskRewardBundle/files/scripts/items/emergency_injection_init.lua" 
   ></LuaComponent>
   
 	<LuaComponent 
@@ -150,7 +150,7 @@
     _enabled="0"
     offset_x="4"
     offset_y="4"
-    image_file="mods/cheytaq_first_mod/files/gfx/items_gfx/injection_needle.png"
+    image_file="mods/RiskRewardBundle/files/gfx/items_gfx/injection_needle.png"
   ></SpriteComponent>
 
   <ItemComponent
@@ -159,14 +159,14 @@
     max_child_items="0"
     is_pickable="1"
     is_equipable_forced="1"
-    ui_sprite="mods/cheytaq_first_mod/files/gfx/ui_gfx/emergency_injection.png"
+    ui_sprite="mods/RiskRewardBundle/files/gfx/ui_gfx/emergency_injection.png"
     ui_description="A dubious mixture of healthium and some pitch-black liquid..."
     preferred_inventory="QUICK"
   ></ItemComponent>
 
   <AbilityComponent
     ui_name="Emergency Injection"
-    entity_file="mods/cheytaq_first_mod/files/entities/projectiles/bandaid.xml"
+    entity_file="mods/RiskRewardBundle/files/entities/projectiles/bandaid.xml"
     throw_as_item="1"
   ><gun_config
     deck_capacity="0"
@@ -178,7 +178,7 @@
     <!--<AbilityComponent
         _tags="enabled_in_hand"
         ui_name="Emergency Injection"
-        entity_file="mods/cheytaq_first_mod/files/entities/misc/effect_virus.xml"
+        entity_file="mods/RiskRewardBundle/files/entities/misc/effect_virus.xml"
         rotate_hand_amount="0.05"
         throw_as_item="1"
         simulate_throw_as_item="0"

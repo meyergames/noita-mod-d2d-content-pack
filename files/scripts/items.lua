@@ -31,7 +31,7 @@ end
 ctq_items = {
     {
         weight = 2,
-        entity = "mods/cheytaq_first_mod/files/entities/items/pickup/emergency_injection.xml",
+        entity = "mods/RiskRewardBundle/files/entities/items/pickup/emergency_injection.xml",
         offset = -2
     },
 }

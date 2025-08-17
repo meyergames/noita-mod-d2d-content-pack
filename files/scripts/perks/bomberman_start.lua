@@ -16,7 +16,7 @@ comp = EntityGetFirstComponent( owner, "DamageModelComponent" )
 --    {
 --        name = "Explosion Immunity (nullified)",
 --        description = "This perk no longer provides immunity to explosions.",
---        icon_sprite_file = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_protection_explosion_nullified.png",
+--        icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_protection_explosion_nullified.png",
 --        display_above_head = false,
 --        display_in_hud = true,
 --        is_perk = true,
@@ -29,7 +29,7 @@ comp = EntityGetFirstComponent( owner, "DamageModelComponent" )
 --    {
 --        name = "Exploding Corpses (nullified)",
 --        description = "This perk no longer provides immunity to explosions.",
---        icon_sprite_file = "mods/cheytaq_first_mod/files/gfx/ui_gfx/perk_exploding_corpses_nullified.png",
+--        icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_exploding_corpses_nullified.png",
 --        display_above_head = false,
 --        display_in_hud = true,
 --        is_perk = true,

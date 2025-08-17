@@ -3,7 +3,7 @@
   <Base file="data/entities/base_projectile_physics.xml">
 
     <PhysicsImageShapeComponent 
-      image_file="mods/cheytaq_first_mod/files/gfx/projectiles_gfx/projectile_banana.png"
+      image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/projectile_banana.png"
       material="fuse_tnt" >
     </PhysicsImageShapeComponent>
 
@@ -21,7 +21,7 @@
           explosion_sprite="data/particles/explosion_064.xml"
           explosion_sprite_emissive="true"
           camera_shake="16"
-          load_this_entity="mods/cheytaq_first_mod/files/entities/projectiles/banana_bomb_cluster_spawn.xml"
+          load_this_entity="mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_cluster_spawn.xml"
           audio_event_name="explosions/tnt"
           max_durability_to_destroy="11"
         ></config_explosion>

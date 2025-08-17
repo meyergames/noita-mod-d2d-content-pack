@@ -2,14 +2,14 @@
 	<InheritTransformComponent />
 	
 	<LuaComponent
-		script_source_file="mods/cheytaq_first_mod/files/scripts/perks/bomberman_start.lua"
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/bomberman_start.lua"
         execute_every_n_frame="1"
         execute_times="1"
 		>
 	</LuaComponent>
 	
 	<!--<LuaComponent
-		script_source_file="mods/cheytaq_first_mod/files/scripts/perks/bomberman_end.lua"
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/bomberman_end.lua"
 		execute_every_n_frame="-1"
 		execute_on_removed="1"
 		>

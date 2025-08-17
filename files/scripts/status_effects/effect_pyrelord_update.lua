@@ -30,7 +30,7 @@ if( not is_immune_to_fire and on_fire_effect_count == 1 ) then
 --        local is_enemy_on_fire = GameGetGameEffectCount( enemy, "ON_FIRE" ) > 0
 --        if( not is_enemy_on_fire ) then
 --            local e_x, e_y = EntityGetTransform( enemy )
---            shoot_projectile( entity_id, "mods/cheytaq_first_mod/files/entities/projectiles/deck/nolla_firebomb.xml", e_x, e_y, 0, 0)
+--            shoot_projectile( entity_id, "mods/RiskRewardBundle/files/entities/projectiles/deck/nolla_firebomb.xml", e_x, e_y, 0, 0)
 --        end
 --    end
 

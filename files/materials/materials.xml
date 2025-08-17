@@ -134,7 +134,7 @@
   </CellData>
 
   <CellData
-	name="magic_liquid_runordie_TEMP"
+	name="magic_liquid_time_trial_TEMP"
 	ui_name="Run Or Die (perk)"
   	tags="[liquid],[water],[magic_liquid]"
 	burnable="0"
