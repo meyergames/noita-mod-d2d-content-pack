@@ -1,0 +1,39 @@
+<Entity>
+
+    <InheritTransformComponent />
+	
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="DIVINE_JOKE"
+        frames="-1"
+        caused_by_ingestion_status_effect="true"
+    ></GameEffectComponent >
+
+    <LuaComponent
+      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_divine_joke_on.lua"
+      execute_every_n_frame="1"
+        execute_times="1"
+      >
+    </LuaComponent>
+	
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_divine_joke_update.lua" 
+		execute_every_n_frame="60">
+	</LuaComponent>
+
+    <!-- this script is triggered when the GameEffect is REMOVED -->
+    <!--<LuaComponent
+      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_divine_joke_off.lua"
+      execute_every_n_frame="-1"
+        execute_on_added="0"
+        execute_on_removed="1"
+      >
+    </LuaComponent>-->
+
+	<!-- INTERESTING: this can force-limit the status effect's duration
+    <LifetimeComponents
+		lifetime="30"
+	></LifetimeComponent> -->
+
+</Entity>

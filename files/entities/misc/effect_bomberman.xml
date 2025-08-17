@@ -1,0 +1,37 @@
+<Entity>
+	<InheritTransformComponent />
+	
+	<LuaComponent
+		script_source_file="mods/cheytaq_first_mod/files/scripts/perks/bomberman_start.lua"
+        execute_every_n_frame="1"
+        execute_times="1"
+		>
+	</LuaComponent>
+	
+	<!--<LuaComponent
+		script_source_file="mods/cheytaq_first_mod/files/scripts/perks/bomberman_end.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>-->
+
+    <!--<ShotEffectComponent
+        extra_modifier="ctq_bomberman_boost"
+    ></ShotEffectComponent>-->
+	
+	<!--<LifetimeComponent
+		_tags="effect_curse_lifetime"
+		lifetime="1200"
+		>
+	</LifetimeComponent>
+	
+	<UIIconComponent
+		icon_sprite_file="data/ui_gfx/status_indicators/curse_wither_fire.png"
+		name="$status_curse_wither_explosion"
+		description="$statusdesc_curse_wither_explosion"
+		display_above_head="1"
+		display_in_hud="0"
+		is_perk="1"
+		>
+	</UIIconComponent>-->
+</Entity>

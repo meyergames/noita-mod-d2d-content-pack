@@ -1,0 +1,11 @@
+<Entity>
+    <!--<LifetimeComponent
+        lifetime="1"
+    ></LifetimeComponent>-->
+
+    <LuaComponent
+        script_source_file="mods/cheytaq_first_mod/files/scripts/projectiles/bag_of_bombs.lua"
+        execute_times="1"
+        execute_every_n_frames="1"
+    ></LuaComponent>
+</Entity>

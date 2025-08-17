@@ -1,0 +1,72 @@
+<Entity>
+
+    <InheritTransformComponent />
+	
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="VIRAL_INFECTION"
+        frames="-1"
+        caused_by_ingestion_status_effect="true"
+    ></GameEffectComponent >
+	
+    <!-- this script registers this effect as a StatusEffect on initialize -->
+	<!--<LuaComponent 
+	    execute_every_n_frame="1"
+		remove_after_executed="1"
+		execute_on_added="1"
+	    script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_virus_register.lua"
+	></LuaComponent>-->
+
+    <!--this is basically a function call that happens when the GameEffect is ADDED (as well)-->
+    <LuaComponent
+      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_virus_on.lua"
+      execute_every_n_frame="1"
+        execute_times="1"
+      >
+    </LuaComponent>
+	
+    <!-- this is basically the Update method -->
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_virus_update.lua" 
+		execute_every_n_frame="60">
+	</LuaComponent>
+
+    <!-- this script is triggered when the GameEffect is REMOVED -->
+    <LuaComponent
+      script_source_file="mods/cheytaq_first_mod/files/scripts/status_effects/effect_virus_off.lua"
+      execute_every_n_frame="-1"
+        execute_on_added="0"
+        execute_on_removed="1"
+      >
+    </LuaComponent>
+
+	<DrugEffectModifierComponent>
+		<fx_add
+			distortion_amount="0.5"
+			color_amount="0.4"
+			fractals_amount="1.0"
+		/>
+	</DrugEffectModifierComponent>
+
+    <!-- apotheosis goodies >
+	<LuaComponent
+		_enabled="1"
+		script_source_file="mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua"
+        execute_on_added="0"
+		execute_every_n_frame="30"
+		remove_after_executed="0"
+		>
+	</LuaComponent> -->
+
+    <MusicEnergyAffectorComponent
+        energy_target="1.0"
+    >
+    </MusicEnergyAffectorComponent>
+
+	<!-- INTERESTING: this can force-limit the status effect's duration
+    <LifetimeComponent
+		lifetime="30"
+	></LifetimeComponent> -->
+
+</Entity>

@@ -1,0 +1,23 @@
+dofile_once( "data/scripts/lib/utilities.lua" )
+
+function add_status_effect( game_effect_entity, icon_file, name, description, above_head )
+    if game_effect_entity ~= nil then
+        display_hud = true
+        if(above_head)then
+            display_hud = false
+        end
+        EntityAddComponent2( game_effect_entity, "UIIconComponent",
+        {
+            name = name,
+            description = description,
+            icon_sprite_file = icon_file,
+            display_above_head = true,
+            display_in_hud = false,
+            is_perk = false,
+        })
+    end
+end
+--
+--local entity_id = GetUpdatedEntityID()
+--
+--add_status_effect( entity_id, "mods/cheytaq_first_mod/files/gfx/ui_gfx/status_indicators/borrowed_time.png", "Viral Infection", "You may want to seek medical or divine assistance.", true )

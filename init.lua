@@ -1,0 +1,56 @@
+ModLuaFileAppend("data/scripts/lib/utilities.lua", "mods/cheytaq_first_mod/files/scripts/utilities.lua")
+
+ModLuaFileAppend("data/scripts/gun/gun_actions.lua", "mods/cheytaq_first_mod/files/scripts/actions.lua")
+ModLuaFileAppend("data/scripts/gun/gun_extra_modifiers.lua", "mods/cheytaq_first_mod/files/scripts/gun_extra_modifiers.lua")
+--ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/cheytaq_first_mod/files/scripts/perks.lua")
+ModLuaFileAppend("data/scripts/status_effects/status_list.lua", "mods/cheytaq_first_mod/files/scripts/status_effects/status_list.lua")
+ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/cheytaq_first_mod/files/scripts/items.lua")
+ModMaterialsFileAdd("mods/cheytaq_first_mod/files/materials/materials.xml")
+
+ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/cheytaq_first_mod/files/scripts/items/heart_fullhp_temple_custom.lua")
+ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/cheytaq_first_mod/files/scripts/items/orb_pickup_custom.lua")
+
+function OnModPostInit()
+    ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/cheytaq_first_mod/files/scripts/perks.lua")
+
+    dofile_once( "mods/cheytaq_first_mod/files/scripts/actions.lua" )
+    OrganiseProgress()
+end
+
+function OnPlayerSpawned(player)
+  local x, y = EntityGetTransform(player)
+
+    -- spawn spells
+--    CreateItemActionEntity("CTQ_PAYDAY", x+50, y)
+--    CreateItemActionEntity("CTQ_OVERCLOCK", x+20, y)
+--    CreateItemActionEntity("CTQ_BANDAID", x+20, y)
+--    CreateItemActionEntity("CTQ_EMERGENCY_INJECTION", x+20, y)
+--    CreateItemActionEntity("CTQ_PENETRATING_SHOT", x+20, y)
+--    CreateItemActionEntity("CTQ_GIGA_DRAIN", x+20, y)
+--    CreateItemActionEntity("CTQ_GHOSTLY_MESSENGER", x+20, y)
+
+    -- spawn perks
+    dofile_once( "data/scripts/perks/perk.lua" )
+--    local perk = perk_spawn( -2, 4971, "CTQ_TIME_TRIAL" )
+--    local perk = perk_spawn( x+20, y-20, "PEACE_WITH_GODS" )
+    local perk = perk_spawn( x+20, y, "CTQ_PYRELORD" )
+--    local perk = perk_spawn( x+20, y, "CTQ_THUNDERLORD" )
+
+    --spawn random perk
+    dofile_once( "data/scripts/perks/perk_list.lua" )
+    local valid_perk_found = false
+    while( not valid_perk_found ) do
+        perk_to_spawn = random_from_array( perk_list )
+        valid_perk_found = not perk_to_spawn.not_in_default_perk_pool
+    end
+    local perk = perk_spawn( 800, -100, perk_to_spawn.id )
+
+--    local perk = perk_spawn( 800, -100, "CTQ_TIME_TRIAL" )
+    -- TODO: this may also spawn a secret/unlockable perk... maybe check the perk_list with the perks unlocked by the player?
+--    local perk = perk_spawn( x+20, y, perk_to_spawn.id )
+    
+
+    --spawn items
+--    EntityLoad( "mods/cheytaq_first_mod/files/entities/misc/speedrun_finish_hitbox.xml", 0, 0 )
+--    EntityLoad( "mods/cheytaq_first_mod/files/entities/misc/speedrun_finish_hitbox.xml", -681, 4992 )
+end
