@@ -54,3 +54,11 @@ function OnPlayerSpawned(player)
 --    EntityLoad( "mods/RiskRewardBundle/files/entities/misc/speedrun_finish_hitbox.xml", 0, 0 )
 --    EntityLoad( "mods/RiskRewardBundle/files/entities/misc/speedrun_finish_hitbox.xml", -681, 4992 )
 end
+
+
+
+local translations = ModTextFileGetContent("data/translations/common.csv")
+local new_translations = ModTextFileGetContent("mods/RiskRewardBundle/translations.csv")
+translations = translations .. "\n" .. new_translations .. "\n"
+translations = translations:gsub("\r", ""):gsub("\n\n+", "\n")
+ModTextFileSetContent("data/translations/common.csv", translations)

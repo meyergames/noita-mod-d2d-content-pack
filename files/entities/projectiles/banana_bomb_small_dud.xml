@@ -9,9 +9,8 @@
 
     <ProjectileComponent
 		damage="0"
-        lifetime="150"
-        lifetime_randomess="45"
-        on_collision_die="true"
+        lifetime="1800"
+        lifetime_randomness="1200"
         speed_min="700"
         speed_max="900"
         bounce_always="true"
@@ -112,19 +111,7 @@
       event_root="projectiles/tnt">
   </AudioComponent>
 
-  <AudioLoopComponent
-    file="data/audio/Desktop/projectiles.bank"
-    event_name="projectiles/fuse_burn_fast"
-    auto_play="1">
-  </AudioLoopComponent>
-
     <MusicEnergyAffectorComponent>
     </MusicEnergyAffectorComponent>
-	
-	<VariableStorageComponent
-		name="projectile_file"
-		value_string="data/entities/projectiles/tnt.xml"
-		>
-	</VariableStorageComponent>
 
 </Entity>

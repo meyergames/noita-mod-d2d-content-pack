@@ -1,8 +1,8 @@
 ctq_perks = {
 	{
 		id = "CTQ_TIME_TRIAL",
-		ui_name = "Time Trial",
-		ui_description = "The gods challenge you to a race.\nReach the next Holy Mountain within 60 seconds to be greatly rewarded.",
+		ui_name = "$perk_riskreward_time_trial",
+		ui_description = "$perk_riskreward_time_trial_description",
 		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016.png",
 		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial.png",
 		stackable = STACKABLE_NO, -- doesn't work for now (smth with the effect's internal variable tracking)
@@ -15,8 +15,8 @@ ctq_perks = {
 
 	{
 		id = "CTQ_RING_OF_LIFE",
-		ui_name = "Ring Of Life",
-		ui_description = "Teleport to safety upon reaching critical health.",
+		ui_name = "$perk_riskreward_ring_of_life",
+		ui_description = "$perk_riskreward_ring_of_life_description",
 		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife_016.png",
 		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife.png",
 		stackable = STACKABLE_NO,
@@ -43,8 +43,8 @@ ctq_perks = {
 
 	{
 		id = "CTQ_BOMBERMAN",
-		ui_name = "Bomberman",
-		ui_description = "You are infused with explosive power.\nDoes not work if you are immune to explosions.",
+		ui_name = "$perk_riskreward_bomberman",
+		ui_description = "$perk_riskreward_bomberman_description",
 		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_bomberman_016.png",
 		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_bomberman.png",
 		stackable = STACKABLE_YES,
@@ -62,8 +62,8 @@ ctq_perks = {
 
 	{
 		id = "CTQ_THUNDERLORD",
-		ui_name = "Thunderlord",
-		ui_description = "You are infused with electric power.\nDoes not work if you are immune to electricity.",
+		ui_name = "$perk_riskreward_thunderlord",
+		ui_description = "$perk_riskreward_thunderlord_description",
 		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_thunderlord_016.png",
 		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_thunderlord.png",
 		stackable = STACKABLE_YES,
@@ -81,8 +81,8 @@ ctq_perks = {
 
 	{
 		id = "CTQ_PYRELORD",
-		ui_name = "Pyrelord",
-		ui_description = "You are infused with fiery power.\nDoes not work if you are immune to fire.",
+		ui_name = "$perk_riskreward_pyrelord",
+		ui_description = "$perk_riskreward_pyrelord_description",
 		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord_016.png",
 		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord.png",
 		stackable = STACKABLE_YES,
@@ -134,3 +134,8 @@ if(perk_list ~= nil)then
 		table.insert(perk_list, v)
 	end
 end
+
+-- for _, perk in ipairs(perk_list) do
+--     perk.display_name = GameTextGetTranslatedOrNot(perk.ui_name)
+--     perk.display_description = GameTextGetTranslatedOrNot(perk.ui_description)
+-- end

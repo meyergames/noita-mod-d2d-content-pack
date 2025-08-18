@@ -7,25 +7,23 @@
       material="fuse_tnt" >
     </PhysicsImageShapeComponent>
 
-    <!--
-        lifetime="135"
-        lifetime_randomness="30"-->
     <ProjectileComponent
 		damage="0"
-        on_collision_die="true"
-        on_death_explode="1"
-        lifetime="135"
-        lifetime_randomness="30"
+        lifetime="125"
+        lifetime_randomness="15"
+        speed_min="700"
+        speed_max="900"
         bounce_always="true"
         bounce_energy="0.9"
         ><config_explosion
-            damage="2.6"
-            explosion_radius="20"
-            explosion_sprite="data/particles/explosion_032.xml"
-            camera_shake="8"
-            explosion_sprite_emissive="true"
-            audio_event_name="explosions/tnt"
-            max_durability_to_destroy="11"
+          damage="2.6"
+          explosion_radius="20"
+          explosion_sprite="mods/RiskRewardBundle/files/gfx/projectiles_gfx/explosion_040.xml"
+          explosion_sprite_emissive="true"
+          camera_shake="8"
+          load_this_entity=""
+          audio_event_name="explosions/tnt"
+          max_durability_to_destroy="11"
         ></config_explosion>
     </ProjectileComponent>
   
@@ -121,5 +119,11 @@
 
     <MusicEnergyAffectorComponent>
     </MusicEnergyAffectorComponent>
+	
+	<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/tnt.xml"
+		>
+	</VariableStorageComponent>
 
 </Entity>

@@ -9,7 +9,12 @@ local e_x, e_y = EntityGetTransform( entity_id )
 --local dir_x, dir_y = 
 
 for i = 1, SPAWN_AMOUNT do
+    local id_to_spawn = "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_small.xml"
+    if( Random( 0, 20 ) == 0 ) then
+        id_to_spawn = "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_small_dud.xml"
+    end
+    
     local rdir_x, rdir_y = vec_rotate( 0, 1, Random( -22.5, 22.5 ) )
     local speed = Random( 200, 350 )
-    shoot_projectile( entity_id, "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_small.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
+    shoot_projectile( entity_id, id_to_spawn, e_x, e_y, rdir_x * speed, rdir_y * speed)
 end
