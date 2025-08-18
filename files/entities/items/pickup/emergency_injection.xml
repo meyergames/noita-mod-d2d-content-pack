@@ -1,8 +1,6 @@
 <Entity tags="hittable,teleportable_NOT,item_physics,item_pickup" >
 <!-- CTQ:tried excluding the 'potion' tag; let's hope it doesn't break anything -->
 
-  <!-- NOTE: this file is inherited by other potions. be careful to not break inheritor component overrides when adding or removing components -->
-
   <!-- physical presence -->
   
   <PhysicsBodyComponent 
@@ -76,7 +74,7 @@
   <MaterialInventoryComponent 
     _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory"
     drop_as_item="0" 
-    on_death_spill="1"
+    on_death_spill="0"
     leak_pressure_min="0.07"
     leak_on_damage_percent="1"
     min_damage_to_leak="0.0"
@@ -156,6 +154,7 @@
   <ItemComponent
     _tags="enabled_in_world"
     item_name="Emergency Injection"
+    always_use_item_name_in_ui="true"
     max_child_items="0"
     is_pickable="1"
     is_equipable_forced="1"

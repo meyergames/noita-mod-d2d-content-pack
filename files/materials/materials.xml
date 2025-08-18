@@ -27,7 +27,7 @@
 	name="magic_liquid_infected_healthium"
 	ui_name="Emergency Injection"
   	tags="[liquid],[water],[magic_liquid],[regenerative]"
-	burnable="0"
+	burnable="1"
 	density="5.53"
 	cell_type="liquid"
 	wang_color="80a1f18b"
@@ -35,7 +35,7 @@
 	liquid_gravity="0.8"
 	liquid_sand="0"
 	gfx_glow="150"
-	on_fire="0"
+	on_fire="1"
 	requires_oxygen="0"
 	liquid_stains="1"
 	liquid_sprite_stain_shaken_drop_chance="5"
@@ -93,51 +93,9 @@
 
   <CellData
 	name="magic_liquid_infected_healthium_weak"
-	ui_name="Laced Healthium"
+	ui_name="Emergency Injection"
   	tags="[liquid],[water],[magic_liquid]"
-	burnable="0"
-	density="5.53"
-	cell_type="liquid"
-	wang_color="80a1f18b"
-	generates_smoke="0"
-	liquid_gravity="0.8"
-	liquid_sand="0"
-	gfx_glow="150"
-	on_fire="0"
-	requires_oxygen="0"
-	liquid_stains="1"
-	liquid_sprite_stain_shaken_drop_chance="5"
-	audio_materialaudio_type="MAGICAL" 
-	show_in_creative_mode="1"
-	>
-	<ParticleEffect
-		vel.y="-14.28"
-		vel_random.min_x="-0.285"
-		vel_random.max_x="0.285"
-		vel_random.min_y="-11.43"
-		vel_random.max_y="11.43"
-		lifetime.min="0"
-		lifetime.max="20"
-		gravity.y="0"
-		render_on_grid="1"
-		airflow_force="0.1146"
-		airflow_scale="-0.028"
-		probability="0.018"
-		count.min="0"
-	>
-	</ParticleEffect>
-	<StatusEffects>
-		<Ingestion>
-			<StatusEffect type="VIRAL_INFECTION_WEAK" amount="1" />
-		</Ingestion>
-	</StatusEffects>
-  </CellData>
-
-  <CellData
-	name="magic_liquid_time_trial_TEMP"
-	ui_name="Run Or Die (perk)"
-  	tags="[liquid],[water],[magic_liquid]"
-	burnable="0"
+	burnable="1"
 	density="5.53"
 	cell_type="liquid"
 	wang_color="80a1f18b"

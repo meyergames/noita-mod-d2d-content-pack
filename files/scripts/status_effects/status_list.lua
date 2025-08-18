@@ -7,7 +7,7 @@ ctq_status_effects =
 		ui_icon="mods/RiskRewardBundle/files/gfx/ui_gfx/status_indicators/viral_infection_012.png",
 		protects_from_fire=false,
 		effect_entity="mods/RiskRewardBundle/files/entities/misc/effect_virus.xml",
-        effect_permanent=true,
+        -- effect_permanent=true,
     },
 
     {
