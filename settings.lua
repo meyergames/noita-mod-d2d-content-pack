@@ -1,9 +1,8 @@
 dofile("data/scripts/lib/mod_settings.lua") -- see this file for documentation on some of the features.
 dofile("data/scripts/lib/utilities.lua")
-local mod_id = "Vic2D's Risk/Reward Bundle"
+
+local mod_id = "v2drrb"
 mod_settings_version = 1
-
-
 mod_settings = 
 {
 	{
@@ -11,6 +10,12 @@ mod_settings =
         ui_name = "Spells",
 		ui_fn = mod_setting_vertical_spacing,
 		not_setting = true,
+	},
+	{
+		id = "time_trial_on_start",
+		ui_name = "Spawn Time Trial at start",
+		ui_description = "Start each run with the Time Trial perk spawned at the mountain entrance",
+		value_default = false,
 	},
 }
 
@@ -223,7 +228,7 @@ function ModSettingsGui( gui, in_main_menu )
 		--GuiLayoutEnd(gui)
 		--GuiEndScrollContainer(gui)
 	else
-		GuiText( gui, 0, 0, "Due to a Noita limitation, \nSpellbound Bundle options are only available \nonce you are in a game." )
+		GuiText( gui, 0, 0, "Due to a Noita limitation, \noptions are only available in-game." )
 	end
 	for i = 1, 5 do
 		GuiText( gui, 0, 0, "" )

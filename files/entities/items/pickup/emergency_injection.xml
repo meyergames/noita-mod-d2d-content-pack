@@ -153,19 +153,19 @@
 
   <ItemComponent
     _tags="enabled_in_world"
-    item_name="Emergency Injection"
+    item_name="$item_riskreward_emergency_injection_name"
     always_use_item_name_in_ui="true"
     max_child_items="0"
     is_pickable="1"
     is_equipable_forced="1"
     ui_sprite="mods/RiskRewardBundle/files/gfx/ui_gfx/emergency_injection.png"
-    ui_description="A dubious mixture of healthium and some pitch-black liquid..."
+    ui_description="$item_riskreward_emergency_injection_desc"
     preferred_inventory="QUICK"
   ></ItemComponent>
 
   <AbilityComponent
-    ui_name="Emergency Injection"
-    entity_file="mods/RiskRewardBundle/files/entities/projectiles/bandaid.xml"
+    ui_name="$item_riskreward_emergency_injection_name"
+    entity_file="mods/RiskRewardBundle/files/entities/projectiles/deck/emergency_injection_projectile.xml"
     throw_as_item="1"
   ><gun_config
     deck_capacity="0"
@@ -190,7 +190,7 @@
 
   <UIInfoComponent
     _tags="enabled_in_world"
-    name="Emergency Injection">
+    name="$item_riskreward_emergency_injection_name">
   </UIInfoComponent>
   
   <SpriteParticleEmitterComponent
@@ -222,13 +222,6 @@
 		randomize_velocity.max_y="30"
 		velocity_always_away_from_center="1">
 	</SpriteParticleEmitterComponent>
-
-  <AudioLoopComponent
-    _tags="sound_spray,enabled_in_world,enabled_in_hand"
-    file="data/audio/Desktop/materials.bank"
-    event_name="materials/spray_potion"
-    volume_autofade_speed="0.1" >
-  </AudioLoopComponent>
 
   <AudioComponent
     _tags="enabled_in_world"

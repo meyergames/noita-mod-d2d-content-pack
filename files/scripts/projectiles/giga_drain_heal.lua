@@ -63,7 +63,7 @@ GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/megala
 
 local dir_x, dir_y = vec_normalize( p_x - e_x, p_y - e_y )
 
-local bubble_amt = math.min( math.max( math.ceil( e_max_hp ), 1 ), 20 )
+local bubble_amt = math.min( math.max( math.ceil( e_max_hp * 0.5 ), 1 ), 20 )
 for i = 1, bubble_amt do
     local rdir_x, rdir_y = vec_rotate( dir_x, dir_y, Random( -22.5, 22.5 ) )
     local speed = Random( 10, 40 )

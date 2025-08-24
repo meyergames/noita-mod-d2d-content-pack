@@ -19,11 +19,10 @@ if( not is_immune_to_fire and on_fire_effect_count == 1 ) then
 
         local effect_id = EntityAddComponent( owner, "ShotEffectComponent", { extra_modifier = "ctq_pyrelord_boost_plus" } )
         setInternalVariableValue( owner, "pyrelord_shot_effect_id", "value_int", effect_id )
+        setInternalVariableValue( owner, "pyrelord_mana_charge_speed_mtp", "value_int", 100 )
 
         ComponentSetValue2( cdatacomp, "flying_needs_recharge", false )
     end
-
-    recharge_mana()
 
 --    local enemies = EntityGetInRadiusWithTag( x, y, EFFECT_RADIUS, "mortal" )
 --    for i,enemy in ipairs(enemies) do
@@ -34,9 +33,17 @@ if( not is_immune_to_fire and on_fire_effect_count == 1 ) then
 --        end
 --    end
 
+local enemies = EntityGetInRadiusWithTag( x, y, EFFECT_RADIUS, "mortal" )
+for i,enemy in ipairs(enemies) do
+    if( GameGetGameEffectCount( enemy, "ON_FIRE" ) > 0 ) then
+        EntityInflictDamage( owner, 0.04, "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
+    end
+end
+
 elseif( is_immune_to_fire or ( on_fire_effect_count == 0 and is_effect_active == 1 ) ) then
     reset_move_speed( owner, "pyrelord" )
     setInternalVariableValue( owner, "pyrelord_is_effect_active", "value_int", 0 )
+    setInternalVariableValue( owner, "pyrelord_mana_charge_speed_mtp", "value_int", 50 )
 
     EntityRemoveComponent( owner, getInternalVariableValue( owner, "pyrelord_shot_effect_id", "value_int" ) )
 
@@ -44,26 +51,6 @@ elseif( is_immune_to_fire or ( on_fire_effect_count == 0 and is_effect_active ==
     ComponentSetValue2( cdatacomp, "fly_time_max", 3 )
 end
 
-
-
-function recharge_mana()
-    local children = EntityGetAllChildren( owner )
-    for k=1,#children
-    do child = children[k]
-        if EntityGetName( child ) == "inventory_quick" then 
-            local inventory_items = EntityGetAllChildren(child) 
-            if(inventory_items ~= nil) then 
-                for z=1,#inventory_items
-                do item = inventory_items[z]
-                    if EntityHasTag( item, "wand" ) then 
-                        local ac_id = EntityGetFirstComponentIncludingDisabled( item, "AbilityComponent" )   
-                        local mana = ComponentGetValue2( ac_id, "mana" )  
-                        local mana_charge_speed = ComponentGetValue2( ac_id, "mana_charge_speed" ) 
-                        ComponentSetValue2( ac_id, "mana", math.max( mana + (mana_charge_speed * 20 / 45), 0 ) ) -- increase recharge rate by +100% (x2.0 == "20")
-                    end 
-                end 
-            end 
-            break 
-        end 
-    end
-end
+-- if ( is_immune_to_fire ) then
+--     remove_perk( "CTQ_PYRELORD" )
+-- end

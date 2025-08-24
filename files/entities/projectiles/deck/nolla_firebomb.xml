@@ -47,7 +47,7 @@
       explosion_sprite="data/particles/explosion_016.xml" 
       explosion_sprite_lifetime="0" 
       create_cell_probability="20" 
-	  create_cell_material="fire" 
+	    create_cell_material="fire" 
       hole_destroy_liquid="0"
       explosion_sprite_emissive="1"
       explosion_sprite_additive="1"
@@ -65,7 +65,7 @@
       sparks_enabled="1" 
       stains_enabled="1"
       stains_radius="12"
-      audio_enabled="false"
+      audio_enabled="true"
       >
     </config_explosion>
   </ProjectileComponent>

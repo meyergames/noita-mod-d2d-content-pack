@@ -1,0 +1,16 @@
+<Entity>
+
+    <InheritTransformComponent />
+
+    <LuaComponent
+      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_foot_injury_trigger.lua"
+      execute_every_n_frame="1"
+        execute_times="1"
+      >
+    </LuaComponent>
+
+    <LifetimeComponent
+		lifetime="1"
+	></LifetimeComponent>
+
+</Entity>

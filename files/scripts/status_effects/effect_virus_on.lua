@@ -21,38 +21,7 @@ if ( dcomps ~= nil ) and ( #dcomps > 0 ) then
     end
 end
 
-local character_platforming_component = EntityGetFirstComponentIncludingDisabled( owner, "CharacterPlatformingComponent" )
-
-local properties_to_change = {
-    velocity_min_x = 1.15,
-    velocity_max_x = 1.15,
-	jump_velocity_y = 1.15,
-	jump_velocity_x = 1.15,
-	fly_speed_max_up = 1.15,
-	fly_speed_max_down = 1.15,
-	fly_velocity_x = 1.15
-}
-
-if character_platforming_component then
-	local old_values = ""
-	for k, v in pairs(properties_to_change) do
-		local value = ComponentGetValue2(character_platforming_component, k)
-		local string_value = tostring(value)
-		if type(value) == "boolean" then
-			string_value = value and "1" or "0"
-		end
-		old_values = old_values .. k .. ":" .. type(value) .. "=" .. string_value
-		if next(properties_to_change, k) then
-			old_values = old_values .. ","
-		end
-		ComponentSetValue2(character_platforming_component, k, value * v)
-	end
-
-	EntityAddComponent2( owner, "VariableStorageComponent", {
-		name = "old_platforming_values",
-		value_string = old_values,
-	})
-end
+multiply_move_speed( owner, 1.15 )
 
 local x, y = EntityGetTransform( owner )
 local pos_string = tostring(x) .. "," .. tostring(y)

@@ -7,8 +7,10 @@ ModLuaFileAppend("data/scripts/status_effects/status_list.lua", "mods/RiskReward
 ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/RiskRewardBundle/files/scripts/items.lua")
 ModMaterialsFileAdd("mods/RiskRewardBundle/files/materials/materials.xml")
 
+ModLuaFileAppend("data/scripts/biome_scripts.lua", "mods/RiskRewardBundle/files/scripts/biome_scripts.lua")
 ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/RiskRewardBundle/files/scripts/items/heart_fullhp_temple_custom.lua")
 ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/RiskRewardBundle/files/scripts/items/orb_pickup_custom.lua")
+-- ModLuaFileAppend("data/scripts/items/chest_random.lua", "mods/RiskRewardBundle/files/scripts/items/chest_random_cursed.lua")
 
 function OnModPostInit()
     ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/RiskRewardBundle/files/scripts/perks.lua")
@@ -33,7 +35,7 @@ function OnPlayerSpawned(player)
     dofile_once( "data/scripts/perks/perk.lua" )
 --    local perk = perk_spawn( -2, 4971, "CTQ_TIME_TRIAL" )
 --    local perk = perk_spawn( x+20, y-20, "PEACE_WITH_GODS" )
-    local perk = perk_spawn( x+20, y, "CTQ_PYRELORD" )
+    -- local perk = perk_spawn( 750, -100, "CTQ_SET_IN_STONE" )
 --    local perk = perk_spawn( x+20, y, "CTQ_THUNDERLORD" )
 
     --spawn random perk
@@ -43,16 +45,21 @@ function OnPlayerSpawned(player)
         perk_to_spawn = random_from_array( perk_list )
         valid_perk_found = not perk_to_spawn.not_in_default_perk_pool
     end
-    local perk = perk_spawn( 800, -100, perk_to_spawn.id )
 
---    local perk = perk_spawn( 800, -100, "CTQ_TIME_TRIAL" )
-    -- TODO: this may also spawn a secret/unlockable perk... maybe check the perk_list with the perks unlocked by the player?
---    local perk = perk_spawn( x+20, y, perk_to_spawn.id )
+    -- GamePrint( ModSettingGet( "v2drrb.time_trial_on_start" ) )
+    if ( ModSettingGet( "Vic2D's Risk/Reward Bundle.time_trial_on_start" ) ) then
+        GamePrint("time trial on start enabled!")
+        local perk = perk_spawn( 800, -100, "CTQ_TIME_TRIAL" )
+    else
+        local perk = perk_spawn( 800, -100, perk_to_spawn.id )
+    end
     
 
     --spawn items
 --    EntityLoad( "mods/RiskRewardBundle/files/entities/misc/speedrun_finish_hitbox.xml", 0, 0 )
 --    EntityLoad( "mods/RiskRewardBundle/files/entities/misc/speedrun_finish_hitbox.xml", -681, 4992 )
+    -- EntityLoad( "mods/RiskRewardBundle/files/entities/items/pickup/chest_random_cursed.xml", 750, -100 )
+    -- EntitySetTransform( player, 700, -100 )
 end
 
 

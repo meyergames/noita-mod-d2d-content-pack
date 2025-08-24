@@ -9,17 +9,31 @@
 
     <!--INIT -->
     <LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/effect_pyrelord_on.lua"
+      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_on.lua"
       execute_every_n_frame="1"
         execute_times="1"
     ></LuaComponent>
-	
+  
     <!-- UPDATE -->
-	<LuaComponent 
-		_enabled="1" 
-		script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/effect_pyrelord_update.lua" 
-		execute_every_n_frame="10"
-	></LuaComponent>
+  <LuaComponent 
+    _enabled="1" 
+    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_update_slow.lua" 
+    execute_every_n_frame="30"
+  ></LuaComponent>
+  
+    <!-- UPDATE -->
+  <LuaComponent 
+    _enabled="1" 
+    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_update.lua" 
+    execute_every_n_frame="10"
+  ></LuaComponent>
+  
+    <!-- UPDATE -->
+  <LuaComponent 
+    _enabled="1" 
+    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_update_fast.lua" 
+    execute_every_n_frame="1"
+  ></LuaComponent>
 
     <!-- ON REMOVE -->
     <!--<LuaComponent

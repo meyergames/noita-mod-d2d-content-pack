@@ -3,21 +3,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 local entity_id = GetUpdatedEntityID()
 local owner = EntityGetParent(entity_id)
 
-local character_platforming_component = EntityGetFirstComponentIncludingDisabled( owner, "CharacterPlatformingComponent")
-local var_store = get_variable_storage_component( owner, "old_platforming_values" )
-local stored_values = ComponentGetValue2(var_store, "value_string")
-if stored_values then
-	local properties = split_string(stored_values, ",")
-	
-	for i, v in ipairs(properties) do
-		local name, prop_type, value = string.match(v, "(.+):(.+)=(.+)")
-		value = _G["to"..prop_type](value)
-		ComponentSetValue2(character_platforming_component, name, value)
-	end
-	
-    --remove the variable storage component
-	EntityRemoveComponent( owner, var_store_pos )
-end
+reset_move_speed( owner, "viral_infection" )
 
 
 if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) then

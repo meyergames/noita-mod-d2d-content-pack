@@ -1,0 +1,50 @@
+content checklist
+[ ] linked to translation.csv?
+[ ] does the spawn probability feel right? (for spells/items)
+[ ] happy with the icon?
+
+spells
+[ ] is optimize ship-ready?
+[ ] is burstfire ship-ready?
+[ ] is overclock ship-ready?
+[ ] is missing mana to damage ship-ready?
+[ ] is payday ship-ready?
+[ ] is sniper bolt ship-ready?
+[ ] is sniper bolt w/ trigger ship-ready?
+[ ] is small explosion ship-ready?
+[ ] is giga drain ship-ready?
+[ ] is ghost trigger ship-ready?
+[ ] are the banana bombs ship-ready?
+[ ] is bag of bombs ship-ready?
+[ ] is volcanic drill ship-ready?
+[ ] is infernal drill ship-ready?
+
+
+
+perks
+[ ] is time trial ship-ready?
+[ ] is ring of life ship-ready?
+[ ] is bomberman ship-ready?
+[ ] is thunderlord ship-ready?
+[ ] is pyrelord ship-ready?
+[ ] is set in stone ship-ready?
+[ ] is the stendari curse ship-ready?
+[ ] is repel gold ship-ready?
+[ ] is the divine prank ship-ready?
+[ ] is overheating wands ship-ready?
+[ ] is arhythmic wands ship-ready?
+[ ] is the floor is lava ship-ready?
+
+
+
+items
+[ ] is the cursed chest ship-ready?
+[ ] is the emergency injection ship-ready?
+
+
+
+
+organization checklist
+[ ] do all file names make sense/follow a pattern?
+[ ] all references to new file destinations updated?
+[ ] tried making OrganiseProgress work?

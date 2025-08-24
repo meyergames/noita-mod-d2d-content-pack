@@ -1,0 +1,7 @@
+<Entity tags="teleportable_NOT,perk,item_perk">
+
+  <LuaComponent 
+    script_item_picked_up="mods/RiskRewardBundle/files/scripts/perks/perk_package.lua" >
+  </LuaComponent>
+  
+</Entity>

@@ -1,12 +1,18 @@
 <Entity>
 	<InheritTransformComponent />
 	
-	<LuaComponent
-		script_source_file="mods/RiskRewardBundle/files/scripts/perks/bomberman_start.lua"
+	<!--<LuaComponent
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_bomberman_on.lua"
         execute_every_n_frame="1"
         execute_times="1"
 		>
 	</LuaComponent>
+  
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_bomberman_update.lua" 
+		execute_every_n_frame="60"
+	></LuaComponent>-->
 	
 	<!--<LuaComponent
 		script_source_file="mods/RiskRewardBundle/files/scripts/perks/bomberman_end.lua"

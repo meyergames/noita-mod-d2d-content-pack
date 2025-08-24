@@ -90,12 +90,12 @@
     destroy_this_entity_when_triggered="0"
   ></CollisionTriggerComponent>-->
    
-    <LuaComponent
+    <!--<LuaComponent
 	    script_collision_trigger_hit="mods/RiskRewardBundle/files/scripts/projectiles/snipe_shot.lua"
 	    execute_every_n_frame="1"
 	    remove_after_executed="0"
 	    >
-    </LuaComponent>
+    </LuaComponent>-->
 
   <AudioLoopComponent
       file="data/audio/Desktop/projectiles.bank"

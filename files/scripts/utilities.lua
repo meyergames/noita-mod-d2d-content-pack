@@ -94,6 +94,19 @@ end
 
 
 
+function has_perk( perk_id )
+	return get_perk_pickup_count( perk_id ) > 0
+end
+
+function get_perk_pickup_count( perk_id )
+    dofile_once("data/scripts/perks/perk_list.lua")
+
+    local perk = get_perk_with_id( perk_list, perk_id )
+    local flag_name = get_perk_picked_flag_name( perk_id )
+    local pickup_count = tonumber( GlobalsGetValue( flag_name .. "_PICKUP_COUNT", "0" ) )
+
+    return pickup_count
+end
 
 
 -- This method was originally written by Horscht for the "Removable perks" mod, slightly adjusted to better fit this mod's needs. Thank you Horscht! ---
@@ -214,3 +227,104 @@ function reset_move_speed( entity_id, effect_name )
     end
 end
 
+
+
+
+function distance_between( entity_a, entity_b )
+	local ax, ay = EntityGetTransform( entity_a )
+	local bx, by = EntityGetTransform( entity_b )
+
+	return get_distance( ax, ay, bx, by )
+end
+
+function has_game_effect( entity_id, game_effect_name )
+	return GameGetGameEffectCount( entity_id, game_effect_name ) > 0
+end
+
+function remove_game_effect( entity_id, game_effect_name )
+	GamePrint( "remove_game_effect: not implemented" )
+	-- return GameGetGameEffectCount( entity_id, game_effect_name ) > 0
+end
+
+
+
+function apply_random_curse( entity_id )
+    dofile_once( "data/scripts/perks/perk.lua" )
+    dofile_once( "mods/RiskRewardBundle/files/scripts/perks.lua" )
+    local x, y = EntityGetTransform( entity_id )
+
+    local curses_not_picked_up = {}
+	for k,v in pairs( ctq_curses ) do
+		if ( not has_perk( v.id ) ) then
+			curses_not_picked_up[k] = v
+		end
+	end
+
+	local random_perk
+	if ( #curses_not_picked_up > 0 ) then
+		random_perk = random_from_array( curses_not_picked_up )
+	else
+		random_perk = random_from_array( ctq_curses )
+	end
+    local spawned_perk = perk_spawn( x, y, random_perk.id )
+    perk_pickup( spawned_perk, entity_id, EntityGetName( spawned_perk ), false, false )
+
+    -- local curse_count = getInternalVariableValue( entity_id, "CURSE_COUNT", "value_int" )
+    -- if curse_count then
+    -- 	setInternalVariableValue( entity_id, "PLAYER_CURSE_COUNT", "value_int", curse_count + 1 )
+    -- else
+    -- 	addNewInternalVariable( entity_id, "PLAYER_CURSE_COUNT", "value_int", 1 )
+    -- end
+
+    GamePlaySound( "data/audio/Desktop/animals.bank", "animals/sheep/confused", x, y )
+end
+
+
+-- courtesy to gkbrkn for this function
+function adjust_all_entity_damage( entity, callback )
+    adjust_entity_damage( entity,
+        function( current_damage ) return callback( current_damage ) end,
+        function( current_damages )
+            for type,current_damage in pairs( current_damages ) do
+                if current_damage ~= 0 then
+                    current_damages[type] = callback( current_damage )
+                end
+            end
+            return current_damages
+        end,
+        function( current_damage ) return callback( current_damage ) end,
+        function( current_damage ) return callback( current_damage ) end,
+        function( current_damage ) return callback( current_damage ) end
+    )
+end
+
+
+
+function spawn_random_perk( x, y )
+    dofile_once( "data/scripts/perks/perk_list.lua" )
+    dofile_once( "data/scripts/perks/perk.lua" )
+
+    local perk_ids_to_consider = {}
+	for k,v in pairs( perk_list ) do
+		if ( not v.not_in_default_perk_pool ) then
+			perk_ids_to_consider[k] = v.id
+		end
+	end
+
+	GamePrint(perk_ids_to_consider)
+    perk_id_to_spawn = random_from_array( perk_ids_to_consider )
+    local perk = perk_spawn( x, y, perk_id_to_spawn )
+end
+
+
+function spawn_random_perk_custom( x, y, perk_ids )
+    dofile_once( "data/scripts/perks/perk_list.lua" )
+    dofile_once( "data/scripts/perks/perk.lua" )
+
+	for k,v in pairs( added_perk_ids ) do
+		perk_ids_to_consider[k] = v
+	end
+
+    perk_id_to_spawn = random_from_array( perk_ids_to_consider )
+    local perk = perk_spawn( x, y, perk_id_to_spawn )
+end

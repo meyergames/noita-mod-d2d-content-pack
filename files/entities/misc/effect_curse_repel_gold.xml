@@ -1,0 +1,16 @@
+<Entity>
+
+    <InheritTransformComponent />
+	
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="CURSE_REPEL_GOLD"
+    ></GameEffectComponent >
+	
+    <LuaComponent 
+        _enabled="1" 
+        script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_repel_gold_update.lua"
+        execute_every_n_frame="1">
+    </LuaComponent>
+
+</Entity>

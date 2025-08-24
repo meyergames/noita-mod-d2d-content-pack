@@ -1,106 +1,138 @@
 ctq_actions = {
---    {
---	    id                  = "CTQ_MEDKIT",
---	    name 		        = "Medkit",
---	    description         = "Restores health, at the cost of some maximum health",
---	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/bandaid.png",
---	    type 		        = ACTION_TYPE_UTILITY,
---	    spawn_level         = "0,1,2,3,4,5", -- X_RAY
---	    spawn_probability   = "1.2,1.1,1.0,0.8,0.5,0.2", -- X_RAY
---	    price               = 99,
---	    max_uses            = 2,
---	    mana                = 50,
---	    action              = function()
---                                c.damage_healing_add = "-2"
---                                current_reload_time = current_reload_time + 30
---                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/bandaid.xml")
---                                c.action_never_unlimited = false -- losing max hp is a big enough drawback
---
---			                    local entity_id = GetUpdatedEntityID()
---			                    local dcomps = EntityGetComponent( entity_id, "DamageModelComponent" )
---                                if ( dcomps ~= nil ) and ( #dcomps > 0 ) then
---                                    for i,damagemodel in ipairs( dcomps ) do
---                                        local hp = ComponentGetValue2( damagemodel, "hp" )
---                                        local old_max_hp = ComponentGetValue2( damagemodel, "max_hp" )
---                                        local new_max_hp = math.max(old_max_hp - 0.4, 0.04)
---
---                                        ComponentSetValue( damagemodel, "max_hp", new_max_hp)
---                                        ComponentSetValue( damagemodel, "hp", math.min(hp + 2, new_max_hp) )
---	                                    EntityInflictDamage( entity_id, math.min(old_max_hp - new_max_hp, hp-1), "NONE", "borrowed time", "BLOOD_EXPLOSION", 0, 0, entity_id, x, y, 0)
---                                        GamePlaySound("data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y)
---		                                ComponentSetValue( damagemodel, "hp", math.min(hp + 2, new_max_hp) )
---
---                                        if ( old_max_hp > 0.04 ) then
---                                            GamePrint(string.format("Max health lowered from %d to %d.", old_max_hp * 25, new_max_hp * 25))
---                                        end
---                                    end
---                                end
---	                        end,
---    },
+    -- {
+	--     id                  = "CTQ_OVERCLOCK",
+	--     name 		        = "Overclock",
+	--     description         = "Pushes your wand to its limits; may cause overheating",
+    --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
+	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/overclock.png",
+	--     type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "0,1,2,3,4,5,6",
+	-- 	spawn_probability   = "0.4,0.6,0.8,0.9,1.0,1.0,1.0",
+	--     price               = 260,
+	--     mana                = -30,
+	--     action              = function()
+    --                             local entity_id = GetUpdatedEntityID()
 
---    {
---	    id                  = "CTQ_EMERGENCY_INJECTION",
---	    name 		        = "Emergency Injection",
---	    description         = "A dubious mixture of healthium and some pitch-black liquid...",
---	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/emergency_injection.png",
---	    type 		        = ACTION_TYPE_UTILITY,
---	    spawn_level         = "0,1,2,3,4,5,6", -- X_RAY
---	    spawn_probability   = "0.6,0.7,0.8,0.9,1.0,1.1,1.2", -- X_RAY
---	    price               = 150,
---	    max_uses            = 1,
---	    mana                = 100,
---	    action              = function()
---                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/bandaid.xml")
---                                c.action_never_unlimited = true
---
---			                    local entity_id = GetUpdatedEntityID()
---			                    local dcomps = EntityGetComponent( entity_id, "DamageModelComponent" )
---                                if ( dcomps ~= nil ) and ( #dcomps > 0 ) then
---                                    for i,damagemodel in ipairs( dcomps ) do
---                                        local hp = ComponentGetValue2( damagemodel, "hp" )
---                                        local old_max_hp = ComponentGetValue2( damagemodel, "max_hp" )
---
---                                        ComponentSetValue( damagemodel, "max_hp", old_max_hp )
---                                        ComponentSetValue( damagemodel, "hp", old_max_hp )
---	                                    EntityInflictDamage( entity_id, hp * 0.1, "NONE", "viral infection", "BLOOD_EXPLOSION", 0, 0, entity_id, x, y, 0 )
---                                        GamePlaySound("data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y)
---
---                                        EntityIngestMaterial( entity_id, CellFactory_GetType("magic_liquid_infected_healthium"), 60)
---                                    end
---                                end
---	                        end,
---    },
+    --                             local rand = Random( 0, 50 )
+    --                             if( rand == 1 ) then -- 1/50 chance for *something* to happen
+    --                                 c.fire_rate_wait    = 40
+    --                                 GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+
+    --                                 local rand2 = Random( 0, 8 )
+    --                                 if( rand2 < 1 ) then -- 2/250 or 1/125
+    --                                     EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
+    --                                 elseif( rand2 < 3 ) then -- 2/250 or 1/125
+    --                                     add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
+    --                                 elseif( rand2 < 5 ) then -- 2/250 or 1/125
+    --                                     add_projectile("mods/RiskRewardBundle/files/entities/projectiles/overclock.xml")
+    --                                 else -- 3/250 or 1/83
+    --                                     add_projectile("data/entities/projectiles/deck/fizzle.xml")
+    --                                 end
+    --                             else
+    --                                 c.fire_rate_wait    = c.fire_rate_wait - 15
+    --                                 current_reload_time = current_reload_time - 20
+    --                             end
+                                
+	-- 		                    draw_actions( 1, true )
+	--                         end,
+    -- },
+
+    {
+	    id                  = "CTQ_OPTIMIZE",
+	    name 		        = "$spell_riskreward_optimize_name",
+	    description         = "$spell_riskreward_optimize_desc",
+        inject_after        = { "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/optimize.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "1.0,0.9,0.7,0.5",
+	    price               = 120,
+	    mana                = -5,
+	    action              = function()
+                                c.fire_rate_wait    = c.fire_rate_wait - 3
+                                current_reload_time = current_reload_time - 6
+
+	    						draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "CTQ_FLURRY",
+	    name 		        = "$spell_riskreward_flurry_name",
+	    description         = "$spell_riskreward_flurry_desc",
+        inject_after        = { "RECHARGE", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/flurry.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.7,0.8,0.9,1.0,0.9,0.8,0.7",
+	    price               = 180,
+	    mana                = 1,
+	    action              = function()
+                                c.fire_rate_wait    = c.fire_rate_wait - 15 -- so it shows in the UI
+                                current_reload_time = current_reload_time - 20 -- so it shows in the UI
+
+					            if reflecting then return end
+
+                                local entity_id = GetUpdatedEntityID()
+
+							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+							    -- local entity_id = GetUpdatedEntityID()
+							    -- local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
+							    -- local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
+							    -- local wand = EZWand(active_wand)
+							    local wand = EZWand.GetHeldWand()
+
+							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
+                                current_reload_time = current_reload_time + 20 -- reset
+
+							    local remaining_mana_percent = ( 1.0 / wand.manaMax ) * wand.mana
+							    if ( remaining_mana_percent >= 0.75 ) then
+							    	c.fire_rate_wait	= c.fire_rate_wait - ( ( remaining_mana_percent - 0.75 ) * ( 15 / 0.25 ) )
+							    	current_reload_time	= current_reload_time - ( ( remaining_mana_percent - 0.75 ) * ( 20 / 0.25 ) )
+								end
+                                
+			                    draw_actions( 1, true )
+	                        end,
+    },
 
     {
 	    id                  = "CTQ_OVERCLOCK",
-	    name 		        = "Overclock",
-	    description         = "Pushes your wand to its limits; may cause overheating",
-        inject_after        = { "RECHARGE", "MANA_REDUCE" },
+	    name 		        = "$spell_riskreward_overclock_name",
+	    description         = "$spell_riskreward_overclock_desc",
+        inject_after        = { "CTQ_BURST_FIRE", "RECHARGE", "MANA_REDUCE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/overclock.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.6,0.8,0.9,1.0,1.0,1.0",
-	    price               = 260,
-	    mana                = -20,
+		spawn_probability   = "0.4,0.6,0.8,0.9,0.8,0.7,0.6",
+	    price               = 240,
+	    mana                = 1,
 	    action              = function()
-                                local entity_id = GetUpdatedEntityID()
-                                -- TODO: increase overheat chance if player's mana is low
---                                local ezwand = dofile_once( "mods/RiskRewardBundle/files/scripts/ezwand.lua" )
---                                local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
---                                local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
---                                local wand = ezwand(active_wand)
---                                GamePrint("Remaining mana: " .. wand.mana)
-                                -- if( rand == 1 or wand.mana <= 0 ) then
+                                c.fire_rate_wait    = c.fire_rate_wait - 20
+                                current_reload_time = current_reload_time - 30
 
-                                local rand = Random( 0, 50 )
-                                if( rand == 1 ) then -- 1/50 chance for *something* to happen
+					            if reflecting then return end
+
+                                local entity_id = GetUpdatedEntityID()
+
+							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+							    -- local entity_id = GetUpdatedEntityID()
+							    -- local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
+							    -- local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
+							    -- local wand = EZWand(active_wand)
+							    local wand = EZWand.GetHeldWand()
+
+							    -- local remaining_mana_percent = ( 1.0 / wand.manaMax ) * (wand.mana - c.action_mana_drain)
+							    -- if ( remaining_mana_percent >= 0.5 ) then
+							    -- 	c.fire_rate_wait	= c.fire_rate_wait - ( ( remaining_mana_percent - 0.5 ) * 10 )
+								-- end
+
+							    local rand = Random( 0, 100 )
+							    local chance = 1.0 / ( (1.0 / wand.manaMax) * wand.mana )
+                                if( rand <= chance ) then
                                     c.fire_rate_wait    = 40
                                     GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
---                                    current_reload_time = current_reload_time + 50
 
                                     local rand2 = Random( 0, 8 )
---                                    if( rand2 < 1 ) then -- 1/500
---			                            c.extra_entities = c.extra_entities .. "data/entities/misc/nolla.xml"
                                     if( rand2 < 1 ) then -- 2/250 or 1/125
                                         EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
                                     elseif( rand2 < 3 ) then -- 2/250 or 1/125
@@ -110,9 +142,6 @@ ctq_actions = {
                                     else -- 3/250 or 1/83
                                         add_projectile("data/entities/projectiles/deck/fizzle.xml")
                                     end
-                                else
-                                    c.fire_rate_wait    = c.fire_rate_wait - 15
-                                    current_reload_time = current_reload_time - 20
                                 end
                                 
 			                    draw_actions( 1, true )
@@ -121,8 +150,8 @@ ctq_actions = {
 
     {
 	    id                  = "CTQ_PAYDAY",
-	    name 		        = "Payday",
-	    description         = "Use your money as ammo!",
+	    name 		        = "$spell_riskreward_payday_name",
+	    description         = "$spell_riskreward_payday_desc",
         inject_after        = { "SUMMON_ROCK" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/payday.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -154,8 +183,8 @@ ctq_actions = {
 
     {
 	    id                  = "CTQ_SNIPE_SHOT",
-	    name 		        = "Sniper Bolt",
-	    description         = "A fast and lethal piercing shot",
+	    name 		        = "$spell_riskreward_sniper_bolt_name",
+	    description         = "$spell_riskreward_sniper_bolt_desc",
         inject_after        = { "ARROW" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/snipe_shot.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -171,8 +200,8 @@ ctq_actions = {
 
     {
 	    id                  = "CTQ_SNIPE_SHOT_TRIGGER",
-	    name 		        = "Sniper Bolt With Trigger",
-	    description         = "A piercing shot that casts another spell upon collision",
+	    name 		        = "$spell_riskreward_sniper_bolt_trigger_name",
+	    description         = "$spell_riskreward_sniper_bolt_trigger_desc",
         inject_after        = { "CTQ_SNIPE_SHOT", "ARROW" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/snipe_shot_trigger.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -187,28 +216,29 @@ ctq_actions = {
 	                        end,
     },
 
-    {
-	    id                  = "CTQ_SMALL_EXPLOSION",
-	    name 		        = "Small Explosion",
-	    description         = "Safe for everyone!*",
-        inject_after        = { "EXPLOSION" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/small_explosion.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "1.2,1,0.8,0.6",
-	    price               = 120,
-	    mana                = 30,
-	    action              = function()
-			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
-			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
-			                    c.screenshake = c.screenshake + 1.25
-	                        end,
-    },
+	{
+		id                  = "CTQ_GHOST_TRIGGER",
+		name 		        = "$spell_riskreward_ghost_trigger_name",
+		description         = "$spell_riskreward_ghost_trigger_desc",
+        inject_after        = { "SPARK_BOLT_TIMER" },
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghost_trigger.png",
+		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
+		type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
+		spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
+		price               = 90,
+		mana                = 5,
+		action 		        = function()
+                                c.damage_null_all = 1
+			                    c.fire_rate_wait = c.fire_rate_wait - 3
+			                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml", 1)
+		                    end,
+	},
 
     {
 	    id                  = "CTQ_GIGA_DRAIN",
-	    name 		        = "Giga Drain",
-	    description         = "Drains organic creatures of their life force",
+	    name 		        = "$spell_riskreward_giga_drain_name",
+	    description         = "$spell_riskreward_giga_drain_desc",
         inject_after        = { "CHAINSAW" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/giga_drain.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -223,58 +253,57 @@ ctq_actions = {
 	                        end,
     },
 
-	{
-		id                  = "CTQ_GHOST_TRIGGER",
-		name 		        = "Ghost Trigger",
-		description         = "A harmless bolt that casts another spell upon collision",
-        inject_after        = { "SPARK_BOLT_TIMER" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghost_trigger.png",
-		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
-		type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
-		spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
-		price               = 90,
-		mana                = 5,
-		action 		        = function()
-                                c.damage_null_all = 1
-			                    c.fire_rate_wait = c.fire_rate_wait - 5
-			                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml", 1)
-		                    end,
-	},
+    {
+	    id                  = "CTQ_SMALL_EXPLOSION",
+	    name 		        = "$spell_riskreward_small_explosion_name",
+	    description         = "$spell_riskreward_small_explosion_desc",
+        inject_after        = { "EXPLOSION" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/small_explosion.png",
+	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "1.2,1,0.8,0.6",
+	    price               = 120,
+	    mana                = 25,
+	    action              = function()
+			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
+			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
+			                    c.screenshake = c.screenshake + 1.25
+	                        end,
+    },
 
-	{
-		id                  = "CTQ_GHOSTLY_MESSENGER",
-		name 		        = "Ghostly Messenger",
-        inject_after        = { "CTQ_GHOST_TRIGGER", "SPARK_BOLT_TIMER" },
-		description         = "Penetrates all terrain to cast another spell upon collision",
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghostly_messenger.png",
-		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml"},
-		type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "2,3,4,5,6",
-		spawn_probability   = "0.3,0.5,0.7,0.9,1",
-		price               = 390,
-		mana                = 150,
-		action 		        = function()
-                                c.damage_null_all = 1
-			                    c.fire_rate_wait = c.fire_rate_wait + 45
-		                        current_reload_time = current_reload_time + 93
-			                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml", 1)
-		                    end,
-	},
+	-- {
+	-- 	id                  = "CTQ_GHOSTLY_MESSENGER",
+	-- 	name 		        = "Ghostly Messenger",
+    --     inject_after        = { "CTQ_GHOST_TRIGGER", "SPARK_BOLT_TIMER" },
+	-- 	description         = "Penetrates all terrain to cast another spell upon collision",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghostly_messenger.png",
+	-- 	related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml"},
+	-- 	type 		        = ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "2,3,4,5,6",
+	-- 	spawn_probability   = "0.3,0.5,0.7,0.9,1",
+	-- 	price               = 390,
+	-- 	mana                = 150,
+	-- 	action 		        = function()
+    --                             c.damage_null_all = 1
+	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 45
+	-- 	                        current_reload_time = current_reload_time + 93
+	-- 		                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml", 1)
+	-- 	                    end,
+	-- },
 
 	{
 		id                  = "CTQ_BANANA_BOMB",
-		name 		        = "Banana Bomb",
-		description         = "The soft fruit of doom",
+		name 		        = "$spell_riskreward_banana_bomb_name",
+		description         = "$spell_riskreward_banana_bomb_desc",
         inject_after        = { "GLUE_SHOT", "SPORE_POD" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- DYNAMITE
-		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
+		spawn_probability   = "0.7,0.6,0.5,0.4,0.3", -- DYNAMITE
 		price               = 190,
 		mana                = 60,
-        max_uses            = 10,
+        max_uses            = 12,
         custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
@@ -285,8 +314,8 @@ ctq_actions = {
 
 	{
 		id                  = "CTQ_BANANA_BOMB_SUPER",
-		name 		        = "Super Banana Bomb",
-		description         = "The soft fruit of recursive doom",
+		name 		        = "$spell_riskreward_banana_bomb_super_name",
+		description         = "$spell_riskreward_banana_bomb_super_desc",
         inject_after        = { "CTQ_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_super.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml"},
@@ -294,8 +323,8 @@ ctq_actions = {
 		spawn_level         = "0,1,2,3,4,5,6", -- BOMB
 		spawn_probability   = "0.5,0.6,0.7,0.4,0.3,0.2,0.1",
 		price               = 380,
-		mana                = 120,
-        max_uses            = 3,
+		mana                = 90,
+        max_uses            = 6,
         custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb_super.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
@@ -306,8 +335,8 @@ ctq_actions = {
 
 	{
 		id                  = "CTQ_BANANA_BOMB_GIGA",
-		name 		        = "Giga Banana Bomb",
-		description         = "The softest fruit of the most recursive doom",
+		name 		        = "$spell_riskreward_banana_bomb_giga_name",
+		description         = "$spell_riskreward_banana_bomb_giga_desc",
         inject_after        = { "CTQ_BANANA_BOMB_SUPER", "CTQ_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_giga.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"},
@@ -316,7 +345,7 @@ ctq_actions = {
 		spawn_probability   = "0.1,0.2,0.3,0.4,0.4,0.5,0.5",
 		price               = 570,
 		mana                = 180,
-        max_uses            = 2,
+        max_uses            = 3,
         custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb_giga.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
@@ -327,8 +356,8 @@ ctq_actions = {
 
 	{
 		id                  = "CTQ_BAG_OF_BOMBS",
-		name 		        = "Bag Of Bombs",
-		description         = "Who knows what you'll get...",
+		name 		        = "$spell_riskreward_bag_of_bombs_name",
+		description         = "$spell_riskreward_bag_of_bombs_desc",
         inject_after        = { "DYNAMITE" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/bag_of_bombs.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
@@ -412,6 +441,280 @@ ctq_actions = {
 			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_infernal.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1
 			                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
+		                    end,
+	},
+
+	-- {
+	-- 	id          = "CTQ_CIRCLE_GOLD",
+	-- 	name 		= "Circle Of Gold",
+	-- 	description = "Spawns a circle of gold",
+	-- 	sprite 		= "data/ui_gfx/gun_actions/circle_water.png",
+	-- 	sprite_unidentified = "data/ui_gfx/gun_actions/slimeball_unidentified.png",
+	-- 	-- related_projectiles	= {"data/entities/projectiles/deck/circle_water.xml"},
+	-- 	type 		= ACTION_TYPE_MATERIAL,
+	-- 	spawn_level                       = "0",
+	-- 	spawn_probability                 = "0",
+	-- 	price = 160,
+	-- 	mana = 20,
+	-- 	max_uses = 1,
+	-- 	action 		= function()
+	-- 		add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_128.xml")
+	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
+	-- 	end,
+	-- },
+
+	-- {
+	-- 	id          = "CTQ_CIRCLE_GOLD_BIG",
+	-- 	name 		= "Sea Of Gold",
+	-- 	description = "Spawns a sea of gold",
+	-- 	sprite 		= "data/ui_gfx/gun_actions/circle_water.png",
+	-- 	sprite_unidentified = "data/ui_gfx/gun_actions/slimeball_unidentified.png",
+	-- 	-- related_projectiles	= {"data/entities/projectiles/deck/circle_water.xml"},
+	-- 	type 		= ACTION_TYPE_MATERIAL,
+	-- 	spawn_level                       = "0",
+	-- 	spawn_probability                 = "0",
+	-- 	price = 160,
+	-- 	mana = 20,
+	-- 	max_uses = 1,
+	-- 	action 		= function()
+	-- 		add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_256.xml")
+	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
+	-- 	end,
+	-- },
+
+    {
+	    id                  = "CTQ_DAMAGE_MISSING_MANA",
+	    name 		        = "$spell_riskreward_damage_missing_mana_name",
+	    description         = "$spell_riskreward_damage_missing_mana_desc",
+        inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/damage_missing_mana.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.6,0.8,0.9,0.8,0.7,0.6",
+	    price               = 270,
+	    mana                = 20,
+	    action              = function()
+                                c.fire_rate_wait    = c.fire_rate_wait + 4 -- so it shows in the UI
+
+					            if reflecting then return end
+
+							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+							    -- local entity_id = GetUpdatedEntityID()
+							    -- local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
+							    -- local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
+							    -- local wand = EZWand(active_wand)
+							    local wand = EZWand.GetHeldWand()
+							    
+                                c.fire_rate_wait    			= c.fire_rate_wait - 4 -- reset
+
+							    local remaining_mana_percent	= ( 1.0 / wand.manaMax ) * wand.mana
+						    	local missing_mana				= wand.manaMax - wand.mana
+						    	local sec_to_recharge_wand		= wand.manaMax / math.max( wand.manaChargeSpeed, 1 ) -- careful for division by zero
+                                -- local spell_cast_delay			= math.max( c.fire_rate_wait, 0 ) -- sniper bolt is 45
+                                local missing_mana_percent		= 1.0 - remaining_mana_percent
+
+                                local bonus_dmg_raw				= ( 0.04 * missing_mana * 0.1 ) -- first check how much mana the player is missing
+                                								  * ( 1.0 + 0.1 * math.min( sec_to_recharge_wand, 90 ) ) -- multiply by the time it takes to recharge
+                                								  -- * ( 1.0 + 0.05 * math.min( spell_cast_delay, 60 ) ) -- multiply by the projectile's cast delay
+								c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
+								-- GamePrint("dealt " .. 25 * ( c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent ) ) .. " bonus damage")
+								c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
+
+                                c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana_percent * 20 ) -- max 20
+                                c.knockback_force				= c.knockback_force + ( missing_mana_percent * 5 ) -- max 5
+								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana_percent * 200 ) -- max 200
+
+								if ( remaining_mana_percent <= 0.25 ) then
+									c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_orange.xml,"
+								end
+
+
+
+
+								-- local util = dofile_once( "data/scripts/lib/utilities.lua" )
+    							-- local function adjust_all_entity_damage( entity, callback )
+    							-- 	adjust_entity_damage( entity,
+								--         function( current_damage ) return callback( current_damage ) end,
+								--         function( current_damages )
+								--             for type,current_damage in pairs( current_damages ) do
+								--                 if current_damage ~= 0 then
+								--                     current_damages[type] = callback( current_damage )
+								--                 end
+								--             end
+								--             return current_damages
+								--         end,
+								--         function( current_damage ) return callback( current_damage ) end,
+								--         function( current_damage ) return callback( current_damage ) end,
+								--         function( current_damage ) return callback( current_damage ) end
+								--     )
+								-- end
+    							-- adjust_all_entity_damage( c, function( current_damage ) return ( current_damage ) * (1 + missing_mana_percent) end )
+
+    							-- WHY IS IT SO HARD TO MULTIPLY DAMAGE?!
+
+
+
+
+			                    draw_actions( 1, true )
+	                        end,
+    },
+
+	{
+		id          = "CTQ_CURSES_TO_POWER",
+		name 		= "Curses To Power",
+		description = "Adds 10 damage for each curse you have",
+		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/curses_to_power.png",
+		type 		= ACTION_TYPE_MODIFIER,
+		spawn_level                       = "0",
+		spawn_probability                 = "0",
+		price 		= 999,
+		mana 		= 5,
+		action 		= function()
+			c.fire_rate_wait		= c.fire_rate_wait + 5
+			c.damage_curse_add 		= c.damage_curse_add + 0.4 -- for the tooltip
+			if reflecting then return end
+
+			c.damage_curse_add 		= c.damage_curse_add - 0.6 -- reset
+            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+            if curse_count ~= nil then
+				c.damage_curse_add 		= c.damage_curse_add + ( 0.4 * tonumber( curse_count ) )
+				c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
+	            draw_actions( 1, true )
+	        end
+		end,
+	},
+
+	-- {
+	-- 	id          = "CTQ_CURSED_BOLT",
+	-- 	name 		= "Cursed Bolt",
+	-- 	description = "Deals more damage the more curses you carry",
+	-- 	sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/cursed_bolt.png",
+	-- 	type 		= ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level                       = "0",
+	-- 	spawn_probability                 = "0",
+	-- 	price = 999,
+	-- 	mana = 30,
+	-- 	action 		= function()
+	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
+	-- 		shot_effects.recoil_knockback = 40.0
+
+	-- 		if reflecting then return end
+
+    --         local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+    --         if curse_count ~= nil then
+	-- 			c.damage_curse_add = ( 0.4 * tonumber( curse_count ) ) * ( 1.1 * tonumber( curse_count ) )
+	-- 			c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
+	--         end
+
+	-- 		add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/cursed_bolt.xml")
+	-- 	end,
+	-- },
+
+	{
+		id          = "CTQ_CURSES_TO_MANA",
+		name 		= "Curses To Mana",
+		description = "Restores 30 mana for each curse you have",
+		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/curses_to_mana.png",
+		type 		= ACTION_TYPE_MODIFIER,
+		spawn_level                       = "0",
+		spawn_probability                 = "0",
+		price = 999,
+		mana = -30,
+		action 		= function()
+			if reflecting then return end
+
+            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+            if curse_count ~= nil then
+    			mana = mana + ( 30 * ( tonumber( curse_count ) - 1 ) )
+	            draw_actions( 1, true )
+	        end
+		end,
+	},
+
+	{
+		id                  = "CTQ_FIXED_ALTITUDE",
+		name 		        = "Fixed Altitude",
+		description         = "Resets your vertical velocity",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/fixed_altitude.png",
+		type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
+		price               = 280,
+		mana                = 1,
+		action 		        = function()
+								if reflecting then return end
+
+								local player = GetUpdatedEntityID()
+
+								-- local vel_x, vel_y = getPlayerVelocities()
+								-- ^ this seems to be an existing method?
+
+								local vcomp = EntityGetFirstComponent( player, "VelocityComponent" )
+								local cdcomp = EntityGetFirstComponent( player, "CharacterDataComponent" )
+							    if vcomp ~= nil then
+									local v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
+									local d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
+
+								    if ( v_vel_y > 0 ) then
+										-- edit_component( player, "VelocityComponent", function(vcomp,vars)
+										-- 	ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, ( v_vel_y * 0.25 ) - 6 ) end)
+										
+										-- edit_component( player, "CharacterDataComponent", function(ccomp,vars)
+										-- 	ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, ( d_vel_y * 0.25 ) - 12 ) end)
+										edit_component( player, "VelocityComponent", function(vcomp,vars)
+											ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, -6 ) end)
+										
+										edit_component( player, "CharacterDataComponent", function(ccomp,vars)
+											ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, -12 ) end)
+
+										v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
+										d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
+									end
+							    end
+		                    end,
+	},
+
+	{
+		id                  = "CTQ_REWIND",
+		name 		        = "Rewind",
+		description         = "Teleports you where you were 2 seconds ago",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/rewind.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
+		price               = 280,
+		mana                = 40,
+		custom_xml_file 	= "data/entities/misc/custom_cards/torch.xml",
+		action 		        = function()
+								if reflecting then return end
+
+								local player = GetUpdatedEntityID()
+
+								-- local vel_x, vel_y = getPlayerVelocities()
+								-- ^ this seems to be an existing method?
+
+								local vcomp = EntityGetFirstComponent( player, "VelocityComponent" )
+								local cdcomp = EntityGetFirstComponent( player, "CharacterDataComponent" )
+							    if vcomp ~= nil then
+									local v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
+									local d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
+
+								    if ( v_vel_y > 0 ) then
+										-- edit_component( player, "VelocityComponent", function(vcomp,vars)
+										-- 	ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, ( v_vel_y * 0.25 ) - 6 ) end)
+										
+										-- edit_component( player, "CharacterDataComponent", function(ccomp,vars)
+										-- 	ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, ( d_vel_y * 0.25 ) - 12 ) end)
+										edit_component( player, "VelocityComponent", function(vcomp,vars)
+											ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, -6 ) end)
+										
+										edit_component( player, "CharacterDataComponent", function(ccomp,vars)
+											ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, -12 ) end)
+
+										v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
+										d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
+									end
+							    end
 		                    end,
 	},
 }
