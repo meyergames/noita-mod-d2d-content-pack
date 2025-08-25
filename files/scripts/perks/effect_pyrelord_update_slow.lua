@@ -37,7 +37,9 @@ for i,enemy in ipairs(enemies) do
         if ( enemy ~= owner and p_hp < p_max_hp and distance_between( owner, enemy ) < EFFECT_RADIUS_HEALING ) then
             local heal_dmg = -1 * math.max( ( ( e_max_hp * 0.01 ) + ( e_hp * 0.02 ) ) * fire_dmg_mtp, 0.02 )
             EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
+
             GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+            EntityLoad( "mods/RiskRewardBundle/files/entities/particles/heal_pyrelord.xml", pos_x, pos_y )
         end
     end
 end

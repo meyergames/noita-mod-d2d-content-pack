@@ -138,8 +138,8 @@ ctq_perks = {
 		id = "CTQ_HUNT_CURSES",
 		ui_name = "$perk_riskreward_hunt_curses_name",
 		ui_description = "$perk_riskreward_hunt_curses_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_sell_your_soul_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_sell_your_soul.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_hunt_curses_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_hunt_curses.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -152,13 +152,23 @@ ctq_perks = {
 	-- 	id = "CTQ_LIFT_CURSES",
 	-- 	ui_name = "$perk_riskreward_lift_curses_name",
 	-- 	ui_description = "$perk_riskreward_lift_curses_desc",
-	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_sell_your_soul_016.png",
-	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_sell_your_soul.png",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_lift_curses_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_lift_curses.png",
+    --     -- spawn_requires_flag = "apotheosis_card_unlocked_fire_lukki_spell",  --Requires Aesthete of Heat to be slain
 	-- 	stackable = STACKABLE_YES,
-	-- 	one_off_effect = false,
+	-- 	one_off_effect = true,
 	-- 	usable_by_enemies = false,
 	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
-	-- 		LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_hunter.xml" )
+	-- 		dofile_once( "data/scripts/lib/utilities.lua" )
+    -- 		dofile_once( "mods/RiskRewardBundle/files/scripts/perks.lua" )
+
+	-- 		for k,v in pairs( ctq_curses ) do
+	-- 			if ( has_perk( v.id ) ) then
+	-- 				remove_perk( v.id )
+	-- 			end
+	-- 		end
+
+	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_lifter.xml" )
     --     end,
 	-- },
 
@@ -365,7 +375,22 @@ ctq_curses = {
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			-- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_floor_is_lava.xml" )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_combustion.xml" )
+        end,
+	},
+
+	{
+		id = "CTQ_CURSE_FALL_DAMAGE",
+		ui_name = "$perk_riskreward_curse_fall_damage_name",
+		ui_description = "$perk_riskreward_curse_fall_damage_desc",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_fall_damage_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_fall_damage.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_fall_damage.xml" )
         end,
 	},
 

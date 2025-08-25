@@ -32,8 +32,8 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	-- [ ] live Circle Of Gold spellcast
 
 	local rnd = Random(1,100)
-	-- maybe spawn gold (10% chance)
-	if ( rnd <= 10 ) then
+	-- maybe spawn gold (15% chance)
+	if ( rnd <= 15 ) then
 		local rnd2 = Random( 1,100 )
 		if ( rnd2 <= 99 ) then
 			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_128.xml" } )
@@ -41,23 +41,31 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_256.xml" } )
 		end
 	-- maybe spawn a heart (15% chance)
-	elseif ( rnd <= 25 ) then
+	elseif ( rnd <= 30 ) then
 		local rnd2 = Random( 1, 100 )
-		if ( rnd2 <= 70 ) then -- 10% chance for +50 max hp
+		if ( rnd2 <= 70 ) then -- 10.5% chance for +50 max hp
 			table.insert( entities, { "data/entities/items/pickup/heart.xml" } )
-		elseif ( rnd2 <= 85 ) then -- 10% chance for +50 max hp
+		elseif ( rnd2 <= 85 ) then -- 2.25% chance for +50 max hp
 			table.insert( entities, { "data/entities/items/pickup/heart_better.xml" } )
-		elseif ( rnd2 <= 100 ) then -- 10% chance for a full heal
+		elseif ( rnd2 <= 100 ) then -- 2.25% chance for a full heal
 			table.insert( entities, { "data/entities/items/pickup/heart_fullhp.xml" } )
 		end
-	-- maybe spawn an item (15% chance)
+	-- maybe spawn an item (10% chance)
 	elseif ( rnd <= 40 ) then
 		local rnd2 = Random( 1, 100 )
-		if ( rnd2 <= 80 ) then -- 12%
-			table.insert( entities, { "mods/RiskRewardBundle/files/entities/items/pickup/emergency_injection.xml"} )
-		elseif ( rnd2 <= 95 ) then -- 2.25%
+		if ( rnd2 <= 30 ) then -- 4%
+			table.insert( entities, { "mods/RiskRewardBundle/files/entities/items/pickup/emergency_injection.xml" } )
+		elseif ( rnd2 <= 40 ) then -- 1%
+			table.insert( entities, { "data/entities/items/pickup/safe_haven.xml" } )
+		elseif ( rnd2 <= 60 ) then -- 2%
+			table.insert( entities, { "data/entities/items/pickup/thunderstone.xml" } )
+		elseif ( rnd2 <= 80 ) then -- 2%
+			table.insert( entities, { "data/entities/items/pickup/brimstone.xml" } )
+		elseif ( rnd2 <= 85 ) then -- 0.5%
+			table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
+		elseif ( rnd2 <= 95 ) then -- 1.0%
 			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml"} )
-		elseif ( rnd2 <= 100 ) then -- 0.75%
+		elseif ( rnd2 <= 100 ) then -- 0.5%
 			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"} )
 		end
 	-- maybe spawn a curse-related spell (15% chance)
@@ -66,121 +74,62 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		local rnd2 = Random( 1, #spells )
 		local spell_to_spawn = spells[rnd2]
    		CreateItemActionEntity( spell_to_spawn, x, y )
-
 	-- maybe spawn a perk (10% chance)
 	elseif ( rnd <= 65 ) then
 		local rnd2 = Random( 1, 100 )
 		if ( rnd2 <= 70 ) then -- 7%
 			spawn_random_perk( x, y )
-		elseif ( rnd2 <= 90 ) then -- 2%
+		elseif ( rnd2 <= 100 ) then -- 3%
 			spawn_random_perk( x - 10, y )
 			spawn_random_perk( x + 10, y )
-		else -- 1%
-			spawn_random_perk_custom( x - 10, y, { "CTQ_LIFT_CURSES" } )
-			spawn_random_perk( x + 10, y )
+		-- else -- 1%
+		-- 	spawn_random_perk_custom( x - 10, y, { "CTQ_LIFT_CURSES" } )
+		-- 	spawn_random_perk( x + 10, y )
+		-- end
+	-- maybe spawn a bunch of spells (10% chance)
+	elseif ( rnd <= 75 ) then
+		local amount = 1
+		local rnd2 = Random(0,100)
+		if (rnd2 <= 50) then -- 5%
+			amount = 4
+		elseif (rnd2 <= 70) then -- 2%
+			amount = amount + 1
+		elseif (rnd2 <= 80) then -- 1%
+			amount = amount + 2
+		elseif (rnd2 <= 90) then -- 1%
+			amount = amount + 3
+		elseif (rnd2 <= 100) then -- 1%
+			amount = amount + 4
+		end
+
+		for i=1,amount do
+			local spx = x + (i - (amount / 2)) * 12
+			local spy = y - 4 + Random(-5,5)
+
+			dofile_once( "data/scripts/items/chest_random.lua" )
+			make_random_card( spx, spy )
 		end
 	-- maybe spawn a wand (25% chance)
 	elseif ( rnd <= 100 ) then
 		local rnd2 = Random( 1, 100 )
-		if( rnd2 <= 25 ) then
+		if( rnd2 <= 25 ) then -- 6.25%
 			table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
-		elseif( rnd2 <= 50 ) then
+		elseif( rnd2 <= 50 ) then -- 6.25%
 			table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
-		elseif( rnd2 <= 75 ) then
+		elseif( rnd2 <= 75 ) then -- 6.25%
 			table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
-		elseif( rnd2 <= 90 ) then
+		elseif( rnd2 <= 90 ) then -- 3.75%
 			table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
-		elseif( rnd2 <= 96 ) then
+		elseif( rnd2 <= 96 ) then -- 1.5%
 			table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-		elseif( rnd2 <= 98 ) then
+		elseif( rnd2 <= 98 ) then -- 0.5%
 			table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
-		elseif( rnd2 <= 99 ) then
+		elseif( rnd2 <= 99 ) then -- 0.25%
 			table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-		elseif( rnd2 <= 100 ) then
+		elseif( rnd2 <= 100 ) then -- 0.25%
 			table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
 		end
 	end
-
-	-- while( count > 0 ) do
-	-- 	count = count - 1
-	-- 	local rnd = Random(1,100)
-
-	-- 	if( rnd <= 10 ) then
-	-- 		-------------------------------------------------------------------
-	-- 		-- Potion
-	-- 		-------------------------------------------------------------------
-	-- 		rnd = Random(0,100)
-	-- 		if (rnd <= 30) then
-	-- 			table.insert( entities, { "data/entities/items/pickup/potion.xml" } )
-	-- 			table.insert( entities, { "data/entities/items/pickup/potion.xml" } )
-	-- 			table.insert( entities, { "data/entities/items/pickup/potion_secret.xml" } )
-	-- 		else
-	-- 			table.insert( entities, { "data/entities/items/pickup/potion_secret.xml" } )
-	-- 			table.insert( entities, { "data/entities/items/pickup/potion_secret.xml" } )
-	-- 			table.insert( entities, { "data/entities/items/pickup/potion_random_material.xml" } )
-	-- 		end
-	-- 	elseif( rnd <= 15 ) then
-	-- 		table.insert( entities, { "data/entities/projectiles/rain_gold.xml" } )
-	-- 	elseif( rnd <= 18 ) then
-	-- 		local rnd2 = Random(1,30)
-			
-	-- 		if (rnd2 ~= 30) then
-	-- 			table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
-	-- 		else
-	-- 			table.insert( entities, { "data/entities/items/pickup/poopstone.xml" } )
-	-- 		end
-	-- 	elseif( rnd <= 39 ) then
-		
-	-- 		-------------------------------------------------------------------
-	-- 		-- Wand
-	-- 		-------------------------------------------------------------------
-
-	-- 		rnd = Random(0,100)
-			
-	-- 		if( rnd <= 25 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
-	-- 		elseif( rnd <= 50 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
-	-- 		elseif( rnd <= 75 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
-	-- 		elseif( rnd <= 90 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
-	-- 		elseif( rnd <= 96 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-	-- 		elseif( rnd <= 98 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
-	-- 		elseif( rnd <= 99 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-	-- 		elseif( rnd <= 100 ) then
-	-- 			table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
-	-- 		end
-	-- 	elseif( rnd <= 60 ) then
-	-- 		-------------------------------------------------------------------
-	-- 		-- Heart(s)
-	-- 		-------------------------------------------------------------------
-	-- 		rnd = Random(0,100)
-			
-	-- 		if (rnd <= 89) then
-	-- 			table.insert( entities, { "data/entities/items/pickup/heart.xml" } )
-	-- 		elseif (rnd <= 99) then
-	-- 			table.insert( entities, { "data/entities/items/pickup/heart_better.xml" } )
-	-- 		else
-	-- 			table.insert( entities, { "data/entities/items/pickup/heart_fullhp.xml" } )
-	-- 		end
-	-- 	elseif( rnd <= 98 ) then
-	-- 		-------------------------------------------------------------------
-	-- 		-- exploding "dice"
-	-- 		-------------------------------------------------------------------
-
-	-- 		-- explode the random table
-	-- 		-- do random reward 2 times...
-	-- 		count = count + 2
-	-- 	elseif( rnd <= 100 ) then
-	-- 		-- explode the random table
-	-- 		-- do random reward 3 times...
-	-- 		count = count + 3
-	-- 	end
-	-- end
 
 	for i,entity in ipairs(entities) do
 		local eid = 0 
@@ -222,18 +171,12 @@ function on_open( entity_item )
 	end
 
 	SetRandomSeed( rand_x, rand_y )
-
-	-- money
-	-- card
-	-- potion
-	-- wand
-	-- bunch of spiders
-	-- bomb
+	
 	local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )
 	
-	-- if good_item_dropped then
+	EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
 	EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
-	GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad", x, y )
+	-- GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad", x, y )
 	-- else
 	--     EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
 	-- end

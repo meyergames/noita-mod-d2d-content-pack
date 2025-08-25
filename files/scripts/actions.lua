@@ -64,7 +64,7 @@ ctq_actions = {
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/flurry.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.7,0.8,0.9,1.0,0.9,0.8,0.7",
+		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
 	    price               = 180,
 	    mana                = 1,
 	    action              = function()
@@ -618,8 +618,8 @@ ctq_actions = {
 		type 		= ACTION_TYPE_MODIFIER,
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
-		price = 999,
-		mana = -30,
+		price 		= 999,
+		mana 		= -30,
 		action 		= function()
 			if reflecting then return end
 
@@ -674,49 +674,49 @@ ctq_actions = {
 		                    end,
 	},
 
-	{
-		id                  = "CTQ_REWIND",
-		name 		        = "Rewind",
-		description         = "Teleports you where you were 2 seconds ago",
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/rewind.png",
-		type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
-		price               = 280,
-		mana                = 40,
-		custom_xml_file 	= "data/entities/misc/custom_cards/torch.xml",
-		action 		        = function()
-								if reflecting then return end
+	-- {
+	-- 	id                  = "CTQ_REWIND",
+	-- 	name 		        = "Rewind",
+	-- 	description         = "Teleports you where you were 4 seconds ago",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/rewind.png",
+	-- 	type 		        = ACTION_TYPE_PASSIVE,
+	-- 	spawn_level         = "1,2,3,4,5,6",
+	-- 	spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
+	-- 	price               = 280,
+	-- 	mana                = 40,
+	-- 	custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/torch.xml",
+	-- 	action 		        = function()
+	-- 							if reflecting then return end
 
-								local player = GetUpdatedEntityID()
+	-- 							local player = GetUpdatedEntityID()
 
-								-- local vel_x, vel_y = getPlayerVelocities()
-								-- ^ this seems to be an existing method?
+	-- 							-- local vel_x, vel_y = getPlayerVelocities()
+	-- 							-- ^ this seems to be an existing method?
 
-								local vcomp = EntityGetFirstComponent( player, "VelocityComponent" )
-								local cdcomp = EntityGetFirstComponent( player, "CharacterDataComponent" )
-							    if vcomp ~= nil then
-									local v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
-									local d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
+	-- 							local vcomp = EntityGetFirstComponent( player, "VelocityComponent" )
+	-- 							local cdcomp = EntityGetFirstComponent( player, "CharacterDataComponent" )
+	-- 						    if vcomp ~= nil then
+	-- 								local v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
+	-- 								local d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
 
-								    if ( v_vel_y > 0 ) then
-										-- edit_component( player, "VelocityComponent", function(vcomp,vars)
-										-- 	ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, ( v_vel_y * 0.25 ) - 6 ) end)
+	-- 							    if ( v_vel_y > 0 ) then
+	-- 									-- edit_component( player, "VelocityComponent", function(vcomp,vars)
+	-- 									-- 	ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, ( v_vel_y * 0.25 ) - 6 ) end)
 										
-										-- edit_component( player, "CharacterDataComponent", function(ccomp,vars)
-										-- 	ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, ( d_vel_y * 0.25 ) - 12 ) end)
-										edit_component( player, "VelocityComponent", function(vcomp,vars)
-											ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, -6 ) end)
+	-- 									-- edit_component( player, "CharacterDataComponent", function(ccomp,vars)
+	-- 									-- 	ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, ( d_vel_y * 0.25 ) - 12 ) end)
+	-- 									edit_component( player, "VelocityComponent", function(vcomp,vars)
+	-- 										ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, -6 ) end)
 										
-										edit_component( player, "CharacterDataComponent", function(ccomp,vars)
-											ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, -12 ) end)
+	-- 									edit_component( player, "CharacterDataComponent", function(ccomp,vars)
+	-- 										ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, -12 ) end)
 
-										v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
-										d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
-									end
-							    end
-		                    end,
-	},
+	-- 									v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
+	-- 									d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
+	-- 								end
+	-- 						    end
+	-- 	                    end,
+	-- },
 }
 
 
