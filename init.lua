@@ -53,6 +53,8 @@ function OnPlayerSpawned(player)
     else
         local perk = perk_spawn( 800, -100, perk_to_spawn.id )
     end
+
+    EntityLoad( "mods/RiskRewardBundle/files/entities/items/pickup/chest_random_cursed_ctq.xml", 750, -100 )
     
 
     --spawn items

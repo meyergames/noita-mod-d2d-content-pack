@@ -20,7 +20,11 @@ end
 
 addNewInternalVariable( owner, "pyrelord_is_effect_active", "value_int", 0 )
 addNewInternalVariable( owner, "pyrelord_shot_effect_id", "value_int", 0 )
-addNewInternalVariable( owner, "pyrelord_mana_charge_speed_mtp", "value_int", 25 )
+-- addNewInternalVariable( owner, "pyrelord_mana_charge_speed_mtp", "value_int", 0 )
+
+
+
+
 
 -- comp = EntityGetFirstComponent( owner, "DamageModelComponent" )
 -- if ( comp ~= nil ) then

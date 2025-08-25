@@ -311,9 +311,16 @@ function spawn_random_perk( x, y )
 		end
 	end
 
-	GamePrint(perk_ids_to_consider)
     perk_id_to_spawn = random_from_array( perk_ids_to_consider )
     local perk = perk_spawn( x, y, perk_id_to_spawn )
+end
+
+
+function spawn_perk( perk_id, x, y )
+    dofile_once( "data/scripts/perks/perk_list.lua" )
+    dofile_once( "data/scripts/perks/perk.lua" )
+
+    local perk = perk_spawn( x, y, perk_id )
 end
 
 

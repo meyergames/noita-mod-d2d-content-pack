@@ -27,19 +27,37 @@ for i,enemy in ipairs(enemies) do
         local e_max_hp = ComponentGetValue2( e_dcomp, "max_hp" )
         local fire_dmg_mtp = ComponentObjectGetValue2( e_dcomp, "damage_multipliers", "fire" )
 
-        -- custom fire damage
-        if ( enemy == owner ) then -- effectively sets regular fire damage to 0
-            EntityInflictDamage( owner, -(e_max_hp * 0.01), "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
-        end
-        EntityInflictDamage( enemy, e_hp * 0.02, "DAMAGE_FIRE", "pyrelord fire", "NONE", 0, 0, owner, x, y, 0 )
+        -- custom fire damage formula
+        local remaining_hp_dmg = ( e_hp - e_max_hp * 0.2 ) * 0.02
 
-        -- nearby burning enemies heal the player
-        if ( enemy ~= owner and p_hp < p_max_hp and distance_between( owner, enemy ) < EFFECT_RADIUS_HEALING ) then
+        -- effectively set regular fire damage to 0 for the player
+        if ( enemy == owner ) then
+            EntityInflictDamage( owner, -(e_max_hp * 0.01), "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
+
+            -- fire heals the player if their health is below 20%
+            if ( p_hp < p_max_hp * 0.2 ) then
+                local heal_dmg = -1 * p_max_hp * 0.01
+                EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
+                GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+            end
+
+            -- if the player is burning, the remaining health-based fire damage spreads to nearby enemies
+            for i,other_enemy in ipairs(enemies) do
+                if ( other_enemy ~= owner ) then
+                    EntityInflictDamage( other_enemy, remaining_hp_dmg, "DAMAGE_FIRE", "pyrelord fire", "NONE", 0, 0, owner, x, y, 0 )
+                end
+            end
+        end
+
+        -- apply the custom fire damage formula
+        EntityInflictDamage( enemy, remaining_hp_dmg, "DAMAGE_FIRE", "pyrelord fire", "NONE", 0, 0, owner, x, y, 0 )
+
+        -- nearby burning enemies heal the player while health is below 40%
+        if ( enemy ~= owner and p_hp < p_max_hp * 0.4 and distance_between( owner, enemy ) < EFFECT_RADIUS_HEALING ) then
             local heal_dmg = -1 * math.max( ( ( e_max_hp * 0.01 ) + ( e_hp * 0.02 ) ) * fire_dmg_mtp, 0.02 )
             EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
-
             GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
-            EntityLoad( "mods/RiskRewardBundle/files/entities/particles/heal_pyrelord.xml", pos_x, pos_y )
+            -- EntityLoad( "mods/RiskRewardBundle/files/entities/particles/heal_pyrelord.xml", pos_x, pos_y )
         end
     end
 end

@@ -77,11 +77,15 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	-- maybe spawn a perk (10% chance)
 	elseif ( rnd <= 65 ) then
 		local rnd2 = Random( 1, 100 )
-		if ( rnd2 <= 70 ) then -- 7%
+		if ( not has_perk( "CTQ_HUNT_CURSES" ) ) then
+			spawn_random_perk( x - 10, y )
+			spawn_perk( "CTQ_HUNT_CURSES", x + 10, y )
+		elseif ( rnd2 <= 70 ) then -- 7%
 			spawn_random_perk( x, y )
 		elseif ( rnd2 <= 100 ) then -- 3%
 			spawn_random_perk( x - 10, y )
 			spawn_random_perk( x + 10, y )
+		end
 		-- else -- 1%
 		-- 	spawn_random_perk_custom( x - 10, y, { "CTQ_LIFT_CURSES" } )
 		-- 	spawn_random_perk( x + 10, y )
@@ -109,8 +113,31 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 			dofile_once( "data/scripts/items/chest_random.lua" )
 			make_random_card( spx, spy )
 		end
-	-- maybe spawn a wand (25% chance)
-	elseif ( rnd <= 100 ) then
+	-- maybe spawn one or more cats (2% chance), if Apotheosis is enabled
+	elseif ( rnd <= 77 and ModIsEnabled("Apotheosis") ) then
+		local rnd2 = Random( 1, 100 )
+		if( rnd2 <= 50 ) then -- 1% (1/100)
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+		elseif( rnd2 <= 75 ) then -- 0.5% (1/200)
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+		elseif( rnd2 <= 90 ) then -- 0.3% (1/333)
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+		elseif( rnd2 <= 100 ) then -- 0.2% (1/500)
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+		end
+	-- maybe spawn a wand
+	else
 		local rnd2 = Random( 1, 100 )
 		if( rnd2 <= 25 ) then -- 6.25%
 			table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
@@ -180,6 +207,9 @@ function on_open( entity_item )
 	-- else
 	--     EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
 	-- end
+	if ( has_perk( "CTQ_HUNT_CURSES" ) ) then
+		LoadGameEffectEntityTo( get_player(), "data/entities/misc/effect_regeneration.xml" )
+	end
 end
 
 function item_pickup( entity_item, entity_who_picked, name )

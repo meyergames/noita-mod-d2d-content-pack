@@ -26,19 +26,19 @@ end
 setInternalVariableValue( owner, "floor_is_lava_counter", "value_int", new_val )
 
 local counter = getInternalVariableValue( owner, "floor_is_lava_counter", "value_int" )
-if ( counter < 12 ) then
+if ( counter < 24 ) then
 	ComponentSetValue2( matconv_lavarock_id, "radius", 0 )
 	ComponentSetValue2( matconv_lavarockburning_id, "radius", 0 )
 	ComponentSetValue2( matconv_lava_id, "radius", 0 )
-elseif ( counter >= 12 and counter < 18 ) then
+elseif ( counter >= 24 and counter < 36 ) then
 	ComponentSetValue2( matconv_lavarock_id, "radius", CONVERT_RADIUS )
 	ComponentSetValue2( matconv_lavarockburning_id, "radius", 0 )
 	ComponentSetValue2( matconv_lava_id, "radius", 0 )
-elseif ( counter >= 18 and counter < 30 ) then
+elseif ( counter >= 36 and counter < 42 ) then
 	ComponentSetValue2( matconv_lavarock_id, "radius", 0 )
 	ComponentSetValue2( matconv_lavarockburning_id, "radius", CONVERT_RADIUS )
 	ComponentSetValue2( matconv_lava_id, "radius", 0 )
-elseif ( counter >= 30 ) then
+elseif ( counter >= 42 ) then
 	ComponentSetValue2( matconv_lavarock_id, "radius", 0 )
 	ComponentSetValue2( matconv_lavarockburning_id, "radius", 0)
 	ComponentSetValue2( matconv_lava_id, "radius", CONVERT_RADIUS )

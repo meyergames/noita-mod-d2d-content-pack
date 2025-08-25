@@ -12,7 +12,7 @@ perk_riskreward_ring_of_life_desc,Teleport to safety upon reaching critical (but
 perk_riskreward_set_in_stone_name,Set In Stone,,,,,,,,,,,,,
 perk_riskreward_set_in_stone_desc,The wand in your hand gains a strong mana boost.\nIt can no longer be tinkered with.,,,,,,,,,,,,,
 perk_riskreward_hunt_curses_name,Curse Hunter,,,,,,,,,,,,,
-perk_riskreward_hunt_curses_desc,You can sense nearby cursed chests.\nThey also appear more often.,,,,,,,,,,,,,
+perk_riskreward_hunt_curses_desc,Opening cursed chests heals you.\nThey also become easier to find.,,,,,,,,,,,,,
 perk_riskreward_lift_curses_name,Lift Curses,,,,,,,,,,,,,
 perk_riskreward_lift_curses_desc,You are freed from all curses.,,,,,,,,,,,,,
 perk_riskreward_curse_stendari_name,Stendari Curse,,,,,,,,,,,,,

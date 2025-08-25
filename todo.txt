@@ -34,6 +34,11 @@ perks
 [ ] is overheating wands ship-ready?
 [ ] is arhythmic wands ship-ready?
 [ ] is the floor is lava ship-ready?
+curses
+[ ] add unique outline to curse UI icons
+[ ] cursed chest curse selection sequence:
+    1. find a curse the player doesn't already have
+    2. if the player has all curses, pick a random curse that is stackable (maybe guaranteed Curse Lifter when the player has all curses? + unlock for future runs)
 
 
 
@@ -48,3 +53,7 @@ organization checklist
 [ ] do all file names make sense/follow a pattern?
 [ ] all references to new file destinations updated?
 [ ] tried making OrganiseProgress work?
+
+
+shipping
+[ ] "the mod is compatible with Apotheosis; be sure to place this mod under Apotheosis in the mod list order"
