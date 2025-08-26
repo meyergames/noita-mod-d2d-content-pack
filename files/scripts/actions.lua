@@ -149,39 +149,6 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_PAYDAY",
-	    name 		        = "$spell_riskreward_payday_name",
-	    description         = "$spell_riskreward_payday_desc",
-        inject_after        = { "SUMMON_ROCK" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/payday.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4,5,6", -- SUMMON_ROCK
-		spawn_probability   = "0.7,0.7,0.5,0.5,0.2,0.6,0.6", -- SUMMON_ROCK (-0.1)
-	    price               = 100,
-	    mana                = 10,
---        max_uses            = 20,
-	    action              = function()
-			                    c.fire_rate_wait    = c.fire_rate_wait + 40
-			                    current_reload_time = current_reload_time + 40
-
-			                    local player = GetUpdatedEntityID()
-                                local wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent")
-                                
-                                if (wallet ~= nil) then
-    	                            local money = ComponentGetValue2(wallet, "money")
-                                    if (money ~= nil) then
-                                        if ( money >= 10 ) then
-			                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/payday_nugget.xml")
-                                            ComponentSetValue2(wallet, "money", money - 10)
-                                        else
-                                            GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
-                                        end
-                                    end
-                                end
-	                        end,
-    },
-
-    {
 	    id                  = "CTQ_SNIPE_SHOT",
 	    name 		        = "$spell_riskreward_sniper_bolt_name",
 	    description         = "$spell_riskreward_sniper_bolt_desc",
@@ -249,7 +216,60 @@ ctq_actions = {
 	    action              = function()
 		                        c.fire_rate_wait = current_reload_time + 8
 		                        current_reload_time = current_reload_time + 20
-                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/giga_drain_bullet_(BACKUP).xml")
+                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/giga_drain_bullet.xml")
+	                        end,
+    },
+
+    {
+	    id                  = "CTQ_PAYDAY",
+	    name 		        = "$spell_riskreward_payday_name",
+	    description         = "$spell_riskreward_payday_desc",
+        inject_after        = { "SUMMON_ROCK" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/payday.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4,5,6", -- SUMMON_ROCK
+		spawn_probability   = "0.7,0.7,0.5,0.5,0.2,0.6,0.6", -- SUMMON_ROCK (-0.1)
+	    price               = 100,
+	    mana                = 10,
+--        max_uses            = 20,
+	    action              = function()
+			                    c.fire_rate_wait    = c.fire_rate_wait + 40
+			                    current_reload_time = current_reload_time + 40
+
+			                    local player = GetUpdatedEntityID()
+                                local wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent")
+                                
+                                if (wallet ~= nil) then
+    	                            local money = ComponentGetValue2(wallet, "money")
+                                    if (money ~= nil) then
+                                        if ( money >= 10 ) then
+			                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/payday_nugget.xml")
+                                            ComponentSetValue2(wallet, "money", money - 10)
+                                        else
+                                            GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+                                        end
+                                    end
+                                end
+	                        end,
+    },
+
+    {
+	    id                  = "CTQ_CONCRETE_WALL",
+	    name 		        = "$spell_riskreward_concrete_wall_name",
+	    description         = "$spell_riskreward_concrete_wall_desc",
+        inject_after        = { "CTQ_PAYDAY", "SUMMON_ROCK" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/concrete_wall.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
+	    price               = 200,
+	    mana                = 80,
+	    max_uses			= 10,
+	    action              = function()
+			                    c.fire_rate_wait    = c.fire_rate_wait + 40
+			                    current_reload_time = current_reload_time + 40
+
+                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/concrete_wall_bullet_initial.xml")
 	                        end,
     },
 
@@ -412,7 +432,7 @@ ctq_actions = {
 		id                  = "CTQ_DRILL_VOLCANIC",
 		name 		        = "Volcanic Drill",
 		description         = "Perfectly suited for any and all mining operations",
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_volcanic.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "2,3,4,5,6",
 		spawn_probability   = "0.5,0.6,0.7,0.8,0.9",
@@ -426,23 +446,23 @@ ctq_actions = {
 		                    end,
 	},
 
-	{
-		id                  = "CTQ_DRILL_INFERNAL",
-		name 		        = "Infernal Drill",
-		description         = "Not even brickwork is safe",
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
-		type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "4,5,6",
-		spawn_probability   = "0.4,0.6,0.8",
-		price               = 700,
-		mana                = 90,
-		sound_loop_tag      = "sound_digger",
-		action 		        = function()
-			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_infernal.xml")
-			                    c.fire_rate_wait = c.fire_rate_wait + 1
-			                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
-		                    end,
-	},
+	-- {
+	-- 	id                  = "CTQ_DRILL_INFERNAL",
+	-- 	name 		        = "Infernal Drill",
+	-- 	description         = "Not even brickwork is safe",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
+	-- 	type 		        = ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "4,5,6",
+	-- 	spawn_probability   = "0.4,0.6,0.8",
+	-- 	price               = 700,
+	-- 	mana                = 90,
+	-- 	sound_loop_tag      = "sound_digger",
+	-- 	action 		        = function()
+	-- 		                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_infernal.xml")
+	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 1
+	-- 		                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
+	-- 	                    end,
+	-- },
 
 	-- {
 	-- 	id          = "CTQ_CIRCLE_GOLD",
@@ -630,6 +650,26 @@ ctq_actions = {
 	        end
 		end,
 	},
+
+    {
+	    id                  = "CTQ_VOLLEY",
+	    name 		        = "Rapidfire Salvo",
+	    description         = "Drastically lowers cast delay, at the cost of recharge time",
+        inject_after        = { "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/rapidfire_salvo.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_volley.xml",
+	    price               = 180,
+	    mana                = 1,
+	    action              = function()
+                                -- c.fire_rate_wait    = c.fire_rate_wait - 30
+                                -- current_reload_time = current_reload_time + 30
+
+                                draw_actions( 1, true )
+	                        end,
+    },
 
 	{
 		id                  = "CTQ_FIXED_ALTITUDE",

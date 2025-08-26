@@ -5,7 +5,7 @@ content checklist
 
 spells
 [ ] is optimize ship-ready?
-[ ] is burstfire ship-ready?
+[ ] is flurry ship-ready?
 [ ] is overclock ship-ready?
 [ ] is missing mana to damage ship-ready?
 [ ] is payday ship-ready?
@@ -16,6 +16,8 @@ spells
 [ ] is ghost trigger ship-ready?
 [ ] are the banana bombs ship-ready?
 [ ] is bag of bombs ship-ready?
+[ ] add the same explosion sprite to the volcanic/infernal drills as the banana bomb + add berserkium sparks, to reflect that one gif that inspired the spells
+[ ] remove on_fire applying effect from the drills
 [ ] is volcanic drill ship-ready?
 [ ] is infernal drill ship-ready?
 
@@ -57,3 +59,4 @@ organization checklist
 
 shipping
 [ ] "the mod is compatible with Apotheosis; be sure to place this mod under Apotheosis in the mod list order"
+[ ] "Cross-mod interactions with:"

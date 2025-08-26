@@ -260,11 +260,18 @@ function apply_random_curse( entity_id )
 		end
 	end
 
+    local stackable_curses = {}
+	for k,v in pairs( ctq_curses ) do
+		if ( v.stackable == STACKABLE_YES ) then
+			stackable_curses[k] = v
+		end
+	end
+
 	local random_perk
 	if ( #curses_not_picked_up > 0 ) then
 		random_perk = random_from_array( curses_not_picked_up )
 	else
-		random_perk = random_from_array( ctq_curses )
+		random_perk = random_from_array( stackable_curses )
 	end
     local spawned_perk = perk_spawn( x, y, random_perk.id )
     perk_pickup( spawned_perk, entity_id, EntityGetName( spawned_perk ), false, false )

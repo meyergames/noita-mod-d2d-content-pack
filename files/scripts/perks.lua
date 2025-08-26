@@ -195,6 +195,35 @@ ctq_perks = {
 	-- 	    wand:SetFrozen( true, true )
     --     end,
 	-- },
+
+	{
+		id = "CTQ_SPRAY_AND_PRAY",
+		ui_name = "Rapidfire Salvo",
+		ui_description = "Cast delay is converted into recharge time.",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = true,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+            -- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_pyrelord.xml" )
+            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
+			            { 
+				            extra_modifier = "ctq_volley",
+			            } )
+        end,
+        -- effects:
+        -- > all projectiles deal +10 fire damage and ignite enemies
+        -- > x1.25 mana charge speed
+        -- > everyone takes more damage from fire
+        -- > you take less damage from fire when low on health
+       	-- > nearby burning enemies heal you
+        -- additionally, while the player is on fire...
+        -- > x1.5 move speed (from x1.15)
+        -- > x1.5 mana charge speed (from x1.25)
+        -- > x1.25 fire rate and reload speed
+        -- > endless flight
+	},
 }
 
 

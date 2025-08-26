@@ -1,0 +1,7 @@
+IDEAS
+
+Parry: a short-range, medium-cooldown "explosion" that, when timed well, deflects bullets (like Revenge Bullets) with extra speed and damage.
+
+Safe Space: clears a 75-radius area, then creates a thin layer of some solid (concrete?) to protect you.
+
+Summon Wall: when shot, creates a barrier of concrete at -90 and +90 angles, until it reaches terrain.

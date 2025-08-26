@@ -98,3 +98,14 @@ extra_modifiers["ctq_divine_prank"] = function()
         setInternalVariableValue( get_player(), "divine_prank_enable_propane_effect", "value_int", 0 )
     end
 end
+    
+extra_modifiers["ctq_projectile_concrete_trail"] = function()
+    c.trail_material = c.trail_material .. "concrete_static,"
+    c.trail_material_amount = c.trail_material_amount + 20
+end
+    
+extra_modifiers["ctq_volley"] = function()
+    local old_fire_rate_wait = c.fire_rate_wait
+    c.fire_rate_wait = c.fire_rate_wait * 0.25
+    current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.375 )
+end

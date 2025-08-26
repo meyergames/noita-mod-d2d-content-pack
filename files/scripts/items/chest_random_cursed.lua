@@ -199,16 +199,20 @@ function on_open( entity_item )
 
 	SetRandomSeed( rand_x, rand_y )
 	
-	local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )
-	
-	EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
-	EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
-	-- GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad", x, y )
-	-- else
-	--     EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
-	-- end
-	if ( has_perk( "CTQ_HUNT_CURSES" ) ) then
-		LoadGameEffectEntityTo( get_player(), "data/entities/misc/effect_regeneration.xml" )
+	if ( distance_between( get_player(), GetUpdatedEntityID() ) <= 100 ) then
+		apply_random_curse( get_player() )
+
+		local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )
+		
+		EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
+		EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
+		-- GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad", x, y )
+		-- else
+		--     EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
+		-- end
+		if ( has_perk( "CTQ_HUNT_CURSES" ) ) then
+			LoadGameEffectEntityTo( get_player(), "data/entities/misc/effect_regeneration.xml" )
+		end
 	end
 end
 
@@ -221,7 +225,6 @@ function item_pickup( entity_item, entity_who_picked, name )
 	--end
 
 	on_open( entity_item )
-	apply_random_curse( entity_who_picked )
 	
 	EntityKill( entity_item )
 end
@@ -232,7 +235,6 @@ function physics_body_modified( is_destroyed )
 	local entity_item = GetUpdatedEntityID()
 	
 	on_open( entity_item )
-	apply_random_curse( get_player() )
 
 	edit_component( entity_item, "ItemComponent", function(comp,vars)
 		EntitySetComponentIsEnabled( entity_item, comp, false )
