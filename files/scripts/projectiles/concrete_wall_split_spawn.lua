@@ -13,3 +13,16 @@ local speed = 125
 
 shoot_projectile( entity_id, id_to_spawn, e_x, e_y, dir_xa * speed, dir_ya * speed)
 shoot_projectile( entity_id, id_to_spawn, e_x, e_y, dir_xb * speed, dir_yb * speed)
+
+-- local magic_concrete_conv_id = getInternalVariableValue( get_player(), "magic_concrete_conv_id", "value_int" )
+-- if ( magic_concrete_conv_id == nil ) then
+--     local new_id = EntityAddComponent2( get_player(), "MagicConvertMaterialComponent", 
+--     {
+--         from_material = CellFactory_GetType( "magical_concrete" ),
+--         to_material = CellFactory_GetType( "air" ),
+--         is_circle = true,
+--         radius = 15,
+--         kill_when_finished = false,
+--     } )
+--     addNewInternalVariable( get_player(), "magic_concrete_conv_id", "value_int", new_id )
+-- end

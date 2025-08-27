@@ -57,6 +57,32 @@ ctq_actions = {
     },
 
     {
+	    id                  = "CTQ_MANA_REFILL",
+	    name 		        = "$spell_riskreward_mana_refill_name",
+	    description         = "$spell_riskreward_mana_refill_desc",
+        inject_after        = { "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/mana_refill.png",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+	    price               = 330,
+	    mana                = 0,
+	    max_uses			= 3,
+		never_unlimited 	= true,
+	    action              = function()
+	    						c.fire_rate_wait = c.fire_rate_wait + 60
+
+	    						if reflecting then return end
+							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+							    local wand = EZWand.GetHeldWand()
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+
+							    mana = wand.manaMax
+            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y );
+	                        end,
+    },
+
+    {
 	    id                  = "CTQ_FLURRY",
 	    name 		        = "$spell_riskreward_flurry_name",
 	    description         = "$spell_riskreward_flurry_desc",
@@ -76,10 +102,6 @@ ctq_actions = {
                                 local entity_id = GetUpdatedEntityID()
 
 							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
-							    -- local entity_id = GetUpdatedEntityID()
-							    -- local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
-							    -- local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
-							    -- local wand = EZWand(active_wand)
 							    local wand = EZWand.GetHeldWand()
 
 							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
@@ -115,11 +137,8 @@ ctq_actions = {
                                 local entity_id = GetUpdatedEntityID()
 
 							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
-							    -- local entity_id = GetUpdatedEntityID()
-							    -- local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
-							    -- local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
-							    -- local wand = EZWand(active_wand)
 							    local wand = EZWand.GetHeldWand()
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
 							    -- local remaining_mana_percent = ( 1.0 / wand.manaMax ) * (wand.mana - c.action_mana_drain)
 							    -- if ( remaining_mana_percent >= 0.5 ) then
@@ -145,6 +164,23 @@ ctq_actions = {
                                 end
                                 
 			                    draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "CTQ_RAPIDFIRE_SALVO",
+	    name 		        = "$spell_riskreward_rapidfire_salvo_name",
+	    description         = "$spell_riskreward_rapidfire_salvo_desc",
+        inject_after        = { "CTQ_FLURRY", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/rapidfire_salvo.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_rapidfire_salvo.xml",
+	    price               = 330,
+	    mana                = 1,
+	    action              = function()
+                                draw_actions( 1, true )
 	                        end,
     },
 
@@ -238,6 +274,7 @@ ctq_actions = {
 
 			                    local player = GetUpdatedEntityID()
                                 local wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent")
+                                local x, y = EntityGetTransform( player )
                                 
                                 if (wallet ~= nil) then
     	                            local money = ComponentGetValue2(wallet, "money")
@@ -264,7 +301,7 @@ ctq_actions = {
 		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
 	    price               = 200,
 	    mana                = 80,
-	    max_uses			= 10,
+	    max_uses			= 5,
 	    action              = function()
 			                    c.fire_rate_wait    = c.fire_rate_wait + 40
 			                    current_reload_time = current_reload_time + 40
@@ -428,23 +465,23 @@ ctq_actions = {
 		                    end,
 	},
 
-	{
-		id                  = "CTQ_DRILL_VOLCANIC",
-		name 		        = "Volcanic Drill",
-		description         = "Perfectly suited for any and all mining operations",
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
-		type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "2,3,4,5,6",
-		spawn_probability   = "0.5,0.6,0.7,0.8,0.9",
-		price               = 350,
-		mana                = 30,
-		sound_loop_tag      = "sound_digger",
-		action 		        = function()
-			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_volcanic.xml")
-			                    c.fire_rate_wait = c.fire_rate_wait + 1
-			                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
-		                    end,
-	},
+	-- {
+	-- 	id                  = "CTQ_DRILL_VOLCANIC",
+	-- 	name 		        = "Volcanic Drill",
+	-- 	description         = "Perfectly suited for any and all mining operations",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
+	-- 	type 		        = ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "2,3,4,5,6",
+	-- 	spawn_probability   = "0.5,0.6,0.7,0.8,0.9",
+	-- 	price               = 350,
+	-- 	mana                = 27,
+	-- 	sound_loop_tag      = "sound_digger",
+	-- 	action 		        = function()
+	-- 		                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_volcanic.xml")
+	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 1
+	-- 		                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
+	-- 	                    end,
+	-- },
 
 	-- {
 	-- 	id                  = "CTQ_DRILL_INFERNAL",
@@ -651,26 +688,6 @@ ctq_actions = {
 		end,
 	},
 
-    {
-	    id                  = "CTQ_VOLLEY",
-	    name 		        = "Rapidfire Salvo",
-	    description         = "Drastically lowers cast delay, at the cost of recharge time",
-        inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/rapidfire_salvo.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
-		custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_volley.xml",
-	    price               = 180,
-	    mana                = 1,
-	    action              = function()
-                                -- c.fire_rate_wait    = c.fire_rate_wait - 30
-                                -- current_reload_time = current_reload_time + 30
-
-                                draw_actions( 1, true )
-	                        end,
-    },
-
 	{
 		id                  = "CTQ_FIXED_ALTITUDE",
 		name 		        = "Fixed Altitude",
@@ -760,6 +777,56 @@ ctq_actions = {
 }
 
 
+if ( ModIsEnabled("Apotheosis") ) then
+	ctq_apoth_actions = {
+	    {
+		    id                  = "CTQ_MANA_REFILL_ALT_FIRE",
+		    name 		        = "$spell_riskreward_mana_refill_alt_fire_name",
+		    description         = "$spell_riskreward_mana_refill_alt_fire_desc",
+	        inject_after        = { "CTQ_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
+		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/alt_fire_mana_refill.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "0,1,2,3,4,5,6",
+			spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_mana_refill.xml",
+		    price               = 330,
+		    mana                = 0,
+		    max_uses			= 3,
+		    action              = function()
+		    						draw_actions( 1, true )
+
+									local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
+									if ( icomp ~= nil ) then
+									    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+									    ComponentSetValue2( icomp, "uses_remaining", uses_remaining + 1 )
+									end
+		                        end,
+	    },
+
+	    {
+		    id                  = "CTQ_CONCRETE_WALL_ALT_FIRE",
+		    name 		        = "$spell_riskreward_concrete_wall_alt_fire_name",
+		    description         = "$spell_riskreward_concrete_wall_alt_fire_desc",
+	        inject_after        = { "CTQ_CONCRETE_WALL", "CTQ_PAYDAY", "SUMMON_ROCK" },
+		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/alt_fire_concrete_wall.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "1,2,3,4,5,6",
+			spawn_probability   = "0.3,0.5,0.6,0.5,0.3,0.2",
+			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_concrete_wall.xml",
+		    price               = 200,
+		    mana                = 80,
+		    max_uses			= 5,
+		    action              = function()
+		    						draw_actions( 1, true )
+            						mana = mana + 80
+		                        end,
+	    },
+	}
+end
+
+
 
 function HasSettingFlag(name)
     return ModSettingGet(name) or false
@@ -778,6 +845,16 @@ if(actions ~= nil)then
 	for k, v in pairs(ctq_actions)do
 		if(not HasSettingFlag(v.id.."_disabled"))then
 			table.insert(actions, v)
+		end
+	end
+end
+
+if ( ModIsEnabled("Apotheosis") ) then
+	if(actions ~= nil)then
+		for k, v in pairs(ctq_apoth_actions)do
+			if(not HasSettingFlag(v.id.."_disabled"))then
+				table.insert(actions, v)
+			end
 		end
 	end
 end

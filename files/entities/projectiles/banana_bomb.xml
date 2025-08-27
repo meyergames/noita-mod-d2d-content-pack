@@ -119,11 +119,5 @@
 
     <MusicEnergyAffectorComponent>
     </MusicEnergyAffectorComponent>
-	
-	<VariableStorageComponent
-		name="projectile_file"
-		value_string="data/entities/projectiles/tnt.xml"
-		>
-	</VariableStorageComponent>
 
 </Entity>

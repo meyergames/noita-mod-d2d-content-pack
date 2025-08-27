@@ -10,10 +10,10 @@ function enabled_changed( entity_id, is_enabled )
 		enabled_int = 1
 	end
 
-	local effect_id = getInternalVariableValue( player, "volley_modifier_id", "value_int" )
+	local effect_id = getInternalVariableValue( player, "rapidfire_salvo_modifier_id", "value_int" )
 	if ( effect_id == nil ) then
-		local new_effect_id = EntityAddComponent( player, "ShotEffectComponent", { extra_modifier = "ctq_volley" } )
-		addNewInternalVariable( player, "volley_modifier_id", "value_int", new_effect_id )
+		local new_effect_id = EntityAddComponent( player, "ShotEffectComponent", { extra_modifier = "ctq_rapidfire_salvo" } )
+		addNewInternalVariable( player, "rapidfire_salvo_modifier_id", "value_int", new_effect_id )
 		effect_id = new_effect_id
 	end
 
@@ -28,6 +28,4 @@ function enabled_changed( entity_id, is_enabled )
 	-- 		setInternalVariableValue( entity_id, "volley_modifier_id", "value_int", -1 )
 	-- 	end
 	-- end
-
-	GamePrint( effect_id )
 end

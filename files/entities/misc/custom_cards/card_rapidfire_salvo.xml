@@ -3,7 +3,7 @@
     <Base file="data/entities/base_custom_card.xml" >
 
         <SpriteComponent 
-            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/flurry.png" >
+            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/rapidfire_salvo.png" >
         </SpriteComponent>
 
         <ItemActionComponent 
@@ -15,21 +15,9 @@
 
     <LuaComponent
         _tags="enabled_in_hand"
-        script_enabled_changed="mods/RiskRewardBundle/files/scripts/projectiles/volley_toggle.lua"
+        script_enabled_changed="mods/RiskRewardBundle/files/scripts/projectiles/rapidfire_salvo_toggle.lua"
         execute_every_n_frame="-1"
-    ></LuaComponent>
-
-    <!-- <ShotEffectComponent
-        extra_modifier="ctq_volley"
-    ></ShotEffectComponent> -->
-
-    <AudioComponent
-        _tags="enabled_in_hand,item_identified"
-        file="data/audio/Desktop/projectiles.bank"
-        event_root="player_projectiles/shield"
-        set_latest_event_position="1" >
-    </AudioComponent>
-    
+    ></LuaComponent>    
 </Entity>
 
 
