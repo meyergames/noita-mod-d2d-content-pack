@@ -62,23 +62,41 @@ ctq_actions = {
 	    description         = "$spell_riskreward_mana_refill_desc",
         inject_after        = { "MANA_REDUCE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/mana_refill.png",
-	    type 		        = ACTION_TYPE_UTILITY,
+	    type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 	    price               = 330,
 	    mana                = 0,
-	    max_uses			= 3,
+	    max_uses			= 5,
 		never_unlimited 	= true,
+		custom_uses_logic	= true,
 	    action              = function()
-	    						c.fire_rate_wait = c.fire_rate_wait + 60
-
+	    						c.fire_rate_wait = c.fire_rate_wait + 30
 	    						if reflecting then return end
+	    						c.fire_rate_wait = c.fire_rate_wait - 30
+
 							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
 							    local wand = EZWand.GetHeldWand()
                                 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
-							    mana = wand.manaMax
-            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y );
+                                if ( mana <= wand.manaMax * 0.25 ) then
+							    	mana = wand.manaMax
+	            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
+	    							c.fire_rate_wait = c.fire_rate_wait + 30
+
+									local uses_remaining = -1
+									local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
+									if ( icomp ~= nil ) then
+									    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+									end
+						            local spells, attached_spells = wand:GetSpells()
+						            for i,spell in ipairs( spells ) do
+						                if ( spell.action_id == "CTQ_MANA_REFILL" ) then
+						                    ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
+						                    break
+						                end
+						            end
+	            				end
 	                        end,
     },
 
@@ -423,7 +441,7 @@ ctq_actions = {
 		price               = 250,
 		mana                = 75,
         max_uses            = 15,
---        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
+       	custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
 		action 		        = function()
                                 local rand = Random( 0, 1000 )
                                 if( rand < 250 ) then -- 25%
@@ -792,15 +810,19 @@ if ( ModIsEnabled("Apotheosis") ) then
 			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_mana_refill.xml",
 		    price               = 330,
 		    mana                = 0,
-		    max_uses			= 3,
+		    max_uses			= 5,
+		    never_unlimited		= true,
+        	custom_uses_logic 	= true,
 		    action              = function()
 		    						draw_actions( 1, true )
 
-									local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
-									if ( icomp ~= nil ) then
-									    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
-									    ComponentSetValue2( icomp, "uses_remaining", uses_remaining + 1 )
-									end
+									-- local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
+									-- if ( icomp ~= nil ) then
+									--     uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+									--     ComponentSetValue2( icomp, "uses_remaining", uses_remaining + 1 )
+									-- end
+									-- -- TODO: uses are still consumed on left-click (i.e. normal spell usage)
+									-- -- check in Apotheosis' actions.lua how the "alt_fire_cov" spell (which has limited uses) handles this?
 		                        end,
 	    },
 
@@ -818,6 +840,7 @@ if ( ModIsEnabled("Apotheosis") ) then
 		    price               = 200,
 		    mana                = 80,
 		    max_uses			= 5,
+        	custom_uses_logic 	= true,
 		    action              = function()
 		    						draw_actions( 1, true )
             						mana = mana + 80

@@ -41,10 +41,15 @@ for i,enemy in ipairs(enemies) do
                 GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
             end
 
-            -- if the player is burning, the remaining health-based fire damage spreads to nearby enemies
+            -- if the player is burning, twice the remaining health-based fire damage spreads to nearby enemies
             for i,other_enemy in ipairs(enemies) do
                 if ( other_enemy ~= owner ) then
-                    EntityInflictDamage( other_enemy, remaining_hp_dmg, "DAMAGE_FIRE", "pyrelord fire", "NONE", 0, 0, owner, x, y, 0 )
+                    EntityInflictDamage( other_enemy, remaining_hp_dmg * 2, "DAMAGE_FIRE", "pyrelord fire", "NONE", 0, 0, owner, x, y, 0 )
+                    
+                    local e_x, e_y = EntityGetTransform( other_enemy )
+                    if ( not has_game_effect( other_enemy, "ON_FIRE" ) ) then
+                        EntityLoad( "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_pyrelord_impact.xml", e_x, e_y )
+                    end
                 end
             end
         end
@@ -53,11 +58,11 @@ for i,enemy in ipairs(enemies) do
         EntityInflictDamage( enemy, remaining_hp_dmg, "DAMAGE_FIRE", "pyrelord fire", "NONE", 0, 0, owner, x, y, 0 )
 
         -- nearby burning enemies heal the player while health is below 40%
-        if ( enemy ~= owner and p_hp < p_max_hp * 0.4 and distance_between( owner, enemy ) < EFFECT_RADIUS_HEALING ) then
-            local heal_dmg = -1 * math.max( ( ( e_max_hp * 0.01 ) + ( e_hp * 0.02 ) ) * fire_dmg_mtp, 0.02 )
-            EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
-            GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
-            -- EntityLoad( "mods/RiskRewardBundle/files/entities/particles/heal_pyrelord.xml", pos_x, pos_y )
-        end
+        -- if ( enemy ~= owner and p_hp < p_max_hp * 0.4 and distance_between( owner, enemy ) < EFFECT_RADIUS_HEALING ) then
+        --     local heal_dmg = -1 * math.max( ( ( e_max_hp * 0.01 ) + ( e_hp * 0.02 ) ) * fire_dmg_mtp, 0.02 )
+        --     EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "pyrelord healing", "NONE", 0, 0, owner, x, y, 0 )
+        --     GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+        --     -- EntityLoad( "mods/RiskRewardBundle/files/entities/particles/heal_pyrelord.xml", pos_x, pos_y )
+        -- end
     end
 end

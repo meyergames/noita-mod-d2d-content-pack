@@ -19,7 +19,7 @@
 	<SpriteComponent
 		_tags="enabled_in_hand,not_enabled_in_wand"
 		_enabled="0"
-    	image_file="mods/Apotheosis/files/items_gfx/in_hand/bomb_giga.png" >
+    	image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/projectile_banana_super.png" >
 	</SpriteComponent>
 
 	<AbilityComponent

@@ -14,11 +14,11 @@
         execute_times="1"
     ></LuaComponent>
   
-    <!--<LuaComponent 
+    <LuaComponent 
         _enabled="1" 
         script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_stendari_update.lua" 
-        execute_every_n_frame="10"
-    ></LuaComponent>-->
+        execute_every_n_frame="60"
+    ></LuaComponent>
 
     <!-- ON REMOVE -->
     <!--<LuaComponent

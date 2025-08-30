@@ -7,7 +7,7 @@ local root = EntityGetRootEntity(entity_id)
 local wand = EZWand(EntityGetParent(entity_id))
 local x, y = EntityGetTransform(entity_id)
 local controlscomp = EntityGetFirstComponent(root, "ControlsComponent")
-local cooldown_frames = 60
+local cooldown_frames = 30
 local actionid = "action_ctq_alt_fire_mana_refill"
 local cooldown_frame
 local variablecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
@@ -29,14 +29,14 @@ if GameGetFrameNum() >= cooldown_frame then
 
             wand.mana = wand.manaMax
             wand.currentCastDelay = wand.currentCastDelay + 60
-            GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y );
+            GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
 
             local spells, attached_spells = wand:GetSpells()
             for i,spell in ipairs( spells ) do
                 if ( spell.action_id == "CTQ_MANA_REFILL_ALT_FIRE" ) then
                     ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
                     if ( uses_remaining == 1 ) then
-                        GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y );
+                        GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
                         EntityLoad("mods/RiskRewardBundle/files/particles/fade_alt_fire_mana_refill.xml", x, y )
                     end
 

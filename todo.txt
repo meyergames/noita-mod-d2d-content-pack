@@ -2,6 +2,7 @@ content checklist
 [ ] linked to translation.csv?
 [ ] does the spawn probability feel right? (for spells/items)
 [ ] happy with the icon?
+[ ] how's the tooltip look?
 
 spells
 [ ] is optimize ship-ready?
@@ -15,6 +16,7 @@ spells
 [ ] is giga drain ship-ready?
 [ ] is ghost trigger ship-ready?
 [ ] are the banana bombs ship-ready?
+[ ] when bag of bombs is used with bombs materialized, default to throwing dynamite
 [ ] is bag of bombs ship-ready?
 [ ] add the same explosion sprite to the volcanic/infernal drills as the banana bomb + add berserkium sparks, to reflect that one gif that inspired the spells
 [ ] remove on_fire applying effect from the drills
@@ -26,8 +28,11 @@ spells
 perks
 [ ] is time trial ship-ready?
 [ ] is ring of life ship-ready?
+[ ] bomberman: consider adding +1 to maxDurabilityToDestroy for all projectiles/explosions
 [ ] is bomberman ship-ready?
+[ ] consider increasing mana recharge speed after being electrocuted
 [ ] is thunderlord ship-ready?
+[ ] consider splitting pyrelord's effects into multiple perks, or scrapping some
 [ ] is pyrelord ship-ready?
 [ ] is set in stone ship-ready?
 [ ] is the stendari curse ship-ready?

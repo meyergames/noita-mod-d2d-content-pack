@@ -228,6 +228,75 @@ function reset_move_speed( entity_id, effect_name )
 end
 
 
+function multiply_all_damage( entity_id, effect_name, mtp )
+	local dcomp = EntityGetFirstComponentIncludingDisabled( entity_id, "DamageModelComponent" )
+
+    local properties_to_change = {
+        projectile = mtp,
+        explosion = mtp,
+	    melee = mtp,
+	    ice = mtp,
+	    slice = mtp,
+	    electricity = mtp,
+	    radioactive = mtp,
+	    drill = mtp,
+	    fire = mtp
+    }
+
+    if dcomp then
+	    local old_values = ""
+	    for k, v in pairs(properties_to_change) do
+	    	local value = ComponentObjectGetValue2( dcomp, "damage_multipliers", k )
+		    local string_value = tostring(value)
+		    old_values = old_values .. k .. ":" .. type(value) .. "=" .. string_value
+		    if next(properties_to_change, k) then
+			    old_values = old_values .. ","
+		    end
+		    ComponentObjectSetValue2(dcomp, "damage_multipliers", k, value * v)
+	    end
+
+	    EntityAddComponent2( entity_id, "VariableStorageComponent", {
+		    name = effect_name .. "_all_damage_mtp",
+		    value_string = mtp,
+	    })
+    end
+end
+
+function reset_all_damage( entity_id, effect_name )
+	local dcomp = EntityGetFirstComponentIncludingDisabled( entity_id, "DamageModelComponent" )
+    local var_store = get_variable_storage_component( entity_id, effect_name .. "_all_damage_mtp" )
+    stored_mtp_value = ComponentGetValue2( var_store, "value_string" )
+
+    local properties_to_change = {
+        projectile = 1.0 / stored_mtp_value,
+        explosion = 1.0 / stored_mtp_value,
+	    melee = 1.0 / stored_mtp_value,
+	    ice = 1.0 / stored_mtp_value,
+	    slice = 1.0 / stored_mtp_value,
+	    electricity = 1.0 / stored_mtp_value,
+	    radioactive = 1.0 / stored_mtp_value,
+	    drill = 1.0 / stored_mtp_value,
+	    fire = 1.0 / stored_mtp_value
+    }
+
+    if character_platforming_component then
+	    local old_values = ""
+	    for k, v in pairs(properties_to_change) do
+	    	local value = ComponentObjectGetValue2( dcomp, "damage_multipliers", k )
+		    local string_value = tostring(value)
+		    old_values = old_values .. k .. ":" .. type(value) .. "=" .. string_value
+		    if next(properties_to_change, k) then
+			    old_values = old_values .. ","
+		    end
+		    ComponentObjectSetValue2(dcomp, "damage_multipliers", k, value * v)
+	    end
+
+        --remove the variable storage component
+        EntityRemoveComponent( entity_id, var_store )
+    end
+end
+
+
 
 
 function distance_between( entity_a, entity_b )

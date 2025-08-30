@@ -27,13 +27,6 @@
     script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_update.lua" 
     execute_every_n_frame="10"
   ></LuaComponent>
-  
-    <!-- UPDATE -->
-  <!-- <LuaComponent 
-    _enabled="1" 
-    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_update_fast.lua" 
-    execute_every_n_frame="1"
-  ></LuaComponent> -->
 
     <!-- ON REMOVE -->
     <!--<LuaComponent

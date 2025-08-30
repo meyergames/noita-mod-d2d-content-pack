@@ -8,6 +8,12 @@ extra_modifiers["ctq_bomberman_boost"] = function()
 		c.damage_explosion_add = c.damage_explosion_add + 0.4
 		c.knockback_force = c.knockback_force + 5.0
 		shot_effects.recoil_knockback = shot_effects.recoil_knockback + 15.0
+
+        -- GamePrint( GetUpdatedEntityID() ) <-- returns the player
+        -- GamePrint( self )
+
+        -- local expPjComp = EntityGetFirstComponent(self,"ProjectileComponent")
+        -- ComponentObjectSetValue2(expPjComp,"config_explosion","max_durability_to_destroy",99999)
     end
 end
 
@@ -39,7 +45,7 @@ extra_modifiers["ctq_pyrelord_boost"] = function()
 end
 
 extra_modifiers["ctq_pyrelord_boost_plus"] = function()
-	c.damage_fire_add = c.damage_fire_add + 0.4
+	-- c.damage_fire_add = c.damage_fire_add + 0.4
 
 	c.fire_rate_wait   = (c.fire_rate_wait / 5) * 4
     current_reload_time = (current_reload_time / 5) * 4

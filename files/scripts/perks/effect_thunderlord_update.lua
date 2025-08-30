@@ -21,13 +21,17 @@ local is_effect_active = getInternalVariableValue( owner, "thunderlord_is_effect
 if ( extra_boost_timer > 0 ) then
 
     if ( is_effect_active == 0 ) then
-
         setInternalVariableValue( owner, "thunderlord_is_effect_active", "value_int", 1 )
 
+        -- move speed is doubled
         multiply_move_speed( owner, "thunderlord", 2.0 )
+
+        -- mana recharges 4x as fast (i.e. +300%)
+        setInternalVariableValue( owner, "thunderlord_mana_charge_speed_mtp", "value_int", 300 )
+        
+        -- fire rate is increased further
         local effect_id = EntityAddComponent( owner, "ShotEffectComponent", { extra_modifier = "ctq_thunderlord_boost_plus" } )
         setInternalVariableValue( owner, "thunderlord_shot_effect_id", "value_int", effect_id )
-
     end
 
     setInternalVariableValue( owner, "thunderlord_extra_boost_timer", "value_int", extra_boost_timer - 1 )
@@ -38,6 +42,7 @@ elseif ( is_effect_active == 1 ) then -- i.e. if extra_boost_timer is 0 and the 
 
     EntityRemoveComponent( owner, getInternalVariableValue( owner, "thunderlord_shot_effect_id", "value_int" ) )
     setInternalVariableValue( owner, "thunderlord_is_effect_active", "value_int", 0 )
+    setInternalVariableValue( owner, "thunderlord_mana_charge_speed_mtp", "value_int", 0 )
     reset_move_speed( owner, "thunderlord" )
 
 end

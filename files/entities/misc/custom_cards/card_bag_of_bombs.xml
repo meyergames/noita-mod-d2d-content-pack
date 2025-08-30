@@ -19,13 +19,13 @@
 	<SpriteComponent
 		_tags="enabled_in_hand,not_enabled_in_wand"
 		_enabled="0"
-    	image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/bag_of_bombs.png"  >
+    	image_file="data/items_gfx/in_hand/tnt_in_hand.png" >
 	</SpriteComponent>
 
 	<AbilityComponent
 		_tags="enabled_in_hand"
 		ui_name="Bag Of Bombs"
-		entity_file="mods/RiskRewardBundle/files/entities/projectiles/bag_of_bombs.xml"
+		entity_file="data/entities/projectiles/deck/tnt.xml"
 		rotate_hand_amount="0.05"
 		throw_as_item="1" 
 		simulate_throw_as_item="1"

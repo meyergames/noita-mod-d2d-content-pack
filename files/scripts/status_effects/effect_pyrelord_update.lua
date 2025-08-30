@@ -17,7 +17,7 @@ if( not is_immune_to_fire and on_fire_effect_count == 1 ) then
         multiply_move_speed( owner, "pyrelord", 1.333 )
         setInternalVariableValue( owner, "pyrelord_is_effect_active", "value_int", 1 )
 
-        local effect_id = EntityAddComponent( owner, "ShotEffectComponent", { extra_modifier = "ctq_pyrelord_boost_plus" } )
+        -- local effect_id = EntityAddComponent( owner, "ShotEffectComponent", { extra_modifier = "ctq_pyrelord_boost_plus" } )
         setInternalVariableValue( owner, "pyrelord_shot_effect_id", "value_int", effect_id )
         setInternalVariableValue( owner, "pyrelord_mana_charge_speed_mtp", "value_int", 100 )
 
@@ -45,7 +45,7 @@ elseif( is_immune_to_fire or ( on_fire_effect_count == 0 and is_effect_active ==
     setInternalVariableValue( owner, "pyrelord_is_effect_active", "value_int", 0 )
     setInternalVariableValue( owner, "pyrelord_mana_charge_speed_mtp", "value_int", 50 )
 
-    EntityRemoveComponent( owner, getInternalVariableValue( owner, "pyrelord_shot_effect_id", "value_int" ) )
+    -- EntityRemoveComponent( owner, getInternalVariableValue( owner, "pyrelord_shot_effect_id", "value_int" ) )
 
     ComponentSetValue2( cdatacomp, "flying_needs_recharge", true )
     ComponentSetValue2( cdatacomp, "fly_time_max", 3 )

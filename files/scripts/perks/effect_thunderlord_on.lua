@@ -6,6 +6,7 @@ local owner = EntityGetParent( entity_id )
 addNewInternalVariable( owner, "thunderlord_is_effect_active", "value_int", 0 )
 addNewInternalVariable( owner, "thunderlord_shot_effect_id", "value_int", 0 )
 addNewInternalVariable( owner, "thunderlord_extra_boost_timer", "value_int", 0 )
+addNewInternalVariable( owner, "thunderlord_mana_charge_speed_mtp", "value_int", 0 )
 
 --comp = EntityGetFirstComponent( owner, "DamageModelComponent" )
 --if ( comp ~= nil ) then
