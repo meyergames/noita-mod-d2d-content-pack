@@ -1,6 +1,6 @@
 <Sprite 
   default_animation="fireball" 
-  filename="mods/RiskRewardBundle/files/particles/heal_pyrelord.png" 
+  filename="mods/RiskRewardBundle/files/particles/heal_master_of_fire.png" 
   offset_x="3.5" 
   offset_y="3.5" >
 

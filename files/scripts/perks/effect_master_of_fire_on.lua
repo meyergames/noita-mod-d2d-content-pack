@@ -18,9 +18,9 @@ if ( is_immune_to_fire ) then
    end
 end
 
-addNewInternalVariable( owner, "pyrelord_is_effect_active", "value_int", 0 )
-addNewInternalVariable( owner, "pyrelord_shot_effect_id", "value_int", 0 )
--- addNewInternalVariable( owner, "pyrelord_mana_charge_speed_mtp", "value_int", 0 )
+addNewInternalVariable( owner, "master_of_fire_is_effect_active", "value_int", 0 )
+addNewInternalVariable( owner, "master_of_fire_shot_effect_id", "value_int", 0 )
+-- addNewInternalVariable( owner, "master_of_fire_mana_charge_speed_mtp", "value_int", 0 )
 
 
 

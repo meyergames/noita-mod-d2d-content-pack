@@ -1,9 +1,9 @@
 dofile_once("data/scripts/lib/utilities.lua")
 
-extra_modifiers["ctq_bomberman_boost"] = function()
+extra_modifiers["ctq_master_of_explosions_boost"] = function()
 	local is_immune_to_explosions = has_game_effect( get_player(), "PROTECTION_EXPLOSION" )
 	if( not is_immune_to_explosions ) then
-		c.extra_entities = c.extra_entities .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_bomberman_impact.xml,"
+		c.extra_entities = c.extra_entities .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_master_of_explosions_impact.xml,"
 		c.explosion_radius = c.explosion_radius + 15.0
 		c.damage_explosion_add = c.damage_explosion_add + 0.4
 		c.knockback_force = c.knockback_force + 5.0
@@ -17,7 +17,7 @@ extra_modifiers["ctq_bomberman_boost"] = function()
     end
 end
 
-extra_modifiers["ctq_thunderlord_boost"] = function()
+extra_modifiers["ctq_master_of_thunder_boost"] = function()
 	local is_immune_to_electricity = has_game_effect( get_player(), "PROTECTION_ELECTRICITY" )
     if( not is_immune_to_electricity ) then
 		c.lightning_count = c.lightning_count + 1
@@ -30,21 +30,21 @@ extra_modifiers["ctq_thunderlord_boost"] = function()
     end
 end
 
-extra_modifiers["ctq_thunderlord_boost_plus"] = function()
+extra_modifiers["ctq_master_of_thunder_boost_plus"] = function()
 	c.speed_multiplier = c.speed_multiplier * 1.5
 	c.fire_rate_wait	= (c.fire_rate_wait / 7.5) * 5
 	current_reload_time	= (current_reload_time / 7.5) * 5
 end
 
-extra_modifiers["ctq_pyrelord_boost"] = function()
+extra_modifiers["ctq_master_of_fire_boost"] = function()
     local is_immune_to_fire = has_game_effect( get_player(), "PROTECTION_FIRE" )
     if( not is_immune_to_fire ) then
 	    c.damage_fire_add = c.damage_fire_add + 0.4
-		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_pyrelord_impact.xml,"
+		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
     end
 end
 
-extra_modifiers["ctq_pyrelord_boost_plus"] = function()
+extra_modifiers["ctq_master_of_fire_boost_plus"] = function()
 	-- c.damage_fire_add = c.damage_fire_add + 0.4
 
 	c.fire_rate_wait   = (c.fire_rate_wait / 5) * 4

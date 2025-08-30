@@ -42,44 +42,44 @@ ctq_perks = {
 --	},
 
 	{
-		id = "CTQ_BOMBERMAN",
-		ui_name = "$perk_riskreward_bomberman_name",
-		ui_description = "$perk_riskreward_bomberman_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_bomberman_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_bomberman.png",
+		id = "CTQ_MASTER_OF_EXPLOSIONS",
+		ui_name = "$perk_riskreward_master_of_explosions_name",
+		ui_description = "$perk_riskreward_master_of_explosions_desc",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_explosions_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_explosions.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
 		remove_other_perks = { "PROTECTION_EXPLOSION" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_bomberman.xml" )
+--            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_explosions.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
-				            extra_modifier = "ctq_bomberman_boost",
+				            extra_modifier = "ctq_master_of_explosions_boost",
 			            } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{ 
-				script_shot = "mods/RiskRewardBundle/files/scripts/perks/effect_bomberman_extra_durability_to_destroy.lua",
+				script_shot = "mods/RiskRewardBundle/files/scripts/perks/effect_master_of_explosions_extra_durability_to_destroy.lua",
 				execute_every_n_frame = "-1",
 			} )	
         end,
 	},
 
 	{
-		id = "CTQ_THUNDERLORD",
-		ui_name = "$perk_riskreward_thunderlord_name",
-		ui_description = "$perk_riskreward_thunderlord_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_thunderlord_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_thunderlord.png",
+		id = "CTQ_MASTER_OF_THUNDER",
+		ui_name = "$perk_riskreward_master_of_thunder_name",
+		ui_description = "$perk_riskreward_master_of_thunder_desc",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_thunder_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_thunder.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
 		remove_other_perks = { "PROTECTION_ELECTRICITY" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
-           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_thunderlord.xml" )
+           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_thunder.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
-				            extra_modifier = "ctq_thunderlord_boost",
+				            extra_modifier = "ctq_master_of_thunder_boost",
 			            } )
         end,
         -- effects:
@@ -93,24 +93,24 @@ ctq_perks = {
 	},
 
 	{
-		id = "CTQ_PYRELORD",
-		ui_name = "$perk_riskreward_pyrelord_name",
-		ui_description = "$perk_riskreward_pyrelord_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_pyrelord.png",
+		id = "CTQ_MASTER_OF_FIRE",
+		ui_name = "$perk_riskreward_master_of_fire_name",
+		ui_description = "$perk_riskreward_master_of_fire_desc",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_fire_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_fire.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
 		remove_other_perks = { "PROTECTION_FIRE" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
-            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_pyrelord.xml" )
+            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_fire.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
-				            extra_modifier = "ctq_pyrelord_boost",
+				            extra_modifier = "ctq_master_of_fire_boost",
 			            } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{ 
-				script_shot = "mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_increased_damage.lua",
+				script_shot = "mods/RiskRewardBundle/files/scripts/perks/effect_master_of_fire_increased_damage.lua",
 				execute_every_n_frame = "-1",
 			} )	
         end,

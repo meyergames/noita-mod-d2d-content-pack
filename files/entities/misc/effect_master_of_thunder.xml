@@ -4,12 +4,12 @@
 
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="PYRELORD"
+        custom_effect_id="THUNDERLORD"
     ></GameEffectComponent >
 
     <!--INIT -->
     <LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_on.lua"
+      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_thunder_on.lua"
       execute_every_n_frame="1"
         execute_times="1"
     ></LuaComponent>
@@ -17,15 +17,14 @@
     <!-- UPDATE -->
   <LuaComponent 
     _enabled="1" 
-    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_update_slow.lua" 
-    execute_every_n_frame="30"
+    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_thunder_update.lua" 
+    execute_every_n_frame="10"
   ></LuaComponent>
   
-    <!-- UPDATE -->
   <LuaComponent 
     _enabled="1" 
-    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_pyrelord_update.lua" 
-    execute_every_n_frame="10"
+    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_thunder_update_fast.lua"
+    execute_every_n_frame="1"
   ></LuaComponent>
 
     <!-- ON REMOVE -->

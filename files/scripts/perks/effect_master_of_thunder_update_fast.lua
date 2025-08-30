@@ -4,7 +4,7 @@ local entity_id = GetUpdatedEntityID()
 local owner = EntityGetParent( entity_id )
 
 
-local mana_charge_speed_mtp = getInternalVariableValue( owner, "thunderlord_mana_charge_speed_mtp", "value_int" )
+local mana_charge_speed_mtp = getInternalVariableValue( owner, "master_of_thunder_mana_charge_speed_mtp", "value_int" )
 if ( mana_charge_speed_mtp == 0 ) then return end
 -- local mana_charge_speed_mtp = 100 -- equals +100% i.e. x2
 
