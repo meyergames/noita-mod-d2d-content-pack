@@ -17,12 +17,9 @@ dofile_once("data/scripts/lib/utilities.lua")
 --end
 
 local entity_id    = GetUpdatedEntityID()
-GamePrint("Looking for comp...")
 local comp = EntityGetFirstComponent( entity_id, "ProjectileComponent" )
 if ( comp ~= nil ) then
-    GamePrint("Found comp")
 	owner_id = ComponentGetValue2( comp, "mWhoShot" )
-    GamePrint("Found owner id: " .. owner_id)
 end
 
 if ( owner_id ~= nil ) and ( owner_id ~= NULL_ENTITY ) and EntityGetIsAlive( owner_id ) then

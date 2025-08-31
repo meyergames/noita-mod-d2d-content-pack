@@ -1,0 +1,48 @@
+<Entity>
+	<InheritTransformComponent />
+	
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="CURSE_FLOOR_IS_LAVA"
+    ></GameEffectComponent >
+	
+	<LuaComponent
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_floor_is_lava_on.lua"
+        execute_every_n_frame="1"
+        execute_times="1"
+		>
+	</LuaComponent>
+  
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_floor_is_lava_update.lua" 
+		execute_every_n_frame="10"
+	></LuaComponent>
+	
+	<!--<LuaComponent
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/master_of_explosions_end.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1"
+		>
+	</LuaComponent>-->
+
+    <!--<ShotEffectComponent
+        extra_modifier="D2D_master_of_explosions_boost"
+    ></ShotEffectComponent>-->
+	
+	<!--<LifetimeComponent
+		_tags="effect_curse_lifetime"
+		lifetime="1200"
+		>
+	</LifetimeComponent>
+	
+	<UIIconComponent
+		icon_sprite_file="data/ui_gfx/status_indicators/curse_wither_fire.png"
+		name="$status_curse_wither_explosion"
+		description="$statusdesc_curse_wither_explosion"
+		display_above_head="1"
+		display_in_hud="0"
+		is_perk="1"
+		>
+	</UIIconComponent>-->
+</Entity>

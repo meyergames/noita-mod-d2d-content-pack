@@ -10,7 +10,7 @@ local x, y = EntityGetTransform( owner )
 
 local is_immune_to_fire = has_game_effect( owner, "PROTECTION_FIRE" )
 if ( is_immune_to_fire ) then
-    -- remove_perk( "CTQ_MASTER_OF_FIRE" )
+    -- remove_perk( "D2D_MASTER_OF_FIRE" )
     return
 end
 

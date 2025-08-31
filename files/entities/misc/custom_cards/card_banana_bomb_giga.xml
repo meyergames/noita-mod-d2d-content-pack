@@ -7,12 +7,12 @@
 	    </ItemComponent>
 
 		<SpriteComponent 
-			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_giga.png" 
+			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_giga.png" 
 		></SpriteComponent>
 		
 		<ItemActionComponent 
 			_tags="enabled_in_world"
-			action_id="CTQ_BANANA_BOMB_GIGA" >
+			action_id="D2D_BANANA_BOMB_GIGA" >
 		</ItemActionComponent>
 	</Base>
 

@@ -1,10 +1,10 @@
-ctq_actions = {
+d2d_actions = {
     -- {
-	--     id                  = "CTQ_OVERCLOCK",
+	--     id                  = "D2D_OVERCLOCK",
 	--     name 		        = "Overclock",
 	--     description         = "Pushes your wand to its limits; may cause overheating",
     --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/overclock.png",
+	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/overclock.png",
 	--     type 		        = ACTION_TYPE_MODIFIER,
 	-- 	spawn_level         = "0,1,2,3,4,5,6",
 	-- 	spawn_probability   = "0.4,0.6,0.8,0.9,1.0,1.0,1.0",
@@ -38,11 +38,11 @@ ctq_actions = {
     -- },
 
     -- {
-	--     id                  = "CTQ_OPTIMIZE",
+	--     id                  = "D2D_OPTIMIZE",
 	--     name 		        = "$spell_riskreward_optimize_name",
 	--     description         = "$spell_riskreward_optimize_desc",
     --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/optimize.png",
+	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/optimize.png",
 	--     type 		        = ACTION_TYPE_MODIFIER,
 	-- 	spawn_level         = "0,1,2,3",
 	-- 	spawn_probability   = "1.0,0.9,0.7,0.5",
@@ -57,11 +57,11 @@ ctq_actions = {
     -- },
 
     {
-	    id                  = "CTQ_OVERCLOCK",
+	    id                  = "D2D_OVERCLOCK",
 	    name 		        = "$spell_riskreward_overclock_name",
 	    description         = "$spell_riskreward_overclock_desc",
-        inject_after        = { "CTQ_BURST_FIRE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/overclock.png",
+        inject_after        = { "D2D_BURST_FIRE", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/overclock.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.6,0.8,0.9,0.8,0.7,0.6",
@@ -107,11 +107,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_FLURRY",
+	    id                  = "D2D_FLURRY",
 	    name 		        = "$spell_riskreward_flurry_name",
 	    description         = "$spell_riskreward_flurry_desc",
         inject_after        = { "RECHARGE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/flurry.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/flurry.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
@@ -142,11 +142,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_RAPIDFIRE_SALVO",
+	    id                  = "D2D_RAPIDFIRE_SALVO",
 	    name 		        = "$spell_riskreward_rapidfire_salvo_name",
 	    description         = "$spell_riskreward_rapidfire_salvo_desc",
-        inject_after        = { "CTQ_FLURRY", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/rapidfire_salvo.png",
+        inject_after        = { "D2D_FLURRY", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/rapidfire_salvo.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
@@ -159,11 +159,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_MANA_REFILL",
+	    id                  = "D2D_MANA_REFILL",
 	    name 		        = "$spell_riskreward_mana_refill_name",
 	    description         = "$spell_riskreward_mana_refill_desc",
         inject_after        = { "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/mana_refill.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/mana_refill.png",
 	    type 		        = ACTION_TYPE_UTILITY,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
@@ -193,7 +193,7 @@ ctq_actions = {
 								-- 	end
 						        --     local spells, attached_spells = wand:GetSpells()
 						        --     for i,spell in ipairs( spells ) do
-						        --         if ( spell.action_id == "CTQ_MANA_REFILL" ) then
+						        --         if ( spell.action_id == "D2D_MANA_REFILL" ) then
 						        --             ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
 						        --             break
 						        --         end
@@ -203,11 +203,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_SNIPE_SHOT",
+	    id                  = "D2D_SNIPE_SHOT",
 	    name 		        = "$spell_riskreward_sniper_bolt_name",
 	    description         = "$spell_riskreward_sniper_bolt_desc",
         inject_after        = { "ARROW" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/snipe_shot.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/snipe_shot.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "0.4,1,2,2",
@@ -220,11 +220,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_SNIPE_SHOT_TRIGGER",
+	    id                  = "D2D_SNIPE_SHOT_TRIGGER",
 	    name 		        = "$spell_riskreward_sniper_bolt_trigger_name",
 	    description         = "$spell_riskreward_sniper_bolt_trigger_desc",
-        inject_after        = { "CTQ_SNIPE_SHOT", "ARROW" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/snipe_shot_trigger.png",
+        inject_after        = { "D2D_SNIPE_SHOT", "ARROW" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/snipe_shot_trigger.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.5,0.8,0.8,0.9,1,1",
@@ -238,11 +238,11 @@ ctq_actions = {
     },
 
 	{
-		id                  = "CTQ_GHOST_TRIGGER",
+		id                  = "D2D_GHOST_TRIGGER",
 		name 		        = "$spell_riskreward_ghost_trigger_name",
 		description         = "$spell_riskreward_ghost_trigger_desc",
         inject_after        = { "SPARK_BOLT_TIMER" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghost_trigger.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/ghost_trigger.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
@@ -257,11 +257,11 @@ ctq_actions = {
 	},
 
     {
-	    id                  = "CTQ_GIGA_DRAIN",
+	    id                  = "D2D_GIGA_DRAIN",
 	    name 		        = "$spell_riskreward_giga_drain_name",
 	    description         = "$spell_riskreward_giga_drain_desc",
         inject_after        = { "CHAINSAW" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/giga_drain.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/giga_drain.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.5,0.8,1,1.1,1,0.8,0.5",
@@ -277,11 +277,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_PAYDAY",
+	    id                  = "D2D_PAYDAY",
 	    name 		        = "$spell_riskreward_payday_name",
 	    description         = "$spell_riskreward_payday_desc",
         inject_after        = { "SUMMON_ROCK" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/payday.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/payday.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- SUMMON_ROCK
 		spawn_probability   = "0.7,0.7,0.5,0.5,0.2,0.6,0.6", -- SUMMON_ROCK (-0.1)
@@ -311,11 +311,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_CONCRETE_WALL",
+	    id                  = "D2D_CONCRETE_WALL",
 	    name 		        = "$spell_riskreward_concrete_wall_name",
 	    description         = "$spell_riskreward_concrete_wall_desc",
-        inject_after        = { "CTQ_PAYDAY", "SUMMON_ROCK" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/concrete_wall.png",
+        inject_after        = { "D2D_PAYDAY", "SUMMON_ROCK" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/concrete_wall.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
@@ -331,11 +331,11 @@ ctq_actions = {
     },
 
     {
-	    id                  = "CTQ_SMALL_EXPLOSION",
+	    id                  = "D2D_SMALL_EXPLOSION",
 	    name 		        = "$spell_riskreward_small_explosion_name",
 	    description         = "$spell_riskreward_small_explosion_desc",
         inject_after        = { "EXPLOSION" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/small_explosion.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/small_explosion.png",
 	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "1.2,1,0.8,0.6",
@@ -349,11 +349,11 @@ ctq_actions = {
     },
 
 	-- {
-	-- 	id                  = "CTQ_GHOSTLY_MESSENGER",
+	-- 	id                  = "D2D_GHOSTLY_MESSENGER",
 	-- 	name 		        = "Ghostly Messenger",
-    --     inject_after        = { "CTQ_GHOST_TRIGGER", "SPARK_BOLT_TIMER" },
+    --     inject_after        = { "D2D_GHOST_TRIGGER", "SPARK_BOLT_TIMER" },
 	-- 	description         = "Penetrates all terrain to cast another spell upon collision",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/ghostly_messenger.png",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/ghostly_messenger.png",
 	-- 	related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml"},
 	-- 	type 		        = ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level         = "2,3,4,5,6",
@@ -369,11 +369,11 @@ ctq_actions = {
 	-- },
 
 	{
-		id                  = "CTQ_BANANA_BOMB",
+		id                  = "D2D_BANANA_BOMB",
 		name 		        = "$spell_riskreward_banana_bomb_name",
 		description         = "$spell_riskreward_banana_bomb_desc",
         inject_after        = { "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- DYNAMITE
@@ -390,11 +390,11 @@ ctq_actions = {
 	},
 
 	{
-		id                  = "CTQ_BANANA_BOMB_SUPER",
+		id                  = "D2D_BANANA_BOMB_SUPER",
 		name 		        = "$spell_riskreward_banana_bomb_super_name",
 		description         = "$spell_riskreward_banana_bomb_super_desc",
-        inject_after        = { "CTQ_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_super.png",
+        inject_after        = { "D2D_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_super.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- BOMB
@@ -411,11 +411,11 @@ ctq_actions = {
 	},
 
 	{
-		id                  = "CTQ_BANANA_BOMB_GIGA",
+		id                  = "D2D_BANANA_BOMB_GIGA",
 		name 		        = "$spell_riskreward_banana_bomb_giga_name",
 		description         = "$spell_riskreward_banana_bomb_giga_desc",
-        inject_after        = { "CTQ_BANANA_BOMB_SUPER", "CTQ_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/banana_bomb_giga.png",
+        inject_after        = { "D2D_BANANA_BOMB_SUPER", "D2D_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_giga.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- BOMB
@@ -432,11 +432,11 @@ ctq_actions = {
 	},
 
 	{
-		id                  = "CTQ_BAG_OF_BOMBS",
+		id                  = "D2D_BAG_OF_BOMBS",
 		name 		        = "$spell_riskreward_bag_of_bombs_name",
 		description         = "$spell_riskreward_bag_of_bombs_desc",
         inject_after        = { "DYNAMITE" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/bag_of_bombs.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/bag_of_bombs.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- DYNAMITE
 		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
@@ -486,11 +486,11 @@ ctq_actions = {
 	},
 
     {
-	    id                  = "CTQ_SMOKE_BOMB",
+	    id                  = "D2D_SMOKE_BOMB",
 	    name 		        = "$spell_riskreward_smoke_bomb_name",
 	    description         = "$spell_riskreward_smoke_bomb_desc",
         inject_after        = { "GRENADE_ANTI", "GRENADE_TIER_3" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/smoke_bomb.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/smoke_bomb.png",
         custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_smoke_bomb.xml",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5",
@@ -505,10 +505,10 @@ ctq_actions = {
     },
 
 	-- {
-	-- 	id                  = "CTQ_DRILL_VOLCANIC",
+	-- 	id                  = "D2D_DRILL_VOLCANIC",
 	-- 	name 		        = "Volcanic Drill",
 	-- 	description         = "Perfectly suited for any and all mining operations",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
 	-- 	type 		        = ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level         = "2,3,4,5,6",
 	-- 	spawn_probability   = "0.5,0.6,0.7,0.8,0.9",
@@ -523,10 +523,10 @@ ctq_actions = {
 	-- },
 
 	-- {
-	-- 	id                  = "CTQ_DRILL_INFERNAL",
+	-- 	id                  = "D2D_DRILL_INFERNAL",
 	-- 	name 		        = "Infernal Drill",
 	-- 	description         = "Not even brickwork is safe",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spell_icon_drill_infernal.png",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
 	-- 	type 		        = ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level         = "4,5,6",
 	-- 	spawn_probability   = "0.4,0.6,0.8",
@@ -541,7 +541,7 @@ ctq_actions = {
 	-- },
 
 	-- {
-	-- 	id          = "CTQ_CIRCLE_GOLD",
+	-- 	id          = "D2D_CIRCLE_GOLD",
 	-- 	name 		= "Circle Of Gold",
 	-- 	description = "Spawns a circle of gold",
 	-- 	sprite 		= "data/ui_gfx/gun_actions/circle_water.png",
@@ -560,7 +560,7 @@ ctq_actions = {
 	-- },
 
 	-- {
-	-- 	id          = "CTQ_CIRCLE_GOLD_BIG",
+	-- 	id          = "D2D_CIRCLE_GOLD_BIG",
 	-- 	name 		= "Sea Of Gold",
 	-- 	description = "Spawns a sea of gold",
 	-- 	sprite 		= "data/ui_gfx/gun_actions/circle_water.png",
@@ -579,11 +579,11 @@ ctq_actions = {
 	-- },
 
     {
-	    id                  = "CTQ_DAMAGE_MISSING_MANA",
+	    id                  = "D2D_DAMAGE_MISSING_MANA",
 	    name 		        = "$spell_riskreward_damage_missing_mana_name",
 	    description         = "$spell_riskreward_damage_missing_mana_desc",
         inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/damage_missing_mana.png",
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/damage_missing_mana.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.6,0.8,0.9,0.8,0.7,0.6",
@@ -624,18 +624,14 @@ ctq_actions = {
 									end
 								end
 								if ( projectile_count == 0 ) then return end
-
+								
 								-- calculate net bonus damage
                                 local bonus_dmg_raw				= remap( missing_mana, 0, 5000, 0.00, remap( projectiles_mana_drain / projectile_count, 5, 120, 10 * 0.04, 125 * 0.04 ) )
                                 								  * remap( sec_to_recharge_wand, 1, 60, 1.0, 10.0 ) -- multiply by the time it takes to recharge
                                 								  -- * remap( projectiles_mana_drain, 5, 100, 0.1, 1.0 ) -- higher mana draining projectiles get more damage
                                 								  -- * ( 1.0 / projectile_count ) -- divide by the amount of projectiles in the hand/shot
 
-								GamePrint("bonus dmg: [" .. bonus_dmg_raw * 25)
-
 								c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
-								GamePrint("* [" .. missing_mana_percent .. "]")
-								-- GamePrint("dealt " .. 25 * ( c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent ) ) .. " bonus damage")
 								c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
 
 								if ( remaining_mana_percent <= 0.25 ) then
@@ -645,10 +641,10 @@ ctq_actions = {
     },
 
 	{
-		id          = "CTQ_CURSES_TO_POWER",
+		id          = "D2D_CURSES_TO_POWER",
 		name 		= "Curses To Power",
 		description = "Adds 10 damage for each curse you have",
-		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/curses_to_power.png",
+		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/curses_to_power.png",
 		type 		= ACTION_TYPE_MODIFIER,
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
@@ -659,7 +655,7 @@ ctq_actions = {
 			c.damage_curse_add 		= c.damage_curse_add + 0.4 -- for the tooltip
 			if reflecting then return end
 
-			c.damage_curse_add 		= c.damage_curse_add - 0.6 -- reset
+			c.damage_curse_add 		= c.damage_curse_add - 0.4 -- reset
             local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
             if curse_count ~= nil then
 				c.damage_curse_add 		= c.damage_curse_add + ( 0.4 * tonumber( curse_count ) )
@@ -670,10 +666,10 @@ ctq_actions = {
 	},
 
 	-- {
-	-- 	id          = "CTQ_CURSED_BOLT",
+	-- 	id          = "D2D_CURSED_BOLT",
 	-- 	name 		= "Cursed Bolt",
 	-- 	description = "Deals more damage the more curses you carry",
-	-- 	sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/cursed_bolt.png",
+	-- 	sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/cursed_bolt.png",
 	-- 	type 		= ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level                       = "0",
 	-- 	spawn_probability                 = "0",
@@ -696,10 +692,10 @@ ctq_actions = {
 	-- },
 
 	{
-		id          = "CTQ_CURSES_TO_MANA",
+		id          = "D2D_CURSES_TO_MANA",
 		name 		= "Curses To Mana",
 		description = "Restores 30 mana for each curse you have",
-		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/curses_to_mana.png",
+		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/curses_to_mana.png",
 		type 		= ACTION_TYPE_MODIFIER,
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
@@ -717,10 +713,10 @@ ctq_actions = {
 	},
 
 	{
-		id                  = "CTQ_FIXED_ALTITUDE",
+		id                  = "D2D_FIXED_ALTITUDE",
 		name 		        = "$spell_riskreward_fixed_altitude_name",
 		description         = "$spell_riskreward_fixed_altitude_desc",
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/fixed_altitude.png",
+		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/fixed_altitude.png",
 		type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
@@ -733,10 +729,10 @@ ctq_actions = {
 	},
 
 	-- {
-	-- 	id                  = "CTQ_REWIND",
+	-- 	id                  = "D2D_REWIND",
 	-- 	name 		        = "Rewind",
 	-- 	description         = "Teleports you where you were 4 seconds ago",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/rewind.png",
+	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/rewind.png",
 	-- 	type 		        = ACTION_TYPE_PASSIVE,
 	-- 	spawn_level         = "1,2,3,4,5,6",
 	-- 	spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
@@ -779,18 +775,18 @@ ctq_actions = {
 
 
 if ( ModIsEnabled("Apotheosis") ) then
-	ctq_apoth_actions = {
+	d2d_apoth_actions = {
 	    {
-		    id                  = "CTQ_SMOKE_BOMB_ALT_FIRE",
+		    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
 		    name 		        = "$spell_riskreward_smoke_bomb_alt_fire_name",
 		    description         = "$spell_riskreward_smoke_bomb_alt_fire_desc",
-	        inject_after        = { "CTQ_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
-		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/alt_fire_smoke_bomb.png",
+	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
+		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
 	        subtype     		= { altfire = true },
 			spawn_level         = "0,1,2,3,4,5",
 			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
-			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_smoke_bomb.xml",
+			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
 		    price               = 230,
 		    mana                = 50,
 		    max_uses			= 10,
@@ -801,16 +797,16 @@ if ( ModIsEnabled("Apotheosis") ) then
 	    },
 
 	    {
-		    id                  = "CTQ_MANA_REFILL_ALT_FIRE",
+		    id                  = "D2D_MANA_REFILL_ALT_FIRE",
 		    name 		        = "$spell_riskreward_mana_refill_alt_fire_name",
 		    description         = "$spell_riskreward_mana_refill_alt_fire_desc",
-	        inject_after        = { "CTQ_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
-		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/alt_fire_mana_refill.png",
+	        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
+		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
 	        subtype     		= { altfire = true },
 			spawn_level         = "0,1,2,3,4,5,6",
 			spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_mana_refill.xml",
+			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
 		    price               = 330,
 		    mana                = 0,
 		    max_uses			= 5,
@@ -822,16 +818,16 @@ if ( ModIsEnabled("Apotheosis") ) then
 	    },
 
 	    {
-		    id                  = "CTQ_CONCRETE_WALL_ALT_FIRE",
+		    id                  = "D2D_CONCRETE_WALL_ALT_FIRE",
 		    name 		        = "$spell_riskreward_concrete_wall_alt_fire_name",
 		    description         = "$spell_riskreward_concrete_wall_alt_fire_desc",
-	        inject_after        = { "CTQ_CONCRETE_WALL", "CTQ_PAYDAY", "SUMMON_ROCK" },
-		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/alt_fire_concrete_wall.png",
+	        inject_after        = { "D2D_CONCRETE_WALL", "D2D_PAYDAY", "SUMMON_ROCK" },
+		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
 	        subtype     		= { altfire = true },
 			spawn_level         = "1,2,3,4,5,6",
 			spawn_probability   = "0.3,0.5,0.6,0.5,0.3,0.2",
-			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_concrete_wall.xml",
+			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_alt_fire_concrete_wall.xml",
 		    price               = 200,
 		    mana                = 80,
 		    max_uses			= 5,
@@ -860,7 +856,7 @@ function RemoveSettingFlag(name)
 end
 
 if(actions ~= nil)then
-	for k, v in pairs(ctq_actions)do
+	for k, v in pairs(d2d_actions)do
 		if(not HasSettingFlag(v.id.."_disabled"))then
 			table.insert(actions, v)
 		end
@@ -869,7 +865,7 @@ end
 
 if ( ModIsEnabled("Apotheosis") ) then
 	if(actions ~= nil)then
-		for k, v in pairs(ctq_apoth_actions)do
+		for k, v in pairs(d2d_apoth_actions)do
 			if(not HasSettingFlag(v.id.."_disabled"))then
 				table.insert(actions, v)
 			end
@@ -878,37 +874,36 @@ if ( ModIsEnabled("Apotheosis") ) then
 end
 
 
-function OrganiseProgress()
-    dofile_once( "data/scripts/gun/gun_actions.lua" )
+-- function OrganiseProgress()
+--     dofile_once( "data/scripts/gun/gun_actions.lua" )
 
-    -- Based on Conga Lyne's implementation
-    for insert_index = 1, #ctq_actions do
-        local action_to_insert = ctq_actions[insert_index]
-        -- Check if spells to inject after are defined
-        if action_to_insert.inject_after ~= nil then
-            -- Loop over actions
-            local found = false
-            for actions_index = #actions, 1, -1 do
-                action = actions[actions_index]
-                -- Loop over inject after options
-                for inject_index = 1, #action_to_insert.inject_after do
-                    if action.id == action_to_insert.inject_after[inject_index] then
-                        found = true
-                        break
-                    end
-                end
-                if found then
-                    table.insert(actions, actions_index + 1, action_to_insert)
-                    GamePrint("inserted")
-                    break
-                end
-                if actions_index == 1 then
-                    --Insert here as a failsafe incase the matchup ID can't be found.. some other mod might delete the spell we're trying to insert at
-                    actions[#actions + 1] = action_to_insert
-                end
-            end
-        else
-            actions[#actions + 1] = action_to_insert
-        end
-    end
-end
+--     -- Based on Conga Lyne's implementation
+--     for insert_index = 1, #d2d_actions do
+--         local action_to_insert = d2d_actions[insert_index]
+--         -- Check if spells to inject after are defined
+--         if action_to_insert.inject_after ~= nil then
+--             -- Loop over actions
+--             local found = false
+--             for actions_index = #actions, 1, -1 do
+--                 action = actions[actions_index]
+--                 -- Loop over inject after options
+--                 for inject_index = 1, #action_to_insert.inject_after do
+--                     if action.id == action_to_insert.inject_after[inject_index] then
+--                         found = true
+--                         break
+--                     end
+--                 end
+--                 if found then
+--                     table.insert(actions, actions_index + 1, action_to_insert)
+--                     break
+--                 end
+--                 if actions_index == 1 then
+--                     --Insert here as a failsafe incase the matchup ID can't be found.. some other mod might delete the spell we're trying to insert at
+--                     actions[#actions + 1] = action_to_insert
+--                 end
+--             end
+--         else
+--             actions[#actions + 1] = action_to_insert
+--         end
+--     end
+-- end

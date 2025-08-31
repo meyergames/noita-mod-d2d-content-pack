@@ -13,7 +13,7 @@ if( #nearby_enemies == 1 ) then -- the player counts as an enemy...
     local prev_loneliness_value = getInternalVariableValue( owner, "loneliness_counter", "value_int" )
     local new_loneliness_value = prev_loneliness_value + 1
     setInternalVariableValue( owner, "loneliness_counter", "value_int", new_loneliness_value )
-    GamePrint( "entity count: " .. #nearby_enemies .. " (" .. new_loneliness_value .. ")" )
+    -- GamePrint( "entity count: " .. #nearby_enemies .. " (" .. new_loneliness_value .. ")" )
 
     if( new_loneliness_value == 30 ) then
         GamePrint("You are starting to feel lonely...")

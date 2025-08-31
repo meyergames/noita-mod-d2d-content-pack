@@ -19,7 +19,7 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
 
         local end_x, end_y = EntityGetTransform( owner )
         local dist = get_distance( start_x, start_y, end_x, end_y )
-        if ( end_y > start_y and dist > 1000 ) then
+        -- if ( end_y > start_y and dist > 1000 ) then
     
             --skip the health increase, now that the Time Trial perk exists
 --            local hp = ComponentGetValue2( damagemodel, "hp" )
@@ -38,9 +38,9 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
     --                else
     --                    GamePrintImportant("The gods admire your speed", "You have been rewarded with extra health")
     --                end
-        else
-            GamePrintImportant("The virus has been cured", "Though traces of it remain...")
-        end
+        -- else
+        -- GamePrintImportant("The virus has been cured", "Though traces of it remain...")
+        -- end
 
         --remove the variable storage component
         EntityRemoveComponent( owner, var_store_pos )

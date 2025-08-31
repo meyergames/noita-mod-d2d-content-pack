@@ -19,7 +19,7 @@ if( not is_immune_to_fire and on_fire_effect_count > 0 ) then
         -- multiply_all_damage( owner, "master_of_fire", 1.5 )
         setInternalVariableValue( owner, "master_of_fire_is_effect_active", "value_int", 1 )
 
-        local effect_id = EntityAddComponent( owner, "ShotEffectComponent", { extra_modifier = "ctq_master_of_fire_boost_plus" } )
+        local effect_id = EntityAddComponent( owner, "ShotEffectComponent", { extra_modifier = "d2d_master_of_fire_boost_plus" } )
         setInternalVariableValue( owner, "master_of_fire_shot_effect_id", "value_int", effect_id )
 
         ComponentSetValue2( cdatacomp, "flying_needs_recharge", false )

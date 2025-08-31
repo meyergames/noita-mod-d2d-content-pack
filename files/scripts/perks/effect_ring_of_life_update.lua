@@ -43,19 +43,18 @@ if ( player_hp <= player_max_hp * 0.1 ) then
     GamePlaySound( "data/audio/Desktop/materials.bank", "collision/glass_potion/destroy", x, y )
     GamePrint( "The Ring of Life brings you back to safety, but shatters in the process." )
 
-    remove_perk( "CTQ_RING_OF_LIFE" )
-    pickup_count = tonumber( GlobalsGetValue( "CTQ_RING_OF_LIFE_PICKUP_COUNT", "0" ) )
+    remove_perk( "D2D_RING_OF_LIFE" )
+    pickup_count = tonumber( GlobalsGetValue( "D2D_RING_OF_LIFE_PICKUP_COUNT", "0" ) )
 
     if ( pickup_count == 0 ) then
         EntityAddComponent2( player, "UIIconComponent",
         {
             name = "Ring Of Life (shattered)",
             description = "It's of no use now.",
-            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life_016_spent.png",
+            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/ring_of_life_016_spent.png",
             display_above_head = false,
             display_in_hud = true,
             is_perk = true,
         })
     end
-    --LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ringoflife.xml" )
 end

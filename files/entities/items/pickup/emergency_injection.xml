@@ -1,5 +1,5 @@
 <Entity tags="hittable,teleportable_NOT,item_physics,item_pickup" >
-<!-- CTQ:tried excluding the 'potion' tag; let's hope it doesn't break anything -->
+<!-- D2D:tried excluding the 'potion' tag; let's hope it doesn't break anything -->
 
   <!-- physical presence -->
   
@@ -22,7 +22,6 @@
     image_file="mods/RiskRewardBundle/files/gfx/items_gfx/injection_needle.png"
     material="needle_glass_box2d"
   ></PhysicsImageShapeComponent>
-    <!--image_file="data/items_gfx/potion_normals.png"-->
   
   <PhysicsThrowableComponent
     max_throw_speed="180"
@@ -56,20 +55,6 @@
   <LuaComponent 
     script_death="data/scripts/items/potion_glass_break.lua" 
   ></LuaComponent>
-  
-  <!--<PotionComponent
-    _tags="enabled_in_hand,enabled_in_world"
-    spray_velocity_coeff="1"
-    spray_velocity_normalized_min="0.5"
-    dont_spray_static_materials="1"
-    dont_spray_just_leak_gas_materials="1"
-  ></PotionComponent>
-
-  <MaterialSuckerComponent 
-    _tags="enabled_in_world,enabled_in_hand"
-    barrel_size="60"
-    num_cells_sucked_per_frame="5"
-  ></MaterialSuckerComponent>-->
 
   <MaterialInventoryComponent 
     _tags="enabled_in_world,enabled_in_hand,enabled_in_inventory"
@@ -158,7 +143,7 @@
     max_child_items="0"
     is_pickable="1"
     is_equipable_forced="1"
-    ui_sprite="mods/RiskRewardBundle/files/gfx/ui_gfx/emergency_injection.png"
+    ui_sprite="mods/RiskRewardBundle/files/gfx/ui_gfx/items/emergency_injection.png"
     ui_description="$item_riskreward_emergency_injection_desc"
     preferred_inventory="QUICK"
   ></ItemComponent>
@@ -171,22 +156,6 @@
     deck_capacity="0"
   ></gun_config>
   </AbilityComponent>
-
-
-
-    <!--<AbilityComponent
-        _tags="enabled_in_hand"
-        ui_name="Emergency Injection"
-        entity_file="mods/RiskRewardBundle/files/entities/misc/effect_virus.xml"
-        rotate_hand_amount="0.05"
-        throw_as_item="1"
-        simulate_throw_as_item="0"
-        cooldown_frames="3600"
-        never_reload="true"
-        ><gun_config
-            deck_capacity="0"
-        ></gun_config>
-    </AbilityComponent>-->
 
   <UIInfoComponent
     _tags="enabled_in_world"

@@ -7,19 +7,19 @@
 	    </ItemComponent>
 
 		<SpriteComponent 
-			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/smoke_bomb.png"
+			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/smoke_bomb.png"
 		></SpriteComponent>
 		
 		<ItemActionComponent 
 			_tags="enabled_in_world"
-			action_id="CTQ_SMOKE_BOMB" >
+			action_id="D2D_SMOKE_BOMB" >
 		</ItemActionComponent>
 	</Base>
 
 	<SpriteComponent
 		_tags="enabled_in_hand,not_enabled_in_wand"
 		_enabled="0"
-    	image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/smoke_bomb.png" >
+    	image_file="mods/RiskRewardBundle/files/gfx/items_gfx/smoke_bomb.png" >
 	</SpriteComponent>
 
 	<AbilityComponent

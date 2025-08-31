@@ -18,20 +18,15 @@ local max_enemies_hit = 2
 if ( target_id ~= NULL_ENTITY ) then
 	local projectile_components = EntityGetComponent( target_id, "ProjectileComponent" )
 	
-    GamePrint("Hit! 1/2")
 	if( projectile_components == nil ) then return end
-    GamePrint("Hit! 2/2")
 	
 	if ( #projectile_components > 0 ) then
 		edit_component( target_id, "ProjectileComponent", function(comp,vars)
-            GamePrint("Trying to register enemy hit...")
             local enemies_hit = getInternalVariableValue( entity_id, "enemies_hit", "value_int")
             if ( enemies_hit == nil ) then
                 setInternalVariableValue( parent_id, "enemies_hit", "value_int", 1 )
-                GamePrint("First enemy hit")
             else
                 setInternalVariableValue( parent_id, "enemies_hit", "value_int", enemies_hit + 1)
-                GamePrint("Enemy hit #" .. enemies_hit)
             end
 
             if ( enemies_hit == max_enemies_hit ) then
@@ -47,20 +42,15 @@ end
 function collision_trigger( colliding_entity_id )
 	local projectile_components = EntityGetComponent( target_id, "ProjectileComponent" )
 	
-    GamePrint("Hit! 1/2")
 	if( projectile_components == nil ) then return end
-    GamePrint("Hit! 2/2")
 	
 	if ( #projectile_components > 0 ) then
 		edit_component( target_id, "ProjectileComponent", function(comp,vars)
-            GamePrint("Trying to register enemy hit...")
             local enemies_hit = getInternalVariableValue( entity_id, "enemies_hit", "value_int")
             if ( enemies_hit == nil ) then
                 setInternalVariableValue( parent_id, "enemies_hit", "value_int", 1 )
-                GamePrint("First enemy hit")
             else
                 setInternalVariableValue( parent_id, "enemies_hit", "value_int", enemies_hit + 1)
-                GamePrint("Enemy hit #" .. enemies_hit)
             end
 
             if ( enemies_hit == max_enemies_hit ) then

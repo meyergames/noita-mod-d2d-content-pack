@@ -4,13 +4,11 @@ local is_effect_enabled = false
 
 function enabled_changed( entity_id, is_enabled )
 	is_effect_enabled = is_enabled
-	GamePrint( tostring(is_effect_enabled) )
 end
 
 function shot( projectile_id )
 	if reflecting then return end
 
-	GamePrint( tostring(is_effect_enabled) )
 	if not is_effect_enabled then return end
 
 	local entity_id = GetUpdatedEntityID()

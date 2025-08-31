@@ -32,16 +32,16 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         apply_random_curse( owner )
 
         reset_move_speed( owner, "time_trial" )
-        -- remove_perk( "CTQ_TIME_TRIAL" )
-        -- EntityAddComponent2( owner, "UIIconComponent",
-        -- {
-        --     name = "Time Trial: Lost",
-        --     description = "You lost the time trial, earning you a curse.",
-        --     icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016_lost.png",
-        --     display_above_head = false,
-        --     display_in_hud = true,
-        --     is_perk = true,
-        -- })
+        remove_perk( "D2D_TIME_TRIAL" )
+        EntityAddComponent2( owner, "UIIconComponent",
+        {
+            name = "Time Trial: Lost",
+            description = "You lost the time trial, earning you a curse.",
+            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial_016_lost.png",
+            display_above_head = false,
+            display_in_hud = true,
+            is_perk = true,
+        })
     else
         local was_player_REALLY_fast = getInternalVariableValue( owner, "time_trial_update_count", "value_int" ) < 30
         if( not was_player_REALLY_fast ) then
@@ -85,16 +85,16 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         EntityLoad( chest, spx, spy )
         GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest/create", x, y )
 
-        -- remove_perk( "CTQ_TIME_TRIAL" )
-        -- EntityAddComponent2( owner, "UIIconComponent",
-        -- {
-        --     name = "Time Trial: Won",
-        --     description = "You were rewarded with doubled max health, increased move speed and a chest.",
-        --     icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016_won.png",
-        --     display_above_head = false,
-        --     display_in_hud = true,
-        --     is_perk = true,
-        -- })
+        remove_perk( "D2D_TIME_TRIAL" )
+        EntityAddComponent2( owner, "UIIconComponent",
+        {
+            name = "Time Trial: Won",
+            description = "You were rewarded with doubled max health, increased move speed and a chest.",
+            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial_016_won.png",
+            display_above_head = false,
+            display_in_hud = true,
+            is_perk = true,
+        })
     end
 end
 

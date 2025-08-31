@@ -1,0 +1,58 @@
+<Entity>
+
+    <InheritTransformComponent />
+	
+    <LifetimeComponent
+		lifetime="3600"
+	></LifetimeComponent>
+
+    <!--<UIIconComponent
+        icon_sprite_file="mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial.png"
+        name="Run Or Die"
+        description="No time to read tooltips now!"
+        display_in_hud="true"
+        is_perk="false"
+    ></UIIconComponent>-->
+
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="RUN_OR_DIE"
+        frames="3600"
+    ></GameEffectComponent >
+	
+    <!-- REGISTER -->
+	<!--<LuaComponent 
+	    execute_every_n_frame="1"
+		remove_after_executed="1"
+		execute_on_added="1"
+	    script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/effect_time_trial_register.lua"
+	></LuaComponent>-->
+
+    <!--INIT -->
+    <LuaComponent
+      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_time_trial_on.lua"
+      execute_every_n_frame="1"
+        execute_times="1"
+    ></LuaComponent>
+	
+    <!-- UPDATE -->
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_time_trial_update.lua" 
+		execute_every_n_frame="60"
+	></LuaComponent>
+
+    <!-- ON REMOVE -->
+    <LuaComponent
+      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_time_trial_off.lua"
+      execute_every_n_frame="-1"
+        execute_on_added="0"
+        execute_on_removed="1"
+    ></LuaComponent>
+
+    <MusicEnergyAffectorComponent
+        energy_target="1.0"
+    >
+    </MusicEnergyAffectorComponent>
+
+</Entity>

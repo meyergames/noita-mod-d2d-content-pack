@@ -8,7 +8,7 @@ local wand = EZWand(EntityGetParent(entity_id))
 local x, y = EntityGetTransform(entity_id)
 local controlscomp = EntityGetFirstComponent(root, "ControlsComponent")
 local cooldown_frames = 40
-local actionid = "action_ctq_alt_fire_concrete_wall"
+local actionid = "action_d2d_alt_fire_concrete_wall"
 local cooldown_frame
 local variablecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
 cooldown_frame = ComponentGetValue2( variablecomp, "value_int" )
@@ -32,7 +32,7 @@ if GameGetFrameNum() >= cooldown_frame then
 
             local spells, attached_spells = wand:GetSpells()
             for i,spell in ipairs( spells ) do
-                if ( spell.action_id == "CTQ_CONCRETE_WALL_ALT_FIRE" ) then
+                if ( spell.action_id == "D2D_CONCRETE_WALL_ALT_FIRE" ) then
                     ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
                     if ( uses_remaining == 1 ) then
                         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y );
@@ -49,7 +49,7 @@ if GameGetFrameNum() >= cooldown_frame then
                 AddFlagPersistent(actionid)
             end
                 if ModIsEnabled("quant.ew") then
-                    CrossCall("ctq_ew_alt_fire", root, x, y, aim_x, aim_y, "mods/RiskRewardBundle/files/entities/projectiles/concrete_wall_bullet_initial.xml")
+                    CrossCall("d2d_ew_alt_fire", root, x, y, aim_x, aim_y, "mods/RiskRewardBundle/files/entities/projectiles/concrete_wall_bullet_initial.xml")
                 end
         elseif ( mana < manacost ) then
             GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y );

@@ -337,14 +337,14 @@ function apply_random_curse( entity_id )
     local x, y = EntityGetTransform( entity_id )
 
     local curses_not_picked_up = {}
-	for k,v in pairs( ctq_curses ) do
+	for k,v in pairs( d2d_curses ) do
 		if ( not has_perk( v.id ) ) then
 			curses_not_picked_up[k] = v
 		end
 	end
 
     local stackable_curses = {}
-	for k,v in pairs( ctq_curses ) do
+	for k,v in pairs( d2d_curses ) do
 		if ( v.stackable == STACKABLE_YES ) then
 			stackable_curses[k] = v
 		end

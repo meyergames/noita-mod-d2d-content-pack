@@ -1,38 +1,38 @@
-ctq_perks = {
+d2d_perks = {
 	{
-		id = "CTQ_TIME_TRIAL",
+		id = "D2D_TIME_TRIAL",
 		ui_name = "$perk_riskreward_time_trial_name",
 		ui_description = "$perk_riskreward_time_trial_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial.png",
 		stackable = STACKABLE_NO, -- doesn't work for now (smth with the effect's internal variable tracking)
 		one_off_effect = true,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_time_trial.xml" )
+            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_time_trial.xml" )
 		end,
 	},
 
 	-- {
-	-- 	id = "CTQ_RING_OF_LIFE",
+	-- 	id = "D2D_RING_OF_LIFE",
 	-- 	ui_name = "$perk_riskreward_ring_of_life_name",
 	-- 	ui_description = "$perk_riskreward_ring_of_life_desc",
-	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life_016.png",
-	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life.png",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/ring_of_life_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/ring_of_life.png",
 	-- 	stackable = STACKABLE_NO,
 	-- 	one_off_effect = true,
 	-- 	usable_by_enemies = false,
 	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
-    --         LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ring_of_life.xml" )
+    --         LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_ring_of_life.xml" )
     --     end,
 	-- },
 
 	{
-		id = "CTQ_EVOLVING_WANDS",
+		id = "D2D_EVOLVING_WANDS",
 		ui_name = "$perk_riskreward_evolving_wands_name",
 		ui_description = "$perk_riskreward_evolving_wands_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_evolving_wands_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_evolving_wands.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/evolving_wands_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/evolving_wands.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -47,11 +47,11 @@ ctq_perks = {
 	},
 
 	{
-		id = "CTQ_MASTER_OF_EXPLOSIONS",
+		id = "D2D_MASTER_OF_EXPLOSIONS",
 		ui_name = "$perk_riskreward_master_of_explosions_name",
 		ui_description = "$perk_riskreward_master_of_explosions_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_explosions_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_explosions.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/master_of_explosions_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/master_of_explosions.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
@@ -64,7 +64,7 @@ ctq_perks = {
 
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
             { 
-	            extra_modifier = "ctq_master_of_explosions_boost",
+	            extra_modifier = "d2d_master_of_explosions_boost",
             } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{ 
@@ -75,11 +75,11 @@ ctq_perks = {
 	},
 
 	{
-		id = "CTQ_MASTER_OF_THUNDER",
+		id = "D2D_MASTER_OF_THUNDER",
 		ui_name = "$perk_riskreward_master_of_thunder_name",
 		ui_description = "$perk_riskreward_master_of_thunder_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_thunder_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_thunder.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/master_of_thunder_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/master_of_thunder.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
@@ -90,10 +90,10 @@ ctq_perks = {
 				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
 			end
 
-           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_thunder.xml" )
+           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_master_of_thunder.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
             { 
-	            extra_modifier = "ctq_master_of_thunder_boost",
+	            extra_modifier = "d2d_master_of_thunder_boost",
             } )
         end,
         -- effects:
@@ -107,11 +107,11 @@ ctq_perks = {
 	},
 
 	{
-		id = "CTQ_MASTER_OF_FIRE",
+		id = "D2D_MASTER_OF_FIRE",
 		ui_name = "$perk_riskreward_master_of_fire_name",
 		ui_description = "$perk_riskreward_master_of_fire_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_fire_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_master_of_fire.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/master_of_fire_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/master_of_fire.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
@@ -122,10 +122,10 @@ ctq_perks = {
 				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
 			end
 
-            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_fire.xml" )
+            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_master_of_fire.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
             { 
-	            extra_modifier = "ctq_master_of_fire_boost",
+	            extra_modifier = "d2d_master_of_fire_boost",
             } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{ 
@@ -146,16 +146,16 @@ ctq_perks = {
 	},
 
 --	{
---		id = "CTQ_PANIC_MODE",
+--		id = "D2D_PANIC_MODE",
 --		ui_name = "Panic Mode",
 --		ui_description = "Upon taking heavy damage, gain a short burst of speed.",
---		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife_016.png",
---		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ringoflife.png",
+--		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/ringoflife_016.png",
+--		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/ringoflife.png",
 --		stackable = STACKABLE_NO,
 --		one_off_effect = true,
 --		usable_by_enemies = false,
 --		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ringoflife.xml" )
+--            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_ringoflife.xml" )
 --        end,
 --        _remove = function( entity_id )
 --            -- do nothing
@@ -163,30 +163,30 @@ ctq_perks = {
 --	},
 
 	{
-		id = "CTQ_HUNT_CURSES",
+		id = "D2D_HUNT_CURSES",
 		ui_name = "$perk_riskreward_hunt_curses_name",
 		ui_description = "$perk_riskreward_hunt_curses_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_hunt_curses_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_hunt_curses.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/hunt_curses_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/hunt_curses.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_hunt_curses.xml" )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_hunt_curses.xml" )
         end,
 	},
 
 	-- {
-	-- 	id = "CTQ_HOMEBODY_WANDS",
+	-- 	id = "D2D_HOMEBODY_WANDS",
 	-- 	ui_name = "Homebody",
 	-- 	ui_description = "Wands are much stronger in their home biome.",
-	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_homebody_wands_016.png",
-	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_homebody_wands.png",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/homebody_wands_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/homebody_wands.png",
 	-- 	stackable = STACKABLE_YES,
 	-- 	one_off_effect = false,
 	-- 	usable_by_enemies = false,
 	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
-	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_consume_local.xml" )
+	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_consume_local.xml" )
 	-- 		-- EntityAddComponent2( entity_who_picked, "LuaComponent", 
 	-- 		-- { 
 	-- 		-- 	script_interacting = "mods/RiskRewardBundle/files/scripts/perks/effect_consume_local_interacting.lua",
@@ -201,11 +201,11 @@ ctq_perks = {
 	-- },
 
 	-- {
-	-- 	id = "CTQ_LIFT_CURSES",
+	-- 	id = "D2D_LIFT_CURSES",
 	-- 	ui_name = "$perk_riskreward_lift_curses_name",
 	-- 	ui_description = "$perk_riskreward_lift_curses_desc",
-	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_lift_curses_016.png",
-	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_lift_curses.png",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/lift_curses_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/lift_curses.png",
     --     -- spawn_requires_flag = "apotheosis_card_unlocked_fire_lukki_spell",  --Requires Aesthete of Heat to be slain
 	-- 	stackable = STACKABLE_YES,
 	-- 	one_off_effect = true,
@@ -214,22 +214,22 @@ ctq_perks = {
 	-- 		dofile_once( "data/scripts/lib/utilities.lua" )
     -- 		dofile_once( "mods/RiskRewardBundle/files/scripts/perks.lua" )
 
-	-- 		for k,v in pairs( ctq_curses ) do
+	-- 		for k,v in pairs( d2d_curses ) do
 	-- 			if ( has_perk( v.id ) ) then
 	-- 				remove_perk( v.id )
 	-- 			end
 	-- 		end
 
-	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_lifter.xml" )
+	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_curse_lifter.xml" )
     --     end,
 	-- },
 
 	-- {
-	-- 	id = "CTQ_SET_IN_STONE",
+	-- 	id = "D2D_SET_IN_STONE",
 	-- 	ui_name = "$perk_riskreward_set_in_stone_name",
 	-- 	ui_description = "$perk_riskreward_set_in_stone_desc",
-	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_set_in_stone_016.png",
-	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_set_in_stone.png",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/set_in_stone_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/set_in_stone.png",
 	-- 	stackable = STACKABLE_YES,
 	-- 	one_off_effect = true,
 	-- 	usable_by_enemies = false,
@@ -274,13 +274,13 @@ ctq_perks = {
 
 
 
-ctq_curses = {
+d2d_curses = {
 	{
-		id = "CTQ_CURSE_STENDARI",
+		id = "D2D_CURSE_STENDARI",
 		ui_name = "$perk_riskreward_curse_stendari_name",
 		ui_description = "$perk_riskreward_curse_stendari_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_stendari_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_stendari.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/stendari_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/stendari.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -290,16 +290,16 @@ ctq_curses = {
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
 
-			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_stendari.xml" )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/curses/effect_curse_stendari.xml" )
         end,
 	},
 
 	{
-		id = "CTQ_CURSE_REPEL_GOLD",
+		id = "D2D_CURSE_REPEL_GOLD",
 		ui_name = "$perk_riskreward_curse_repel_gold_name",
 		ui_description = "$perk_riskreward_curse_repel_gold_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_repel_gold_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_repel_gold.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/repel_gold_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/repel_gold.png",
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -309,16 +309,16 @@ ctq_curses = {
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
 
-           LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_repel_gold.xml" )
+           LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/curses/effect_curse_repel_gold.xml" )
         end,
 	},
 
 	{
-		id = "CTQ_CURSE_DIVINE_PRANK",
+		id = "D2D_CURSE_DIVINE_PRANK",
 		ui_name = "$perk_riskreward_curse_divine_prank_name",
 		ui_description = "$perk_riskreward_curse_divine_prank_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_divine_prank_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_divine_prank.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/divine_prank_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/divine_prank.png",
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -328,35 +328,35 @@ ctq_curses = {
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
 
-           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_divine_prank.xml" )
+           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/curses/effect_curse_divine_prank.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
-				            extra_modifier = "ctq_divine_prank",
+				            extra_modifier = "d2d_divine_prank",
 			            } )
         end,
 	},
 
 	-- {
-	-- 	id = "CTQ_CURSE_LONELINESS",
+	-- 	id = "D2D_CURSE_LONELINESS",
 	-- 	ui_name = "$perk_riskreward_curse_loneliness",
 	-- 	ui_description = "$perk_riskreward_curse_loneliness_description",
-	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_loneliness_016.png",
-	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_loneliness_016.png",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/loneliness_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/loneliness_016.png",
 	-- 	stackable = STACKABLE_NO,
 	-- 	one_off_effect = false,
 	-- 	usable_by_enemies = false,
 	-- 	not_in_default_perk_pool = true,
 	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
-    --        LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_loneliness.xml" )
+    --        LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_curse_loneliness.xml" )
     --     end,
 	-- },
 
 	{
-		id = "CTQ_CURSE_OVERHEATING",
+		id = "D2D_CURSE_OVERHEATING",
 		ui_name = "$perk_riskreward_curse_overheating_name",
 		ui_description = "$perk_riskreward_curse_overheating_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_overheating_wands_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_overheating_wands.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/overheating_wands_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/overheating_wands.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -368,17 +368,17 @@ ctq_curses = {
 
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
-				            extra_modifier = "ctq_overheating_wands",
+				            extra_modifier = "d2d_overheating_wands",
 			            } )
         end,
 	},
 
 	{
-		id = "CTQ_CURSE_NO_RHYTHM",
+		id = "D2D_CURSE_NO_RHYTHM",
 		ui_name = "$perk_riskreward_curse_no_rhythm_name",
 		ui_description = "$perk_riskreward_curse_no_rhythm_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_no_rhythm_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_no_rhythm.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/no_rhythm_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/no_rhythm.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -390,17 +390,17 @@ ctq_curses = {
 
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 			            { 
-				            extra_modifier = "ctq_no_rhythm",
+				            extra_modifier = "d2d_no_rhythm",
 			            } )
         end,
 	},
 
 	{
-		id = "CTQ_CURSE_FLOOR_IS_LAVA",
+		id = "D2D_CURSE_FLOOR_IS_LAVA",
 		ui_name = "$perk_riskreward_curse_floor_is_lava_name",
 		ui_description = "$perk_riskreward_curse_floor_is_lava_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_floor_is_lava_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_floor_is_lava.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/floor_is_lava_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/floor_is_lava.png",
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -410,56 +410,56 @@ ctq_curses = {
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
 
-           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_floor_is_lava.xml" )
+           	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/curses/effect_curse_floor_is_lava.xml" )
 
            	-- BUG: no longer works after restarting the game
         end,
 	},
 
 	{
-		id = "CTQ_CURSE_COMBUSTION",
+		id = "D2D_CURSE_COMBUSTION",
 		ui_name = "$perk_riskreward_curse_combustion_name",
 		ui_description = "$perk_riskreward_curse_combustion_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_combustion_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_combustion.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/combustion_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/combustion.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_combustion.xml" )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/curses/effect_curse_combustion.xml" )
         end,
 	},
 
 	{
-		id = "CTQ_CURSE_FALL_DAMAGE",
+		id = "D2D_CURSE_FALL_DAMAGE",
 		ui_name = "$perk_riskreward_curse_fall_damage_name",
 		ui_description = "$perk_riskreward_curse_fall_damage_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_fall_damage_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_fall_damage.png",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/fall_damage_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/curses/fall_damage.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_fall_damage.xml" )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/curses/effect_curse_fall_damage.xml" )
         end,
 	},
 
 	-- fall damage
 
 	-- {
-	-- 	id = "CTQ_CURSE_SPORADIC_SPEEDBOOST",
+	-- 	id = "D2D_CURSE_SPORADIC_SPEEDBOOST",
 	-- 	ui_name = "$perk_riskreward_curse_sporadic_speedboost",
 	-- 	ui_description = "$perk_riskreward_curse_sporadic_speedboost_description",
-	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_no_rhythm_016.png",
-	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_curse_no_rhythm_016.png",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/no_rhythm_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/no_rhythm_016.png",
 	-- 	stackable = STACKABLE_YES,
 	-- 	one_off_effect = false,
 	-- 	usable_by_enemies = false,
 	-- 	not_in_default_perk_pool = true,
 	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
-    --        LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_curse_sporadic_speed.xml" )
+    --        LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/perks/effect_curse_sporadic_speed.xml" )
     --     end,
 	-- },
 }
@@ -478,9 +478,9 @@ function RemoveSettingFlag(name)
 end
 
 if ( perk_list ~= nil ) then
-	for k, v in pairs( ctq_perks )do
+	for k, v in pairs( d2d_perks )do
 		if HasSettingFlag( v.id .. "_disabled" ) then
-			GamePrint( "Perk not added: " .. v.id )
+			-- GamePrint( "Perk not added: " .. v.id )
 		else
 			table.insert( perk_list, v )
 		end
@@ -488,9 +488,9 @@ if ( perk_list ~= nil ) then
 end
 
 if ( perk_list ~= nil ) then
-	for k, v in pairs( ctq_curses )do
+	for k, v in pairs( d2d_curses )do
 		if HasSettingFlag( v.id .. "_disabled" ) then
-			GamePrint( "Perk not added: " .. v.id )
+			-- GamePrint( "Perk not added: " .. v.id )
 		else
 			table.insert( perk_list, v )
 		end

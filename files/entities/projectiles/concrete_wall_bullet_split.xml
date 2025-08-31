@@ -73,13 +73,13 @@
   </ProjectileComponent>
 
   <!-- <ShotEffectComponent
-    extra_modifier="ctq_projectile_concrete_trail"
+    extra_modifier="D2D_projectile_concrete_trail"
   ></ShotEffectComponent> -->
 
-    <LuaComponent
-        script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/concrete_wall_spawn_concrete.lua"
-        execute_every_n_frames="1"
-    ></LuaComponent>
+  <LuaComponent
+      script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/concrete_wall_spawn_concrete.lua"
+      execute_every_n_frames="1"
+  ></LuaComponent>
 
   <!-- functional -->
   

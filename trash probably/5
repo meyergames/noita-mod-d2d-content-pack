@@ -1,0 +1,9 @@
+dofile_once( "data/scripts/lib/utilities.lua" )
+
+local entity_id = GetUpdatedEntityID()
+local owner = EntityGetParent( entity_id )
+
+addNewInternalVariable( owner, "divine_joke_prev_x", "value_int", 0 )
+addNewInternalVariable( owner, "divine_joke_prev_y", "value_int", 0 )
+addNewInternalVariable( owner, "divine_joke_still_counter", "value_int", 0 )
+addNewInternalVariable( owner, "divine_joke_cooldown_time", "value_int", 0 ) -- TODO: Make 120

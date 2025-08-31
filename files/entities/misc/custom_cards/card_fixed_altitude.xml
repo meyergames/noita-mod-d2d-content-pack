@@ -3,12 +3,12 @@
     <Base file="data/entities/base_custom_card.xml" >
 
         <SpriteComponent 
-            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/fixed_altitude.png" >
+            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/fixed_altitude.png" >
         </SpriteComponent>
 
         <ItemActionComponent 
             _tags="enabled_in_world"
-            action_id="CTQ_FIXED_ALTITUDE" >
+            action_id="D2D_FIXED_ALTITUDE" >
         </ItemActionComponent>
 
     </Base>

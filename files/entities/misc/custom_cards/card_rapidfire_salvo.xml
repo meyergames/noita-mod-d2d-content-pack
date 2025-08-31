@@ -3,12 +3,12 @@
     <Base file="data/entities/base_custom_card.xml" >
 
         <SpriteComponent 
-            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/rapidfire_salvo.png" >
+            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/rapidfire_salvo.png" >
         </SpriteComponent>
 
         <ItemActionComponent 
             _tags="enabled_in_world"
-            action_id="CTQ_VOLLEY" >
+            action_id="D2D_VOLLEY" >
         </ItemActionComponent>
 
     </Base>

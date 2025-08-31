@@ -16,9 +16,4 @@ function add_status_effect( game_effect_entity, icon_file, name, description, ab
             is_perk = false,
         })
     end
-    GamePrint("Check: borrowed_time_status")
 end
---
---local entity_id = GetUpdatedEntityID()
---
---add_status_effect( entity_id, "mods/RiskRewardBundle/files/gfx/ui_gfx/status_indicators/borrowed_time.png", "Viral Infection", "You may want to seek medical or divine assistance.", true )

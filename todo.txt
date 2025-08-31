@@ -62,13 +62,21 @@ items
 
 
 final tests
-[ ] make sure Apotheosis' EZWand.lua calls have been replaced with this mod's
-[ ] check if the mod runs succesfully when Apotheosis is disabled
+[x] make sure Apotheosis' EZWand.lua calls have been replaced with this mod's
+[x] check if the mod runs succesfully when Apotheosis is disabled
 
 
 
 organization checklist
+[ ] pick a name!!
+-- Dani2D / Vic2D / vic2d
+-- Dani2D's Spells, Perks & Items
+-- Dani2D's Goodie Pack
+-- D2D Goodie Pack
+-- Dani2D's Content Bundle
+
 [ ] do all file names make sense/follow a pattern?
+[ ] Ctrl+F "TODO" in all files
 [ ] all references to new file destinations updated?
 [ ] tried making OrganiseProgress work?
 

@@ -3,7 +3,6 @@ dofile_once( "data/scripts/lib/utilities.lua" )
 GamePrintImportant("You're on borrowed time...", "Seek medical attention. NOW.")
 
 
--- Speed up the player until the effect is removed, like with OnFire
 local entity_id = GetUpdatedEntityID()
 local owner = EntityGetParent(entity_id)
 
@@ -21,7 +20,8 @@ if ( dcomps ~= nil ) and ( #dcomps > 0 ) then
     end
 end
 
-multiply_move_speed( owner, 1.15 )
+-- Speed up the player until the effect is removed, like with OnFire
+multiply_move_speed( owner, "viral_infection", 1.15 )
 
 local x, y = EntityGetTransform( owner )
 local pos_string = tostring(x) .. "," .. tostring(y)

@@ -34,16 +34,16 @@ if ( update_count == 59 and has_reached_finish == 0 ) then
     GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/perk/create", x, y )
     apply_random_curse( owner )
 
-    -- remove_perk( "CTQ_TIME_TRIAL" )
-    -- EntityAddComponent2( owner, "UIIconComponent",
-    -- {
-    --     name = "Time Trial: Lost",
-    --     description = "You lost the time trial, earning you a curse.",
-    --     icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_time_trial_016_lost.png",
-    --     display_above_head = false,
-    --     display_in_hud = true,
-    --     is_perk = true,
-    -- })
+    remove_perk( "D2D_TIME_TRIAL" )
+    EntityAddComponent2( owner, "UIIconComponent",
+    {
+        name = "Time Trial: Lost",
+        description = "You lost the time trial, earning you a curse.",
+        icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial_016_lost.png",
+        display_above_head = false,
+        display_in_hud = true,
+        is_perk = true,
+    })
 
     -- remove the 15% movement speed buff
     reset_move_speed( owner, "time_trial" )

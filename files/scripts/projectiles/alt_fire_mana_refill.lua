@@ -8,7 +8,7 @@ local wand = EZWand(EntityGetParent(entity_id))
 local x, y = EntityGetTransform(entity_id)
 local controlscomp = EntityGetFirstComponent(root, "ControlsComponent")
 local cooldown_frames = 30
-local actionid = "action_ctq_alt_fire_mana_refill"
+local actionid = "action_d2d_alt_fire_mana_refill"
 local cooldown_frame
 local variablecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
 cooldown_frame = ComponentGetValue2( variablecomp, "value_int" )
@@ -33,7 +33,7 @@ if GameGetFrameNum() >= cooldown_frame then
 
             local spells, attached_spells = wand:GetSpells()
             for i,spell in ipairs( spells ) do
-                if ( spell.action_id == "CTQ_MANA_REFILL_ALT_FIRE" ) then
+                if ( spell.action_id == "D2D_MANA_REFILL_ALT_FIRE" ) then
                     ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
                     if ( uses_remaining == 1 ) then
                         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )

@@ -88,19 +88,19 @@ function ModSettingsGui( gui, in_main_menu )
 		dofile("mods/RiskRewardBundle/files/scripts/actions.lua")
 		GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
 		if GuiButton( gui, new_id(), 0, 0, "Enable All Spells" )then
-			for k, v in pairs( ctq_actions ) do
+			for k, v in pairs( d2d_actions ) do
 				RemoveSettingFlag(v.id.."_disabled")
 			end
 		end
 		if GuiButton( gui, new_id(), 0, 0, "Disable All Spells" )then
-			for k, v in pairs( ctq_actions ) do
+			for k, v in pairs( d2d_actions ) do
 				AddSettingFlag(v.id.."_disabled")
 			end
 		end
 		GuiLayoutEnd(gui)
 
 		crossed_index = 1
-		for k, v in pairs( ctq_actions ) do
+		for k, v in pairs( d2d_actions ) do
 
 			GuiLayoutBeginHorizontal( gui, 0, 0, false, 2, 2 )
 
@@ -156,19 +156,19 @@ function ModSettingsGui( gui, in_main_menu )
 		dofile("mods/RiskRewardBundle/files/scripts/perks.lua")
 		GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
 		if GuiButton( gui, new_id(), 0, 0, "Enable All Perks" )then
-			for k, v in pairs( ctq_perks ) do
+			for k, v in pairs( d2d_perks ) do
 				RemoveSettingFlag(v.id.."_disabled")
 			end
 		end
 		if GuiButton( gui, new_id(), 0, 0, "Disable All Perks" )then
-			for k, v in pairs( ctq_perks ) do
+			for k, v in pairs( d2d_perks ) do
 				AddSettingFlag(v.id.."_disabled")
 			end
 		end
 		GuiLayoutEnd(gui)
 
 		crossed_index = 1
-		for k, v in pairs( ctq_perks ) do
+		for k, v in pairs( d2d_perks ) do
 
 			GuiLayoutBeginHorizontal( gui, 0, 0, false, 2, 2 )
 

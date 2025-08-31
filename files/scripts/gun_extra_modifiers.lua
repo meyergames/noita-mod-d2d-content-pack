@@ -1,6 +1,6 @@
 dofile_once("data/scripts/lib/utilities.lua")
 
-extra_modifiers["ctq_master_of_explosions_boost"] = function()
+extra_modifiers["d2d_master_of_explosions_boost"] = function()
 	local is_immune_to_explosions = has_game_effect( get_player(), "PROTECTION_EXPLOSION" )
 	if( not is_immune_to_explosions ) then
 		c.extra_entities = c.extra_entities .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_master_of_explosions_impact.xml,"
@@ -8,16 +8,10 @@ extra_modifiers["ctq_master_of_explosions_boost"] = function()
 		c.damage_explosion_add = c.damage_explosion_add + 0.4
 		c.knockback_force = c.knockback_force + 5.0
 		shot_effects.recoil_knockback = shot_effects.recoil_knockback + 15.0
-
-        -- GamePrint( GetUpdatedEntityID() ) <-- returns the player
-        -- GamePrint( self )
-
-        -- local expPjComp = EntityGetFirstComponent(self,"ProjectileComponent")
-        -- ComponentObjectSetValue2(expPjComp,"config_explosion","max_durability_to_destroy",99999)
     end
 end
 
-extra_modifiers["ctq_master_of_thunder_boost"] = function()
+extra_modifiers["d2d_master_of_thunder_boost"] = function()
 	local is_immune_to_electricity = has_game_effect( get_player(), "PROTECTION_ELECTRICITY" )
     if( not is_immune_to_electricity ) then
 		c.lightning_count = c.lightning_count + 1
@@ -30,13 +24,13 @@ extra_modifiers["ctq_master_of_thunder_boost"] = function()
     end
 end
 
-extra_modifiers["ctq_master_of_thunder_boost_plus"] = function()
+extra_modifiers["d2d_master_of_thunder_boost_plus"] = function()
 	c.speed_multiplier = c.speed_multiplier * 1.5
 	c.fire_rate_wait	= (c.fire_rate_wait / 7.5) * 5
 	current_reload_time	= (current_reload_time / 7.5) * 5
 end
 
-extra_modifiers["ctq_master_of_fire_boost"] = function()
+extra_modifiers["d2d_master_of_fire_boost"] = function()
     local is_immune_to_fire = has_game_effect( get_player(), "PROTECTION_FIRE" )
     if( not is_immune_to_fire ) then
 	    c.damage_fire_add = c.damage_fire_add + 0.2
@@ -44,14 +38,14 @@ extra_modifiers["ctq_master_of_fire_boost"] = function()
     end
 end
 
-extra_modifiers["ctq_master_of_fire_boost_plus"] = function()
+extra_modifiers["d2d_master_of_fire_boost_plus"] = function()
 	-- c.damage_fire_add = c.damage_fire_add + 0.4
 
 	c.fire_rate_wait   = (c.fire_rate_wait / 5) * 4
     current_reload_time = (current_reload_time / 5) * 4
 end
 
-extra_modifiers["ctq_overheating_wands"] = function()
+extra_modifiers["d2d_overheating_wands"] = function()
     local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
     local entity_id = GetUpdatedEntityID()
     local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
@@ -82,13 +76,13 @@ extra_modifiers["ctq_overheating_wands"] = function()
     end
 end
 
-extra_modifiers["ctq_no_rhythm"] = function()
+extra_modifiers["d2d_no_rhythm"] = function()
     local rand = Random( 72, 128 )
     c.fire_rate_wait = c.fire_rate_wait * rand * 0.01
     current_reload_time = current_reload_time * rand * 0.01
 end
 
-extra_modifiers["ctq_divine_prank"] = function()
+extra_modifiers["d2d_divine_prank"] = function()
     local enabled = getInternalVariableValue( get_player(), "divine_prank_enable_propane_effect", "value_int" )
     if ( enabled == 1 ) then
         local p_dcomp = EntityGetFirstComponentIncludingDisabled( get_player(), "DamageModelComponent" )
@@ -105,7 +99,7 @@ extra_modifiers["ctq_divine_prank"] = function()
     end
 end
     
-extra_modifiers["ctq_rapidfire_salvo"] = function()
+extra_modifiers["d2d_rapidfire_salvo"] = function()
     local old_fire_rate_wait = c.fire_rate_wait
     c.fire_rate_wait = c.fire_rate_wait * 0.25
     current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.375 )

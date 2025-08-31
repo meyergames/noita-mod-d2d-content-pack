@@ -70,16 +70,16 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		end
 	-- maybe spawn a curse-related spell (15% chance)
 	elseif ( rnd <= 55 ) then
-		local spells = { "CTQ_CURSES_TO_POWER", "CTQ_CURSES_TO_MANA" }
+		local spells = { "D2D_CURSES_TO_POWER", "D2D_CURSES_TO_MANA" }
 		local rnd2 = Random( 1, #spells )
 		local spell_to_spawn = spells[rnd2]
    		CreateItemActionEntity( spell_to_spawn, x, y )
 	-- maybe spawn a perk (10% chance)
 	elseif ( rnd <= 65 ) then
 		local rnd2 = Random( 1, 100 )
-		if ( not has_perk( "CTQ_HUNT_CURSES" ) ) then
+		if ( not has_perk( "D2D_HUNT_CURSES" ) ) then
 			spawn_random_perk( x - 10, y )
-			spawn_perk( "CTQ_HUNT_CURSES", x + 10, y )
+			spawn_perk( "D2D_HUNT_CURSES", x + 10, y )
 		elseif ( rnd2 <= 70 ) then -- 7%
 			spawn_random_perk( x, y )
 		elseif ( rnd2 <= 100 ) then -- 3%
@@ -87,7 +87,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 			spawn_random_perk( x + 10, y )
 		end
 		-- else -- 1%
-		-- 	spawn_random_perk_custom( x - 10, y, { "CTQ_LIFT_CURSES" } )
+		-- 	spawn_random_perk_custom( x - 10, y, { "D2D_LIFT_CURSES" } )
 		-- 	spawn_random_perk( x + 10, y )
 		-- end
 	-- maybe spawn a bunch of spells (10% chance)
@@ -210,7 +210,7 @@ function on_open( entity_item )
 		-- else
 		--     EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
 		-- end
-		if ( has_perk( "CTQ_HUNT_CURSES" ) ) then
+		if ( has_perk( "D2D_HUNT_CURSES" ) ) then
 			LoadGameEffectEntityTo( get_player(), "data/entities/misc/effect_regeneration.xml" )
 		end
 	end

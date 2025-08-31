@@ -1,0 +1,23 @@
+<Entity>
+
+    <InheritTransformComponent />
+	
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="CURSE_SPORADIC_SPEED"
+    ></GameEffectComponent >
+
+    <LuaComponent
+      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_sporadic_speed_on.lua"
+      execute_every_n_frame="1"
+        execute_times="1"
+      >
+    </LuaComponent>
+	
+	<LuaComponent 
+		_enabled="1" 
+		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_sporadic_speed_update.lua" 
+		execute_every_n_frame="20">
+	</LuaComponent>
+
+</Entity>

@@ -1,0 +1,39 @@
+dofile_once( "data/scripts/lib/utilities.lua" )
+
+local cooldown_time = getInternalVariableValue( owner, "divine_joke_cooldown_time", "value_int" )
+if ( cooldown_time > 0 ) then
+    setInternalVariableValue( owner, "divine_joke_cooldown_time", "value_int", cooldown_time - 1 )
+    return
+end
+
+
+
+local EFFECT_RADIUS_DETECT = 200
+
+local entity_id = GetUpdatedEntityID()
+local owner = EntityGetParent( entity_id )
+local x, y = EntityGetTransform( owner )
+
+local rounded_x = math.floor( x + 0.5 )
+local rounded_y = math.floor( y + 0.5 )
+local prev_x = math.floor( getInternalVariableValue( owner, "divine_joke_prev_x", "value_int" ) + 0.5 )
+local prev_y = math.floor( getInternalVariableValue( owner, "divine_joke_prev_y", "value_int" ) + 0.5 )
+setInternalVariableValue( owner, "divine_joke_prev_x", "value_int", rounded_x )
+setInternalVariableValue( owner, "divine_joke_prev_y", "value_int", rounded_y )
+
+if( rounded_x == prev_x and rounded_y == prev_y and Random( 0, 1 ) == 1 ) then
+    local prev_still_counter = getInternalVariableValue( owner, "divine_joke_still_counter", "value_int" )
+    local new_still_counter = prev_still_counter + 1
+    setInternalVariableValue( owner, "divine_joke_still_counter", "value_int", new_still_counter )
+
+    local enemies = EntityGetInRadiusWithTag( x, y, EFFECT_RADIUS_DETECT, "mortal" )
+    if( new_still_counter >= 10 and #enemies == 0 ) then
+        LoadGameEffectEntityTo( owner, "data/entities/misc/effect_polymorph.xml" )
+        setInternalVariableValue( owner, "divine_joke_still_counter", "value_int", 0 )
+
+        GamePrint("The gods chuckle as they totally prank you.")
+        setInternalVariableValue( owner, "divine_joke_cooldown_time", "value_int", 120 )
+    end
+-- else
+--     setInternalVariableValue( owner, "divine_joke_still_counter", "value_int", 0 )
+end

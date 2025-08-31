@@ -1,0 +1,20 @@
+<Entity>
+
+    <InheritTransformComponent />
+  
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="CONSUME_LOCAL"
+    ></GameEffectComponent >
+
+    <!-- <LuaComponent
+      script_item_picked_up="mods/RiskRewardBundle/files/scripts/perks/effect_consume_local_item_picked_up.lua"
+      execute_every_n_frame="-1"
+    ></LuaComponent> -->
+
+    <LuaComponent
+      script_shot="mods/RiskRewardBundle/files/scripts/perks/effect_homebody_wands_shot.lua"
+      execute_every_n_frame="-1"
+    ></LuaComponent>
+
+</Entity>

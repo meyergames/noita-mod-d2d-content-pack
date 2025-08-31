@@ -1,7 +1,7 @@
 <Entity>
 
 	<SpriteComponent 
-		image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/alt_fire_concrete_wall.png" 
+		image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png" 
 		offset_x="8"
 		offset_y="24">
 	</SpriteComponent>   

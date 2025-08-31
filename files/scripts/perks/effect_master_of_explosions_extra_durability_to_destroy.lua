@@ -6,7 +6,7 @@ function shot( entity_id )
 	if ( is_immune_to_explosions ) then return end
 
     local projectile = EntityGetFirstComponentIncludingDisabled( entity_id, "ProjectileComponent" )
-	local master_of_explosions_pickup_count = get_perk_pickup_count( "CTQ_MASTER_OF_EXPLOSIONS" )
+	local master_of_explosions_pickup_count = get_perk_pickup_count( "D2D_MASTER_OF_EXPLOSIONS" )
 
 	-- increase projectile's max_durability_to_destroy by 2 + 1 per Bomberman perk pickup
 	local current_mdtd_value = ComponentObjectGetValue2( projectile, "config_explosion", "max_durability_to_destroy" )
