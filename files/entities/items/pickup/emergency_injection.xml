@@ -138,18 +138,18 @@
 
   <ItemComponent
     _tags="enabled_in_world"
-    item_name="$item_riskreward_emergency_injection_name"
+    item_name="$item_d2d_emergency_injection_name"
     always_use_item_name_in_ui="true"
     max_child_items="0"
     is_pickable="1"
     is_equipable_forced="1"
     ui_sprite="mods/RiskRewardBundle/files/gfx/ui_gfx/items/emergency_injection.png"
-    ui_description="$item_riskreward_emergency_injection_desc"
+    ui_description="$item_d2d_emergency_injection_desc"
     preferred_inventory="QUICK"
   ></ItemComponent>
 
   <AbilityComponent
-    ui_name="$item_riskreward_emergency_injection_name"
+    ui_name="$item_d2d_emergency_injection_name"
     entity_file="mods/RiskRewardBundle/files/entities/projectiles/deck/emergency_injection_projectile.xml"
     throw_as_item="1"
   ><gun_config
@@ -159,7 +159,7 @@
 
   <UIInfoComponent
     _tags="enabled_in_world"
-    name="$item_riskreward_emergency_injection_name">
+    name="$item_d2d_emergency_injection_name">
   </UIInfoComponent>
   
   <SpriteParticleEmitterComponent

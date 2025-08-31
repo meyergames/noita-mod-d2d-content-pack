@@ -39,8 +39,8 @@ d2d_actions = {
 
     -- {
 	--     id                  = "D2D_OPTIMIZE",
-	--     name 		        = "$spell_riskreward_optimize_name",
-	--     description         = "$spell_riskreward_optimize_desc",
+	--     name 		        = "$spell_d2d_optimize_name",
+	--     description         = "$spell_d2d_optimize_desc",
     --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
 	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/optimize.png",
 	--     type 		        = ACTION_TYPE_MODIFIER,
@@ -58,8 +58,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_OVERCLOCK",
-	    name 		        = "$spell_riskreward_overclock_name",
-	    description         = "$spell_riskreward_overclock_desc",
+	    name 		        = "$spell_d2d_overclock_name",
+	    description         = "$spell_d2d_overclock_desc",
         inject_after        = { "D2D_BURST_FIRE", "RECHARGE", "MANA_REDUCE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/overclock.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
@@ -108,8 +108,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_FLURRY",
-	    name 		        = "$spell_riskreward_flurry_name",
-	    description         = "$spell_riskreward_flurry_desc",
+	    name 		        = "$spell_d2d_flurry_name",
+	    description         = "$spell_d2d_flurry_desc",
         inject_after        = { "RECHARGE", "RECHARGE", "MANA_REDUCE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/flurry.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
@@ -143,8 +143,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_RAPIDFIRE_SALVO",
-	    name 		        = "$spell_riskreward_rapidfire_salvo_name",
-	    description         = "$spell_riskreward_rapidfire_salvo_desc",
+	    name 		        = "$spell_d2d_rapidfire_salvo_name",
+	    description         = "$spell_d2d_rapidfire_salvo_desc",
         inject_after        = { "D2D_FLURRY", "RECHARGE", "MANA_REDUCE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/rapidfire_salvo.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
@@ -160,8 +160,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_MANA_REFILL",
-	    name 		        = "$spell_riskreward_mana_refill_name",
-	    description         = "$spell_riskreward_mana_refill_desc",
+	    name 		        = "$spell_d2d_mana_refill_name",
+	    description         = "$spell_d2d_mana_refill_desc",
         inject_after        = { "MANA_REDUCE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/mana_refill.png",
 	    type 		        = ACTION_TYPE_UTILITY,
@@ -204,8 +204,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_SNIPE_SHOT",
-	    name 		        = "$spell_riskreward_sniper_bolt_name",
-	    description         = "$spell_riskreward_sniper_bolt_desc",
+	    name 		        = "$spell_d2d_sniper_bolt_name",
+	    description         = "$spell_d2d_sniper_bolt_desc",
         inject_after        = { "ARROW" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/snipe_shot.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -221,8 +221,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_SNIPE_SHOT_TRIGGER",
-	    name 		        = "$spell_riskreward_sniper_bolt_trigger_name",
-	    description         = "$spell_riskreward_sniper_bolt_trigger_desc",
+	    name 		        = "$spell_d2d_sniper_bolt_trigger_name",
+	    description         = "$spell_d2d_sniper_bolt_trigger_desc",
         inject_after        = { "D2D_SNIPE_SHOT", "ARROW" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/snipe_shot_trigger.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -239,8 +239,8 @@ d2d_actions = {
 
 	{
 		id                  = "D2D_GHOST_TRIGGER",
-		name 		        = "$spell_riskreward_ghost_trigger_name",
-		description         = "$spell_riskreward_ghost_trigger_desc",
+		name 		        = "$spell_d2d_ghost_trigger_name",
+		description         = "$spell_d2d_ghost_trigger_desc",
         inject_after        = { "SPARK_BOLT_TIMER" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/ghost_trigger.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
@@ -258,8 +258,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_GIGA_DRAIN",
-	    name 		        = "$spell_riskreward_giga_drain_name",
-	    description         = "$spell_riskreward_giga_drain_desc",
+	    name 		        = "$spell_d2d_giga_drain_name",
+	    description         = "$spell_d2d_giga_drain_desc",
         inject_after        = { "CHAINSAW" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/giga_drain.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -278,8 +278,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_PAYDAY",
-	    name 		        = "$spell_riskreward_payday_name",
-	    description         = "$spell_riskreward_payday_desc",
+	    name 		        = "$spell_d2d_payday_name",
+	    description         = "$spell_d2d_payday_desc",
         inject_after        = { "SUMMON_ROCK" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/payday.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -312,8 +312,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_CONCRETE_WALL",
-	    name 		        = "$spell_riskreward_concrete_wall_name",
-	    description         = "$spell_riskreward_concrete_wall_desc",
+	    name 		        = "$spell_d2d_concrete_wall_name",
+	    description         = "$spell_d2d_concrete_wall_desc",
         inject_after        = { "D2D_PAYDAY", "SUMMON_ROCK" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/concrete_wall.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
@@ -332,8 +332,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_SMALL_EXPLOSION",
-	    name 		        = "$spell_riskreward_small_explosion_name",
-	    description         = "$spell_riskreward_small_explosion_desc",
+	    name 		        = "$spell_d2d_small_explosion_name",
+	    description         = "$spell_d2d_small_explosion_desc",
         inject_after        = { "EXPLOSION" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/small_explosion.png",
 	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
@@ -370,8 +370,8 @@ d2d_actions = {
 
 	{
 		id                  = "D2D_BANANA_BOMB",
-		name 		        = "$spell_riskreward_banana_bomb_name",
-		description         = "$spell_riskreward_banana_bomb_desc",
+		name 		        = "$spell_d2d_banana_bomb_name",
+		description         = "$spell_d2d_banana_bomb_desc",
         inject_after        = { "GLUE_SHOT", "SPORE_POD" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml"},
@@ -391,8 +391,8 @@ d2d_actions = {
 
 	{
 		id                  = "D2D_BANANA_BOMB_SUPER",
-		name 		        = "$spell_riskreward_banana_bomb_super_name",
-		description         = "$spell_riskreward_banana_bomb_super_desc",
+		name 		        = "$spell_d2d_banana_bomb_super_name",
+		description         = "$spell_d2d_banana_bomb_super_desc",
         inject_after        = { "D2D_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_super.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml"},
@@ -412,8 +412,8 @@ d2d_actions = {
 
 	{
 		id                  = "D2D_BANANA_BOMB_GIGA",
-		name 		        = "$spell_riskreward_banana_bomb_giga_name",
-		description         = "$spell_riskreward_banana_bomb_giga_desc",
+		name 		        = "$spell_d2d_banana_bomb_giga_name",
+		description         = "$spell_d2d_banana_bomb_giga_desc",
         inject_after        = { "D2D_BANANA_BOMB_SUPER", "D2D_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_giga.png",
 		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"},
@@ -433,8 +433,8 @@ d2d_actions = {
 
 	{
 		id                  = "D2D_BAG_OF_BOMBS",
-		name 		        = "$spell_riskreward_bag_of_bombs_name",
-		description         = "$spell_riskreward_bag_of_bombs_desc",
+		name 		        = "$spell_d2d_bag_of_bombs_name",
+		description         = "$spell_d2d_bag_of_bombs_desc",
         inject_after        = { "DYNAMITE" },
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/bag_of_bombs.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
@@ -487,8 +487,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_SMOKE_BOMB",
-	    name 		        = "$spell_riskreward_smoke_bomb_name",
-	    description         = "$spell_riskreward_smoke_bomb_desc",
+	    name 		        = "$spell_d2d_smoke_bomb_name",
+	    description         = "$spell_d2d_smoke_bomb_desc",
         inject_after        = { "GRENADE_ANTI", "GRENADE_TIER_3" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/smoke_bomb.png",
         custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_smoke_bomb.xml",
@@ -580,8 +580,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_DAMAGE_MISSING_MANA",
-	    name 		        = "$spell_riskreward_damage_missing_mana_name",
-	    description         = "$spell_riskreward_damage_missing_mana_desc",
+	    name 		        = "$spell_d2d_damage_missing_mana_name",
+	    description         = "$spell_d2d_damage_missing_mana_desc",
         inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/damage_missing_mana.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
@@ -714,8 +714,8 @@ d2d_actions = {
 
 	{
 		id                  = "D2D_FIXED_ALTITUDE",
-		name 		        = "$spell_riskreward_fixed_altitude_name",
-		description         = "$spell_riskreward_fixed_altitude_desc",
+		name 		        = "$spell_d2d_fixed_altitude_name",
+		description         = "$spell_d2d_fixed_altitude_desc",
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/fixed_altitude.png",
 		type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "1,2,3,4,5,6",
@@ -778,8 +778,8 @@ if ( ModIsEnabled("Apotheosis") ) then
 	d2d_apoth_actions = {
 	    {
 		    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
-		    name 		        = "$spell_riskreward_smoke_bomb_alt_fire_name",
-		    description         = "$spell_riskreward_smoke_bomb_alt_fire_desc",
+		    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
+		    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
 	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
 		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
@@ -798,8 +798,8 @@ if ( ModIsEnabled("Apotheosis") ) then
 
 	    {
 		    id                  = "D2D_MANA_REFILL_ALT_FIRE",
-		    name 		        = "$spell_riskreward_mana_refill_alt_fire_name",
-		    description         = "$spell_riskreward_mana_refill_alt_fire_desc",
+		    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
+		    description         = "$spell_d2d_mana_refill_alt_fire_desc",
 	        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
 		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
@@ -819,8 +819,8 @@ if ( ModIsEnabled("Apotheosis") ) then
 
 	    {
 		    id                  = "D2D_CONCRETE_WALL_ALT_FIRE",
-		    name 		        = "$spell_riskreward_concrete_wall_alt_fire_name",
-		    description         = "$spell_riskreward_concrete_wall_alt_fire_desc",
+		    name 		        = "$spell_d2d_concrete_wall_alt_fire_name",
+		    description         = "$spell_d2d_concrete_wall_alt_fire_desc",
 	        inject_after        = { "D2D_CONCRETE_WALL", "D2D_PAYDAY", "SUMMON_ROCK" },
 		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
