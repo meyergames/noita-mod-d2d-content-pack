@@ -1,0 +1,27 @@
+<Entity tags="card_action">
+
+    <Base file="data/entities/base_custom_card.xml" >
+
+        <SpriteComponent 
+            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/fixed_altitude.png" >
+        </SpriteComponent>
+
+        <ItemActionComponent 
+            _tags="enabled_in_world"
+            action_id="CTQ_FIXED_ALTITUDE" >
+        </ItemActionComponent>
+
+    </Base>
+
+    <LuaComponent
+        _tags="enabled_in_hand"
+        script_enabled_changed="mods/RiskRewardBundle/files/scripts/projectiles/fixed_altitude.lua"
+        execute_every_n_frame="-1"
+    ></LuaComponent>
+
+    <LuaComponent
+        _tags="enabled_in_hand"
+        script_shot="mods/RiskRewardBundle/files/scripts/projectiles/fixed_altitude.lua"
+        execute_every_n_frame="-1"
+    ></LuaComponent>
+</Entity>

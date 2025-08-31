@@ -49,16 +49,6 @@
 		/>
 	</DrugEffectModifierComponent>
 
-    <!-- apotheosis goodies >
-	<LuaComponent
-		_enabled="1"
-		script_source_file="mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua"
-        execute_on_added="0"
-		execute_every_n_frame="30"
-		remove_after_executed="0"
-		>
-	</LuaComponent> -->
-
     <MusicEnergyAffectorComponent
         energy_target="1.0"
     >

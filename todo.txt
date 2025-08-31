@@ -5,19 +5,20 @@ content checklist
 [ ] how's the tooltip look?
 
 spells
-[x] is optimize ship-ready?
+[-] is optimize ship-ready? <-- scrapped, not meaningful enough
 [x] is mana refill ship-ready? + alt fire?
 [x] is summon wall ship-ready? + alt fire?
 [x] is flurry ship-ready?
 [x] is overclock ship-ready?
-[Y] is missing mana to damage ship-ready? WOOOOO
+[x] is missing mana to damage ship-ready? <-- WOOOOO (except it doesn't work as an always-cast now)
 [x] is payday ship-ready?
 [x] is sniper bolt ship-ready?
 [x] is sniper bolt w/ trigger ship-ready?
 [x] is small explosion ship-ready?
 [x] is giga drain ship-ready?
 [x] is ghost trigger ship-ready?
-[ ] are the banana bombs ship-ready?
+[-] try using potion logic to destroy the banana bombs on contact with terrain <-- tried, better leave it for a future patch
+[x] are the banana bombs ship-ready?
 [x] when bag of bombs is used with bombs materialized, default to throwing dynamite
 [x] is bag of bombs ship-ready?
 [x] add the same explosion sprite to the volcanic/infernal drills as the banana bomb + add berserkium sparks, to reflect that one gif that inspired the spells
@@ -29,8 +30,8 @@ spells
 
 perks
 [x] is time trial ship-ready?
-[ ] is ring of life ship-ready?
-[X] master_of_explosions: consider adding +1 to maxDurabilityToDestroy for all projectiles/explosions
+[-] is ring of life ship-ready? <-- scrapped, design is lacking currently
+[x] master_of_explosions: consider adding +1 to maxDurabilityToDestroy for all projectiles/explosions
 [x] is master_of_explosions ship-ready?
 [x] consider increasing mana recharge speed after being electrocuted
 [x] is master_of_thunder ship-ready?
@@ -43,6 +44,9 @@ perks
 [x] is overheating wands ship-ready?
 [x] is arhythmic wands ship-ready?
 [x] is the floor is lava ship-ready?
+[x] is evolving wands ship-ready?
+[-] consider locking the "master of" perks behind cursed chests? <-- nah, but it should have *some* way to feel more special than a holy mountain pickup
+[-] is homebodies ship-ready? <-- scrapped, maybe another patch
 curses
 [x] add unique outline to curse UI icons
 [x] cursed chest curse selection sequence:
@@ -52,9 +56,14 @@ curses
 
 
 items
-[ ] is the cursed chest ship-ready?
-[ ] is the emergency injection ship-ready?
+[x] is the cursed chest ship-ready?
+[x] is the emergency injection ship-ready?
 
+
+
+final tests
+[ ] make sure Apotheosis' EZWand.lua calls have been replaced with this mod's
+[ ] check if the mod runs succesfully when Apotheosis is disabled
 
 
 

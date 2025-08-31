@@ -16,6 +16,20 @@ function getInternalVariableValue(entity_id, variable_name, variable_type)
 	return value
 end
 
+function getInternalVariableValueIncludingDisabled(entity_id, variable_name, variable_type)
+	local value = nil
+	local components = EntityGetComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
+	if ( components ~= nil ) then
+		for key,comp_id in pairs(components) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			if(var_name == variable_name) then
+				value = ComponentGetValue2(comp_id, variable_type)
+			end
+		end
+	end
+	return value
+end
+
 -- function to set a value of an internal variable contained in a variable storage component of an entity with entity_id with name variable_name and type variable_type
 -- entity_id is the id of the entity whose internal variables will be accessed
 -- variable_name is the name of the internal variable to be accesses
@@ -428,4 +442,45 @@ function remap( value, inMin, inMax, outMin, outMax )
 
     -- Scale to the target range.
     return outMin + t * (outMax - outMin)
+end
+
+
+
+
+function to_roman_numerals( s )
+	local map = { 
+	    I = 1,
+	    V = 5,
+	    X = 10,
+	    L = 50,
+	    C = 100, 
+	    D = 500, 
+	    M = 1000,
+	}
+	local numbers = { 1, 5, 10, 50, 100, 500, 1000 }
+	local chars = { "I", "V", "X", "L", "C", "D", "M" }
+
+	s = tonumber(s)
+    if not s or s ~= s then error"Unable to convert to number" end
+    if s == math.huge then error"Unable to convert infinity" end
+    s = math.floor(s)
+    if s <= 0 then return s end
+	local ret = ""
+        for i = #numbers, 1, -1 do
+        local num = numbers[i]
+        while s - num >= 0 and s > 0 do
+            ret = ret .. chars[i]
+            s = s - num
+        end
+        --for j = i - 1, 1, -1 do
+        for j = 1, i - 1 do
+            local n2 = numbers[j]
+            if s - (num - n2) >= 0 and s < num and s > 0 and num - n2 ~= n2 then
+                ret = ret .. chars[j] .. chars[i]
+                s = s - (num - n2)
+                break
+            end
+        end
+    end
+    return ret
 end

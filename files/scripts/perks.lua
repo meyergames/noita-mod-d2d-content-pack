@@ -28,32 +28,23 @@ ctq_perks = {
 	-- },
 
 	{
-		id = "CTQ_",
-		ui_name = "$perk_riskreward_ring_of_life_name",
-		ui_description = "$perk_riskreward_ring_of_life_desc",
-		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life_016.png",
-		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life.png",
-		stackable = STACKABLE_NO,
-		one_off_effect = true,
+		id = "CTQ_EVOLVING_WANDS",
+		ui_name = "$perk_riskreward_evolving_wands_name",
+		ui_description = "$perk_riskreward_evolving_wands_desc",
+		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_evolving_wands_016.png",
+		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_evolving_wands.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ring_of_life.xml" )
+			EntityAddComponent( entity_who_picked, "LuaComponent", 
+			{
+				_tags = "perk_component",
+				script_source_file = "mods/RiskRewardBundle/files/scripts/perks/effect_evolving_wands_update.lua",
+				execute_every_n_frame = "60",
+			} )
         end,
 	},
-
---	{
---		id = "CTQ_STENDARI_ESSENCE",
---		ui_name = "Stendari Essence",
---		ui_description = "Fire heals you, but water damages you.",
---		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_stendari_essence_016.png",
---		perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_stendari_essence.png",
---		stackable = STACKABLE_NO,
---		one_off_effect = false,
---		usable_by_enemies = true,
---		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_healing_fire.xml" )
---        end,
---	},
 
 	{
 		id = "CTQ_MASTER_OF_EXPLOSIONS",
@@ -64,18 +55,22 @@ ctq_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
-		remove_other_perks = { "PROTECTION_EXPLOSION" },
+		-- remove_other_perks = { "PROTECTION_EXPLOSION" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_explosions.xml" )
+			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_EXPLOSION" )
+			if immunity_effect_id ~= nil then
+				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
+			end
+
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-			            { 
-				            extra_modifier = "ctq_master_of_explosions_boost",
-			            } )
+            { 
+	            extra_modifier = "ctq_master_of_explosions_boost",
+            } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{ 
 				script_shot = "mods/RiskRewardBundle/files/scripts/perks/effect_master_of_explosions_extra_durability_to_destroy.lua",
 				execute_every_n_frame = "-1",
-			} )	
+			} )
         end,
 	},
 
@@ -88,13 +83,18 @@ ctq_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
-		remove_other_perks = { "PROTECTION_ELECTRICITY" },
+		-- remove_other_perks = { "PROTECTION_ELECTRICITY" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
+			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_ELECTRICITY" )
+			if immunity_effect_id ~= nil then
+				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
+			end
+
            	LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_thunder.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-			            { 
-				            extra_modifier = "ctq_master_of_thunder_boost",
-			            } )
+            { 
+	            extra_modifier = "ctq_master_of_thunder_boost",
+            } )
         end,
         -- effects:
         -- > x1.33 fire rate and reload speed
@@ -115,13 +115,18 @@ ctq_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
-		remove_other_perks = { "PROTECTION_FIRE" },
+		-- remove_other_perks = { "PROTECTION_FIRE" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
+			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_FIRE" )
+			if immunity_effect_id ~= nil then
+				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
+			end
+
             LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_master_of_fire.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-			            { 
-				            extra_modifier = "ctq_master_of_fire_boost",
-			            } )
+            { 
+	            extra_modifier = "ctq_master_of_fire_boost",
+            } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{ 
 				script_shot = "mods/RiskRewardBundle/files/scripts/perks/effect_master_of_fire_increased_damage.lua",
@@ -129,7 +134,7 @@ ctq_perks = {
 			} )	
         end,
         -- effects:
-        -- > all projectiles deal +10 fire damage and ignite enemies
+        -- > all projectiles deal +5 fire damage and ignite enemies
         -- > everyone takes more damage from fire
         -- > you take less damage from fire when low on health
         -- additionally, while the player is on fire...
@@ -170,6 +175,30 @@ ctq_perks = {
 			LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_hunt_curses.xml" )
         end,
 	},
+
+	-- {
+	-- 	id = "CTQ_HOMEBODY_WANDS",
+	-- 	ui_name = "Homebody",
+	-- 	ui_description = "Wands are much stronger in their home biome.",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_homebody_wands_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_homebody_wands.png",
+	-- 	stackable = STACKABLE_YES,
+	-- 	one_off_effect = false,
+	-- 	usable_by_enemies = false,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
+	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_consume_local.xml" )
+	-- 		-- EntityAddComponent2( entity_who_picked, "LuaComponent", 
+	-- 		-- { 
+	-- 		-- 	script_interacting = "mods/RiskRewardBundle/files/scripts/perks/effect_consume_local_interacting.lua",
+	-- 		-- 	execute_every_n_frame = -1,
+	-- 		-- } )
+	-- 		EntityAddComponent2( entity_who_picked, "LuaComponent", 
+	-- 		{ 
+	-- 			script_shot = "mods/RiskRewardBundle/files/scripts/perks/effect_homebodies_shot.lua",
+	-- 			execute_every_n_frame = -1,
+	-- 		} )	
+    --     end,
+	-- },
 
 	-- {
 	-- 	id = "CTQ_LIFT_CURSES",

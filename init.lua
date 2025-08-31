@@ -7,6 +7,7 @@ ModLuaFileAppend("data/scripts/status_effects/status_list.lua", "mods/RiskReward
 ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/RiskRewardBundle/files/scripts/items.lua")
 ModMaterialsFileAdd("mods/RiskRewardBundle/files/materials/materials.xml")
 
+ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural.lua", "mods/RiskRewardBundle/files/scripts/gun_procedural.lua")
 ModLuaFileAppend("data/scripts/biome_scripts.lua", "mods/RiskRewardBundle/files/scripts/biome_scripts.lua")
 ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/RiskRewardBundle/files/scripts/items/heart_fullhp_temple_custom.lua")
 ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/RiskRewardBundle/files/scripts/items/orb_pickup_custom.lua")
@@ -36,7 +37,7 @@ function OnPlayerSpawned(player)
 --    local perk = perk_spawn( -2, 4971, "CTQ_TIME_TRIAL" )
 --    local perk = perk_spawn( x+20, y-20, "PEACE_WITH_GODS" )
     -- local perk = perk_spawn( 750, -100, "CTQ_SET_IN_STONE" )
---    local perk = perk_spawn( x+20, y, "CTQ_THUNDERLORD" )
+--    local perk = perk_spawn( x+20, y, "CTQ_MASTER_OF_THUNDER" )
 
     --spawn random perk
     dofile_once( "data/scripts/perks/perk_list.lua" )

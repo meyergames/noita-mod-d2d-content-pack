@@ -1,0 +1,39 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+	    <ItemComponent
+	        _tags="enabled_in_world,enabled_in_hand,enabled_in_world"
+    		is_equipable_forced="1" >
+	    </ItemComponent>
+
+		<SpriteComponent 
+			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/smoke_bomb.png"
+		></SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="CTQ_SMOKE_BOMB" >
+		</ItemActionComponent>
+	</Base>
+
+	<SpriteComponent
+		_tags="enabled_in_hand,not_enabled_in_wand"
+		_enabled="0"
+    	image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/smoke_bomb.png" >
+	</SpriteComponent>
+
+	<AbilityComponent
+		_tags="enabled_in_hand"
+		ui_name="Smoke Bomb"
+		entity_file="mods/RiskRewardBundle/files/entities/projectiles/deck/smoke_bomb.xml"
+		rotate_hand_amount="0.05"
+		throw_as_item="1" 
+		simulate_throw_as_item="1"
+		use_entity_file_as_projectile_info_proxy="1"
+	>
+	<gun_config
+		deck_capacity="0"
+	></gun_config>
+	</AbilityComponent>
+
+</Entity>

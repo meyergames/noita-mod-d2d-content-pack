@@ -37,103 +37,24 @@ ctq_actions = {
 	--                         end,
     -- },
 
-    {
-	    id                  = "CTQ_OPTIMIZE",
-	    name 		        = "$spell_riskreward_optimize_name",
-	    description         = "$spell_riskreward_optimize_desc",
-        inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/optimize.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "1.0,0.9,0.7,0.5",
-	    price               = 120,
-	    mana                = -3,
-	    action              = function()
-                                c.fire_rate_wait    = c.fire_rate_wait - 3
-                                current_reload_time = current_reload_time - 6
+    -- {
+	--     id                  = "CTQ_OPTIMIZE",
+	--     name 		        = "$spell_riskreward_optimize_name",
+	--     description         = "$spell_riskreward_optimize_desc",
+    --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
+	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/optimize.png",
+	--     type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "0,1,2,3",
+	-- 	spawn_probability   = "1.0,0.9,0.7,0.5",
+	--     price               = 120,
+	--     mana                = -3,
+	--     action              = function()
+    --                             c.fire_rate_wait    = c.fire_rate_wait - 3
+    --                             current_reload_time = current_reload_time - 6
 
-	    						draw_actions( 1, true )
-	                        end,
-    },
-
-    {
-	    id                  = "CTQ_MANA_REFILL",
-	    name 		        = "$spell_riskreward_mana_refill_name",
-	    description         = "$spell_riskreward_mana_refill_desc",
-        inject_after        = { "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/mana_refill.png",
-	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-	    price               = 330,
-	    mana                = 0,
-	    max_uses			= 10,
-		never_unlimited 	= true,
-		-- custom_uses_logic	= true,
-	    action              = function()
-	    						-- c.fire_rate_wait = c.fire_rate_wait + 30
-	    						if reflecting then return end
-	    						-- c.fire_rate_wait = c.fire_rate_wait - 30
-
-							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
-							    local wand = EZWand.GetHeldWand()
-                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-
-                                -- if ( mana <= wand.manaMax * 0.25 ) then
-						    	mana = wand.manaMax
-            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
-	    						-- end
-
-								-- 	local uses_remaining = -1
-								-- 	local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
-								-- 	if ( icomp ~= nil ) then
-								-- 	    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
-								-- 	end
-						        --     local spells, attached_spells = wand:GetSpells()
-						        --     for i,spell in ipairs( spells ) do
-						        --         if ( spell.action_id == "CTQ_MANA_REFILL" ) then
-						        --             ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
-						        --             break
-						        --         end
-						        --     end
-	            				-- end
-	                        end,
-    },
-
-    {
-	    id                  = "CTQ_FLURRY",
-	    name 		        = "$spell_riskreward_flurry_name",
-	    description         = "$spell_riskreward_flurry_desc",
-        inject_after        = { "RECHARGE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/flurry.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
-	    price               = 180,
-	    mana                = 1,
-	    action              = function()
-                                c.fire_rate_wait    = c.fire_rate_wait - 15 -- so it shows in the UI
-                                current_reload_time = current_reload_time - 20 -- so it shows in the UI
-
-					            if reflecting then return end
-
-                                local entity_id = GetUpdatedEntityID()
-
-							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
-							    local wand = EZWand.GetHeldWand()
-
-							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
-                                current_reload_time = current_reload_time + 20 -- reset
-
-							    local remaining_mana_percent = ( 1.0 / wand.manaMax ) * wand.mana
-							    if ( remaining_mana_percent >= 0.75 ) then
-							    	c.fire_rate_wait	= c.fire_rate_wait - ( ( remaining_mana_percent - 0.75 ) * ( 15 / 0.25 ) )
-							    	current_reload_time	= current_reload_time - ( ( remaining_mana_percent - 0.75 ) * ( 20 / 0.25 ) )
-								end
-                                
-			                    draw_actions( 1, true )
-	                        end,
-    },
+	--     						draw_actions( 1, true )
+	--                         end,
+    -- },
 
     {
 	    id                  = "CTQ_OVERCLOCK",
@@ -154,7 +75,7 @@ ctq_actions = {
 
                                 local entity_id = GetUpdatedEntityID()
 
-							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
                                 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
@@ -186,6 +107,41 @@ ctq_actions = {
     },
 
     {
+	    id                  = "CTQ_FLURRY",
+	    name 		        = "$spell_riskreward_flurry_name",
+	    description         = "$spell_riskreward_flurry_desc",
+        inject_after        = { "RECHARGE", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/flurry.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
+	    price               = 180,
+	    mana                = 1,
+	    action              = function()
+                                c.fire_rate_wait    = c.fire_rate_wait - 15 -- so it shows in the UI
+                                current_reload_time = current_reload_time - 20 -- so it shows in the UI
+
+					            if reflecting then return end
+
+                                local entity_id = GetUpdatedEntityID()
+
+							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+							    local wand = EZWand.GetHeldWand()
+
+							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
+                                current_reload_time = current_reload_time + 20 -- reset
+
+							    local remaining_mana_percent = ( 1.0 / wand.manaMax ) * wand.mana
+							    if ( remaining_mana_percent >= 0.75 ) then
+							    	c.fire_rate_wait	= c.fire_rate_wait - ( ( remaining_mana_percent - 0.75 ) * ( 15 / 0.25 ) )
+							    	current_reload_time	= current_reload_time - ( ( remaining_mana_percent - 0.75 ) * ( 20 / 0.25 ) )
+								end
+                                
+			                    draw_actions( 1, true )
+	                        end,
+    },
+
+    {
 	    id                  = "CTQ_RAPIDFIRE_SALVO",
 	    name 		        = "$spell_riskreward_rapidfire_salvo_name",
 	    description         = "$spell_riskreward_rapidfire_salvo_desc",
@@ -199,6 +155,50 @@ ctq_actions = {
 	    mana                = 1,
 	    action              = function()
                                 draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "CTQ_MANA_REFILL",
+	    name 		        = "$spell_riskreward_mana_refill_name",
+	    description         = "$spell_riskreward_mana_refill_desc",
+        inject_after        = { "MANA_REDUCE" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/mana_refill.png",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+	    price               = 330,
+	    mana                = 0,
+	    max_uses			= 5,
+		never_unlimited 	= true,
+		-- custom_uses_logic	= true,
+	    action              = function()
+	    						-- c.fire_rate_wait = c.fire_rate_wait + 30
+	    						if reflecting then return end
+	    						-- c.fire_rate_wait = c.fire_rate_wait - 30
+
+							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+							    local wand = EZWand.GetHeldWand()
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+
+                                -- if ( mana <= wand.manaMax * 0.25 ) then
+						    	mana = wand.manaMax
+            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
+	    						-- end
+
+								-- 	local uses_remaining = -1
+								-- 	local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
+								-- 	if ( icomp ~= nil ) then
+								-- 	    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+								-- 	end
+						        --     local spells, attached_spells = wand:GetSpells()
+						        --     for i,spell in ipairs( spells ) do
+						        --         if ( spell.action_id == "CTQ_MANA_REFILL" ) then
+						        --             ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
+						        --             break
+						        --         end
+						        --     end
+	            				-- end
 	                        end,
     },
 
@@ -485,6 +485,25 @@ ctq_actions = {
 		                    end,
 	},
 
+    {
+	    id                  = "CTQ_SMOKE_BOMB",
+	    name 		        = "$spell_riskreward_smoke_bomb_name",
+	    description         = "$spell_riskreward_smoke_bomb_desc",
+        inject_after        = { "GRENADE_ANTI", "GRENADE_TIER_3" },
+	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/smoke_bomb.png",
+        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_smoke_bomb.xml",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4,5",
+		spawn_probability   = "0.5,0.7,0.8,0.7,0.5,0.3",
+	    price               = 230,
+	    mana                = 50,
+	    max_uses			= 10,
+	    action              = function()
+                                c.fire_rate_wait = c.fire_rate_wait + 45
+                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/smoke_bomb.xml")
+	                        end,
+    },
+
 	-- {
 	-- 	id                  = "CTQ_DRILL_VOLCANIC",
 	-- 	name 		        = "Volcanic Drill",
@@ -558,7 +577,7 @@ ctq_actions = {
 	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
 	-- 	end,
 	-- },
-	
+
     {
 	    id                  = "CTQ_DAMAGE_MISSING_MANA",
 	    name 		        = "$spell_riskreward_damage_missing_mana_name",
@@ -575,11 +594,7 @@ ctq_actions = {
 
 					            if reflecting then return end
 
-							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
-							    -- local entity_id = GetUpdatedEntityID()
-							    -- local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
-							    -- local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
-							    -- local wand = EZWand(active_wand)
+							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
 							    
                                 c.fire_rate_wait    			= c.fire_rate_wait - 4 -- reset
@@ -703,44 +718,17 @@ ctq_actions = {
 
 	{
 		id                  = "CTQ_FIXED_ALTITUDE",
-		name 		        = "Fixed Altitude",
-		description         = "Resets your vertical velocity",
+		name 		        = "$spell_riskreward_fixed_altitude_name",
+		description         = "$spell_riskreward_fixed_altitude_desc",
 		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/fixed_altitude.png",
-		type 		        = ACTION_TYPE_UTILITY,
+		type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
+		custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_fixed_altitude.xml",
 		price               = 280,
 		mana                = 1,
 		action 		        = function()
-								if reflecting then return end
-
-								local player = GetUpdatedEntityID()
-
-								-- local vel_x, vel_y = getPlayerVelocities()
-								-- ^ this seems to be an existing method?
-
-								local vcomp = EntityGetFirstComponent( player, "VelocityComponent" )
-								local cdcomp = EntityGetFirstComponent( player, "CharacterDataComponent" )
-							    if vcomp ~= nil then
-									local v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
-									local d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
-
-								    if ( v_vel_y > 0 ) then
-										-- edit_component( player, "VelocityComponent", function(vcomp,vars)
-										-- 	ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, ( v_vel_y * 0.25 ) - 6 ) end)
-										
-										-- edit_component( player, "CharacterDataComponent", function(ccomp,vars)
-										-- 	ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, ( d_vel_y * 0.25 ) - 12 ) end)
-										edit_component( player, "VelocityComponent", function(vcomp,vars)
-											ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, -6 ) end)
-										
-										edit_component( player, "CharacterDataComponent", function(ccomp,vars)
-											ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, -12 ) end)
-
-										v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
-										d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
-									end
-							    end
+								draw_actions( 1, true )
 		                    end,
 	},
 
@@ -793,6 +781,26 @@ ctq_actions = {
 if ( ModIsEnabled("Apotheosis") ) then
 	ctq_apoth_actions = {
 	    {
+		    id                  = "CTQ_SMOKE_BOMB_ALT_FIRE",
+		    name 		        = "$spell_riskreward_smoke_bomb_alt_fire_name",
+		    description         = "$spell_riskreward_smoke_bomb_alt_fire_desc",
+	        inject_after        = { "CTQ_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
+		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/alt_fire_smoke_bomb.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "0,1,2,3,4,5",
+			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
+			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_smoke_bomb.xml",
+		    price               = 230,
+		    mana                = 50,
+		    max_uses			= 10,
+        	custom_uses_logic 	= true,
+		    action              = function()
+		    						draw_actions( 1, true )
+		                        end,
+	    },
+
+	    {
 		    id                  = "CTQ_MANA_REFILL_ALT_FIRE",
 		    name 		        = "$spell_riskreward_mana_refill_alt_fire_name",
 		    description         = "$spell_riskreward_mana_refill_alt_fire_desc",
@@ -805,19 +813,11 @@ if ( ModIsEnabled("Apotheosis") ) then
 			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_mana_refill.xml",
 		    price               = 330,
 		    mana                = 0,
-		    max_uses			= 10,
+		    max_uses			= 5,
 		    never_unlimited		= true,
         	custom_uses_logic 	= true,
 		    action              = function()
 		    						draw_actions( 1, true )
-
-									-- local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
-									-- if ( icomp ~= nil ) then
-									--     uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
-									--     ComponentSetValue2( icomp, "uses_remaining", uses_remaining + 1 )
-									-- end
-									-- -- TODO: uses are still consumed on left-click (i.e. normal spell usage)
-									-- -- check in Apotheosis' actions.lua how the "alt_fire_cov" spell (which has limited uses) handles this?
 		                        end,
 	    },
 

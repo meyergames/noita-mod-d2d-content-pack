@@ -182,5 +182,50 @@
 	color="ff767676" >
 	  </Graphics>
 	</CellData>
+  
+  <CellData
+	name="smoke_invisibility"
+	ui_name="Invisibilium smoke"
+  tags="[gas]"
+	burnable="0"
+	density="1"
+	lifetime="15"
+	cell_type="gas"
+	wang_color="80306cc0"
+	generates_smoke="0"
+	liquid_gravity="0.5"
+	liquid_sand="0"
+	gfx_glow="150"
+	on_fire="0"
+	requires_oxygen="0"
+	liquid_stains="1"
+	liquid_sprite_stain_shaken_drop_chance="1"
+	status_effects="INVISIBILITY"
+	audio_materialaudio_type="MAGICAL" 
+	show_in_creative_mode="1"
+	>
+	<ParticleEffect
+		vel.y="-40"
+		vel_random.min_y="-20.21"
+		vel_random.max_y="-2.861"
+		vel_random.min_x="-6.667"
+		vel_random.max_x="6.667"
+		lifetime.min="0.3238"
+		lifetime.max="9.3238"
+		gravity.y="-100"
+		render_on_grid="1"
+		airflow_force="10"
+		airflow_scale="6.857"
+		draw_as_long="0"
+		friction="1.352"
+		probability="0.0343"
+	>
+	</ParticleEffect>
+	<StatusEffects>
+		<Ingestion>
+			<StatusEffect type="FOOD_POISONING" amount="0.2" />
+		</Ingestion>
+	</StatusEffects>
+  </CellData>
 
 </Materials>
