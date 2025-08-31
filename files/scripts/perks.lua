@@ -13,8 +13,22 @@ ctq_perks = {
 		end,
 	},
 
+	-- {
+	-- 	id = "CTQ_RING_OF_LIFE",
+	-- 	ui_name = "$perk_riskreward_ring_of_life_name",
+	-- 	ui_description = "$perk_riskreward_ring_of_life_desc",
+	-- 	ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life_016.png",
+	-- 	perk_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life.png",
+	-- 	stackable = STACKABLE_NO,
+	-- 	one_off_effect = true,
+	-- 	usable_by_enemies = false,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
+    --         LoadGameEffectEntityTo( entity_who_picked, "mods/RiskRewardBundle/files/entities/misc/effect_ring_of_life.xml" )
+    --     end,
+	-- },
+
 	{
-		id = "CTQ_RING_OF_LIFE",
+		id = "CTQ_",
 		ui_name = "$perk_riskreward_ring_of_life_name",
 		ui_description = "$perk_riskreward_ring_of_life_desc",
 		ui_icon = "mods/RiskRewardBundle/files/gfx/ui_gfx/perk_ring_of_life_016.png",

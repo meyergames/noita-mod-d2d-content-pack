@@ -28,7 +28,7 @@ if GameGetFrameNum() >= cooldown_frame then
         if ( mana > manacost and ( uses_remaining ~= 0 or is_always_cast ) ) then
 
             wand.mana = wand.manaMax
-            wand.currentCastDelay = wand.currentCastDelay + 60
+            -- wand.currentCastDelay = wand.currentCastDelay + 30
             GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
 
             local spells, attached_spells = wand:GetSpells()

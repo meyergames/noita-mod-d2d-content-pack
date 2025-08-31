@@ -39,7 +39,7 @@ end
 extra_modifiers["ctq_master_of_fire_boost"] = function()
     local is_immune_to_fire = has_game_effect( get_player(), "PROTECTION_FIRE" )
     if( not is_immune_to_fire ) then
-	    c.damage_fire_add = c.damage_fire_add + 0.4
+	    c.damage_fire_add = c.damage_fire_add + 0.2
 		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
     end
 end

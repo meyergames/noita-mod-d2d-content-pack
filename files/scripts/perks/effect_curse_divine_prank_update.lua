@@ -69,7 +69,7 @@ if ( not gods_angry_prank_triggered
     -- local guard_y = y
     -- EntityLoad( "mods/RiskRewardBundle/files/entities/misc/fake_stevari.xml", x, y )
 
-    GamePrintImportant( "$logdesc_gods_are_very_angry", "" )
+    GamePrintImportant( "$logdesc_temple_spawn_guardian", "" )
     GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )
     GameScreenshake( 150 )
     GameTriggerMusicFadeOutAndDequeueAll( 4.0 )

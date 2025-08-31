@@ -47,7 +47,7 @@ ctq_actions = {
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "1.0,0.9,0.7,0.5",
 	    price               = 120,
-	    mana                = -5,
+	    mana                = -3,
 	    action              = function()
                                 c.fire_rate_wait    = c.fire_rate_wait - 3
                                 current_reload_time = current_reload_time - 6
@@ -62,41 +62,41 @@ ctq_actions = {
 	    description         = "$spell_riskreward_mana_refill_desc",
         inject_after        = { "MANA_REDUCE" },
 	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/mana_refill.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
+	    type 		        = ACTION_TYPE_UTILITY,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 	    price               = 330,
 	    mana                = 0,
-	    max_uses			= 5,
+	    max_uses			= 10,
 		never_unlimited 	= true,
-		custom_uses_logic	= true,
+		-- custom_uses_logic	= true,
 	    action              = function()
-	    						c.fire_rate_wait = c.fire_rate_wait + 30
+	    						-- c.fire_rate_wait = c.fire_rate_wait + 30
 	    						if reflecting then return end
-	    						c.fire_rate_wait = c.fire_rate_wait - 30
+	    						-- c.fire_rate_wait = c.fire_rate_wait - 30
 
 							    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
 							    local wand = EZWand.GetHeldWand()
                                 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
-                                if ( mana <= wand.manaMax * 0.25 ) then
-							    	mana = wand.manaMax
-	            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
-	    							c.fire_rate_wait = c.fire_rate_wait + 30
+                                -- if ( mana <= wand.manaMax * 0.25 ) then
+						    	mana = wand.manaMax
+            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
+	    						-- end
 
-									local uses_remaining = -1
-									local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
-									if ( icomp ~= nil ) then
-									    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
-									end
-						            local spells, attached_spells = wand:GetSpells()
-						            for i,spell in ipairs( spells ) do
-						                if ( spell.action_id == "CTQ_MANA_REFILL" ) then
-						                    ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
-						                    break
-						                end
-						            end
-	            				end
+								-- 	local uses_remaining = -1
+								-- 	local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
+								-- 	if ( icomp ~= nil ) then
+								-- 	    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+								-- 	end
+						        --     local spells, attached_spells = wand:GetSpells()
+						        --     for i,spell in ipairs( spells ) do
+						        --         if ( spell.action_id == "CTQ_MANA_REFILL" ) then
+						        --             ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
+						        --             break
+						        --         end
+						        --     end
+	            				-- end
 	                        end,
     },
 
@@ -163,7 +163,7 @@ ctq_actions = {
 							    -- 	c.fire_rate_wait	= c.fire_rate_wait - ( ( remaining_mana_percent - 0.5 ) * 10 )
 								-- end
 
-							    local rand = Random( 0, 100 )
+							    local rand = Random( 0, 200 )
 							    local chance = 1.0 / ( (1.0 / wand.manaMax) * wand.mana )
                                 if( rand <= chance ) then
                                     c.fire_rate_wait    = 40
@@ -270,6 +270,8 @@ ctq_actions = {
 	    action              = function()
 		                        c.fire_rate_wait = current_reload_time + 8
 		                        current_reload_time = current_reload_time + 20
+								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 100
+
                                 add_projectile("mods/RiskRewardBundle/files/entities/projectiles/giga_drain_bullet.xml")
 	                        end,
     },
@@ -556,7 +558,7 @@ ctq_actions = {
 	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
 	-- 	end,
 	-- },
-
+	
     {
 	    id                  = "CTQ_DAMAGE_MISSING_MANA",
 	    name 		        = "$spell_riskreward_damage_missing_mana_name",
@@ -584,53 +586,46 @@ ctq_actions = {
 
 							    local remaining_mana_percent	= ( 1.0 / wand.manaMax ) * wand.mana
 						    	local missing_mana				= wand.manaMax - wand.mana
-						    	local sec_to_recharge_wand		= wand.manaMax / math.max( wand.manaChargeSpeed, 1 ) -- careful for division by zero
-                                -- local spell_cast_delay			= math.max( c.fire_rate_wait, 0 ) -- sniper bolt is 45
                                 local missing_mana_percent		= 1.0 - remaining_mana_percent
-
-                                local bonus_dmg_raw				= ( 0.04 * missing_mana * 0.1 ) -- first check how much mana the player is missing
-                                								  * ( 1.0 + 0.1 * math.min( sec_to_recharge_wand, 90 ) ) -- multiply by the time it takes to recharge
-                                								  -- * ( 1.0 + 0.05 * math.min( spell_cast_delay, 60 ) ) -- multiply by the projectile's cast delay
-								c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
-								-- GamePrint("dealt " .. 25 * ( c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent ) ) .. " bonus damage")
-								c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
+						    	local sec_to_recharge_wand		= wand.manaMax / math.max( wand.manaChargeSpeed, 1 ) -- careful for division by zero
 
                                 c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana_percent * 20 ) -- max 20
                                 c.knockback_force				= c.knockback_force + ( missing_mana_percent * 5 ) -- max 5
 								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana_percent * 200 ) -- max 200
 
+                                -- draw the next (chain of) card(s)
+			                    draw_actions( 1, true )
+
+                                -- calculate how much mana the hand's projectiles cost
+                                local projectile_count = 0
+                                local projectiles_mana_drain = 0
+								if ( hand ~= nil ) then
+									for i,data in ipairs( hand ) do
+										local rec = check_recursion( data, recursion_level )
+										if ( data ~= nil ) and ( data.type == ACTION_TYPE_PROJECTILE ) and ( rec > -1 ) then
+											projectile_count = projectile_count + 1
+											projectiles_mana_drain = projectiles_mana_drain + data.mana
+										end
+									end
+								end
+								if ( projectile_count == 0 ) then return end
+
+								-- calculate net bonus damage
+                                local bonus_dmg_raw				= remap( missing_mana, 0, 5000, 0.00, remap( projectiles_mana_drain / projectile_count, 5, 120, 10 * 0.04, 125 * 0.04 ) )
+                                								  * remap( sec_to_recharge_wand, 1, 60, 1.0, 10.0 ) -- multiply by the time it takes to recharge
+                                								  -- * remap( projectiles_mana_drain, 5, 100, 0.1, 1.0 ) -- higher mana draining projectiles get more damage
+                                								  -- * ( 1.0 / projectile_count ) -- divide by the amount of projectiles in the hand/shot
+
+								GamePrint("bonus dmg: [" .. bonus_dmg_raw * 25)
+
+								c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
+								GamePrint("* [" .. missing_mana_percent .. "]")
+								-- GamePrint("dealt " .. 25 * ( c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent ) ) .. " bonus damage")
+								c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
+
 								if ( remaining_mana_percent <= 0.25 ) then
 									c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_orange.xml,"
 								end
-
-
-
-
-								-- local util = dofile_once( "data/scripts/lib/utilities.lua" )
-    							-- local function adjust_all_entity_damage( entity, callback )
-    							-- 	adjust_entity_damage( entity,
-								--         function( current_damage ) return callback( current_damage ) end,
-								--         function( current_damages )
-								--             for type,current_damage in pairs( current_damages ) do
-								--                 if current_damage ~= 0 then
-								--                     current_damages[type] = callback( current_damage )
-								--                 end
-								--             end
-								--             return current_damages
-								--         end,
-								--         function( current_damage ) return callback( current_damage ) end,
-								--         function( current_damage ) return callback( current_damage ) end,
-								--         function( current_damage ) return callback( current_damage ) end
-								--     )
-								-- end
-    							-- adjust_all_entity_damage( c, function( current_damage ) return ( current_damage ) * (1 + missing_mana_percent) end )
-
-    							-- WHY IS IT SO HARD TO MULTIPLY DAMAGE?!
-
-
-
-
-			                    draw_actions( 1, true )
 	                        end,
     },
 
@@ -810,7 +805,7 @@ if ( ModIsEnabled("Apotheosis") ) then
 			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/alt_fire_mana_refill.xml",
 		    price               = 330,
 		    mana                = 0,
-		    max_uses			= 5,
+		    max_uses			= 10,
 		    never_unlimited		= true,
         	custom_uses_logic 	= true,
 		    action              = function()

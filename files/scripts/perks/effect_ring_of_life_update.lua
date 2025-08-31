@@ -21,17 +21,17 @@ if ( player_hp <= player_max_hp * 0.1 ) then
     if ( hm_visits == 0 ) then
         tpx, tpy = 277, -84
     elseif( hm_visits == 1 and y > 1390 ) then
-        tpx, tpy = -420, 1460
+        tpx, tpy = -497, 1350
     elseif ( hm_visits == 2 and y > 2930 ) then
-        tpx, tpy = -420, 3000
+        tpx, tpy = -497, 2890
     elseif ( hm_visits == 3 and y > 4980 ) then
-        tpx, tpy = -420, 5050
+        tpx, tpy = -497, 4940
     elseif ( hm_visits == 4 and y > 6520 ) then
-        tpx, tpy = -420, 6590
+        tpx, tpy = -497, 6480
     elseif ( hm_visits == 5 and y > 8570 ) then
-        tpx, tpy = -420, 8640
+        tpx, tpy = -497, 8530
     elseif ( hm_visits == 6 and y > 10610 ) then
-        tpx, tpy = -420, 10680
+        tpx, tpy = -497, 10570
     elseif ( y > 12500 ) then
         tpx, tpy = 2170, 13230
     else

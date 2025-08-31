@@ -13,6 +13,11 @@
       execute_every_n_frame="1"
         execute_times="1"
     ></LuaComponent>
+
+    <LuaComponent
+      script_damage_received="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_thunder_damage_taken.lua"
+      execute_every_n_frame="-1"
+    ></LuaComponent>
   
     <!-- UPDATE -->
   <LuaComponent 

@@ -5,45 +5,47 @@ content checklist
 [ ] how's the tooltip look?
 
 spells
-[ ] is optimize ship-ready?
-[ ] is flurry ship-ready?
-[ ] is overclock ship-ready?
-[ ] is missing mana to damage ship-ready?
-[ ] is payday ship-ready?
-[ ] is sniper bolt ship-ready?
-[ ] is sniper bolt w/ trigger ship-ready?
-[ ] is small explosion ship-ready?
-[ ] is giga drain ship-ready?
-[ ] is ghost trigger ship-ready?
+[x] is optimize ship-ready?
+[x] is mana refill ship-ready? + alt fire?
+[x] is summon wall ship-ready? + alt fire?
+[x] is flurry ship-ready?
+[x] is overclock ship-ready?
+[Y] is missing mana to damage ship-ready? WOOOOO
+[x] is payday ship-ready?
+[x] is sniper bolt ship-ready?
+[x] is sniper bolt w/ trigger ship-ready?
+[x] is small explosion ship-ready?
+[x] is giga drain ship-ready?
+[x] is ghost trigger ship-ready?
 [ ] are the banana bombs ship-ready?
-[ ] when bag of bombs is used with bombs materialized, default to throwing dynamite
-[ ] is bag of bombs ship-ready?
-[ ] add the same explosion sprite to the volcanic/infernal drills as the banana bomb + add berserkium sparks, to reflect that one gif that inspired the spells
-[ ] remove on_fire applying effect from the drills
-[ ] is volcanic drill ship-ready?
-[ ] is infernal drill ship-ready?
+[x] when bag of bombs is used with bombs materialized, default to throwing dynamite
+[x] is bag of bombs ship-ready?
+[x] add the same explosion sprite to the volcanic/infernal drills as the banana bomb + add berserkium sparks, to reflect that one gif that inspired the spells
+[x] remove on_fire applying effect from the drills
+[-] is volcanic drill ship-ready? <--- feature creep, cause I thought the drill + master of bombs + berserkium looked so cool...
+[-] is infernal drill ship-ready?
 
 
 
 perks
-[ ] is time trial ship-ready?
+[x] is time trial ship-ready?
 [ ] is ring of life ship-ready?
-[ ] bomberman: consider adding +1 to maxDurabilityToDestroy for all projectiles/explosions
-[ ] is bomberman ship-ready?
-[ ] consider increasing mana recharge speed after being electrocuted
-[ ] is thunderlord ship-ready?
-[ ] consider splitting pyrelord's effects into multiple perks, or scrapping some
-[ ] is pyrelord ship-ready?
-[ ] is set in stone ship-ready?
-[ ] is the stendari curse ship-ready?
-[ ] is repel gold ship-ready?
-[ ] is the divine prank ship-ready?
-[ ] is overheating wands ship-ready?
-[ ] is arhythmic wands ship-ready?
-[ ] is the floor is lava ship-ready?
+[X] master_of_explosions: consider adding +1 to maxDurabilityToDestroy for all projectiles/explosions
+[x] is master_of_explosions ship-ready?
+[x] consider increasing mana recharge speed after being electrocuted
+[x] is master_of_thunder ship-ready?
+[x] consider splitting master_of_fire's effects into multiple perks, or scrapping some
+[x] is master_of_fire ship-ready?
+[-] is set in stone ship-ready?
+[x] is the stendari curse ship-ready?
+[x] is repel gold ship-ready?
+[x] is the divine prank ship-ready?
+[x] is overheating wands ship-ready?
+[x] is arhythmic wands ship-ready?
+[x] is the floor is lava ship-ready?
 curses
-[ ] add unique outline to curse UI icons
-[ ] cursed chest curse selection sequence:
+[x] add unique outline to curse UI icons
+[x] cursed chest curse selection sequence:
     1. find a curse the player doesn't already have
     2. if the player has all curses, pick a random curse that is stackable (maybe guaranteed Curse Lifter when the player has all curses? + unlock for future runs)
 

@@ -411,3 +411,21 @@ function spawn_random_perk_custom( x, y, perk_ids )
     perk_id_to_spawn = random_from_array( perk_ids_to_consider )
     local perk = perk_spawn( x, y, perk_id_to_spawn )
 end
+
+
+function remap( value, inMin, inMax, outMin, outMax )
+    -- Guard against division by zero if the input range is degenerate.
+    if inMax == inMin then
+        error("Input range cannot have zero length")
+    end
+
+    -- Normalise the input value to a 0‑1 scale.
+    local t = (value - inMin) / (inMax - inMin)
+
+    -- Optionally clamp t to [0,1] so values outside the source range don’t extrapolate.
+    -- Uncomment the next two lines if you want clamping:
+    if t < 0 then t = 0 elseif t > 1 then t = 1 end
+
+    -- Scale to the target range.
+    return outMin + t * (outMax - outMin)
+end

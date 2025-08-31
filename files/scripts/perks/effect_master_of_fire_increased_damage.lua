@@ -19,7 +19,7 @@ function shot( entity_id )
 			for a,b in ipairs(dtypes) do
 				local v = tonumber(ComponentObjectGetValue( comp, "damage_by_type", b ))
 				v = v * 2.5
-				ComponentObjectSetValue( comp, "damage_by_type", b, tostring(v) )
+				ComponentObjectSetValue( comp, "damage_by_type", b, tonumber(v) )
 			end
 
 			-- multiply other damage by x1.5
@@ -27,7 +27,7 @@ function shot( entity_id )
 			for a,b in ipairs(dtypes) do
 				local v = tonumber(ComponentObjectGetValue( comp, "damage_by_type", b ))
 				v = v * 1.5
-				ComponentObjectSetValue( comp, "damage_by_type", b, tostring(v) )
+				ComponentObjectSetValue( comp, "damage_by_type", b, tonumber(v) )
 			end
 		end
 	end
