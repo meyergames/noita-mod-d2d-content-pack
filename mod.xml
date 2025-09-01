@@ -1,14 +1,18 @@
 <Mod
 	name="D2D Content Pack"
-	description="A collection of spells, perks and items to spice up your run!\nThings you could be doing with this mod:
-\n- Sacrificing immunity perks for crazy fire power
+	description="A collection of spells, perks and items to spice up your run.
+\nThings you could be doing with this mod:
+\n- Sacrificing immunity perks for crazy firepower
 \n- Having an overclocked wand explode in your face
 \n- Racing to the next Holy Mountain for wealth and glory
 \n- Racing to the next Holy Mountain because you injected something questionable
 \n- Risking your life to gain max health with a short-range drain spell
 \n- Hitting quickscope collaterals with Snipuhiisi's sniper bolt
 \n- Blasting worms with the infamous banana bomb
-\n- Watching gold fly away from you because you got cursed
-\n- ...and much more!"
+\n- Watching gold fly away from you after gaining a curse
+\n...and much more!"
+    tags="gameplay,perks,spells,items"
+    dont_upload_folders="FOLDER_TO_IGNORE1|FOLDER_TO_IGNORE2"
+    dont_upload_files="FILE_TO_IGNORE1|FILE_TO_IGNORE2"
 >
 </Mod>

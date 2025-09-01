@@ -3,7 +3,7 @@
   <Base file="data/entities/base_projectile_physics.xml">
 
     <PhysicsImageShapeComponent 
-      image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/projectile_banana_small.png"
+      image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/projectile_banana_small.png"
       material="fuse_tnt" >
     </PhysicsImageShapeComponent>
 
@@ -18,7 +18,7 @@
         ><config_explosion
           damage="2.6"
           explosion_radius="20"
-          explosion_sprite="mods/RiskRewardBundle/files/gfx/projectiles_gfx/explosion_040.xml"
+          explosion_sprite="mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_040.xml"
           explosion_sprite_emissive="true"
           camera_shake="8"
           load_this_entity=""
