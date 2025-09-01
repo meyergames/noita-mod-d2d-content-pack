@@ -3,7 +3,7 @@
     <InheritTransformComponent />
 
     <LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_foot_injury_trigger.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/perks/effect_foot_injury_trigger.lua"
       execute_every_n_frame="1"
         execute_times="1"
       >

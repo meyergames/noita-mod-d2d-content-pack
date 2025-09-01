@@ -7,7 +7,7 @@
 	    </ItemComponent>
 
 		<SpriteComponent 
-			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb.png" 
+			image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/banana_bomb.png" 
 		></SpriteComponent>
 		
 		<ItemActionComponent 

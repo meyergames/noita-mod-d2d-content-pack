@@ -48,7 +48,7 @@ for i,enemy in ipairs(enemies) do
                     
                     local e_x, e_y = EntityGetTransform( other_enemy )
                     if ( not has_game_effect( other_enemy, "ON_FIRE" ) ) then
-                        EntityLoad( "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml", e_x, e_y )
+                        EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml", e_x, e_y )
                     end
                 end
             end
@@ -62,7 +62,7 @@ for i,enemy in ipairs(enemies) do
         --     local heal_dmg = -1 * math.max( ( ( e_max_hp * 0.01 ) + ( e_hp * 0.02 ) ) * fire_dmg_mtp, 0.02 )
         --     EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "master_of_fire healing", "NONE", 0, 0, owner, x, y, 0 )
         --     GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
-        --     -- EntityLoad( "mods/RiskRewardBundle/files/entities/particles/heal_master_of_fire.xml", pos_x, pos_y )
+        --     -- EntityLoad( "mods/D2DContentPack/files/entities/particles/heal_master_of_fire.xml", pos_x, pos_y )
         -- end
     end
 end

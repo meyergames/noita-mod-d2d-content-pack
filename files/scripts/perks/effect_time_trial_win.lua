@@ -37,7 +37,7 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         {
             name = "Time Trial: Lost",
             description = "You lost the time trial, earning you a curse.",
-            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial_016_lost.png",
+            icon_sprite_file = "mods/D2DContentPack/files/gfx/ui_gfx/perks/time_trial_016_lost.png",
             display_above_head = false,
             display_in_hud = true,
             is_perk = true,
@@ -90,7 +90,7 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         {
             name = "Time Trial: Won",
             description = "You were rewarded with doubled max health, increased move speed and a chest.",
-            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial_016_won.png",
+            icon_sprite_file = "mods/D2DContentPack/files/gfx/ui_gfx/perks/time_trial_016_won.png",
             display_above_head = false,
             display_in_hud = true,
             is_perk = true,

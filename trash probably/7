@@ -20,4 +20,4 @@ end
 --
 --local entity_id = GetUpdatedEntityID()
 --
---add_status_effect( entity_id, "mods/RiskRewardBundle/files/gfx/ui_gfx/status_indicators/borrowed_time.png", "Viral Infection", "You may want to seek medical or divine assistance.", true )
+--add_status_effect( entity_id, "mods/D2DContentPack/files/gfx/ui_gfx/status_indicators/borrowed_time.png", "Viral Infection", "You may want to seek medical or divine assistance.", true )

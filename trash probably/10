@@ -20,7 +20,7 @@ if old_update_count then
         -- if the player made peace with the gods, give some extra time, once
         setInternalVariableValue( owner, "reached_time_trial_finish", "value_int", 1 )
         setInternalVariableValue( owner, "is_doing_time_trial", "value_int", 0)
-        dofile_once("mods/RiskRewardBundle/files/scripts/status_effects/effect_time_trial_win.lua")
+        dofile_once("mods/D2DContentPack/files/scripts/status_effects/effect_time_trial_win.lua")
     elseif ( new_update_count >= DURATION_IN_SEC - 10 ) then
         GamePrint( ( DURATION_IN_SEC - new_update_count ) .. "..." )
 --        if ( new_update_count == 50 and GlobalsGetValue( "TIME_TRIAL_GODS_LENIENCE_USED", "0" ) == "0" ) then

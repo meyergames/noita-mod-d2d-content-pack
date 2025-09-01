@@ -5,7 +5,7 @@ function shot( entity_id )
 	local projectile_mana_drain = ComponentObjectGetValue2( proj_comp, "config", "action_mana_drain" )
 	local projectile_cast_delay = ComponentObjectGetValue2( proj_comp, "config", "fire_rate_wait" )
 
-	local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand.GetHeldWand()
 
     local remaining_mana_percent	= ( 1.0 / wand.manaMax ) * wand.mana

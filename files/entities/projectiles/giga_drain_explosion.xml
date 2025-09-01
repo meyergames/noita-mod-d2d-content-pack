@@ -94,7 +94,7 @@
 
     <!--this is a script call that happens when the entity is loaded in
     <LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/giga_drain_explosion.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/projectiles/giga_drain_explosion.lua"
       execute_every_n_frame="1"
         execute_times="1"
       >

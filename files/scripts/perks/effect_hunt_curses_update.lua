@@ -26,11 +26,11 @@ for _,id in pairs(EntityGetInRadiusWithTag( pos_x, pos_y, range, "cursed_chest")
 
 		-- display sprite based on proximity
 		if distance > range * 0.5 then
-			GameCreateSpriteForXFrames( "mods/RiskRewardBundle/files/particles/radar_cursed_chest_faint.png", indicator_x, indicator_y )
+			GameCreateSpriteForXFrames( "mods/D2DContentPack/files/particles/radar_cursed_chest_faint.png", indicator_x, indicator_y )
 		elseif distance > range * 0.25 then
-			GameCreateSpriteForXFrames( "mods/RiskRewardBundle/files/particles/radar_cursed_chest_medium.png", indicator_x, indicator_y )
+			GameCreateSpriteForXFrames( "mods/D2DContentPack/files/particles/radar_cursed_chest_medium.png", indicator_x, indicator_y )
 		elseif distance > 10 then
-			GameCreateSpriteForXFrames( "mods/RiskRewardBundle/files/particles/radar_cursed_chest_strong.png", indicator_x, indicator_y )
+			GameCreateSpriteForXFrames( "mods/D2DContentPack/files/particles/radar_cursed_chest_strong.png", indicator_x, indicator_y )
 		end
 	end
 end

@@ -7,7 +7,7 @@
 	    </ItemComponent>
 
 		<SpriteComponent 
-			image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_giga.png" 
+			image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/banana_bomb_giga.png" 
 		></SpriteComponent>
 		
 		<ItemActionComponent 
@@ -19,13 +19,13 @@
 	<SpriteComponent
 		_tags="enabled_in_hand,not_enabled_in_wand"
 		_enabled="0"
-    	image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/projectile_banana_giga.png" >
+    	image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/projectile_banana_giga.png" >
 	</SpriteComponent>
 
 	<AbilityComponent
 		_tags="enabled_in_hand"
 		ui_name="Giga Banana Bomb"
-		entity_file="mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"
+		entity_file="mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml"
 		rotate_hand_amount="0.05"
 		throw_as_item="1" 
 		simulate_throw_as_item="1"

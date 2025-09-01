@@ -1,4 +1,4 @@
-dofile_once("mods/RiskRewardBundle/files/scripts/utilities.lua")
+dofile_once("mods/D2DContentPack/files/scripts/utilities.lua")
 
 local entity_id    = GetUpdatedEntityID()
 local x, y = EntityGetTransform( entity_id )

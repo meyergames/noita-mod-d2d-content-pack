@@ -1,5 +1,5 @@
 <Sprite
- filename="mods/RiskRewardBundle/files/gfx/projectiles_gfx/orb_purple.png"
+ filename="mods/D2DContentPack/files/gfx/projectiles_gfx/orb_purple.png"
  offset_x="5"
  offset_y="5"
  default_animation="fireball" >

@@ -51,7 +51,7 @@ if ( player_hp <= player_max_hp * 0.1 ) then
         {
             name = "Ring Of Life (shattered)",
             description = "It's of no use now.",
-            icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/ring_of_life_016_spent.png",
+            icon_sprite_file = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ring_of_life_016_spent.png",
             display_above_head = false,
             display_in_hud = true,
             is_perk = true,

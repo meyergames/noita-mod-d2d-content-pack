@@ -9,7 +9,7 @@
 
     <!--INIT -->
     <LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_fire_on.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_fire_on.lua"
       execute_every_n_frame="1"
         execute_times="1"
     ></LuaComponent>
@@ -17,20 +17,20 @@
     <!-- UPDATE -->
   <LuaComponent 
     _enabled="1" 
-    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_fire_update_slow.lua" 
+    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_fire_update_slow.lua" 
     execute_every_n_frame="30"
   ></LuaComponent>
   
     <!-- UPDATE -->
   <LuaComponent 
     _enabled="1" 
-    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_fire_update.lua" 
+    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_fire_update.lua" 
     execute_every_n_frame="10"
   ></LuaComponent>
 
     <!-- ON REMOVE -->
     <!--<LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/status_effects/effect_time_trial_off.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/status_effects/effect_time_trial_off.lua"
       execute_every_n_frame="-1"
         execute_on_added="0"
         execute_on_removed="1"

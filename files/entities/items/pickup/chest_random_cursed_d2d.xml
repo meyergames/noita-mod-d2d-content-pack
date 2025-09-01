@@ -23,7 +23,7 @@
   <PhysicsImageShapeComponent 
     body_id="1"
     centered="1"
-    image_file="mods/RiskRewardBundle/files/gfx/buildings_gfx/chest_random_cursed.png"
+    image_file="mods/D2DContentPack/files/gfx/buildings_gfx/chest_random_cursed.png"
     material="wood_prop"
   ></PhysicsImageShapeComponent>
 
@@ -36,13 +36,13 @@
   </ItemComponent>
 
   <LuaComponent 
-    script_physics_body_modified="mods/RiskRewardBundle/files/scripts/items/chest_random_cursed.lua" 
+    script_physics_body_modified="mods/D2DContentPack/files/scripts/items/chest_random_cursed.lua" 
     execute_times="1"
 	>
   </LuaComponent>
   
   <LuaComponent 
-    script_item_picked_up="mods/RiskRewardBundle/files/scripts/items/chest_random_cursed.lua" >
+    script_item_picked_up="mods/D2DContentPack/files/scripts/items/chest_random_cursed.lua" >
   </LuaComponent>
 
   <LightComponent 

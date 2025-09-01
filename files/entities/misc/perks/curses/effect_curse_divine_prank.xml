@@ -8,7 +8,7 @@
     ></GameEffectComponent >
 
     <LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_divine_prank_on.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_on.lua"
       execute_every_n_frame="1"
         execute_times="1"
       >
@@ -16,13 +16,13 @@
   
   <LuaComponent 
     _enabled="1" 
-    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_divine_prank_update.lua" 
+    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_update.lua" 
     execute_every_n_frame="60">
   </LuaComponent>
   
   <!-- <LuaComponent 
     _enabled="1" 
-    script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_curse_divine_prank_update_fast.lua" 
+    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_update_fast.lua" 
     execute_every_n_frame="10">
   </LuaComponent> -->
 

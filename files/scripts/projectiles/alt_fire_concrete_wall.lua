@@ -27,7 +27,7 @@ if GameGetFrameNum() >= cooldown_frame then
         local mana = wand.mana
         if ( mana > manacost and ( uses_remaining ~= 0 or is_always_cast ) ) then
 
-            GameShootProjectile(root, x+aim_x*12, y+aim_y*12, x+aim_x*20, y+aim_y*20, EntityLoad("mods/RiskRewardBundle/files/entities/projectiles/concrete_wall_bullet_initial.xml", x, y))
+            GameShootProjectile(root, x+aim_x*12, y+aim_y*12, x+aim_x*20, y+aim_y*20, EntityLoad("mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml", x, y))
             wand.mana = mana - manacost
 
             local spells, attached_spells = wand:GetSpells()
@@ -36,7 +36,7 @@ if GameGetFrameNum() >= cooldown_frame then
                     ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
                     if ( uses_remaining == 1 ) then
                         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y );
-                        EntityLoad("mods/RiskRewardBundle/files/particles/fade_alt_fire_concrete_wall.xml", x, y )
+                        EntityLoad("mods/D2DContentPack/files/particles/fade_alt_fire_concrete_wall.xml", x, y )
                     end
 
                     break
@@ -49,7 +49,7 @@ if GameGetFrameNum() >= cooldown_frame then
                 AddFlagPersistent(actionid)
             end
                 if ModIsEnabled("quant.ew") then
-                    CrossCall("d2d_ew_alt_fire", root, x, y, aim_x, aim_y, "mods/RiskRewardBundle/files/entities/projectiles/concrete_wall_bullet_initial.xml")
+                    CrossCall("d2d_ew_alt_fire", root, x, y, aim_x, aim_y, "mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml")
                 end
         elseif ( mana < manacost ) then
             GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y );

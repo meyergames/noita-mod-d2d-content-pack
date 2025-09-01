@@ -39,7 +39,7 @@ if ( update_count == 59 and has_reached_finish == 0 ) then
     {
         name = "Time Trial: Lost",
         description = "You lost the time trial, earning you a curse.",
-        icon_sprite_file = "mods/RiskRewardBundle/files/gfx/ui_gfx/perks/time_trial_016_lost.png",
+        icon_sprite_file = "mods/D2DContentPack/files/gfx/ui_gfx/perks/time_trial_016_lost.png",
         display_above_head = false,
         display_in_hud = true,
         is_perk = true,

@@ -1,5 +1,5 @@
 <Sprite
- filename="mods/RiskRewardBundle/files/gfx/projectiles_gfx/heal_bubble.png"
+ filename="mods/D2DContentPack/files/gfx/projectiles_gfx/heal_bubble.png"
  offset_x="4"
  offset_y="4"
  default_animation="fireball" >

@@ -44,7 +44,7 @@
             never_cache="1" 
             damage="0"
             explosion_radius="10"
-            explosion_sprite="mods/RiskRewardBundle/files/gfx/projectiles_gfx/explosion_008_plasma_pink.xml" 
+            explosion_sprite="mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_008_plasma_pink.xml" 
             explosion_sprite_lifetime="0"
             explosion_sprite_emissive="1"
             explosion_sprite_additive="1"
@@ -74,7 +74,7 @@
     <SpriteComponent 
         _enabled="1" 
         alpha="1" 
-        image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/max_hp_bubble.xml" 
+        image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/max_hp_bubble.xml" 
         next_rect_animation=""
         rect_animation="fireball" 
         emissive="1"
@@ -84,12 +84,12 @@
     <!--this for some reason destroys the player entity?-->
     <HitEffectComponent 
         effect_hit="LOAD_ENTITY"
-        value_string="mods/RiskRewardBundle/files/entities/projectiles/deck/giga_drain_increase_max_hp.xml" >
+        value_string="mods/D2DContentPack/files/entities/projectiles/deck/giga_drain_increase_max_hp.xml" >
     </HitEffectComponent >
 
     <!--this is a script call that happens when the entity is loaded in-->
     <!--<LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/homing_component.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/projectiles/homing_component.lua"
       execute_every_n_frame="1"
       >
     </LuaComponent>-->

@@ -25,7 +25,7 @@ if ( GameHasFlagRun( flag ) == false ) then
 	            for z=1, #inventory_items do
 	            	item = inventory_items[z]
 
-	            	local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+	            	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 	                if EZWand.IsWand( item ) then
             			local number_suffix = "th"
             			if z % 10 == 1 then number_suffix = "st"

@@ -9,5 +9,5 @@ addNewInternalVariable( owner, "sporadic_speed_boost_active", "value_int", 0 )
 -- GamePrint("kcomp: " .. kcomp)
 -- if ( kcomp ~= nil ) then
 --   local kick_entities = ComponentGetValue2( kcomp, "kick_entities" )
---   ComponentSetValue2( kcomp, "kick_entities", kick_entities .. "mods/RiskRewardBundle/files/entities/misc/effect_curse_foot_injury_trigger.xml" )
+--   ComponentSetValue2( kcomp, "kick_entities", kick_entities .. "mods/D2DContentPack/files/entities/misc/effect_curse_foot_injury_trigger.xml" )
 -- end

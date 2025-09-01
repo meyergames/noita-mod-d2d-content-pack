@@ -36,9 +36,9 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	if ( rnd <= 15 ) then
 		local rnd2 = Random( 1,100 )
 		if ( rnd2 <= 99 ) then
-			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_128.xml" } )
+			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_128.xml" } )
 		elseif ( rnd2 <= 100) then -- 1/1,000
-			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_256.xml" } )
+			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml" } )
 		end
 	-- maybe spawn a heart (15% chance)
 	elseif ( rnd <= 30 ) then
@@ -54,7 +54,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	elseif ( rnd <= 40 ) then
 		local rnd2 = Random( 1, 100 )
 		if ( rnd2 <= 30 ) then -- 4%
-			table.insert( entities, { "mods/RiskRewardBundle/files/entities/items/pickup/emergency_injection.xml" } )
+			table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml" } )
 		elseif ( rnd2 <= 40 ) then -- 1%
 			table.insert( entities, { "data/entities/items/pickup/safe_haven.xml" } )
 		elseif ( rnd2 <= 60 ) then -- 2%
@@ -64,9 +64,9 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		elseif ( rnd2 <= 85 ) then -- 0.5%
 			table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
 		elseif ( rnd2 <= 95 ) then -- 1.0%
-			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml"} )
+			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml"} )
 		elseif ( rnd2 <= 100 ) then -- 0.5%
-			table.insert( entities, { "mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"} )
+			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml"} )
 		end
 	-- maybe spawn a curse-related spell (15% chance)
 	elseif ( rnd <= 55 ) then

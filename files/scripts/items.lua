@@ -31,7 +31,7 @@ end
 ctq_items = {
     {
         weight = 2,
-        entity = "mods/RiskRewardBundle/files/entities/items/pickup/emergency_injection.xml",
+        entity = "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml",
         offset = -2
     },
 }

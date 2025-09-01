@@ -4,7 +4,7 @@ d2d_actions = {
 	--     name 		        = "Overclock",
 	--     description         = "Pushes your wand to its limits; may cause overheating",
     --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/overclock.png",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/overclock.png",
 	--     type 		        = ACTION_TYPE_MODIFIER,
 	-- 	spawn_level         = "0,1,2,3,4,5,6",
 	-- 	spawn_probability   = "0.4,0.6,0.8,0.9,1.0,1.0,1.0",
@@ -22,9 +22,9 @@ d2d_actions = {
     --                                 if( rand2 < 1 ) then -- 2/250 or 1/125
     --                                     EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
     --                                 elseif( rand2 < 3 ) then -- 2/250 or 1/125
-    --                                     add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
+    --                                     add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
     --                                 elseif( rand2 < 5 ) then -- 2/250 or 1/125
-    --                                     add_projectile("mods/RiskRewardBundle/files/entities/projectiles/overclock.xml")
+    --                                     add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
     --                                 else -- 3/250 or 1/83
     --                                     add_projectile("data/entities/projectiles/deck/fizzle.xml")
     --                                 end
@@ -42,7 +42,7 @@ d2d_actions = {
 	--     name 		        = "$spell_d2d_optimize_name",
 	--     description         = "$spell_d2d_optimize_desc",
     --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	--     sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/optimize.png",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/optimize.png",
 	--     type 		        = ACTION_TYPE_MODIFIER,
 	-- 	spawn_level         = "0,1,2,3",
 	-- 	spawn_probability   = "1.0,0.9,0.7,0.5",
@@ -61,7 +61,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_overclock_name",
 	    description         = "$spell_d2d_overclock_desc",
         inject_after        = { "D2D_BURST_FIRE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/overclock.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/overclock.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.6,0.8,0.9,0.8,0.7,0.6",
@@ -75,7 +75,7 @@ d2d_actions = {
 
                                 local entity_id = GetUpdatedEntityID()
 
-							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
                                 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
@@ -94,9 +94,9 @@ d2d_actions = {
                                     if( rand2 < 1 ) then -- 2/250 or 1/125
                                         EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
                                     elseif( rand2 < 3 ) then -- 2/250 or 1/125
-                                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
+                                        add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
                                     elseif( rand2 < 5 ) then -- 2/250 or 1/125
-                                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/overclock.xml")
+                                        add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
                                     else -- 3/250 or 1/83
                                         add_projectile("data/entities/projectiles/deck/fizzle.xml")
                                     end
@@ -111,7 +111,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_flurry_name",
 	    description         = "$spell_d2d_flurry_desc",
         inject_after        = { "RECHARGE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/flurry.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/flurry.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
@@ -125,7 +125,7 @@ d2d_actions = {
 
                                 local entity_id = GetUpdatedEntityID()
 
-							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
 
 							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
@@ -146,11 +146,11 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_rapidfire_salvo_name",
 	    description         = "$spell_d2d_rapidfire_salvo_desc",
         inject_after        = { "D2D_FLURRY", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/rapidfire_salvo.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/rapidfire_salvo.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-		custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_rapidfire_salvo.xml",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_rapidfire_salvo.xml",
 	    price               = 330,
 	    mana                = 1,
 	    action              = function()
@@ -163,7 +163,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_mana_refill_name",
 	    description         = "$spell_d2d_mana_refill_desc",
         inject_after        = { "MANA_REDUCE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/mana_refill.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_refill.png",
 	    type 		        = ACTION_TYPE_UTILITY,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
@@ -177,7 +177,7 @@ d2d_actions = {
 	    						if reflecting then return end
 	    						-- c.fire_rate_wait = c.fire_rate_wait - 30
 
-							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
                                 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
@@ -207,7 +207,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_sniper_bolt_name",
 	    description         = "$spell_d2d_sniper_bolt_desc",
         inject_after        = { "ARROW" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/snipe_shot.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/snipe_shot.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "0.4,1,2,2",
@@ -215,7 +215,7 @@ d2d_actions = {
 	    mana                = 40,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 45
-                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/sniper_bullet_custom.xml")
+                                add_projectile("mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml")
 	                        end,
     },
 
@@ -224,7 +224,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_sniper_bolt_trigger_name",
 	    description         = "$spell_d2d_sniper_bolt_trigger_desc",
         inject_after        = { "D2D_SNIPE_SHOT", "ARROW" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/snipe_shot_trigger.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/snipe_shot_trigger.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.5,0.8,0.8,0.9,1,1",
@@ -232,8 +232,8 @@ d2d_actions = {
 	    mana                = 70,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 67
---                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/sniper_bullet_custom.xml")
-                    			add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/sniper_bullet_custom.xml", 1)
+--                                add_projectile("mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml")
+                    			add_projectile_trigger_hit_world("mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml", 1)
 	                        end,
     },
 
@@ -242,8 +242,8 @@ d2d_actions = {
 		name 		        = "$spell_d2d_ghost_trigger_name",
 		description         = "$spell_d2d_ghost_trigger_desc",
         inject_after        = { "SPARK_BOLT_TIMER" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/ghost_trigger.png",
-		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/ghost_trigger.png",
+		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
 		spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
@@ -252,7 +252,7 @@ d2d_actions = {
 		action 		        = function()
                                 c.damage_null_all = 1
 			                    c.fire_rate_wait = c.fire_rate_wait - 3
-			                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghost_trigger_bullet.xml", 1)
+			                    add_projectile_trigger_hit_world("mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml", 1)
 		                    end,
 	},
 
@@ -261,7 +261,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_giga_drain_name",
 	    description         = "$spell_d2d_giga_drain_desc",
         inject_after        = { "CHAINSAW" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/giga_drain.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/giga_drain.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.5,0.8,1,1.1,1,0.8,0.5",
@@ -272,7 +272,7 @@ d2d_actions = {
 		                        current_reload_time = current_reload_time + 20
 								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 100
 
-                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/giga_drain_bullet.xml")
+                                add_projectile("mods/D2DContentPack/files/entities/projectiles/giga_drain_bullet.xml")
 	                        end,
     },
 
@@ -281,7 +281,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_payday_name",
 	    description         = "$spell_d2d_payday_desc",
         inject_after        = { "SUMMON_ROCK" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/payday.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/payday.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- SUMMON_ROCK
 		spawn_probability   = "0.7,0.7,0.5,0.5,0.2,0.6,0.6", -- SUMMON_ROCK (-0.1)
@@ -300,7 +300,7 @@ d2d_actions = {
     	                            local money = ComponentGetValue2(wallet, "money")
                                     if (money ~= nil) then
                                         if ( money >= 10 ) then
-			                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/payday_nugget.xml")
+			                                add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/payday_nugget.xml")
                                             ComponentSetValue2(wallet, "money", money - 10)
                                         else
                                             GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
@@ -315,7 +315,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_concrete_wall_name",
 	    description         = "$spell_d2d_concrete_wall_desc",
         inject_after        = { "D2D_PAYDAY", "SUMMON_ROCK" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/concrete_wall.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/concrete_wall.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
@@ -326,7 +326,7 @@ d2d_actions = {
 			                    c.fire_rate_wait    = c.fire_rate_wait + 40
 			                    current_reload_time = current_reload_time + 40
 
-                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/concrete_wall_bullet_initial.xml")
+                                add_projectile("mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml")
 	                        end,
     },
 
@@ -335,14 +335,14 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_small_explosion_name",
 	    description         = "$spell_d2d_small_explosion_desc",
         inject_after        = { "EXPLOSION" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/small_explosion.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/small_explosion.png",
 	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "1.2,1,0.8,0.6",
 	    price               = 120,
 	    mana                = 25,
 	    action              = function()
-			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
+			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
 			                    c.screenshake = c.screenshake + 1.25
 	                        end,
@@ -353,8 +353,8 @@ d2d_actions = {
 	-- 	name 		        = "Ghostly Messenger",
     --     inject_after        = { "D2D_GHOST_TRIGGER", "SPARK_BOLT_TIMER" },
 	-- 	description         = "Penetrates all terrain to cast another spell upon collision",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/ghostly_messenger.png",
-	-- 	related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml"},
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/ghostly_messenger.png",
+	-- 	related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/deck/ghostly_messenger.xml"},
 	-- 	type 		        = ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level         = "2,3,4,5,6",
 	-- 	spawn_probability   = "0.3,0.5,0.7,0.9,1",
@@ -364,7 +364,7 @@ d2d_actions = {
     --                             c.damage_null_all = 1
 	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 45
 	-- 	                        current_reload_time = current_reload_time + 93
-	-- 		                    add_projectile_trigger_hit_world("mods/RiskRewardBundle/files/entities/projectiles/deck/ghostly_messenger.xml", 1)
+	-- 		                    add_projectile_trigger_hit_world("mods/D2DContentPack/files/entities/projectiles/deck/ghostly_messenger.xml", 1)
 	-- 	                    end,
 	-- },
 
@@ -373,19 +373,19 @@ d2d_actions = {
 		name 		        = "$spell_d2d_banana_bomb_name",
 		description         = "$spell_d2d_banana_bomb_desc",
         inject_after        = { "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb.png",
-		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml"},
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/banana_bomb.png",
+		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/banana_bomb.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- DYNAMITE
 		spawn_probability   = "0.7,0.6,0.5,0.4,0.3", -- DYNAMITE
 		price               = 190,
 		mana                = 60,
         max_uses            = 12,
-        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb.xml",
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_banana_bomb.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
 			                    c.spread_degrees = c.spread_degrees + 6.0
-			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml", 1)
+			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb.xml", 1)
 		                    end,
 	},
 
@@ -394,19 +394,19 @@ d2d_actions = {
 		name 		        = "$spell_d2d_banana_bomb_super_name",
 		description         = "$spell_d2d_banana_bomb_super_desc",
         inject_after        = { "D2D_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_super.png",
-		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml"},
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/banana_bomb_super.png",
+		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- BOMB
 		spawn_probability   = "0.5,0.6,0.7,0.4,0.3,0.2,0.1",
 		price               = 380,
 		mana                = 90,
         max_uses            = 6,
-        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb_super.xml",
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_banana_bomb_super.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
 			                    c.spread_degrees = c.spread_degrees + 6.0
-			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml", 1)
+			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml", 1)
 		                    end,
 	},
 
@@ -415,19 +415,19 @@ d2d_actions = {
 		name 		        = "$spell_d2d_banana_bomb_giga_name",
 		description         = "$spell_d2d_banana_bomb_giga_desc",
         inject_after        = { "D2D_BANANA_BOMB_SUPER", "D2D_BANANA_BOMB", "GLUE_SHOT", "SPORE_POD" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/banana_bomb_giga.png",
-		related_projectiles	= {"mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml"},
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/banana_bomb_giga.png",
+		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml"},
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6", -- BOMB
 		spawn_probability   = "0.1,0.2,0.3,0.4,0.4,0.5,0.5",
 		price               = 570,
 		mana                = 180,
         max_uses            = 3,
-        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_banana_bomb_giga.xml",
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_banana_bomb_giga.xml",
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 50
 			                    c.spread_degrees = c.spread_degrees + 6.0
-			                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml", 1)
+			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml", 1)
 		                    end,
 	},
 
@@ -436,21 +436,21 @@ d2d_actions = {
 		name 		        = "$spell_d2d_bag_of_bombs_name",
 		description         = "$spell_d2d_bag_of_bombs_desc",
         inject_after        = { "DYNAMITE" },
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/bag_of_bombs.png",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/bag_of_bombs.png",
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- DYNAMITE
 		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
 		price               = 250,
 		mana                = 75,
         max_uses            = 15,
-       	custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
+       	custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
 		action 		        = function()
                                 local rand = Random( 0, 1000 )
                                 if( rand < 250 ) then -- 25%
 			                        add_projectile("data/entities/projectiles/bomb.xml")
 			                        c.fire_rate_wait = c.fire_rate_wait + 100
                                 elseif( rand < 400 ) then -- 15%
-			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb.xml", 1)
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 6.0
                                 elseif( rand < 500 ) then -- 10% (1/10)
@@ -458,10 +458,10 @@ d2d_actions = {
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 12.0
                                 elseif( rand < 550 ) then -- 5% (1/20)
-			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/bomb_dud.xml", 1)
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/bomb_dud.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 100
                                 elseif( rand < 570 ) then -- 2% (1/50)
-			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_super.xml", 1)
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 6.0
                                 elseif( rand < 580 ) then -- 1% (1/100)
@@ -470,7 +470,7 @@ d2d_actions = {
 			                        shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
 			                        c.fire_rate_wait = c.fire_rate_wait + 40
                                 elseif( rand < 585 ) then -- 0.5% (1/200)
-			                        add_projectile("mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga.xml", 1)
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml", 1)
 			                        c.fire_rate_wait = c.fire_rate_wait + 50
 			                        c.spread_degrees = c.spread_degrees + 6.0
                                 elseif( rand < 590 ) then -- 0.5% (1/200)
@@ -490,8 +490,8 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_smoke_bomb_name",
 	    description         = "$spell_d2d_smoke_bomb_desc",
         inject_after        = { "GRENADE_ANTI", "GRENADE_TIER_3" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/smoke_bomb.png",
-        custom_xml_file     = "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_smoke_bomb.xml",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/smoke_bomb.png",
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_smoke_bomb.xml",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5",
 		spawn_probability   = "0.5,0.7,0.8,0.7,0.5,0.3",
@@ -500,7 +500,7 @@ d2d_actions = {
 	    max_uses			= 10,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 45
-                                add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/smoke_bomb.xml")
+                                add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/smoke_bomb.xml")
 	                        end,
     },
 
@@ -508,7 +508,7 @@ d2d_actions = {
 	-- 	id                  = "D2D_DRILL_VOLCANIC",
 	-- 	name 		        = "Volcanic Drill",
 	-- 	description         = "Perfectly suited for any and all mining operations",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
 	-- 	type 		        = ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level         = "2,3,4,5,6",
 	-- 	spawn_probability   = "0.5,0.6,0.7,0.8,0.9",
@@ -516,7 +516,7 @@ d2d_actions = {
 	-- 	mana                = 27,
 	-- 	sound_loop_tag      = "sound_digger",
 	-- 	action 		        = function()
-	-- 		                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_volcanic.xml")
+	-- 		                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/drill_volcanic.xml")
 	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 1
 	-- 		                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
 	-- 	                    end,
@@ -526,7 +526,7 @@ d2d_actions = {
 	-- 	id                  = "D2D_DRILL_INFERNAL",
 	-- 	name 		        = "Infernal Drill",
 	-- 	description         = "Not even brickwork is safe",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
 	-- 	type 		        = ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level         = "4,5,6",
 	-- 	spawn_probability   = "0.4,0.6,0.8",
@@ -534,7 +534,7 @@ d2d_actions = {
 	-- 	mana                = 90,
 	-- 	sound_loop_tag      = "sound_digger",
 	-- 	action 		        = function()
-	-- 		                    add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/drill_infernal.xml")
+	-- 		                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/drill_infernal.xml")
 	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 1
 	-- 		                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
 	-- 	                    end,
@@ -554,7 +554,7 @@ d2d_actions = {
 	-- 	mana = 20,
 	-- 	max_uses = 1,
 	-- 	action 		= function()
-	-- 		add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_128.xml")
+	-- 		add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_128.xml")
 	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
 	-- 	end,
 	-- },
@@ -573,7 +573,7 @@ d2d_actions = {
 	-- 	mana = 20,
 	-- 	max_uses = 1,
 	-- 	action 		= function()
-	-- 		add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/circle_gold_256.xml")
+	-- 		add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml")
 	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
 	-- 	end,
 	-- },
@@ -583,7 +583,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_damage_missing_mana_name",
 	    description         = "$spell_d2d_damage_missing_mana_desc",
         inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
-	    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/damage_missing_mana.png",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.6,0.8,0.9,0.8,0.7,0.6",
@@ -594,7 +594,7 @@ d2d_actions = {
 
 					            if reflecting then return end
 
-							    local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
 							    
                                 c.fire_rate_wait    			= c.fire_rate_wait - 4 -- reset
@@ -644,7 +644,7 @@ d2d_actions = {
 		id          = "D2D_CURSES_TO_POWER",
 		name 		= "Curses To Power",
 		description = "Adds 10 damage for each curse you have",
-		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/curses_to_power.png",
+		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_power.png",
 		type 		= ACTION_TYPE_MODIFIER,
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
@@ -669,7 +669,7 @@ d2d_actions = {
 	-- 	id          = "D2D_CURSED_BOLT",
 	-- 	name 		= "Cursed Bolt",
 	-- 	description = "Deals more damage the more curses you carry",
-	-- 	sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/cursed_bolt.png",
+	-- 	sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/cursed_bolt.png",
 	-- 	type 		= ACTION_TYPE_PROJECTILE,
 	-- 	spawn_level                       = "0",
 	-- 	spawn_probability                 = "0",
@@ -687,7 +687,7 @@ d2d_actions = {
 	-- 			c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
 	--         end
 
-	-- 		add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/cursed_bolt.xml")
+	-- 		add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/cursed_bolt.xml")
 	-- 	end,
 	-- },
 
@@ -695,7 +695,7 @@ d2d_actions = {
 		id          = "D2D_CURSES_TO_MANA",
 		name 		= "Curses To Mana",
 		description = "Restores 30 mana for each curse you have",
-		sprite 		= "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/curses_to_mana.png",
+		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_mana.png",
 		type 		= ACTION_TYPE_MODIFIER,
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
@@ -716,11 +716,11 @@ d2d_actions = {
 		id                  = "D2D_FIXED_ALTITUDE",
 		name 		        = "$spell_d2d_fixed_altitude_name",
 		description         = "$spell_d2d_fixed_altitude_desc",
-		sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/fixed_altitude.png",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fixed_altitude.png",
 		type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
-		custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_fixed_altitude.xml",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_fixed_altitude.xml",
 		price               = 280,
 		mana                = 1,
 		action 		        = function()
@@ -732,13 +732,13 @@ d2d_actions = {
 	-- 	id                  = "D2D_REWIND",
 	-- 	name 		        = "Rewind",
 	-- 	description         = "Teleports you where you were 4 seconds ago",
-	-- 	sprite              = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/rewind.png",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/rewind.png",
 	-- 	type 		        = ACTION_TYPE_PASSIVE,
 	-- 	spawn_level         = "1,2,3,4,5,6",
 	-- 	spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
 	-- 	price               = 280,
 	-- 	mana                = 40,
-	-- 	custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/torch.xml",
+	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/torch.xml",
 	-- 	action 		        = function()
 	-- 							if reflecting then return end
 
@@ -781,12 +781,12 @@ if ( ModIsEnabled("Apotheosis") ) then
 		    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
 		    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
 	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
-		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
 	        subtype     		= { altfire = true },
 			spawn_level         = "0,1,2,3,4,5",
 			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
-			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
 		    price               = 230,
 		    mana                = 50,
 		    max_uses			= 10,
@@ -801,12 +801,12 @@ if ( ModIsEnabled("Apotheosis") ) then
 		    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
 		    description         = "$spell_d2d_mana_refill_alt_fire_desc",
 	        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
-		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
 	        subtype     		= { altfire = true },
 			spawn_level         = "0,1,2,3,4,5,6",
 			spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
 		    price               = 330,
 		    mana                = 0,
 		    max_uses			= 5,
@@ -822,12 +822,12 @@ if ( ModIsEnabled("Apotheosis") ) then
 		    name 		        = "$spell_d2d_concrete_wall_alt_fire_name",
 		    description         = "$spell_d2d_concrete_wall_alt_fire_desc",
 	        inject_after        = { "D2D_CONCRETE_WALL", "D2D_PAYDAY", "SUMMON_ROCK" },
-		    sprite 		        = "mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
 		    type 		        = ACTION_TYPE_PASSIVE,
 	        subtype     		= { altfire = true },
 			spawn_level         = "1,2,3,4,5,6",
 			spawn_probability   = "0.3,0.5,0.6,0.5,0.3,0.2",
-			custom_xml_file 	= "mods/RiskRewardBundle/files/entities/misc/custom_cards/card_alt_fire_concrete_wall.xml",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_concrete_wall.xml",
 		    price               = 200,
 		    mana                = 80,
 		    max_uses			= 5,

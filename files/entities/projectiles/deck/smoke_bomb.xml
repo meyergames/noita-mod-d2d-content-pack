@@ -55,12 +55,12 @@
       stains_radius="12"
       audio_event_name="explosions/grenade_small" >
     </config_explosion>
-    <!-- load_this_entity="mods/RiskRewardBundle/files/entities/projectiles/deck/smoke_bomb_effect_spawn.xml" -->
+    <!-- load_this_entity="mods/D2DContentPack/files/entities/projectiles/deck/smoke_bomb_effect_spawn.xml" -->
   </ProjectileComponent>
   
   <SpriteComponent 
     alpha="1" 
-    image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/smoke_bomb.xml"
+    image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/smoke_bomb.xml"
     next_rect_animation="" 
     offset_x="0" 
     offset_y="0" 

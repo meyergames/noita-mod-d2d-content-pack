@@ -2,7 +2,7 @@
 	<InheritTransformComponent />
 	
 	<!--<LuaComponent
-		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_explosions_on.lua"
+		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_explosions_on.lua"
         execute_every_n_frame="1"
         execute_times="1"
 		>
@@ -10,12 +10,12 @@
   
 	<LuaComponent 
 		_enabled="1" 
-		script_source_file="mods/RiskRewardBundle/files/scripts/perks/effect_master_of_explosions_update.lua" 
+		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_explosions_update.lua" 
 		execute_every_n_frame="60"
 	></LuaComponent>-->
 	
 	<!--<LuaComponent
-		script_source_file="mods/RiskRewardBundle/files/scripts/perks/master_of_explosions_end.lua"
+		script_source_file="mods/D2DContentPack/files/scripts/perks/master_of_explosions_end.lua"
 		execute_every_n_frame="-1"
 		execute_on_removed="1"
 		>

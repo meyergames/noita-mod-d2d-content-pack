@@ -3,7 +3,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 extra_modifiers["d2d_master_of_explosions_boost"] = function()
 	local is_immune_to_explosions = has_game_effect( get_player(), "PROTECTION_EXPLOSION" )
 	if( not is_immune_to_explosions ) then
-		c.extra_entities = c.extra_entities .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_master_of_explosions_impact.xml,"
+		c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_explosions_impact.xml,"
 		c.explosion_radius = c.explosion_radius + 15.0
 		c.damage_explosion_add = c.damage_explosion_add + 0.4
 		c.knockback_force = c.knockback_force + 5.0
@@ -34,7 +34,7 @@ extra_modifiers["d2d_master_of_fire_boost"] = function()
     local is_immune_to_fire = has_game_effect( get_player(), "PROTECTION_FIRE" )
     if( not is_immune_to_fire ) then
 	    c.damage_fire_add = c.damage_fire_add + 0.2
-		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/RiskRewardBundle/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
+		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
     end
 end
 
@@ -67,9 +67,9 @@ extra_modifiers["d2d_overheating_wands"] = function()
         if( rand2 < 1 ) then
             EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
         elseif( rand2 < 3 ) then
-            add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/small_explosion.xml")
+            add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
         elseif( rand2 < 5 ) then
-            add_projectile("mods/RiskRewardBundle/files/entities/projectiles/overclock.xml")
+            add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
         else
             add_projectile("data/entities/projectiles/deck/fizzle.xml")
         end
@@ -91,7 +91,7 @@ extra_modifiers["d2d_divine_prank"] = function()
         -- local i = 1 + math.min( p_max_hp / 4, 10 )
         -- while i > 0 do
             c.extra_entities = c.extra_entities .. "data/entities/misc/perks/projectile_homing_shooter.xml,"
-            add_projectile("mods/RiskRewardBundle/files/entities/projectiles/deck/propane_tank_dud.xml")
+            add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/propane_tank_dud.xml")
             -- i = i - 1
         -- end
 

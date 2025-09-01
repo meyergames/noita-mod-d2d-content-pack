@@ -67,7 +67,7 @@ if ( not gods_angry_prank_triggered
     -- local guard_spawn_id = EntityGetClosestWithTag( x, y, "guardian_spawn_pos" )
     -- local guard_x = x
     -- local guard_y = y
-    -- EntityLoad( "mods/RiskRewardBundle/files/entities/misc/fake_stevari.xml", x, y )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/misc/fake_stevari.xml", x, y )
 
     GamePrintImportant( "$logdesc_temple_spawn_guardian", "" )
     GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )

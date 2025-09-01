@@ -40,7 +40,7 @@
       damage="0.0"
       camera_shake="0.5" 
       explosion_radius="2" 
-      explosion_sprite="mods/RiskRewardBundle/files/gfx/projectiles_gfx/explosion_008_white.xml" 
+      explosion_sprite="mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_008_white.xml" 
       explosion_sprite_lifetime="0" 
       create_cell_probability="0" 
       hole_destroy_liquid="0" 
@@ -68,7 +68,7 @@
   <SpriteComponent 
     _enabled="1" 
     alpha="1" 
-    image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/ghost_spark.xml" 
+    image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/ghost_spark.xml" 
     next_rect_animation="default"
     rect_animation="default"
 	additive="1"

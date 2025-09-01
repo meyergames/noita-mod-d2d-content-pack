@@ -1,7 +1,7 @@
 <Entity>
     <LuaComponent 
         _enabled="1" 
-        script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/giga_drain_increase_max_hp.lua" 
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/giga_drain_increase_max_hp.lua" 
         execute_every_n_frame="0"
         remove_after_executed="1"
     ></LuaComponent>

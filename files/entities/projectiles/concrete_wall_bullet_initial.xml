@@ -67,7 +67,7 @@
       stains_radius="2"
       is_digger="0"
       audio_enabled="0"
-      load_this_entity="mods/RiskRewardBundle/files/entities/projectiles/deck/concrete_wall_split_spawn.xml"
+      load_this_entity="mods/D2DContentPack/files/entities/projectiles/deck/concrete_wall_split_spawn.xml"
     ></config_explosion>
     <!-- <config_explosion
       never_cache="1" 
@@ -143,7 +143,7 @@
       stains_enabled="0"
       is_digger="0"
       audio_enabled="0"
-      load_this_entity="mods/RiskRewardBundle/files/entities/projectiles/giga_drain_explosion.xml" >
+      load_this_entity="mods/D2DContentPack/files/entities/projectiles/giga_drain_explosion.xml" >
     </config_explosion>
     <damage_by_type slice="0.51" >
     </damage_by_type>

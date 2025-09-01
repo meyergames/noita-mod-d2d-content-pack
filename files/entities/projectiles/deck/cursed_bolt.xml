@@ -68,7 +68,7 @@
 	</ProjectileComponent>
 
 	<SpriteComponent
-		image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/orb_purple.xml" >
+		image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/orb_purple.xml" >
 	</SpriteComponent>
 
 	<SpriteComponent 

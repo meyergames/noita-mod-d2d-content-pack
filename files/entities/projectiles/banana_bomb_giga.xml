@@ -3,7 +3,7 @@
   <Base file="data/entities/base_projectile_physics.xml">
 
     <PhysicsImageShapeComponent 
-      image_file="mods/RiskRewardBundle/files/gfx/projectiles_gfx/projectile_banana_giga.png"
+      image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/projectile_banana_giga.png"
       material="fuse_tnt" >
     </PhysicsImageShapeComponent>
 
@@ -19,9 +19,9 @@
           damage="8.2"
           explosion_radius="90"
           camera_shake="64"
-          explosion_sprite="mods/RiskRewardBundle/files/gfx/projectiles_gfx/explosion_200.xml"
+          explosion_sprite="mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_200.xml"
           explosion_sprite_emissive="true"
-          load_this_entity="mods/RiskRewardBundle/files/entities/projectiles/banana_bomb_giga_cluster_spawn.xml"
+          load_this_entity="mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga_cluster_spawn.xml"
           audio_event_name="explosion"
           max_durability_to_destroy="11"
         ></config_explosion>

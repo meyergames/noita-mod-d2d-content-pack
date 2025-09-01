@@ -5,7 +5,7 @@ local MAX_EFFECT_DISTANCE = 500
 function shot( proj_id )
    	GamePrint("test")
 
-	local EZWand = dofile_once("mods/RiskRewardBundle/files/scripts/lib/ezwand.lua")
+	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
    	local wand = EZWand.GetHeldWand()
 
    	-- GamePrint("wand entity id? " .. wand.entity_id)

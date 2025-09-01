@@ -3,7 +3,7 @@
     <Base file="data/entities/base_custom_card.xml" >
 
         <SpriteComponent 
-            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/fixed_altitude.png" >
+            image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/fixed_altitude.png" >
         </SpriteComponent>
 
         <ItemActionComponent 
@@ -15,13 +15,13 @@
 
     <LuaComponent
         _tags="enabled_in_hand"
-        script_enabled_changed="mods/RiskRewardBundle/files/scripts/projectiles/fixed_altitude.lua"
+        script_enabled_changed="mods/D2DContentPack/files/scripts/projectiles/fixed_altitude.lua"
         execute_every_n_frame="-1"
     ></LuaComponent>
 
     <LuaComponent
         _tags="enabled_in_hand"
-        script_shot="mods/RiskRewardBundle/files/scripts/projectiles/fixed_altitude.lua"
+        script_shot="mods/D2DContentPack/files/scripts/projectiles/fixed_altitude.lua"
         execute_every_n_frame="-1"
     ></LuaComponent>
 </Entity>

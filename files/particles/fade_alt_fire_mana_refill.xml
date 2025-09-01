@@ -1,7 +1,7 @@
 <Entity>
 
 	<SpriteComponent 
-		image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png" 
+		image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png" 
 		offset_x="8"
 		offset_y="24">
 	</SpriteComponent>   

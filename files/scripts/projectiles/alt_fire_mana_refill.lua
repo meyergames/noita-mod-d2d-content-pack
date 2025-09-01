@@ -37,7 +37,7 @@ if GameGetFrameNum() >= cooldown_frame then
                     ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
                     if ( uses_remaining == 1 ) then
                         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
-                        EntityLoad("mods/RiskRewardBundle/files/particles/fade_alt_fire_mana_refill.xml", x, y )
+                        EntityLoad("mods/D2DContentPack/files/particles/fade_alt_fire_mana_refill.xml", x, y )
                     end
 
                     break

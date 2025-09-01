@@ -333,7 +333,7 @@ end
 
 function apply_random_curse( entity_id )
     dofile_once( "data/scripts/perks/perk.lua" )
-    dofile_once( "mods/RiskRewardBundle/files/scripts/perks.lua" )
+    dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" )
     local x, y = EntityGetTransform( entity_id )
 
     local curses_not_picked_up = {}

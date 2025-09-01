@@ -1,6 +1,6 @@
 <Sprite 
   default_animation="explosion" 
-  filename="mods/RiskRewardBundle/files/gfx/projectiles_gfx/explosion_008_white.png" 
+  filename="mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_008_white.png" 
   offset_x="4" 
   offset_y="4" >
 

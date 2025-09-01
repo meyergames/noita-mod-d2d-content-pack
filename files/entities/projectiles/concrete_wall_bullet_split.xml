@@ -77,7 +77,7 @@
   ></ShotEffectComponent> -->
 
   <LuaComponent
-      script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/concrete_wall_spawn_concrete.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/projectiles/concrete_wall_spawn_concrete.lua"
       execute_every_n_frames="1"
   ></LuaComponent>
 

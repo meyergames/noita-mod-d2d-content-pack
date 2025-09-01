@@ -2,7 +2,7 @@
     
     <Base file="data/entities/base_custom_card.xml" > 
         <SpriteComponent 
-            image_file="mods/RiskRewardBundle/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png"
+            image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png"
             >
         </SpriteComponent>
         
@@ -18,7 +18,7 @@
 
     <LuaComponent 
         _tags="enabled_in_hand"
-        script_source_file="mods/RiskRewardBundle/files/scripts/projectiles/alt_fire_mana_refill.lua"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/alt_fire_mana_refill.lua"
         execute_every_n_frame="1" >
     </LuaComponent>
 
