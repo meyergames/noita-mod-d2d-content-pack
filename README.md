@@ -1,8 +1,3 @@
-Download this mod through the Steam Workshop:
-https://steamcommunity.com/sharedfiles/filedetails/?id=3559987358
-
-============
-
 A collection of spells, perks and items to spice up your run.
 
 Things you could be doing with this mod:
@@ -15,3 +10,5 @@ Things you could be doing with this mod:
 - Blasting worms with the infamous banana bomb
 
 ...and much more!
+
+Download this mod through the Steam Workshop:\nhttps://steamcommunity.com/sharedfiles/filedetails/?id=3559987358
