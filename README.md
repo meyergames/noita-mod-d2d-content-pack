@@ -1,6 +1,7 @@
-DOWNLOAD THROUGH THE STEAM WORKSHOP: https://steamcommunity.com/sharedfiles/filedetails/?id=3559987358
+Download this mod through the Steam Workshop:
+https://steamcommunity.com/sharedfiles/filedetails/?id=3559987358
 
-
+============
 
 A collection of spells, perks and items to spice up your run.
 
