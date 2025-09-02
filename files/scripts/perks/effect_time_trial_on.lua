@@ -42,10 +42,10 @@ addNewInternalVariable( owner, "reached_time_trial_finish", "value_int", 0 )
 
 
 -- if the gods are angry at the player, apply a viral infection
-if( GlobalsGetValue( "TEMPLE_SPAWN_GUARDIAN" ) == 1 and GlobalsGetValue( "TEMPLE_PEACE_WITH_GODS" ) ~= "1" ) then
-    GamePrintImportant( "The gods are still angry at you", "You're gonna have a hard time..." )
-    EntityIngestMaterial( owner, CellFactory_GetType( "magic_liquid_infected_healthium" ), 60 )
-end
+-- if( tonumber( GlobalsGetValue("STEVARI_DEATHS", 0) ) >= 3 and GlobalsGetValue( "TEMPLE_PEACE_WITH_GODS" ) ~= "1" ) then
+--     GamePrintImportant( "The gods are still angry at you", "You're gonna have a hard time..." )
+--     EntityIngestMaterial( owner, CellFactory_GetType( "magic_liquid_infected_healthium" ), 60 )
+-- end
 
 -- warps the player into the Holy Mountain's drop-down tunnel
 --EntitySetTransform( owner, 190, y - 100 )
