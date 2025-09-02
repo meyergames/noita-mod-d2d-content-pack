@@ -11,7 +11,7 @@ extra_modifiers["d2d_master_of_explosions_boost"] = function()
     end
 end
 
-extra_modifiers["d2d_master_of_thunder_boost"] = function()
+extra_modifiers["d2d_master_of_lightning_boost"] = function()
 	local is_immune_to_electricity = has_game_effect( get_player(), "PROTECTION_ELECTRICITY" )
     if( not is_immune_to_electricity ) then
 		c.lightning_count = c.lightning_count + 1
@@ -24,7 +24,7 @@ extra_modifiers["d2d_master_of_thunder_boost"] = function()
     end
 end
 
-extra_modifiers["d2d_master_of_thunder_boost_plus"] = function()
+extra_modifiers["d2d_master_of_lightning_boost_plus"] = function()
 	c.speed_multiplier = c.speed_multiplier * 1.5
 	c.fire_rate_wait	= (c.fire_rate_wait / 7.5) * 5
 	current_reload_time	= (current_reload_time / 7.5) * 5

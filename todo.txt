@@ -34,7 +34,7 @@ perks
 [x] master_of_explosions: consider adding +1 to maxDurabilityToDestroy for all projectiles/explosions
 [x] is master_of_explosions ship-ready?
 [x] consider increasing mana recharge speed after being electrocuted
-[x] is master_of_thunder ship-ready?
+[x] is master_of_lightning ship-ready?
 [x] consider splitting master_of_fire's effects into multiple perks, or scrapping some
 [x] is master_of_fire ship-ready?
 [-] is set in stone ship-ready?
@@ -68,20 +68,14 @@ final tests
 
 
 organization checklist
-[ ] pick a name!!
--- Dani2D / Vic2D / vic2d
--- Dani2D's Spells, Perks & Items
--- Dani2D's Goodie Pack
--- D2D Goodie Pack
--- Dani2D's Content Bundle
-
+[x] pick a name!!
 [x] do all file names make sense/follow a pattern?
 [x] Ctrl+F "TODO" in all files
 [x] all references to new file destinations updated?
-[ ] delete files that are no longer needed
+[x] delete files that are no longer needed
 [-] tried making OrganiseProgress work? <-- nvm, I prefer it being all bunched together after all
 
 
 shipping
-[ ] "the mod is compatible with Apotheosis; be sure to place this mod under Apotheosis in the mod list order"
-[ ] "Cross-mod interactions with:"
+[x] "the mod is compatible with Apotheosis; be sure to place this mod under Apotheosis in the mod list order"
+[x] "Cross-mod interactions with:"

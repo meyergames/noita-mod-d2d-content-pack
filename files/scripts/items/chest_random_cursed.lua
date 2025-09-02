@@ -58,7 +58,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		elseif ( rnd2 <= 40 ) then -- 1%
 			table.insert( entities, { "data/entities/items/pickup/safe_haven.xml" } )
 		elseif ( rnd2 <= 60 ) then -- 2%
-			table.insert( entities, { "data/entities/items/pickup/thunderstone.xml" } )
+			table.insert( entities, { "data/entities/items/pickup/lightningstone.xml" } )
 		elseif ( rnd2 <= 80 ) then -- 2%
 			table.insert( entities, { "data/entities/items/pickup/brimstone.xml" } )
 		elseif ( rnd2 <= 85 ) then -- 0.5%

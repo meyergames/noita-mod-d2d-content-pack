@@ -75,11 +75,11 @@ d2d_perks = {
 	},
 
 	{
-		id = "D2D_MASTER_OF_THUNDER",
-		ui_name = "$perk_d2d_master_of_thunder_name",
-		ui_description = "$perk_d2d_master_of_thunder_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_thunder_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_thunder.png",
+		id = "D2D_MASTER_OF_LIGHTNING",
+		ui_name = "$perk_d2d_master_of_lightning_name",
+		ui_description = "$perk_d2d_master_of_lightning_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_lightning_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_lightning.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = true,
@@ -90,10 +90,10 @@ d2d_perks = {
 				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
 			end
 
-           	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_thunder.xml" )
+           	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_lightning.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
             { 
-	            extra_modifier = "d2d_master_of_thunder_boost",
+	            extra_modifier = "d2d_master_of_lightning_boost",
             } )
         end,
         -- effects:

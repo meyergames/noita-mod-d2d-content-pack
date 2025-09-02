@@ -44,7 +44,7 @@ if ( GameHasFlagRun( flag ) == false ) then
 
                 		local rnd = Random( 0, 100 )
 	                	local is_mega_upgrade = false
-	                	if upgrades_had % 5 == 4 then
+	                	if upgrades_had % 5 == 0 then
 	                		is_mega_upgrade = true
                 			GamePrint("Your " .. z .. number_suffix .. " wand got an all-round upgrade!")
 	                	end

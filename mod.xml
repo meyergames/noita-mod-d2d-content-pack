@@ -12,7 +12,6 @@
 \n- Watching gold fly away from you after gaining a curse
 \n...and much more!"
     tags="gameplay,perks,spells,items"
-    dont_upload_folders="FOLDER_TO_IGNORE1|FOLDER_TO_IGNORE2"
-    dont_upload_files="FILE_TO_IGNORE1|FILE_TO_IGNORE2"
->
-</Mod>
+    dont_upload_folders="files\gfx\ui_gfx\archive"
+    
+></Mod>
