@@ -33,7 +33,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 
 		if damage >= hp and damage < max_hp then
 			-- reduce the player's max hp
-			local max_hp_loss = damage - hp + 0.04
+			local max_hp_loss = 2 * ( damage - hp + 0.04 )
 			ComponentSetValue2( dcomp, "max_hp", max_hp - max_hp_loss )
 			if max_hp_loss > math.max( max_hp * 0.1, 0.4 ) then
 				GamePrint( "You survive, but lose " .. string.format( "%d", ( max_hp_loss * 25 ) ) .. " max health." )
