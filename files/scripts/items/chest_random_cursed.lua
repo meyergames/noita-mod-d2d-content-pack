@@ -92,7 +92,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		-- end
 	-- maybe spawn a bunch of spells (10% chance)
 	elseif ( rnd <= 75 ) then
-		local amount = 1
+		local amount = 4
 		local rnd2 = Random(0,100)
 		if (rnd2 <= 50) then -- 5%
 			amount = 4

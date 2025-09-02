@@ -164,6 +164,24 @@ d2d_perks = {
 --	},
 
 	{
+		id = "D2D_BORROWED_TIME",
+		ui_name = "$perk_d2d_borrowed_time_name",
+		ui_description = "$perk_d2d_borrowed_time_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/borrowed_time_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/borrowed_time.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			EntityAddComponent( entity_who_picked, "LuaComponent", 
+			{ 
+				script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_damage_incoming.lua",
+				execute_every_n_frame = "-1",
+			} )
+        end,
+	},
+
+	{
 		id = "D2D_HUNT_CURSES",
 		ui_name = "$perk_d2d_hunt_curses_name",
 		ui_description = "$perk_d2d_hunt_curses_desc",

@@ -641,10 +641,10 @@ d2d_actions = {
     },
 
 	{
-		id          = "D2D_CURSES_TO_POWER",
-		name 		= "Curses To Power",
-		description = "Adds 10 damage for each curse you have",
-		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_power.png",
+		id          = "D2D_CURSES_TO_DAMAGE",
+		name 		= "$spell_d2d_curses_to_damage_name",
+		description = "$spell_d2d_curses_to_damage_desc",
+		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_damage.png",
 		type 		= ACTION_TYPE_MODIFIER,
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
@@ -665,36 +665,10 @@ d2d_actions = {
 		end,
 	},
 
-	-- {
-	-- 	id          = "D2D_CURSED_BOLT",
-	-- 	name 		= "Cursed Bolt",
-	-- 	description = "Deals more damage the more curses you carry",
-	-- 	sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/cursed_bolt.png",
-	-- 	type 		= ACTION_TYPE_PROJECTILE,
-	-- 	spawn_level                       = "0",
-	-- 	spawn_probability                 = "0",
-	-- 	price = 999,
-	-- 	mana = 30,
-	-- 	action 		= function()
-	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
-	-- 		shot_effects.recoil_knockback = 40.0
-
-	-- 		if reflecting then return end
-
-    --         local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-    --         if curse_count ~= nil then
-	-- 			c.damage_curse_add = ( 0.4 * tonumber( curse_count ) ) * ( 1.1 * tonumber( curse_count ) )
-	-- 			c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
-	--         end
-
-	-- 		add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/cursed_bolt.xml")
-	-- 	end,
-	-- },
-
 	{
 		id          = "D2D_CURSES_TO_MANA",
-		name 		= "Curses To Mana",
-		description = "Restores 30 mana for each curse you have",
+		name 		= "$spell_d2d_curses_to_mana_name",
+		description = "$spell_d2d_curses_to_mana_desc",
 		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_mana.png",
 		type 		= ACTION_TYPE_MODIFIER,
 		spawn_level                       = "0",
@@ -777,26 +751,6 @@ d2d_actions = {
 if ( ModIsEnabled("Apotheosis") ) then
 	d2d_apoth_actions = {
 	    {
-		    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
-		    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
-		    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
-	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
-		    type 		        = ACTION_TYPE_PASSIVE,
-	        subtype     		= { altfire = true },
-			spawn_level         = "0,1,2,3,4,5",
-			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
-			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
-		    price               = 230,
-		    mana                = 50,
-		    max_uses			= 10,
-        	custom_uses_logic 	= true,
-		    action              = function()
-		    						draw_actions( 1, true )
-		                        end,
-	    },
-
-	    {
 		    id                  = "D2D_MANA_REFILL_ALT_FIRE",
 		    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
 		    description         = "$spell_d2d_mana_refill_alt_fire_desc",
@@ -835,6 +789,26 @@ if ( ModIsEnabled("Apotheosis") ) then
 		    action              = function()
 		    						draw_actions( 1, true )
             						mana = mana + 80
+		                        end,
+	    },
+	    
+	    {
+		    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
+		    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
+		    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
+	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "0,1,2,3,4,5",
+			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
+		    price               = 230,
+		    mana                = 50,
+		    max_uses			= 10,
+        	custom_uses_logic 	= true,
+		    action              = function()
+		    						draw_actions( 1, true )
 		                        end,
 	    },
 	}

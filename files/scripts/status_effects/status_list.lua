@@ -12,7 +12,7 @@ d2d_status_effects =
 
     {
 		id="VIRAL_INFECTION_WEAK",
-		ui_name="Borrowed Time",
+		ui_name="Viral Infection (weakened)",
 		ui_description="Maybe medical attention wasn't quite enough.",
 		ui_icon="mods/D2DContentPack/files/gfx/ui_gfx/status_effects/borrowed_time_012.png",
 		protects_from_fire=false,

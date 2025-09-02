@@ -79,3 +79,10 @@ organization checklist
 shipping
 [x] "the mod is compatible with Apotheosis; be sure to place this mod under Apotheosis in the mod list order"
 [x] "Cross-mod interactions with:"
+
+
+release notes 02/09/25:
+- added borrowed time perk
+- new icons for "curses to ___" spells
+- renamed "master of thunder" to "master of lightning"
+- bugfix: cursed chests now spawn the correct amount of random spells

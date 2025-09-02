@@ -10,6 +10,6 @@ if ( dcomps ~= nil ) and ( #dcomps > 0 ) then
         local max_hp = ComponentGetValue2( damagemodel, "max_hp" )
         local damage = max_hp * 0.0075 * GlobalsGetValue( "viruses_half_cured" )
 
-        EntityInflictDamage( owner, damage, "NONE", "borrowed time", "NO_RAGDOLL_FILE", 0, 0, entity_id, x, y, 0)
+        EntityInflictDamage( owner, damage, "NONE", "viral infection", "NO_RAGDOLL_FILE", 0, 0, entity_id, x, y, 0)
     end
 end

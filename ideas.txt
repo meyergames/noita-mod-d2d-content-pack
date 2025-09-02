@@ -2,4 +2,9 @@ IDEAS
 
 [ ] Parry: short-range, medium-cooldown "explosion" that, when timed well, deflects bullets (like Revenge Bullets) with extra speed and damage.
 
-[ ] 
+[ ] Give the player "Peace With Gods" if they win a race while the gods were angry? (and the player was infected as a result)
+
+[ ] Borrowed Time: perk that splits half of all damage taken into damage-over-time (i.e. normally taking 44 damage from an explosion will now deal 22 damage instantaneously + 11 + 6 + 3 + 2 damage spread over 4 cycles of 1 second each)
+
+[ ] Rework cursed chest into something like an "Unholy Contract"? With unique powerful perks (Master Of?) and spells (i.e. Curses To Damage) in trade for a perk. Could effectively still be a "chest" but with a different aesthetic.
+- "Curses" need an icon for spells etc, and maybe for the lock on a cursed chest.
