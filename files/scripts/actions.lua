@@ -791,7 +791,7 @@ if ( ModIsEnabled("Apotheosis") ) then
             						mana = mana + 80
 		                        end,
 	    },
-	    
+
 	    {
 		    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
 		    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
@@ -809,6 +809,7 @@ if ( ModIsEnabled("Apotheosis") ) then
         	custom_uses_logic 	= true,
 		    action              = function()
 		    						draw_actions( 1, true )
+            						mana = mana + 50
 		                        end,
 	    },
 	}
