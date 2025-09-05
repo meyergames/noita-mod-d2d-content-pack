@@ -1629,7 +1629,7 @@ end
 local function shoot_spell_sequence_inherit(sequence, from_x, from_y, target_x, target_y, source_wand, herd)
   local wand = create_virtual_wand({
     shuffle = false,
-    spellsPerCast = source_wand.spells_per_cast,
+    spellsPerCast = source_wand.spellsPerCast,
     castDelay = 0,
     rechargeTime = 0,
     manaMax = 10000,
