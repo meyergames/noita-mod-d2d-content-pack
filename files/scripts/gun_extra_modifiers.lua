@@ -58,7 +58,7 @@ extra_modifiers["d2d_overheating_wands"] = function()
 	local not_enough_mana = c.action_mana_drain < mana
 
     local rand = Random( 0, 100 )
-    local chance = 1.0 / ( (1.0 / ( max_mana * 0.5 ) ) * mana )
+    local chance = 1.0 / ( ( 1.0 / ( max_mana * 0.5 ) ) * math.max( mana, 0.1 ) )
     if( mana <= max_mana * 0.5 and rand <= chance ) then -- at 100% mana, 1/100 chance for *something* to happen
         c.fire_rate_wait    = 40
         GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
