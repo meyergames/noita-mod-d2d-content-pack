@@ -484,3 +484,16 @@ function to_roman_numerals( s )
     end
     return ret
 end
+
+function fetch_spell_data( action_id )
+	dofile_once( "data/scripts/gun/gun_actions.lua" )
+
+    local perk_ids_to_consider = {}
+	for k,v in pairs( actions ) do
+		if ( v.id == action_id ) then
+			return v
+		end
+	end
+
+	return nil
+end

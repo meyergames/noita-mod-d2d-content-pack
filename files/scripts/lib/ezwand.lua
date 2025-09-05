@@ -1626,6 +1626,25 @@ local function shoot_spell_sequence(sequence, from_x, from_y, target_x, target_y
   EntityAddComponent2(wand.entity_id, "LifetimeComponent", { lifetime = 1 })
 end
 
+local function shoot_spell_sequence_inherit(sequence, from_x, from_y, target_x, target_y, source_wand, herd)
+  local wand = create_virtual_wand({
+    shuffle = false,
+    spellsPerCast = source_wand.spells_per_cast,
+    castDelay = 0,
+    rechargeTime = 0,
+    manaMax = 10000,
+    manaChargeSpeed = 100,
+    capacity = #sequence,
+    spread = source_wand.spread,
+    speedMultiplier = source_wand.speedMultiplier
+  }, from_x, from_y)
+  wand.herd = herd
+  wand.visible = false
+  wand:AddSpells(sequence)
+  wand:ShootAt(target_x, target_y)
+  EntityAddComponent2(wand.entity_id, "LifetimeComponent", { lifetime = 1 })
+end
+
 return setmetatable({}, {
   __call = function(self, from, rng_seed_x, rng_seed_y)
     return wand:new(from, rng_seed_x, rng_seed_y)
@@ -1639,7 +1658,8 @@ return setmetatable({}, {
       RenderTooltip = render_tooltip,
       IsWand = entity_is_wand,
       GetHeldWand = get_held_wand,
-      ShootSpellSequence = shoot_spell_sequence
+      ShootSpellSequence = shoot_spell_sequence,
+      ShootSpellSequenceInherit = shoot_spell_sequence_inherit
     })[key]
   end
 })

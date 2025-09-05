@@ -812,6 +812,43 @@ if ( ModIsEnabled("Apotheosis") ) then
             						mana = mana + 50
 		                        end,
 	    },
+
+	    {
+		    id                  = "D2D_ALT_FIRE_ANYTHING",
+		    name 		        = "$spell_d2d_alt_fire_anything_name",
+		    description         = "$spell_d2d_alt_fire_anything_desc",
+	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_anything.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "0,1,2,3,4,5",
+			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_anything.xml",
+		    price               = 500,
+		    mana                = 20,
+		    action              = function()
+									current_reload_time = current_reload_time - 10
+									
+									for i,v in ipairs( hand ) do
+										-- print( "removed " .. v.id .. " from hand" )
+										table.insert( discarded, v )
+									end
+									
+									for i,v in ipairs( deck ) do
+										-- print( "removed " .. v.id .. " from deck" )
+										table.insert( discarded, v )
+									end
+									
+									hand = {}
+									deck = {}
+									
+									if ( force_stop_draws == false ) then
+										force_stop_draws = true
+										--move_discarded_to_deck()
+										--order_deck()
+									end
+		                        end,
+	    },
 	}
 end
 
