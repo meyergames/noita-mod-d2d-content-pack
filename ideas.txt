@@ -4,7 +4,16 @@ IDEAS
 
 [ ] Give the player "Peace With Gods" if they win a race while the gods were angry? (and the player was infected as a result)
 
-[ ] Borrowed Time: perk that splits half of all damage taken into damage-over-time (i.e. normally taking 44 damage from an explosion will now deal 22 damage instantaneously + 11 + 6 + 3 + 2 damage spread over 4 cycles of 1 second each)
+[x] Borrowed Time: perk that splits half of all damage taken into damage-over-time (i.e. normally taking 44 damage from an explosion will now deal 22 damage instantaneously + 11 + 6 + 3 + 2 damage spread over 4 cycles of 1 second each)
 
 [ ] Rework cursed chest into something like an "Unholy Contract"? With unique powerful perks (Master Of?) and spells (i.e. Curses To Damage) in trade for a perk. Could effectively still be a "chest" but with a different aesthetic.
 - "Curses" need an icon for spells etc, and maybe for the lock on a cursed chest.
+
+[ ] Divine prank: encase the player in a circle of brickwork(?) until their O2 is almost ran out
+
+[ ] Pocket Dimension: Utility spell that stores all spells behind it as children of this spell. If it already contains spells, the spells are re-spawned for the player to pick up.
+
+[ ] "Alt Fire Anything" base spell
+Regular left-click: skip this spell and the (first) card it draws. If that seems technically impossible, reset the wand and trigger wand recharge time.
+Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, and draw the first card behind it.
+

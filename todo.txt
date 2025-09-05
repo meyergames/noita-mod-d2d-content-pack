@@ -82,7 +82,26 @@ shipping
 
 
 release notes 02/09/25:
-- added borrowed time perk
+- added "borrowed time" perk
+- cursed chests now have a more distinguishable sprite
 - new icons for "curses to ___" spells
 - renamed "master of thunder" to "master of lightning"
 - bugfix: cursed chests now spawn the correct amount of random spells
+
+
+
+
+
+patch 1.2
+
+[ ] figure out how to properly remove perks. curse lifter might be an important perk to implement.
+[ ] lock "master of" perks behind killing the Master of Masters with the corresponding weakening curse?
+  [ ] create "weakening curse - fire"
+[ ] LOL giga drain bubbles pass through the player if they have the "phasing" perk. should this change...?
+
+
+
+ALT FIRE ANYTHING
+Current limitations:
+- Your wand loses mana for all spells slotted behind Alt Fire Anything, not just the ones that were cast
+- Recharge time is fixed to just your wand's recharge time. Ideally, the fired spells' cast delay and recharge time should be added.

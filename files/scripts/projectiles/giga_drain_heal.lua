@@ -40,7 +40,7 @@ local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
 --check if enemy bleeds something the player can digest
 local blood_mat = ComponentGetValue2( e_dcomp, "blood_material" )
 --EntityIngestMaterial( player_id, CellFactory_GetType( blood_mat ), 20 )
-if ( not string.find( blood_mat, "blood" ) and not string.find( blood_mat, "slime" ) and not string.find( blood_mat, "sludge" ) and not string.find( blood_mat, "lava" ) and not string.find( blood_mat, "diamond" ) ) then
+if ( not string.find( blood_mat, "blood" ) and not string.find( blood_mat, "slime" ) and not string.find( blood_mat, "sludge" ) ) then
     return
 --    if ( string.find( blood_mat, "slime" ) and not GameHasFlagRun( "PERK_PICKED_BLEED_SLIME" ) ) then
 --        return
@@ -72,7 +72,7 @@ end
 
 local damage_to_be_dealt = DAMAGE * ComponentObjectGetValue2( e_dcomp, "damage_multipliers", "drill" )
 
-local max_hp_bubble_amt = math.min( math.max( math.ceil( e_max_hp * 0.25 ), 1 ), 5 )
+local max_hp_bubble_amt = math.min( math.max( math.ceil( e_max_hp * 0.25 ), 1 ), 10 )
 for i = 1, max_hp_bubble_amt do
     if ( e_hp <= damage_to_be_dealt or Random( 0, 20 ) == 1 ) then
         local rdir_x, rdir_y = vec_rotate( dir_x, dir_y, Random( -22.5, 22.5 ) )
