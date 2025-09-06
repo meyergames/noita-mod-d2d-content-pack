@@ -80,7 +80,7 @@ if ( GameHasFlagRun( flag ) == false ) then
 
                 		if ( is_mega_upgrade or ( rnd <= 60 and wand.manaMax < 5000 ) ) then
                 			local old_mana_max = wand.manaMax
-                			wand.manaMax = math.min( old_mana_charge_speed + math.max( old_mana_charge_speed * 0.1, 30 ), 5000 )
+                			wand.manaMax = math.min( old_mana_max + math.max( old_mana_max * 0.1, 30 ), 5000 )
 
                 			if not is_mega_upgrade then
                 				GamePrint("Your " .. z .. number_suffix .. " wand's max mana was increased. (" .. old_mana_max .. " > " .. wand.manaMax .. ")" )
