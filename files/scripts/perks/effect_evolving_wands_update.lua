@@ -9,7 +9,7 @@ local player_id = EntityGetRootEntity( GetUpdatedEntityID() )
 local x, y = EntityGetTransform( player_id )
 
 local currbiome = BiomeMapGetName( x, y )
-local flag = "adventurer_" .. tostring(currbiome) .. "_visited"
+local flag = "evolving_wands_" .. tostring(currbiome) .. "_visited"
 
 if ( GameHasFlagRun( flag ) == false ) then
 
