@@ -46,11 +46,12 @@ extra_modifiers["d2d_master_of_fire_boost_plus"] = function()
 end
 
 extra_modifiers["d2d_overheating_wands"] = function()
-    local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local entity_id = GetUpdatedEntityID()
     local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
     local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
     local wand = EZWand(active_wand)
+    local x, y = EntityGetTransform( get_player() )
 
     local mana = wand.mana
     local max_mana = wand.manaMax

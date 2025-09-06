@@ -1,7 +1,6 @@
--- REQUIRES APOTHEOSIS MOD INSTALLED
+dofile_once( "data/scripts/utilities.lua" )
 
-dofile_once("mods/Apotheosis/lib/apotheosis/apotheosis_utils.lua")
-local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 local entity_id = GetUpdatedEntityID()
 local root = EntityGetRootEntity(entity_id)
 local wand = EZWand(EntityGetParent(entity_id))
@@ -23,13 +22,13 @@ end
 local is_always_cast = ComponentGetValue2( icomp,"permanently_attached" )
 
 if GameGetFrameNum() >= cooldown_frame then
-    if isButtonDown_AltFire() then
+    if InputIsMouseButtonDown( 2 ) then -- is the right mouse button pressed?
         local mana = wand.mana
         if ( mana > manacost and ( uses_remaining ~= 0 or is_always_cast ) ) then
 
+            GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
             wand.mana = wand.manaMax
             -- wand.currentCastDelay = wand.currentCastDelay + 30
-            GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
 
             local spells, attached_spells = wand:GetSpells()
             for i,spell in ipairs( spells ) do
@@ -39,7 +38,7 @@ if GameGetFrameNum() >= cooldown_frame then
                         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
                         EntityLoad("mods/D2DContentPack/files/particles/fade_alt_fire_mana_refill.xml", x, y )
                     end
-
+                    
                     break
                 end
             end

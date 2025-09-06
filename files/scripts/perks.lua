@@ -225,7 +225,6 @@ d2d_perks = {
 	-- 	ui_description = "$perk_d2d_lift_curses_desc",
 	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/lift_curses_016.png",
 	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/lift_curses.png",
-    --     -- spawn_requires_flag = "apotheosis_card_unlocked_fire_lukki_spell",  --Requires Aesthete of Heat to be slain
 	-- 	stackable = STACKABLE_YES,
 	-- 	one_off_effect = true,
 	-- 	usable_by_enemies = false,

@@ -1,7 +1,6 @@
--- REQUIRES APOTHEOSIS MOD INSTALLED
+dofile_once( "data/scripts/utilities.lua" )
 
-dofile_once("mods/Apotheosis/lib/apotheosis/apotheosis_utils.lua")
-local EZWand = dofile_once("mods/Apotheosis/lib/EZWand/EZWand.lua")
+local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 local entity_id = GetUpdatedEntityID()
 local root = EntityGetRootEntity(entity_id)
 local wand = EZWand(EntityGetParent(entity_id))
@@ -23,9 +22,10 @@ end
 local is_always_cast = ComponentGetValue2( icomp,"permanently_attached" )
 
 if GameGetFrameNum() >= cooldown_frame then
-    if isButtonDown_AltFire() then
+    if InputIsMouseButtonDown( 2 ) then -- is the right mouse button pressed?
         local mana = wand.mana
         if ( mana > manacost and ( uses_remaining ~= 0 or is_always_cast ) ) then
+            
             GameShootProjectile(root, x+aim_x*12, y+aim_y*12, x+aim_x*20, y+aim_y*20, EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/smoke_bomb.xml", x, y ) )
             wand.mana = mana - manacost
 
