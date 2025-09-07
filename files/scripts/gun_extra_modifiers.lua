@@ -103,7 +103,8 @@ end
 extra_modifiers["d2d_rapidfire_salvo"] = function()
     local old_fire_rate_wait = c.fire_rate_wait
     c.fire_rate_wait = c.fire_rate_wait * 0.25
-    current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.375 )
+    -- current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.375 )
+    current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.75 )
 end
     
 extra_modifiers["d2d_fairy_friend"] = function()
