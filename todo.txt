@@ -97,11 +97,18 @@ patch 1.2
 [ ] figure out how to properly remove perks. curse lifter might be an important perk to implement.
 [ ] lock "master of" perks behind killing the Master of Masters with the corresponding weakening curse?
   [ ] create "weakening curse - fire"
-[ ] LOL giga drain bubbles pass through the player if they have the "phasing" perk. should this change...?
+[-] LOL giga drain bubbles pass through the player if they have the "phasing" perk. should this change...? <-- nah
 
 
 
 ALT FIRE ANYTHING
-Current limitations:
+
+A spell inspired by the various Alt Fire spells of [b]Apotheosis[/b].
+This mod 
+
+Current Limitations / Known Bugs
 - Your wand loses mana for all spells slotted behind Alt Fire Anything, not just the ones that were cast
 - Recharge time is fixed to just your wand's recharge time. Ideally, the fired spells' cast delay and recharge time should be added.
+- Invisibility is not interrupted when alt-firing
+
+[-] check out "directors_helpers.lua" for entity_load_chest --> better place for cursed chest logic? <-- can't find a hook here

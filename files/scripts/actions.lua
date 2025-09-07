@@ -373,27 +373,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_SUMMON_CAT",
-	    name 		        = "$spell_d2d_summon_cat_name",
-	    description         = "$spell_d2d_summon_cat_desc",
-        inject_after        = { "EXPLODING_DEER" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_cat.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0",
-		spawn_probability   = "0",
-	    price               = 400,
-	    mana                = 150,
-	    max_uses			= 5,
-    	never_unlimited 	= true,
-	    action              = function()
-	 							if reflecting then return end
-	 							
-                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-	    						add_projectile( "mods/Apotheosis/files/entities/special/conjurer_cat_spawner.xml", x, y )
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_SMALL_EXPLOSION",
 	    name 		        = "$spell_d2d_small_explosion_name",
 	    description         = "$spell_d2d_small_explosion_desc",
@@ -403,7 +382,7 @@ d2d_actions = {
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "1.2,1,0.8,0.6",
 	    price               = 120,
-	    mana                = 25,
+	    mana                = 20,
 	    action              = function()
 			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
@@ -831,6 +810,72 @@ d2d_actions = {
 	-- },
 }
 
+if(actions ~= nil)then
+	for k, v in pairs(d2d_actions)do
+		if(not HasSettingFlag(v.id.."_disabled"))then
+			table.insert(actions, v)
+		end
+	end
+end
+
+
+
+
+-- spells that should only be added if the player has Apotheosis enabled
+if ( ModIsEnabled("Apotheosis") ) then
+	d2d_apoth_actions = {
+	    {
+		    id                  = "D2D_SUMMON_CAT",
+		    name 		        = "$spell_d2d_summon_cat_name",
+		    description         = "$spell_d2d_summon_cat_desc",
+	        inject_after        = { "EXPLODING_DEER" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_cat.png",
+		    type 		        = ACTION_TYPE_PROJECTILE,
+			spawn_level         = "0", -- never spawns in the world
+			spawn_probability   = "0", -- never spawns in the world
+		    price               = 400,
+		    mana                = 150,
+		    max_uses			= 10,
+	    	never_unlimited 	= true,
+		    action              = function()
+		 							if reflecting then return end
+		 							
+	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+		    						add_projectile( "mods/Apotheosis/files/entities/special/conjurer_cat_spawner.xml", x, y )
+		                        end,
+	    },
+
+	    {
+		    id                  = "D2D_SUMMON_FAIRIES",
+		    name 		        = "$spell_d2d_summon_fairies_name",
+		    description         = "$spell_d2d_summon_fairies_desc",
+	        inject_after        = { "D2D_SUMMON_CAT", "EXPLODING_DEER" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairy.png",
+		    type 		        = ACTION_TYPE_PROJECTILE,
+			spawn_level         = "0,1,2,3,4",
+			spawn_probability   = "0.1,0.4,0.3,0.4,1.0",
+		    price               = 200,
+		    mana                = 15,
+		    max_uses			= 10,
+	    	never_unlimited 	= true,
+		    action              = function()
+		 							if reflecting then return end
+		 							
+	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	    							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
+		                        end,
+	    },
+	}
+
+	if(actions ~= nil)then
+		for k, v in pairs(d2d_apoth_actions)do
+			if(not HasSettingFlag(v.id.."_disabled"))then
+				table.insert(actions, v)
+			end
+		end
+	end
+end
+
 
 
 function HasSettingFlag(name)
@@ -844,14 +889,6 @@ end
 
 function RemoveSettingFlag(name)
     ModSettingRemove(name)
-end
-
-if(actions ~= nil)then
-	for k, v in pairs(d2d_actions)do
-		if(not HasSettingFlag(v.id.."_disabled"))then
-			table.insert(actions, v)
-		end
-	end
 end
 
 

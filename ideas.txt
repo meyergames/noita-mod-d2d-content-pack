@@ -17,3 +17,8 @@ IDEAS
 Regular left-click: skip this spell and the (first) card it draws. If that seems technically impossible, reset the wand and trigger wand recharge time.
 Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, and draw the first card behind it.
 
+[ ] modifier that has a chance to save a limited-use spell's uses is now possible!
+
+[x] Fairy Reincarnation: enemies turn into small fairies upon death, lighting up the area
+
+[ ] One Wand Army: increase your damage dealt based on how few wands you are carrying

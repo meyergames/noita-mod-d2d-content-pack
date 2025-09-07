@@ -12,8 +12,6 @@
 		>
 	</LifetimeComponent>
 
-	<!-- Ideally this would float up slowly after appearing, but it's very uncooperative -->
-
 	<VelocityComponent
 		mass="0.05"
 		affect_physics_bodies="1"

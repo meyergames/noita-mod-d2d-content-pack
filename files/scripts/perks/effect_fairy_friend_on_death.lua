@@ -29,10 +29,18 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
             else
                 local folder = "animals/cat_immortal/"
                 -- if not ModSettingGet( "Apotheosis.fairy_immortality" ) then folder = "animals/" end
+                -- -- ^ mortal fairy spawns often end up dead within seconds (fire etc)
 
                 local fairy_id = EntityLoad( "mods/Apotheosis/data/entities/" .. folder .. "fairy_cheap.xml", spawn_x, spawn_y )
                 EntityAddTag( fairy_id, "fairy" )
                 spawns_left = spawns_left - 1
+            end
+
+            raise_internal_int( get_player(), "player_fairies_spawned", 1 )
+            local fairies_rescued = get_internal_int( get_player(), "player_fairies_spawned" )
+            if fairies_rescued % 100 == 0 then
+                GamePrint( "You've rescued a total of " .. fairies_rescued .. " fairies!" )
+                CreateItemActionEntity( "D2D_SUMMON_FAIRY", pos_x, pos_y )
             end
         end
     end

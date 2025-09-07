@@ -302,6 +302,11 @@ if ModIsEnabled( "Apotheosis" ) then
 	            { 
 		            extra_modifier = "d2d_fairy_friend",
 	            } )
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{ 
+					script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_fairy_friend_damage_incoming.lua",
+					execute_every_n_frame = "-1",
+				} )
 
 	            -- local gdcomp = EntityGetComponentIncludingDisabled( entity_who_picked, "GenomeDataComponent" )
 				-- ComponentSetValue2( gdcomp, "herd_id", StringToHerdId( "ghost_fairy" ) )

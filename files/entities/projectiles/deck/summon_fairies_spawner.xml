@@ -1,0 +1,11 @@
+<Entity>
+    <LuaComponent
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/summon_fairies.lua"
+        execute_every_n_frames="1"
+        execute_times="1"
+    ></LuaComponent>
+
+    <LifetimeComponent
+        lifetime="3"
+    ></LifetimeComponent>
+</Entity>
