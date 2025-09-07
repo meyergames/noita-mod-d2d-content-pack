@@ -373,6 +373,27 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_SUMMON_CAT",
+	    name 		        = "$spell_d2d_summon_cat_name",
+	    description         = "$spell_d2d_summon_cat_desc",
+        inject_after        = { "EXPLODING_DEER" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_cat.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+	    price               = 400,
+	    mana                = 150,
+	    max_uses			= 5,
+    	never_unlimited 	= true,
+	    action              = function()
+	 							if reflecting then return end
+	 							
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	    						add_projectile( "mods/Apotheosis/files/entities/special/conjurer_cat_spawner.xml", x, y )
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_SMALL_EXPLOSION",
 	    name 		        = "$spell_d2d_small_explosion_name",
 	    description         = "$spell_d2d_small_explosion_desc",

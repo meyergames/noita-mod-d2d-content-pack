@@ -105,3 +105,12 @@ extra_modifiers["d2d_rapidfire_salvo"] = function()
     c.fire_rate_wait = c.fire_rate_wait * 0.25
     current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.375 )
 end
+    
+extra_modifiers["d2d_fairy_friend"] = function()
+    local x, y = EntityGetTransform( get_player() )
+    local nearby_fairies = EntityGetInRadiusWithTag( x, y, 160, "fairy" )
+
+    if ( #nearby_fairies > 0 ) then
+        c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * #nearby_fairies )
+    end
+end

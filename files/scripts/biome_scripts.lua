@@ -21,6 +21,7 @@ function spawn_heart( x, y )
 			
 			if( Random( 1, 300 ) == 1 ) then spawn_mimic_sign( x, y ) end
 
+			-- local config_curses_enabled = ModSettingGet("D2DContentPack.enable_curses")
 			if ( rnd < 950 - get_perk_pickup_count( "D2D_HUNT_CURSES" ) * 150 ) then
 				local entity = EntityLoad( "data/entities/items/pickup/chest_random.xml", x, y)
 			elseif ( rnd < 1000 ) then

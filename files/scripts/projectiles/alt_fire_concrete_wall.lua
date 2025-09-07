@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/utilities.lua" )
+dofile_once( "data/scripts/lib/utilities.lua" )
 
 local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 local entity_id = GetUpdatedEntityID()

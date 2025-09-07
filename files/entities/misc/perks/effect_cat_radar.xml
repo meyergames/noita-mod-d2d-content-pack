@@ -1,0 +1,16 @@
+<Entity>
+
+    <InheritTransformComponent />
+  
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="CAT_RADAR"
+    ></GameEffectComponent >
+  
+  <LuaComponent 
+    _enabled="1" 
+    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_cat_radar_update.lua" 
+    execute_every_n_frame="1">
+  </LuaComponent>
+
+</Entity>

@@ -195,6 +195,7 @@ d2d_perks = {
         end,
 	},
 
+
 	-- {
 	-- 	id = "D2D_HOMEBODY_WANDS",
 	-- 	ui_name = "Homebody",
@@ -267,6 +268,92 @@ d2d_perks = {
 	-- },
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+local d2d_apoth_perks = nil
+if ModIsEnabled( "Apotheosis" ) then
+	d2d_apoth_perks = {
+		{
+			id = "D2D_FAIRY_FRIEND",
+			ui_name = "$perk_d2d_fairy_friend_name",
+			ui_description = "$perk_d2d_fairy_friend_desc",
+			ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/fairy_friend_016.png",
+			perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/fairy_friend.png",
+			stackable = STACKABLE_NO,
+			one_off_effect = false,
+			usable_by_enemies = false,
+			func = function( entity_perk_item, entity_who_picked, item_name )
+		        EntityAddComponent( entity_who_picked, "LuaComponent",
+		        {
+		            script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_fairy_friend_update.lua",
+		            execute_every_n_frame = "20",
+		        } )
+	            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
+	            { 
+		            extra_modifier = "d2d_fairy_friend",
+	            } )
+
+	            -- local gdcomp = EntityGetComponentIncludingDisabled( entity_who_picked, "GenomeDataComponent" )
+				-- ComponentSetValue2( gdcomp, "herd_id", StringToHerdId( "ghost_fairy" ) )
+				-- GamePrint( "You now belong to the herd of fairies!" )
+	        end,
+		},
+
+		{
+			id = "D2D_FELINE_AFFECTION",
+			ui_name = "$perk_d2d_feline_affection_name",
+			ui_description = "$perk_d2d_feline_affection_desc",
+			ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/feline_affection_016.png",
+			perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/feline_affection.png",
+			stackable = STACKABLE_YES,
+			max_in_perk_pool = 4,
+			stackable_maximum = 4,
+			one_off_effect = false,
+			usable_by_enemies = false,
+			func = function( entity_perk_item, entity_who_picked, item_name )
+				-- no direct function
+				local x, y = EntityGetTransform( get_player() )
+				GamePlaySound( "mods/Apotheosis/mocreeps_audio.bank", "mocreeps_audio/kittycat/voc_attack_purr_01", x, y )
+
+				dofile_once( "data/scripts/lib/utilities.lua" )
+				if get_perk_pickup_count( "D2D_FELINE_AFFECTION" ) == 1 then
+					GamePrint("LuaComponent added")
+			        EntityAddComponent( entity_who_picked, "LuaComponent",
+			        {
+			            script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_feline_affection_update.lua",
+			            execute_every_n_frame = "20",
+			        } )
+			    end
+				-- okay maybe a little function
+	        end,
+		},
+
+		{
+			id = "D2D_CAT_RADAR",
+			ui_name = "$perk_d2d_cat_radar_name",
+			ui_description = "$perk_d2d_cat_radar_desc",
+			ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/cat_radar_016.png",
+			perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/cat_radar.png",
+			stackable = STACKABLE_NO,
+			one_off_effect = false,
+			usable_by_enemies = false,
+			not_in_default_perk_pool = true,
+			func = function( entity_perk_item, entity_who_picked, item_name )
+				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_cat_radar.xml" )
+	        end,
+		}
+	}
+end
 
 
 
@@ -495,6 +582,7 @@ function RemoveSettingFlag(name)
     ModSettingRemove(name)
 end
 
+-- add perks
 if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_perks )do
 		if HasSettingFlag( v.id .. "_disabled" ) then
@@ -505,6 +593,20 @@ if ( perk_list ~= nil ) then
 	end
 end
 
+-- add perks that require Apotheosis
+if ModIsEnabled( "Apotheosis" ) then
+	if ( perk_list ~= nil ) then
+		for k, v in pairs( d2d_apoth_perks )do
+			if HasSettingFlag( v.id .. "_disabled" ) then
+				-- GamePrint( "Perk not added: " .. v.id )
+			else
+				table.insert( perk_list, v )
+			end
+		end
+	end
+end
+
+-- add curses 
 if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_curses )do
 		if HasSettingFlag( v.id .. "_disabled" ) then

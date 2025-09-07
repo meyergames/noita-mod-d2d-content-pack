@@ -40,10 +40,108 @@ function setInternalVariableValue(entity_id, variable_name, variable_type, new_v
 	if ( components ~= nil ) then
 		for key,comp_id in pairs(components) do 
 			local var_name = ComponentGetValue2( comp_id, "name" )
-			if( var_name == variable_name) then
+			if( var_name == variable_name ) then
 				ComponentSetValue2( comp_id, variable_type, new_value )
 			end
 		end
+	end
+end
+
+-- custom shorthand that quickly gets an internal int value
+function get_internal_int( entity_id, variable_name )
+	local value = nil
+	local components = EntityGetComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
+	if ( components ~= nil ) then
+		for key,comp_id in pairs( components ) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			if( var_name == variable_name ) then
+				value = ComponentGetValue2( comp_id, "value_int" )
+			end
+		end
+	end
+	return value
+end
+
+-- custom variation that makes a variable if it doesn't exist yet
+function set_internal_int( entity_id, variable_name, new_value )
+	local variable_found = false
+	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( components ~= nil ) then
+		for key,comp_id in pairs(components) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			if( var_name == variable_name ) then
+				ComponentSetValue2( comp_id, "value_int", new_value )
+				variable_found = true
+			end
+		end
+	end
+
+	if not variable_found then
+		addNewInternalVariable( entity_id, variable_name, "value_int", new_value )
+	end
+end
+
+-- custom variation that makes a variable if it doesn't exist yet
+function append_internal_csv_list( entity_id, variable_name, added_value )
+	local variable_found = false
+	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( components ~= nil ) then
+		for key,comp_id in pairs(components) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			local var_value = ComponentGetValue2( comp_id, "value_string" )
+			if( var_name == variable_name ) then
+				ComponentSetValue2( comp_id, "value_string", var_value .. "," .. tostring( added_value ) )
+				GamePrint( "total list: " .. var_value .. "," .. added_value )
+				variable_found = true
+			end
+		end
+	end
+
+	if not variable_found then
+		addNewInternalVariable( entity_id, variable_name, "value_string", added_value )
+		GamePrint( "value added: " .. added_value )
+	end
+end
+
+-- custom variation that makes a variable if it doesn't exist yet
+function internal_csv_list_contains( entity_id, variable_name, sought_value )
+	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( components ~= nil ) then
+		for key,comp_id in pairs(components) do
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			local var_value = ComponentGetValue2( comp_id, "value_string" )
+			if var_name == variable_name then
+				GamePrint( "var_value: " .. tostring( var_value ) )
+
+				local split_values = split_string( var_value, "," )
+				for _,val in pairs( split_values ) do
+					if val == tostring( sought_value ) then
+						return true
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
+-- custom variation that makes a variable if it doesn't exist yet
+function raise_internal_int( entity_id, variable_name, delta )
+	local variable_found = false
+	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( components ~= nil ) then
+		for key,comp_id in pairs(components) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			local var_value = ComponentGetValue2( comp_id, "value_int" )
+			if( var_name == variable_name ) then
+				ComponentSetValue2( comp_id, "value_int", var_value + delta )
+				variable_found = true
+			end
+		end
+	end
+
+	if not variable_found then
+		addNewInternalVariable( entity_id, variable_name, "value_int", delta )
 	end
 end
 
@@ -332,6 +430,9 @@ end
 
 
 function apply_random_curse( entity_id )
+	-- local config_curses_enabled = ModSettingGet("D2DContentPack.enable_curses")
+	-- if not config_curses_enabled then return end
+
     dofile_once( "data/scripts/perks/perk.lua" )
     dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" )
     local x, y = EntityGetTransform( entity_id )
@@ -494,4 +595,39 @@ function fetch_spell_data( action_id )
 	end
 
 	return nil
+end
+
+function spawn_random_cat( x, y )
+	local cats = { "cat_mocreeps", "cat_mocreeps_black", "cat_mocreeps", "cat_mocreeps_black", "cat_mocreeps_white", "cat_mocreeps_spoopy", "cat_mocreeps_spoopy_skittle", "cat_mocreeps_spoopy_frisky", "cat_mocreeps_spoopy_tiger" }
+	cat_to_spawn = random_from_array( cats )
+
+	local folder = "animals/cat_immortal/"
+	-- if not ModSettingGet( "Apotheosis.congacat_cat_immortal" ) then folder = "animals/" end
+	local path = table.concat( { "mods/Apotheosis/data/entities/", folder, cat_to_spawn, ".xml" } )
+	return EntityLoad( path, x, y )
+end
+
+function try_find_luacomp( entity_id, script_type, script_name )
+	local lcomps = EntityGetComponentIncludingDisabled( entity_id, "LuaComponent" )
+	if lcomps ~= nil then
+		for _,lcomp in pairs( lcomps ) do
+			if string.find( ComponentGetValue2( lcomp, script_type ), script_name ) then
+				return lcomp
+			end
+		end
+	end
+end
+
+function make_serializable( entity_id )
+	-- -- vvv this could work to make cats serializable?
+	-- local xml2lua = dofile("mods/new_enemies/files/xml2lua_library/xml2lua.lua")
+	-- local xml_content = ModTextFileGetContent("data/entities/props/existing_entity.xml")
+	-- local handler = xml2lua.parse(xml_content)
+	-- if handler.root.Entity._attr.tags then
+	--   handler.root.Entity._attr.tags = handler.root.Entity._attr.tags .. ",your_tag_name"
+	-- else
+	--   handler.root.Entity._attr.tags = "your_tag_name"
+	-- end
+	-- local xml_output = xml2lua.toXml(handler.root, "Entity", 0)
+	-- ModTextFileSetContent("data/entities/props/existing_entity.xml", xml_output)
 end
