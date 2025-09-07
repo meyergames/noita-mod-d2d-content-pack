@@ -19,8 +19,8 @@ mod_settings =
     --     }
     -- },
     {
-        category_id = "spell_settings",
-        ui_name = "Experimental",
+        category_id = "default_settings",
+        ui_name = "",
         ui_description = "",
         settings = {
             {

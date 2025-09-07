@@ -1,61 +1,4 @@
 d2d_actions = {
-    -- {
-	--     id                  = "D2D_OVERCLOCK",
-	--     name 		        = "Overclock",
-	--     description         = "Pushes your wand to its limits; may cause overheating",
-    --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/overclock.png",
-	--     type 		        = ACTION_TYPE_MODIFIER,
-	-- 	spawn_level         = "0,1,2,3,4,5,6",
-	-- 	spawn_probability   = "0.4,0.6,0.8,0.9,1.0,1.0,1.0",
-	--     price               = 260,
-	--     mana                = -30,
-	--     action              = function()
-    --                             local entity_id = GetUpdatedEntityID()
-
-    --                             local rand = Random( 0, 50 )
-    --                             if( rand == 1 ) then -- 1/50 chance for *something* to happen
-    --                                 c.fire_rate_wait    = 40
-    --                                 GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
-
-    --                                 local rand2 = Random( 0, 8 )
-    --                                 if( rand2 < 1 ) then -- 2/250 or 1/125
-    --                                     EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
-    --                                 elseif( rand2 < 3 ) then -- 2/250 or 1/125
-    --                                     add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
-    --                                 elseif( rand2 < 5 ) then -- 2/250 or 1/125
-    --                                     add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
-    --                                 else -- 3/250 or 1/83
-    --                                     add_projectile("data/entities/projectiles/deck/fizzle.xml")
-    --                                 end
-    --                             else
-    --                                 c.fire_rate_wait    = c.fire_rate_wait - 15
-    --                                 current_reload_time = current_reload_time - 20
-    --                             end
-                                
-	-- 		                    draw_actions( 1, true )
-	--                         end,
-    -- },
-
-    -- {
-	--     id                  = "D2D_OPTIMIZE",
-	--     name 		        = "$spell_d2d_optimize_name",
-	--     description         = "$spell_d2d_optimize_desc",
-    --     inject_after        = { "RECHARGE", "MANA_REDUCE" },
-	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/optimize.png",
-	--     type 		        = ACTION_TYPE_MODIFIER,
-	-- 	spawn_level         = "0,1,2,3",
-	-- 	spawn_probability   = "1.0,0.9,0.7,0.5",
-	--     price               = 120,
-	--     mana                = -3,
-	--     action              = function()
-    --                             c.fire_rate_wait    = c.fire_rate_wait - 3
-    --                             current_reload_time = current_reload_time - 6
-
-	--     						draw_actions( 1, true )
-	--                         end,
-    -- },
-
     {
 	    id                  = "D2D_OVERCLOCK",
 	    name 		        = "$spell_d2d_overclock_name",
@@ -152,11 +95,37 @@ d2d_actions = {
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_rapidfire_salvo.xml",
 	    price               = 330,
-	    mana                = 1,
+	    mana                = 10,
 	    action              = function()
                                 draw_actions( 1, true )
 	                        end,
     },
+
+	{
+		id                  = "D2D_RECYCLE",
+		name 		        = "Recycle",
+		description         = "May spare a spell's limited uses",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/recycle.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3,4,5",
+		spawn_probability   = "0.5,1,0.8,0.6,0.4,0.2",
+		price               = 200,
+		mana                = 20,
+		action 		        = function()
+								draw_actions( 1, true )
+
+								for i,v in ipairs( hand ) do
+									local spell_data = hand[i]
+									if spell_data.uses_remaining > 1 then
+										if not spell_data.never_unlimited and Random( 0, 4 ) == 4 then
+											spell_data.uses_remaining = spell_data.uses_remaining + 1
+										elseif Random( 0, 10 ) == 10 then
+											spell_data.uses_remaining = spell_data.uses_remaining + 1
+										end
+									end
+								end
+		                    end,
+	},
 
     {
 	    id                  = "D2D_MANA_REFILL",
@@ -567,80 +536,6 @@ d2d_actions = {
 	                        end,
     },
 
-	-- {
-	-- 	id                  = "D2D_DRILL_VOLCANIC",
-	-- 	name 		        = "Volcanic Drill",
-	-- 	description         = "Perfectly suited for any and all mining operations",
-	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
-	-- 	type 		        = ACTION_TYPE_PROJECTILE,
-	-- 	spawn_level         = "2,3,4,5,6",
-	-- 	spawn_probability   = "0.5,0.6,0.7,0.8,0.9",
-	-- 	price               = 350,
-	-- 	mana                = 27,
-	-- 	sound_loop_tag      = "sound_digger",
-	-- 	action 		        = function()
-	-- 		                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/drill_volcanic.xml")
-	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 1
-	-- 		                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
-	-- 	                    end,
-	-- },
-
-	-- {
-	-- 	id                  = "D2D_DRILL_INFERNAL",
-	-- 	name 		        = "Infernal Drill",
-	-- 	description         = "Not even brickwork is safe",
-	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spell_icon_drill_infernal.png",
-	-- 	type 		        = ACTION_TYPE_PROJECTILE,
-	-- 	spawn_level         = "4,5,6",
-	-- 	spawn_probability   = "0.4,0.6,0.8",
-	-- 	price               = 700,
-	-- 	mana                = 90,
-	-- 	sound_loop_tag      = "sound_digger",
-	-- 	action 		        = function()
-	-- 		                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/drill_infernal.xml")
-	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 1
-	-- 		                    current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
-	-- 	                    end,
-	-- },
-
-	-- {
-	-- 	id          = "D2D_CIRCLE_GOLD",
-	-- 	name 		= "Circle Of Gold",
-	-- 	description = "Spawns a circle of gold",
-	-- 	sprite 		= "data/ui_gfx/gun_actions/circle_water.png",
-	-- 	sprite_unidentified = "data/ui_gfx/gun_actions/slimeball_unidentified.png",
-	-- 	-- related_projectiles	= {"data/entities/projectiles/deck/circle_water.xml"},
-	-- 	type 		= ACTION_TYPE_MATERIAL,
-	-- 	spawn_level                       = "0",
-	-- 	spawn_probability                 = "0",
-	-- 	price = 160,
-	-- 	mana = 20,
-	-- 	max_uses = 1,
-	-- 	action 		= function()
-	-- 		add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_128.xml")
-	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
-	-- 	end,
-	-- },
-
-	-- {
-	-- 	id          = "D2D_CIRCLE_GOLD_BIG",
-	-- 	name 		= "Sea Of Gold",
-	-- 	description = "Spawns a sea of gold",
-	-- 	sprite 		= "data/ui_gfx/gun_actions/circle_water.png",
-	-- 	sprite_unidentified = "data/ui_gfx/gun_actions/slimeball_unidentified.png",
-	-- 	-- related_projectiles	= {"data/entities/projectiles/deck/circle_water.xml"},
-	-- 	type 		= ACTION_TYPE_MATERIAL,
-	-- 	spawn_level                       = "0",
-	-- 	spawn_probability                 = "0",
-	-- 	price = 160,
-	-- 	mana = 20,
-	-- 	max_uses = 1,
-	-- 	action 		= function()
-	-- 		add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml")
-	-- 		c.fire_rate_wait = c.fire_rate_wait + 20
-	-- 	end,
-	-- },
-
     {
 	    id                  = "D2D_DAMAGE_MISSING_MANA",
 	    name 		        = "$spell_d2d_damage_missing_mana_name",
@@ -850,7 +745,7 @@ if ( ModIsEnabled("Apotheosis") ) then
 		    name 		        = "$spell_d2d_summon_fairies_name",
 		    description         = "$spell_d2d_summon_fairies_desc",
 	        inject_after        = { "D2D_SUMMON_CAT", "EXPLODING_DEER" },
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairy.png",
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairies.png",
 		    type 		        = ACTION_TYPE_PROJECTILE,
 			spawn_level         = "0,1,2,3,4",
 			spawn_probability   = "0.1,0.4,0.3,0.4,1.0",
