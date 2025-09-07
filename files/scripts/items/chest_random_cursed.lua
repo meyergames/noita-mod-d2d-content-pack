@@ -53,24 +53,20 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	-- maybe spawn an item (10% chance)
 	elseif ( rnd <= 40 ) then
 		local rnd2 = Random( 1, 100 )
-		if ( rnd2 <= 30 ) then -- 4%
+		if ( rnd2 <= 25 ) then -- 2.5%
 			table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml" } )
-		elseif ( rnd2 <= 40 ) then -- 1%
+		elseif ( rnd2 <= 35 ) then -- 1%
 			table.insert( entities, { "data/entities/items/pickup/safe_haven.xml" } )
-		elseif ( rnd2 <= 60 ) then -- 2%
+		elseif ( rnd2 <= 65 ) then -- 3%
 			table.insert( entities, { "data/entities/items/pickup/lightningstone.xml" } )
-		elseif ( rnd2 <= 80 ) then -- 2%
+		elseif ( rnd2 <= 95 ) then -- 3%
 			table.insert( entities, { "data/entities/items/pickup/brimstone.xml" } )
-		elseif ( rnd2 <= 85 ) then -- 0.5%
-			table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
-		elseif ( rnd2 <= 95 ) then -- 1.0%
-			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml"} )
 		elseif ( rnd2 <= 100 ) then -- 0.5%
-			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml"} )
+			table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
 		end
 	-- maybe spawn a curse-related spell (15% chance)
 	elseif ( rnd <= 55 ) then
-		local spells = { "D2D_CURSES_TO_POWER", "D2D_CURSES_TO_MANA" }
+		local spells = { "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" }
 		local rnd2 = Random( 1, #spells )
 		local spell_to_spawn = spells[rnd2]
    		CreateItemActionEntity( spell_to_spawn, x, y )
@@ -116,26 +112,22 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	-- maybe spawn one or more cats (2% chance), if Apotheosis is enabled
 	elseif ( rnd <= 77 and ModIsEnabled("Apotheosis") ) then
 		local rnd2 = Random( 1, 100 )
+		local cats_to_spawn = 0
 		if( rnd2 <= 50 ) then -- 1% (1/100)
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			cats_to_spawn = 1
 		elseif( rnd2 <= 75 ) then -- 0.5% (1/200)
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			cats_to_spawn = 2
 		elseif( rnd2 <= 90 ) then -- 0.3% (1/333)
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			cats_to_spawn = 3
 		elseif( rnd2 <= 100 ) then -- 0.2% (1/500)
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
-			table.insert( entities, { "mods/Apotheosis/data/entities/animals/cat_immortal.xml" } )
+			cats_to_spawn = 9
 		end
+
+		for i = 1, cats_to_spawn do
+			local var = cats_to_spawn * 3
+            EntityLoad( "mods/Apotheosis/files/entities/special/conjurer_cat_spawner.xml", target_x, target_y )
+        	-- spawn_random_cat( target_x + Random( -var, var ), target_y - Random( -var * 2, 0 ) )
+        end
 	-- maybe spawn a wand
 	else
 		local rnd2 = Random( 1, 100 )
@@ -204,7 +196,11 @@ function on_open( entity_item )
 
 		local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )
 		
+		-- local config_curses_enabled = ModSettingGet("D2DContentPack.enable_curses")
+		-- if config_curses_enabled then
 		EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
+		-- end
+
 		EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
 		-- GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad", x, y )
 		-- else
