@@ -84,8 +84,8 @@ extra_modifiers["d2d_no_rhythm"] = function()
 end
 
 extra_modifiers["d2d_divine_prank"] = function()
-    local enabled = getInternalVariableValue( get_player(), "divine_prank_enable_propane_effect", "value_int" )
-    if ( enabled == 1 ) then
+    local enabled = get_internal_int( get_player(), "prank_enable_propane" ) == 1
+    if ( enabled ) then
         local p_dcomp = EntityGetFirstComponentIncludingDisabled( get_player(), "DamageModelComponent" )
         local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
 
@@ -96,7 +96,7 @@ extra_modifiers["d2d_divine_prank"] = function()
             -- i = i - 1
         -- end
 
-        setInternalVariableValue( get_player(), "divine_prank_enable_propane_effect", "value_int", 0 )
+        set_internal_int( get_player(), "prank_enable_propane", 0 )
     end
 end
     

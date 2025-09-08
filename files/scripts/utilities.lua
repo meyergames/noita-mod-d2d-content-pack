@@ -81,6 +81,60 @@ function set_internal_int( entity_id, variable_name, new_value )
 	end
 end
 
+-- very shorthand version of getting OR setting an internal int variable
+function p_int( variable_name, delta )
+	return var_int( get_player(), variable_name, delta )
+end
+
+function var_int( entity_id, variable_name, new_value )
+	local new_value = new_value or nil
+
+	local vcomps = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( vcomps ~= nil ) then
+		for _,vcomp in pairs(vcomps) do 
+			local var_name = ComponentGetValue2( vcomp, "name" )
+			if( var_name == variable_name ) then
+				if new_value ~= nil then
+					ComponentSetValue2( vcomp, "value_int", new_value )
+					return new_value
+				end
+			end
+		end
+	end
+
+	if new_value ~= nil then
+		addNewInternalVariable( entity_id, variable_name, "value_int", new_value )
+		return new_value
+	end
+	return -1
+end
+
+function var_int_add( entity_id, variable_name, delta )
+	local delta = delta or nil
+	
+	local vcomps = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( vcomps ~= nil ) then
+		for _,vcomp in pairs(vcomps) do
+			local var_name = ComponentGetValue2( vcomp, "name" )
+			local var_value = ComponentGetValue2( vcomp, "value_int" )
+
+			if var_name == variable_name then
+				GamePrint( delta )
+				if delta ~= nil then
+					ComponentSetValue2( vcomp, "value_int", var_value + delta )
+				end
+				return var_value + delta
+			end
+		end
+	end
+
+	if delta ~= nil then
+		addNewInternalVariable( entity_id, variable_name, "value_int", delta )
+		return delta
+	end
+	return -1
+end
+
 -- custom variation that makes a variable if it doesn't exist yet
 function append_internal_csv_list( entity_id, variable_name, added_value )
 	local variable_found = false

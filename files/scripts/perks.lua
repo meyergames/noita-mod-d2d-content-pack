@@ -428,7 +428,7 @@ d2d_curses = {
 		ui_description = "$perk_d2d_curse_divine_prank_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/divine_prank_016.png",
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/divine_prank.png",
-		stackable = STACKABLE_NO,
+		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
@@ -436,12 +436,20 @@ d2d_curses = {
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
-
-           	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_divine_prank.xml" )
-            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-			            { 
-				            extra_modifier = "d2d_divine_prank",
-			            } )
+			
+    		-- var_int_add( owner, "pranks_looming", 1 )
+    		dofile_once( "data/scripts/lib/utilities.lua" )
+			if get_perk_pickup_count( "D2D_CURSE_DIVINE_PRANK" ) == 1 then
+		        EntityAddComponent( entity_who_picked, "LuaComponent",
+		        {
+		            script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_update.lua",
+		            execute_every_n_frame = "60",
+		        } )
+	            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
+	            { 
+		            extra_modifier = "d2d_divine_prank",
+	            } )
+	        end
         end,
 	},
 

@@ -22,3 +22,17 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [x] Fairy Reincarnation: enemies turn into small fairies upon death, lighting up the area
 
 [ ] One Wand Army: increase your damage dealt based on how few wands you are carrying
+
+[ ] Maybe the "Rewind" spell is possible now, with my new understanding of the code?
+
+[ ] Behind You! curse: a bomb floats behind you, 
+
+[ ] Divine prank: severely limit the player's FOV (like that one wizard) and play the sound of a really scary monster
+
+[ ] Beacon: an item whose location is permanently shown on the player's UI, like on an Item Radar
+
+[ ] Reveal: a limited-use spell that temporarily reveals nearby wands and items
+
+[ ] To "disable" a perk (e.g. for Master Of X), maybe we can get the perk's UIComponent and simply change its description and icon, and run the necessary scripts (i.e. the perk function "_remove" or smth)
+
+[ ] Curse: like spontaneous combustion, but for a 5-second blindness effect "A mosquito flew into your eye!" (maybe with a permanent light added buzzing sound effect? like the firefly - maybe it could just spawn an entity that's like the Apotheosis swarm, but with less particles and without damage)

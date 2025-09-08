@@ -75,6 +75,8 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 		cats_petted = get_internal_int( entity_who_interacted, "cats_petted" )
 		if cats_petted == 10 then
 			spawn_perk( "D2D_CAT_RADAR", x, y )
+		elseif cats_petted % 20 == 0 then
+			CreateItemActionEntity( "D2D_SUMMON_CAT", x, y )
 		end
 
 		-- try to heal the player, OR (if they are full health) count towards spawning the Summon Cat spell
@@ -83,8 +85,10 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 		local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
 		local is_health_missing = p_hp < p_max_hp
 		if is_health_missing then
-			GamePrint( "It soothes your spirit" )
 			LoadGameEffectEntityTo( entity_who_interacted, "mods/D2DContentPack/files/entities/misc/status_effects/effect_regeneration_short.xml" )
+			if p_hp <= p_max_hp * 0.9 then
+				GamePrint( "It soothes your spirit" )
+			end
 		end
 		if p_hp > p_max_hp * 0.9 then
 			raise_internal_int( entity_who_interacted, "cats_petted_at_full_health", 1 )

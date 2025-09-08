@@ -730,7 +730,7 @@ if ( ModIsEnabled("Apotheosis") ) then
 			spawn_probability   = "0", -- never spawns in the world
 		    price               = 400,
 		    mana                = 150,
-		    max_uses			= 10,
+		    max_uses			= 5,
 	    	never_unlimited 	= true,
 		    action              = function()
 		 							if reflecting then return end

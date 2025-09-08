@@ -212,12 +212,11 @@
     execute_every_n_frame="1"
     execute_times="1"
   ></LuaComponent>
-
-  <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_dud_exploded.lua"
-    execute_every_n_frame="-1"
-    execute_on_added="0"
+  
+  <LuaComponent 
     execute_on_removed="1"
-  ></LuaComponent>
+    execute_every_n_frame="-1"
+    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_msg.lua" >
+  </LuaComponent>
 
 </Entity>

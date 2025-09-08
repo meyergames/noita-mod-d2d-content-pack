@@ -1,112 +1,99 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 
-local EFFECT_RADIUS_DETECT = 125
+local INIT_COOLDOWN = 120
+local ENEMY_DETECTION_RADIUS = 100
 
 local entity_id = GetUpdatedEntityID()
-local owner = EntityGetParent( entity_id )
+-- local owner = EntityGetParent( entity_id )
+local owner = get_player()
 local x, y = EntityGetTransform( owner )
 
-
-
-
-
--- local divine_prank_print_cooldown_time = getInternalVariableValue( owner, "divine_prank_print_cooldown_time", "value_int" )
--- if ( divine_prank_print_cooldown_time > 0 ) then
---     setInternalVariableValue( owner, "divine_prank_print_cooldown_time", "value_int", divine_prank_print_cooldown_time - 1 )
--- end
--- divine_prank_print_cooldown_time = getInternalVariableValue( owner, "divine_prank_print_cooldown_time", "value_int" )
-
-local delayed_message_time = getInternalVariableValue( owner, "divine_prank_message_delay_time", "value_int" )
-if ( delayed_message_time > -1 ) then
-    setInternalVariableValue( owner, "divine_prank_message_delay_time", "value_int", delayed_message_time - 1 )
-    
-    delayed_message_time = getInternalVariableValue( owner, "divine_prank_message_delay_time", "value_int" )
-    if ( delayed_message_time == 0 ) then
-        GamePrint( "The gods chuckle as they totally prank you." )
-        setInternalVariableValue( owner, "divine_prank_print_cooldown_time", "value_int", 5 )
+local initial_cooldown = get_internal_int( owner, "prank_init_cooldown" )
+if initial_cooldown == nil then
+    set_internal_int( owner, "prank_init_cooldown", INIT_COOLDOWN )
+elseif initial_cooldown > 0 then
+    set_internal_int( owner, "prank_init_cooldown", initial_cooldown - 1 )
+    if initial_cooldown - 1 <= 0 then
+        GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )
+        GameScreenshake( 75 )
+        GamePrintImportant( "You hear a faint chuckle..." )
     end
 end
+initial_cooldown = get_internal_int( owner, "prank_init_cooldown" )
+if initial_cooldown > 0 then return end
 
-local gods_fake_angry = getInternalVariableValue( owner, "divine_prank_gods_are_fake_angry", "value_int" )
-if ( gods_fake_angry == 1 and x > -122) then
-    GamePrintImportant( "The gods were just kidding!", "They are not angry at you :)" )
-    GameTriggerMusicEvent( "music/temple/enter", true, pos_x, pos_y )
-    setInternalVariableValue( owner, "divine_prank_gods_are_fake_angry", "value_int", 0 )
-end
 
-local cooldown_time = getInternalVariableValue( owner, "divine_prank_cooldown_time", "value_int" )
-if ( cooldown_time > 0 ) then
-    setInternalVariableValue( owner, "divine_prank_cooldown_time", "value_int", cooldown_time - 1 )
-    return
+local pranked_times = get_internal_int( owner, "pranked_times" )
+if pranked_times == nil then
+    set_internal_int( owner, "pranked_times", 0 )
+    pranked_times = get_internal_int( owner, "pranked_times" )
 end
+if get_perk_pickup_count( "D2D_CURSE_DIVINE_PRANK" ) - pranked_times <= 0 then return end
+
+
+
+-- now for the actual prank logic
+
+local prank_was_just_triggered = false
+
+local nearby_enemy_count = #EntityGetInRadiusWithTag( x, y, ENEMY_DETECTION_RADIUS, "homing_target" ) -- no -1 necessary because the player is no homing target?
+local far_enemy_count = #EntityGetInRadiusWithTag( x, y, ENEMY_DETECTION_RADIUS * 2, "homing_target" )
+local is_in_holy_mountain = string.find( BiomeMapGetName( x, y ), "holy" )
 
 local p_dcomp = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
 local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+local is_health_low = p_hp <= math.min( p_max_hp * 0.25, 2 )
 
-local gods_angry_prank_triggered = getInternalVariableValue( owner, "divine_prank_gods_angry_prank_triggered", "value_int" )
-local propane_prank_triggered = getInternalVariableValue( owner, "divine_prank_propane_prank_triggered", "value_int" )
-local polymorph_prank_triggered = getInternalVariableValue( owner, "divine_prank_polymorph_prank_triggered", "value_int" )
+if not is_in_holy_mountain then
+    -- GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )
+    -- GameScreenshake( 75 )
+    -- -- ^ this might spoil the shock if you've already experienced it once before for a different prank
 
+    -- if not GameHasFlagRun( "prank_blindness_triggered" ) and rnd == 1 and is_health_low and far_enemy_count == 0 then
 
+    --     LoadGameEffectEntityTo( owner, "mods/D2DContentPack/files/entities/misc/status_effects/effect_blindness_short.xml" )
+    --     -- local rnd2 = Random( 1, 4 )
+    --     -- if rnd2 == 1 then
+    --     GamePlaySound( "data/audio/Desktop/materials.bank", "materials/electric_spark", x, y + 5 )
+    --     -- elseif rnd2 == 2 then
+    --     -- elseif rnd2 == 3 then
+    --     -- elseif rnd2 == 4 then
+    --     -- end
 
--- now for the pranks
+    --     set_internal_int( owner, "prank_msg_delay_time", 5 )
+    --     prank_was_just_triggered = true
 
-local chance_to_prank = 5 -- 5
-if ( Random( 0, 100 ) > chance_to_prank) then return end
-local prank_was_just_triggered = false
+    -- elseif rnd == 2 and is_health_low and ModIsEnabled("Apotheosis") then
+    --     -- sadly, this one seems to make the player instantly die lol
 
-nearby_enemies = EntityGetInRadiusWithTag( x, y, EFFECT_RADIUS_DETECT, "mortal" )
-local nearby_enemy_count = #nearby_enemies - 1
+    --     -- for i = 1, 5 do
+    --     --     SetRandomSeed( x-i, y+i )
+    --     --     dofile("mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua")
+    --     -- end
 
-local biome_name = BiomeMapGetName( x, y )
-if ( not gods_angry_prank_triggered
-     and string.find( biome_name, "holy" )
-     and ( GlobalsGetValue( "TEMPLE_SPAWN_GUARDIAN" ) == 0
-     and GlobalsGetValue( "TEMPLE_PEACE_WITH_GODS" ) == "1" ) ) then
-    -- local guard_spawn_id = EntityGetClosestWithTag( x, y, "guardian_spawn_pos" )
-    -- local guard_x = x
-    -- local guard_y = y
-    -- EntityLoad( "mods/D2DContentPack/files/entities/misc/fake_stevari.xml", x, y )
+    --     set_internal_int( owner, "prank_msg_delay_time", 4 )
+    --     prank_was_just_triggered = true
 
-    GamePrintImportant( "$logdesc_temple_spawn_guardian", "" )
-    GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )
-    GameScreenshake( 150 )
-    GameTriggerMusicFadeOutAndDequeueAll( 4.0 )
-    GameTriggerMusicEvent( "music/temple/necromancer_shop", true, pos_x, pos_y )
-    -- EntityAddComponent2(entity_id, "MusicEnergyAffectorComponent", {
-    --     energy_target=100
-    -- } )
-    setInternalVariableValue( owner, "divine_prank_gods_are_fake_angry", "value_int", 1 )
-    setInternalVariableValue( owner, "divine_prank_gods_angry_prank_triggered", "value_int", 1 )
-    prank_was_just_triggered = true
--- elseif ( ModIsEnabled("Apotheosis") and p_hp <= p_max_hp * 0.2 ) then
---     GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )
---     GameScreenshake( 75 )
+    if ( GameHasFlagRun( "prank_polymorph_triggered" ) == false )
+        and nearby_enemy_count >= 2 
+        and Random( 1, 100 ) <= 5 then
 
---     EntityInflictDamage( owner, p_hp - 1, "NONE", "a prank gone wrong", "NONE", 0, 0, owner, x, y, 0 )
---     EntityInflictDamage( owner, -p_hp - 1, "DAMAGE_HEALING", "a prank gone wrong", "NONE", 0, 0, owner, x, y, 0 )
+        LoadGameEffectEntityTo( owner, "mods/D2DContentPack/files/entities/misc/status_effects/effect_polymorph_short.xml" )
+        GameAddFlagRun( "prank_polymorph_triggered" )
+        prank_was_just_triggered = true
 
---     dofile("mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua")
---     dofile("mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua")
---     dofile("mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua")
---     dofile("mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua")
---     dofile("mods/Apotheosis/files/scripts/misc/psychotic_illusion_populator.lua")
---     setInternalVariableValue( owner, "divine_prank_message_delay_time", "value_int", 3 )
-elseif ( not propane_prank_triggered
-         and p_hp <= p_max_hp * 0.25 ) then
-    setInternalVariableValue( owner, "divine_prank_enable_propane_effect", "value_int", 1 )
-    setInternalVariableValue( owner, "divine_prank_propane_prank_triggered", "value_int", 1 )
-    prank_was_just_triggered = true
-elseif ( not polymorph_prank_triggered
-         and p_hp <= p_max_hp * 0.25
-         and nearby_enemy_count == 0 ) then
-    LoadGameEffectEntityTo( owner, "data/entities/misc/effect_polymorph.xml" )
-    setInternalVariableValue( owner, "divine_prank_message_delay_time", "value_int", 1 )
-    setInternalVariableValue( owner, "divine_prank_polymorph_prank_triggered", "value_int", 1 )
-    prank_was_just_triggered = true
-end
+    elseif ( GameHasFlagRun( "prank_propane_triggered" ) == false )
+        and is_health_low
+        and Random( 1, 100 ) <= 1 then
 
-if ( prank_was_just_triggered ) then
-    setInternalVariableValue( owner, "divine_prank_cooldown_time", 300 )
+        set_internal_int( owner, "prank_enable_propane", 1 )
+        GameAddFlagRun( "prank_propane_triggered" )
+        prank_was_just_triggered = true
+
+    end
+
+    if ( prank_was_just_triggered ) then
+        raise_internal_int( owner, "pranked_times", 1 )
+    end
 end
