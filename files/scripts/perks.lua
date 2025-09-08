@@ -332,7 +332,6 @@ if ModIsEnabled( "Apotheosis" ) then
 
 				dofile_once( "data/scripts/lib/utilities.lua" )
 				if get_perk_pickup_count( "D2D_FELINE_AFFECTION" ) == 1 then
-					GamePrint("LuaComponent added")
 			        EntityAddComponent( entity_who_picked, "LuaComponent",
 			        {
 			            script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_feline_affection_update.lua",
