@@ -37,25 +37,14 @@ local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
 
 
---check if enemy bleeds something the player can digest
+--check if enemy bleeds something organic
 local blood_mat = ComponentGetValue2( e_dcomp, "blood_material" )
---EntityIngestMaterial( player_id, CellFactory_GetType( blood_mat ), 20 )
-if ( not string.find( blood_mat, "blood" ) and not string.find( blood_mat, "slime" ) and not string.find( blood_mat, "sludge" ) ) then
+local enemy_is_organic = string.find( blood_mat, "blood" ) or string.find( blood_mat, "slime" ) or string.find( blood_mat, "sludge" )
+
+local blood_mtp = ComponentGetValue2( e_dcomp, "blood_multiplier" )
+if ( not enemy_is_organic or blood_mtp <= 0 ) then
     return
---    if ( string.find( blood_mat, "slime" ) and not GameHasFlagRun( "PERK_PICKED_BLEED_SLIME" ) ) then
---        return
---    elseif ( string.find( blood_mat, "oil" ) and not GameHasFlagRun( "PERK_PICKED_BLEED_OIL") ) then
---        return
---    else
---        return
---    end
 end
---check if player is close enough to absorb
-local dist = get_distance( p_x, p_y, e_x, e_y )
---GamePrint("> dist to player: " .. dist)
---if ( dist > 50 ) then
---    return
---end
 
 
 EntityLoad( "mods/D2DContentPack/files/entities/projectiles/giga_drain_explosion.xml", e_x, e_y )
