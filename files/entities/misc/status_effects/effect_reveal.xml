@@ -1,0 +1,34 @@
+<Entity>
+
+    <InheritTransformComponent />
+  
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="OMNI_RADAR"
+        frames="600"
+    ></GameEffectComponent >
+  
+  <LuaComponent 
+    _enabled="1" 
+    script_source_file="data/scripts/perks/radar_wand.lua" 
+    execute_every_n_frame="1">
+  </LuaComponent>
+  
+  <LuaComponent 
+    _enabled="1" 
+    script_source_file="data/scripts/perks/radar_item.lua" 
+    execute_every_n_frame="1">
+  </LuaComponent>
+  
+  <LuaComponent 
+    _enabled="1" 
+    remove_after_executed="1"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/reveal_effect.lua" > <!-- needs a green particle colour -->
+  </LuaComponent>
+  
+  <AudioComponent
+      file="data/audio/Desktop/projectiles.bank"
+      event_root="player_projectiles/all_seeing_eye">
+  </AudioComponent>
+
+</Entity>

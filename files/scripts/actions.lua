@@ -128,69 +128,112 @@ d2d_actions = {
 	},
 
     {
-	    id                  = "D2D_MANA_REFILL",
-	    name 		        = "$spell_d2d_mana_refill_name",
-	    description         = "$spell_d2d_mana_refill_desc",
-        inject_after        = { "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_refill.png",
-	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-	    price               = 330,
-	    mana                = 0,
-	    max_uses			= 5,
-		never_unlimited 	= true,
-		-- custom_uses_logic	= true,
+	    id                  = "D2D_DAMAGE_MISSING_MANA",
+	    name 		        = "$spell_d2d_damage_missing_mana_name",
+	    description         = "$spell_d2d_damage_missing_mana_desc",
+        inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "2,3,4,5,6",
+		spawn_probability   = "0.5,0.7,0.9,0.8,0.7",
+	    price               = 270,
+	    mana                = 20,
 	    action              = function()
-	    						-- c.fire_rate_wait = c.fire_rate_wait + 30
-	    						if reflecting then return end
-	    						-- c.fire_rate_wait = c.fire_rate_wait - 30
+                                c.fire_rate_wait    = c.fire_rate_wait + 4 -- so it shows in the UI
+
+					            if reflecting then return end
 
 							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
-                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+							    
+                                c.fire_rate_wait    			= c.fire_rate_wait - 4 -- reset
 
-                                -- if ( mana <= wand.manaMax * 0.25 ) then
-						    	mana = wand.manaMax
-            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
-	    						-- end
+							    local remaining_mana_percent	= ( 1.0 / wand.manaMax ) * wand.mana
+						    	local missing_mana				= wand.manaMax - wand.mana
+                                local missing_mana_percent		= 1.0 - remaining_mana_percent
+						    	local sec_to_recharge_wand		= wand.manaMax / math.max( wand.manaChargeSpeed, 1 ) -- careful for division by zero
 
-								-- 	local uses_remaining = -1
-								-- 	local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
-								-- 	if ( icomp ~= nil ) then
-								-- 	    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
-								-- 	end
-						        --     local spells, attached_spells = wand:GetSpells()
-						        --     for i,spell in ipairs( spells ) do
-						        --         if ( spell.action_id == "D2D_MANA_REFILL" ) then
-						        --             ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
-						        --             break
-						        --         end
-						        --     end
-	            				-- end
+                                c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana_percent * 20 ) -- max 20
+                                c.knockback_force				= c.knockback_force + ( missing_mana_percent * 5 ) -- max 5
+								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana_percent * 200 ) -- max 200
+
+                                -- draw the next (chain of) card(s)
+			                    draw_actions( 1, true )
+
+                                -- calculate how much mana the hand's projectiles cost
+                                local projectile_count = 0
+                                local projectiles_mana_drain = 0
+								if ( hand ~= nil ) then
+									for i,data in ipairs( hand ) do
+										local rec = check_recursion( data, recursion_level )
+										if ( data ~= nil ) and ( data.type == ACTION_TYPE_PROJECTILE ) and ( rec > -1 ) then
+											projectile_count = projectile_count + 1
+											projectiles_mana_drain = projectiles_mana_drain + data.mana
+										end
+									end
+								end
+								if ( projectile_count == 0 ) then return end
+								
+								-- calculate net bonus damage
+                                local bonus_dmg_raw				= remap( missing_mana, 0, 5000, 0.00, remap( projectiles_mana_drain / projectile_count, 5, 120, 10 * 0.04, 125 * 0.04 ) )
+                                								  * remap( sec_to_recharge_wand, 1, 60, 1.0, 10.0 ) -- multiply by the time it takes to recharge
+                                								  -- * remap( projectiles_mana_drain, 5, 100, 0.1, 1.0 ) -- higher mana draining projectiles get more damage
+                                								  -- * ( 1.0 / projectile_count ) -- divide by the amount of projectiles in the hand/shot
+
+								c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
+								c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
+
+								if ( remaining_mana_percent <= 0.25 ) then
+									c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_orange.xml,"
+								end
 	                        end,
     },
-	
-    {
-	    id                  = "D2D_MANA_REFILL_ALT_FIRE",
-	    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
-	    description         = "$spell_d2d_mana_refill_alt_fire_desc",
-        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
-	    price               = 330,
-	    mana                = 0,
-	    max_uses			= 5,
-	    never_unlimited		= true,
-    	custom_uses_logic 	= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-	                        end,
-    },
+
+	{
+		id          = "D2D_CURSES_TO_DAMAGE",
+		name 		= "$spell_d2d_curses_to_damage_name",
+		description = "$spell_d2d_curses_to_damage_desc",
+		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_damage.png",
+		type 		= ACTION_TYPE_MODIFIER,
+		spawn_level                       = "0",
+		spawn_probability                 = "0",
+		price 		= 999,
+		mana 		= 5,
+		action 		= function()
+			c.fire_rate_wait		= c.fire_rate_wait + 5
+			c.damage_curse_add 		= c.damage_curse_add + 0.4 -- for the tooltip
+			if reflecting then return end
+
+			c.damage_curse_add 		= c.damage_curse_add - 0.4 -- reset
+            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+            if curse_count ~= nil then
+				c.damage_curse_add 		= c.damage_curse_add + ( 0.4 * tonumber( curse_count ) )
+				c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
+	            draw_actions( 1, true )
+	        end
+		end,
+	},
+
+	{
+		id          = "D2D_CURSES_TO_MANA",
+		name 		= "$spell_d2d_curses_to_mana_name",
+		description = "$spell_d2d_curses_to_mana_desc",
+		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_mana.png",
+		type 		= ACTION_TYPE_MODIFIER,
+		spawn_level                       = "0",
+		spawn_probability                 = "0",
+		price 		= 999,
+		mana 		= -30,
+		action 		= function()
+			if reflecting then return end
+
+            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+            if curse_count ~= nil then
+    			mana = mana + ( 30 * ( tonumber( curse_count ) - 1 ) )
+	            draw_actions( 1, true )
+	        end
+		end,
+	},
 
     {
 	    id                  = "D2D_SNIPE_SHOT",
@@ -267,40 +310,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_PAYDAY",
-	    name 		        = "$spell_d2d_payday_name",
-	    description         = "$spell_d2d_payday_desc",
-        inject_after        = { "SUMMON_ROCK" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/payday.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4,5,6", -- SUMMON_ROCK
-		spawn_probability   = "0.7,0.7,0.5,0.5,0.2,0.6,0.6", -- SUMMON_ROCK (-0.1)
-	    price               = 100,
-	    mana                = 10,
---        max_uses            = 20,
-	    action              = function()
-			                    c.fire_rate_wait    = c.fire_rate_wait + 40
-			                    current_reload_time = current_reload_time + 40
-
-			                    local player = GetUpdatedEntityID()
-                                local wallet = EntityGetFirstComponentIncludingDisabled(player, "WalletComponent")
-                                local x, y = EntityGetTransform( player )
-                                
-                                if (wallet ~= nil) then
-    	                            local money = ComponentGetValue2(wallet, "money")
-                                    if (money ~= nil) then
-                                        if ( money >= 10 ) then
-			                                add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/payday_nugget.xml")
-                                            ComponentSetValue2(wallet, "money", money - 10)
-                                        else
-                                            GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
-                                        end
-                                    end
-                                end
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_CONCRETE_WALL",
 	    name 		        = "$spell_d2d_concrete_wall_name",
 	    description         = "$spell_d2d_concrete_wall_desc",
@@ -340,44 +349,6 @@ d2d_actions = {
         						mana = mana + 80
 	                        end,
     },
-
-    {
-	    id                  = "D2D_SMALL_EXPLOSION",
-	    name 		        = "$spell_d2d_small_explosion_name",
-	    description         = "$spell_d2d_small_explosion_desc",
-        inject_after        = { "EXPLOSION" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/small_explosion.png",
-	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "1.2,1,0.8,0.6",
-	    price               = 120,
-	    mana                = 20,
-	    action              = function()
-			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
-			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
-			                    c.screenshake = c.screenshake + 1.25
-	                        end,
-    },
-
-	-- {
-	-- 	id                  = "D2D_GHOSTLY_MESSENGER",
-	-- 	name 		        = "Ghostly Messenger",
-    --     inject_after        = { "D2D_GHOST_TRIGGER", "SPARK_BOLT_TIMER" },
-	-- 	description         = "Penetrates all terrain to cast another spell upon collision",
-	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/ghostly_messenger.png",
-	-- 	related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/deck/ghostly_messenger.xml"},
-	-- 	type 		        = ACTION_TYPE_PROJECTILE,
-	-- 	spawn_level         = "2,3,4,5,6",
-	-- 	spawn_probability   = "0.3,0.5,0.7,0.9,1",
-	-- 	price               = 390,
-	-- 	mana                = 150,
-	-- 	action 		        = function()
-    --                             c.damage_null_all = 1
-	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 45
-	-- 	                        current_reload_time = current_reload_time + 93
-	-- 		                    add_projectile_trigger_hit_world("mods/D2DContentPack/files/entities/projectiles/deck/ghostly_messenger.xml", 1)
-	-- 	                    end,
-	-- },
 
 	{
 		id                  = "D2D_BANANA_BOMB",
@@ -537,112 +508,105 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_DAMAGE_MISSING_MANA",
-	    name 		        = "$spell_d2d_damage_missing_mana_name",
-	    description         = "$spell_d2d_damage_missing_mana_desc",
-        inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "2,3,4,5,6",
-		spawn_probability   = "0.5,0.7,0.9,0.8,0.7",
-	    price               = 270,
+	    id                  = "D2D_SMALL_EXPLOSION",
+	    name 		        = "$spell_d2d_small_explosion_name",
+	    description         = "$spell_d2d_small_explosion_desc",
+        inject_after        = { "EXPLOSION" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/small_explosion.png",
+	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "1.2,1,0.8,0.6",
+	    price               = 120,
 	    mana                = 20,
 	    action              = function()
-                                c.fire_rate_wait    = c.fire_rate_wait + 4 -- so it shows in the UI
-
-					            if reflecting then return end
-
-							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-							    local wand = EZWand.GetHeldWand()
-							    
-                                c.fire_rate_wait    			= c.fire_rate_wait - 4 -- reset
-
-							    local remaining_mana_percent	= ( 1.0 / wand.manaMax ) * wand.mana
-						    	local missing_mana				= wand.manaMax - wand.mana
-                                local missing_mana_percent		= 1.0 - remaining_mana_percent
-						    	local sec_to_recharge_wand		= wand.manaMax / math.max( wand.manaChargeSpeed, 1 ) -- careful for division by zero
-
-                                c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana_percent * 20 ) -- max 20
-                                c.knockback_force				= c.knockback_force + ( missing_mana_percent * 5 ) -- max 5
-								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana_percent * 200 ) -- max 200
-
-                                -- draw the next (chain of) card(s)
-			                    draw_actions( 1, true )
-
-                                -- calculate how much mana the hand's projectiles cost
-                                local projectile_count = 0
-                                local projectiles_mana_drain = 0
-								if ( hand ~= nil ) then
-									for i,data in ipairs( hand ) do
-										local rec = check_recursion( data, recursion_level )
-										if ( data ~= nil ) and ( data.type == ACTION_TYPE_PROJECTILE ) and ( rec > -1 ) then
-											projectile_count = projectile_count + 1
-											projectiles_mana_drain = projectiles_mana_drain + data.mana
-										end
-									end
-								end
-								if ( projectile_count == 0 ) then return end
-								
-								-- calculate net bonus damage
-                                local bonus_dmg_raw				= remap( missing_mana, 0, 5000, 0.00, remap( projectiles_mana_drain / projectile_count, 5, 120, 10 * 0.04, 125 * 0.04 ) )
-                                								  * remap( sec_to_recharge_wand, 1, 60, 1.0, 10.0 ) -- multiply by the time it takes to recharge
-                                								  -- * remap( projectiles_mana_drain, 5, 100, 0.1, 1.0 ) -- higher mana draining projectiles get more damage
-                                								  -- * ( 1.0 / projectile_count ) -- divide by the amount of projectiles in the hand/shot
-
-								c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
-								c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
-
-								if ( remaining_mana_percent <= 0.25 ) then
-									c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_orange.xml,"
-								end
+			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
+			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
+			                    c.screenshake = c.screenshake + 1.25
 	                        end,
     },
 
-	{
-		id          = "D2D_CURSES_TO_DAMAGE",
-		name 		= "$spell_d2d_curses_to_damage_name",
-		description = "$spell_d2d_curses_to_damage_desc",
-		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_damage.png",
-		type 		= ACTION_TYPE_MODIFIER,
-		spawn_level                       = "0",
-		spawn_probability                 = "0",
-		price 		= 999,
-		mana 		= 5,
-		action 		= function()
-			c.fire_rate_wait		= c.fire_rate_wait + 5
-			c.damage_curse_add 		= c.damage_curse_add + 0.4 -- for the tooltip
-			if reflecting then return end
+    {
+	    id                  = "D2D_MANA_REFILL",
+	    name 		        = "$spell_d2d_mana_refill_name",
+	    description         = "$spell_d2d_mana_refill_desc",
+        inject_after        = { "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_refill.png",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+	    price               = 330,
+	    mana                = 0,
+	    max_uses			= 5,
+		never_unlimited 	= true,
+		-- custom_uses_logic	= true,
+	    action              = function()
+	    						-- c.fire_rate_wait = c.fire_rate_wait + 30
+	    						if reflecting then return end
+	    						-- c.fire_rate_wait = c.fire_rate_wait - 30
 
-			c.damage_curse_add 		= c.damage_curse_add - 0.4 -- reset
-            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-            if curse_count ~= nil then
-				c.damage_curse_add 		= c.damage_curse_add + ( 0.4 * tonumber( curse_count ) )
-				c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
-	            draw_actions( 1, true )
-	        end
-		end,
-	},
+							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+							    local wand = EZWand.GetHeldWand()
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
-	{
-		id          = "D2D_CURSES_TO_MANA",
-		name 		= "$spell_d2d_curses_to_mana_name",
-		description = "$spell_d2d_curses_to_mana_desc",
-		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_mana.png",
-		type 		= ACTION_TYPE_MODIFIER,
-		spawn_level                       = "0",
-		spawn_probability                 = "0",
-		price 		= 999,
-		mana 		= -30,
-		action 		= function()
-			if reflecting then return end
+                                -- if ( mana <= wand.manaMax * 0.25 ) then
+						    	mana = wand.manaMax
+            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
+	    						-- end
 
-            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-            if curse_count ~= nil then
-    			mana = mana + ( 30 * ( tonumber( curse_count ) - 1 ) )
-	            draw_actions( 1, true )
-	        end
-		end,
-	},
+								-- 	local uses_remaining = -1
+								-- 	local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
+								-- 	if ( icomp ~= nil ) then
+								-- 	    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+								-- 	end
+						        --     local spells, attached_spells = wand:GetSpells()
+						        --     for i,spell in ipairs( spells ) do
+						        --         if ( spell.action_id == "D2D_MANA_REFILL" ) then
+						        --             ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
+						        --             break
+						        --         end
+						        --     end
+	            				-- end
+	                        end,
+    },
+	
+    {
+	    id                  = "D2D_MANA_REFILL_ALT_FIRE",
+	    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
+	    description         = "$spell_d2d_mana_refill_alt_fire_desc",
+        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
+	    price               = 330,
+	    mana                = 0,
+	    max_uses			= 5,
+	    never_unlimited		= true,
+    	custom_uses_logic 	= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_REVEAL",
+	    name 		        = "$spell_d2d_reveal_name",
+	    description         = "$spell_d2d_reveal_desc",
+        inject_after        = { "X_RAY" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/reveal.png",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level       	= "0,1,2,3,4,5,6", -- X_RAY
+		spawn_probability 	= "0.6,0.8,0.8,0.6,0.4,0.2,0.1", -- X_RAY
+	    price               = 230,
+	    mana                = 100,
+	    max_uses			= 10,
+	    action              = function()
+								-- add_projectile( "data/entities/projectiles/deck/xray.xml" )
+                                LoadGameEffectEntityTo( get_player(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_reveal.xml" )
+	                        end,
+    },
 
 	{
 		id                  = "D2D_FIXED_ALTITUDE",
