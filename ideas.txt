@@ -66,6 +66,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] Perk "Lost The Key": in the next biome, 1 (or more?) key is spawned somewhere that must be collected before the portals to the next Holy Mountain open. Some kind of reward upon entering the Holy Mountain.
 	[ ] Might work better as a curse? "Lost My Keys!"
 
+[ ] Minigun-esque passive spell that increases your wand's fire rate the longer the fire button is held. Could also gradually decrease a spell's mana cost by a bit, though maybe that'd be a bit unbalanced; it should have *some* kind of limit. (although maybe firing 60 magic arrows per second comes with its own set of downsides already)
 
 
 
