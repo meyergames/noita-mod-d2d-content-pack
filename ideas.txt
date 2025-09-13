@@ -47,10 +47,24 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 	[ ] Hammer of Order | Makes a wand non-shuffle, sets its spells/cast to 1, and removes its always-cast spells
 	[ ] Hammer of Chaos | Consume all spells to increase all stats, but the wand (has a chance to?) becomes shuffle
 	[ ] Hammer of Capacity | Consume all spells to add +1 capacity for every 2 spells sacrificed (max 25)
-	[ ] Hammer of Potential | Consume all spells to increase max mana by 50% of the sacrificed spells' combined mana cost
+	[ ] Hammer of Potential | Consume all spells to increase max mana by +25 for each spell sacrificed
 	[ ] Hammer of Velocity | Consume all spells to increase fire rate by +10% for each spell sacrificed
+	[ ] random spell spawns on the anvil in Hiisi Base, the rest is super rare
+	[ ] when cast, the spell spawns the wand outside as a non-interactable
 
-[ ] 
+[ ] Simple perk that sets all wands' spells per cast to 1 ("No More Multicast")
+
+[ ] Alcoholism curse: your aim is disturbed if you are NOT drunk. alcohol does not satiate you. (spawns a bottle of whiskey)
+
+[ ] Unlock "Master Of X" by dealing Y damage of the same type during your run. if threshold passed, spawn perk on next enemy kill
+	[ ] Try an electricity-oriented run (i.e. Electric Charge) and count the damage (via GamePrint obv)
+	[ ] same for fire
+	[ ] same for explosions
+
+[ ] I should be able to make the Time Trial effect a timed status effect now, right?
+
+[ ] Perk "Lost The Key": in the next biome, 1 (or more?) key is spawned somewhere that must be collected before the portals to the next Holy Mountain open. Some kind of reward upon entering the Holy Mountain.
+	[ ] Might work better as a curse? "Lost My Keys!"
 
 
 
@@ -64,3 +78,5 @@ ENTIRELY NEW MODS?
 	(+ one for wands?)
 	[ ] Portable Portal: item that functions like a Home Portal. requires channelling out of combat. leaves behind a portal.
 	[ ] Ring of Life: teleports you home if you reach critical health. leaves behind a portal to warp back to.
+
+[ ] Holy Mountain keys: randomly hidden somewhere in the biome above each HM, must be obtained before the player can progress.
