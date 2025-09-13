@@ -29,6 +29,37 @@
   
   </Base>
 
+  <!-- 3 components below: to make the banana bomb explode on contact with the ground -->
+
+  <!--<LuaComponent
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/banana_bomb_delayed_explosiveness.lua"
+    execute_every_n_frame="5"
+    execute_times="1"
+  ></LuaComponent>
+
+  <PhysicsBodyCollisionDamageComponent
+    _enabled="0"
+    speed_threshold="80.0"
+  ></PhysicsBodyCollisionDamageComponent>
+
+  <ExplodeOnDamageComponent
+    _enabled="0"
+    explode_on_death_percent="1"
+    explode_on_damage_percent="1"
+    physics_body_destruction_required="0.1"
+    physics_body_modified_death_probability="1" >
+      ><config_explosion
+        damage="2.6"
+        explosion_radius="20"
+        explosion_sprite="mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_040.xml"
+        explosion_sprite_emissive="true"
+        camera_shake="8"
+        load_this_entity=""
+        audio_event_name="explosions/tnt"
+        max_durability_to_destroy="11"
+      ></config_explosion>
+  </ExplodeOnDamageComponent>-->
+
   <!-- fx -->
 
   <!--<ParticleEmitterComponent 
