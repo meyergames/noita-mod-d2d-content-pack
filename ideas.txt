@@ -17,7 +17,7 @@ IDEAS
 Regular left-click: skip this spell and the (first) card it draws. If that seems technically impossible, reset the wand and trigger wand recharge time.
 Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, and draw the first card behind it.
 
-[ ] modifier that has a chance to save a limited-use spell's uses is now possible!
+[x] modifier that has a chance to save a limited-use spell's uses is now possible!
 
 [x] Fairy Reincarnation: enemies turn into small fairies upon death, lighting up the area
 
@@ -25,7 +25,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Maybe the "Rewind" spell is possible now, with my new understanding of the code?
 
-[ ] Behind You! curse: a bomb floats behind you, 
+[ ] Behind You! curse: a bomb floats behind you. when shot (by an enemy), it explodes for minor damage and knockback. recharges and reappears after 30 seconds
 
 [ ] Divine prank: severely limit the player's FOV (like that one wizard) and play the sound of a really scary monster
 
@@ -37,4 +37,30 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Curse: like spontaneous combustion, but for a 5-second blindness effect "A mosquito flew into your eye!" (maybe with a permanent light added buzzing sound effect? like the firefly - maybe it could just spawn an entity that's like the Apotheosis swarm, but with less particles and only sporadically dealing 1 flavour damage) perk name: "Mosquitoes"
 
-[ ] do add Alt Fire Anything to this mod, as well?
+[-] do add Alt Fire Anything to this mod, as well?
+
+[ ] Backtrack: "Teleports you to where you last touched the ground" (overwrite previous location when mFramesInAirCounter is exactly 1?)
+
+[ ] Dismantle Wand: spell that destroys a nearby wand and spawns all the spells it contains.
+
+[ ] ANVIL SPELLS: destroyed-on-use spells that alter your wand in one way or another.
+	[ ] Hammer of Order | Makes a wand non-shuffle, sets its spells/cast to 1, and removes its always-cast spells
+	[ ] Hammer of Chaos | Consume all spells to increase all stats, but the wand (has a chance to?) becomes shuffle
+	[ ] Hammer of Capacity | Consume all spells to add +1 capacity for every 2 spells sacrificed (max 25)
+	[ ] Hammer of Potential | Consume all spells to increase max mana by 50% of the sacrificed spells' combined mana cost
+	[ ] Hammer of Velocity | Consume all spells to increase fire rate by +10% for each spell sacrificed
+
+[ ] 
+
+
+
+
+ENTIRELY NEW MODS?
+[ ] Base Of Operations: a home for Mina is carved into the mountain's cliff.
+	[ ] Home Portal: can be found in every Holy Mountain. wands and items can be tossed into it to add to storage. interact to enter it, maybe with a price. in your home, there will be a portal to take you back to the last HM you came from.
+	[ ] Storage Chest: Ambitious interactable structure that holds all the spells you discard. Can be interacted with for an inventory-like interface where spells can be dragged out of.
+	(+ wardrobe for wands?)
+	[ ] Keepsake Chest: Even more ambitious version of the Storage Chest that has its contents (spells) persist over runs. Truly turns the game into a roguelite.
+	(+ one for wands?)
+	[ ] Portable Portal: item that functions like a Home Portal. requires channelling out of combat. leaves behind a portal.
+	[ ] Ring of Life: teleports you home if you reach critical health. leaves behind a portal to warp back to.

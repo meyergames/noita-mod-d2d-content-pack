@@ -28,11 +28,11 @@ for i,enemy in ipairs(enemies) do
         local fire_dmg_mtp = ComponentObjectGetValue2( e_dcomp, "damage_multipliers", "fire" )
 
         -- custom fire damage formula
-        local remaining_hp_dmg = ( e_hp - e_max_hp * 0.2 ) * 0.02
+        local remaining_hp_dmg = ( e_hp - e_max_hp ) * 0.02
 
         if ( enemy == owner ) then
             -- fire heals the player if their health is below 20%
-            if ( p_hp < p_max_hp * 0.2 ) then
+            if ( p_hp < p_max_hp * 0.1 ) then
                 local heal_dmg = -1 * ( p_max_hp * 0.02 )
                 EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "master of fire healing", "NONE", 0, 0, owner, x, y, 0 )
 
