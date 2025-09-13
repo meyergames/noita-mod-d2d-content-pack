@@ -608,6 +608,51 @@ d2d_actions = {
 	                        end,
     },
 
+    {
+	    id                  = "D2D_REWIND",
+	    name 		        = "$spell_d2d_rewind_name",
+	    description         = "$spell_d2d_rewind_desc",
+        inject_after        = { "TELEPORT_PROJECTILE_STATIC" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/rewind.png",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "0,1,2,4,5,6", -- TELEPORT_PROJECTILE_STATIC
+		spawn_probability   = "0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_rewind.xml",
+	    price               = 90,
+	    mana                = 40,
+	    action              = function()
+                                dofile_once( "data/scripts/lib/utilities.lua" )
+                                local marker_id = get_internal_int( get_player(), "rewind_marker_id" )
+                                if marker_id ~= nil and marker_id ~= -1 then
+                                	local x, y = EntityGetTransform( marker_id )
+    								GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/teleport/destroy", x, y )
+                                	EntitySetTransform( get_player(), x, y )
+
+                                	EntityKill( marker_id )
+                                	set_internal_int( get_player(), "rewind_marker_id", -1 )
+                                end
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_REWIND_ALT_FIRE",
+	    name 		        = "$spell_d2d_rewind_alt_fire_name",
+	    description         = "$spell_d2d_rewind_alt_fire_desc",
+        inject_after        = { "D2D_REWIND", "TELEPORT_PROJECTILE_STATIC" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_rewind.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0,1,2,4,5,6", -- TELEPORT_PROJECTILE_STATIC
+		spawn_probability   = "0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_rewind.xml",
+	    price               = 90,
+	    mana                = 40,
+	    action              = function()
+	    						draw_actions( 1, true )
+        						mana = mana + 40
+	                        end,
+    },
+
 	{
 		id                  = "D2D_FIXED_ALTITUDE",
 		name 		        = "$spell_d2d_fixed_altitude_name",
