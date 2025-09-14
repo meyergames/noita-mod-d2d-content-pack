@@ -1,0 +1,107 @@
+<Entity name="$projectile_default" tags="projectile_player" >
+
+	<Base file="data/entities/base_projectile.xml" >
+    <VelocityComponent
+      gravity_y="0"
+      air_friction="1.7"
+	  mass="0.04"
+	  >
+    </VelocityComponent>
+	</Base>
+
+  <ProjectileComponent 
+    _enabled="1" 
+    lob_min="0.5"
+    lob_max="0.7"
+    speed_min="30"
+    speed_max="60"
+    die_on_low_velocity="true"
+    die_on_low_velocity_limit="20"
+    friction="1"
+    direction_random_rad="0.00"
+    on_death_explode="0"
+    on_death_gfx_leave_sprite="0" 
+    on_lifetime_out_explode="0"
+    explosion_dont_damage_shooter="1"
+    on_collision_die="0"
+    penetrate_world="true"
+    lifetime="150"
+    damage="0"
+    velocity_sets_scale="1"
+    lifetime_randomness="7"
+    ragdoll_force_multiplier="0.005"
+    hit_particle_force_multiplier="0.1"
+	knockback_force="0"
+	>
+  </ProjectileComponent>
+
+  <LuaComponent
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_charge_homing.lua"
+    execute_every_n_frame="1"
+    >
+  </LuaComponent>
+  
+  <!-- <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/ghost_spark.xml" 
+    next_rect_animation="default"
+    rect_animation="default"
+	additive="1"
+     >
+  </SpriteComponent> -->
+  
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_green"
+		delay_frames="6"
+		offset.x="0"
+		offset.y="0"
+		gravity.y="0"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		friction="10"
+		count_min="0"
+		count_max="1"
+		lifetime_min="0.5"
+		lifetime_max="2.5"
+		emit_real_particles="0"
+		render_on_grid="0"
+		is_trail="1"
+		trail_gap="1"
+		airflow_force="0.6"
+		airflow_time="0.01"
+		airflow_scale="0.22"
+		emit_cosmetic_particles="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		fade_based_on_lifetime="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<LightComponent 
+    _enabled="1" 
+	r="40"
+	g="255"
+	b="40"
+    radius="30" >
+  </LightComponent>
+	
+	<!-- <HomingComponent
+		target_tag="pk_flash"
+		homing_targeting_coeff="0.7"
+		detect_distance="350"
+		homing_velocity_multiplier="1.2"
+		just_rotate_towards_target="true"
+		max_turn_rate="0.2"
+		>
+	</HomingComponent> -->
+  
+	<!--<VariableStorageComponent
+		name="projectile_file"
+		value_string="data/entities/projectiles/deck/light_bullet.xml"
+		>
+	</VariableStorageComponent>-->
+
+</Entity>

@@ -309,6 +309,67 @@ d2d_actions = {
 	                        end,
     },
 
+    -- {
+	--     id                  = "D2D_HOLLOW_ORB",
+	--     name 		        = "Hollow Bomb",
+	--     description         = "More powerful when your wand is low on mana",
+    --     inject_after        = { "CHAINSAW" },
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/hollow_orb.png",
+	--     type 		        = ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "0,1,2,3,4,5,6",
+	-- 	spawn_probability   = "0.5,0.8,1,1.1,1,0.8,0.5",
+	--     price               = 160,
+	--     mana                = 10,
+	--     action              = function()
+    --                             c.fire_rate_wait    = c.fire_rate_wait + 40
+	-- 				            if reflecting then return end
+
+	-- 						    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+	-- 						    local wand = EZWand.GetHeldWand()
+	-- 						    local mana_cost = wand.manaMax * 0.1
+	-- 						    wand.mana = wand.mana - mana_cost
+
+	-- 					    	c.knockback_force = c.knockback_force + 5
+	-- 					    	shot_effects.recoil_knockback = shot_effects.recoil_knockback + 200
+
+    --                             -- c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana * 0.03 ) -- 0.5s delay at 1000 missing mana
+    --                             -- c.knockback_force				= c.knockback_force + ( missing_mana * 0.001 * 5 ) -- max 5 at "
+	-- 							-- shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana * 0.001 * 200 ) -- max 200 at "
+
+    --                             add_projectile("mods/D2DContentPack/files/entities/projectiles/hollow_orb.xml")
+	--                         end,
+    -- },
+
+    {
+	    id                  = "D2D_UNSTABLE_NUCLEUS",
+	    name 		        = "Unstable Nucleus",
+	    description         = "Grows stronger the more mana it is charged with",
+        inject_after        = { "GRENADE_TIER_3" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/unstable_nucleus.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.5,0.8,1,1.1,1,0.8,0.5",
+	    price               = 480,
+	    mana                = 100,
+	    action              = function()
+                                c.fire_rate_wait    = c.fire_rate_wait + 120
+                                if reflecting then return end
+                                c.fire_rate_wait	= c.fire_rate_wait - 120
+
+                                dofile_once( "data/scripts/lib/utilities.lua" )
+                                local proj_id = get_internal_int( get_player(), "pk_flash_id" )
+                                if proj_id ~= nil and proj_id ~= -1 then
+                                	-- shoot charging "projectile"
+                                	draw_actions( 1, true )
+                                	mana = mana + 100
+                                	-- add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml")
+                                else
+                                	c.fire_rate_wait	= c.fire_rate_wait + 120
+                                	add_projectile("mods/D2DContentPack/files/entities/projectiles/pk_flash.xml")
+                                end
+	                        end,
+    },
+
     {
 	    id                  = "D2D_CONCRETE_WALL",
 	    name 		        = "$spell_d2d_concrete_wall_name",

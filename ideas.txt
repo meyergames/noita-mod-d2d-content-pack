@@ -68,6 +68,22 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Minigun-esque passive spell that increases your wand's fire rate the longer the fire button is held. Could also gradually decrease a spell's mana cost by a bit, though maybe that'd be a bit unbalanced; it should have *some* kind of limit. (although maybe firing 60 magic arrows per second comes with its own set of downsides already)
 
+[ ] Ness "PK Flash" spell that fires a slow, pulsating projectile ("bomb") if the player has none in the field already. While the player keeps the fire button down, the active wand's mana recharge is disabled; every second, 10% of the wand's max mana is consumed to fuel the bomb, sending homing particles from the wand to the bomb, its size and damage increasing based on mana consumed. Releasing the fire button, or when mana runs out after 10 seconds, causes the bomb to explode.
+> max mana determines max charges (i.e. size/damage/effects)		example: 	1400 max mana = 1400 max charges
+> mana charge speed determines charges per seconds					example: 	0 mana ch.sp  = +140 charges per second
+  (minimum of +10% charge per second)								example:	10 mana ch.sp = +150 charges per second
+																				255 m.ch.sp   = +395 charges per second
+  (amount of particles sent from wand to bomb scales with charges added)
+- 200+ charges: bomb starts attracting nearby liquids and powders like a black hole
+- 400+ charges: bomb starts attracting nearby objects like barrels and lanterns
+- 600+ charges: bomb starts attracting nearby enemies
+- 800+ charges: bomb will release an earthquake upon exploding
+- damage scaling should be somewhat exponential, to give a player a good reason to chase max mana > mana charge speed
+
+
+
+[ ] A simple spell that grows bigger and more powerful the more mana the wand is missing, and the longer it takes for the wand to recharge its mana. A simplified missing mana to damage, basically. Maybe instead of increasing damage based on mana charge speed, the spell (and its low mana cost) naturally asks for a slow-charging wand in order to even reach the high damage boost.
+
 
 
 ENTIRELY NEW MODS?
