@@ -351,6 +351,7 @@ d2d_actions = {
 		spawn_probability   = "0.25,0.5,0.75,1,1,0.75",
 	    price               = 480,
 	    mana                = 100,
+	    max_uses			= 3,
 	    action              = function()
                                 c.fire_rate_wait    = c.fire_rate_wait + 160
                                 if reflecting then return end
