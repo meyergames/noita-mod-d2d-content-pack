@@ -342,8 +342,8 @@ d2d_actions = {
 
     {
 	    id                  = "D2D_UNSTABLE_NUCLEUS",
-	    name 		        = "Unstable Nucleus",
-	    description         = "Grows stronger the more mana it is charged with",
+	    name 		        = "$spell_d2d_unstable_nucleus_name",
+	    description         = "$spell_d2d_unstable_nucleus_desc",
         inject_after        = { "GRENADE_TIER_3" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/unstable_nucleus.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,

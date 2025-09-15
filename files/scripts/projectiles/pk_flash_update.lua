@@ -31,31 +31,33 @@ if wand.mana > 10 then
 	local current_pull_radius = max_pull_radius * 0.5 + ( ( max_pull_radius * 0.5 ) / max_charges ) * charges
 	set_internal_int( entity_id, "pull_radius", current_pull_radius )
 
-	-- shoot a charging particle from the player's wand to the projectile
-    local wand_vx = wand_x_offset - wand_x
-    local wand_vy = wand_y_offset - wand_y
-    local angle = math.atan2( wand_vx - wand_x, wand_vy - wand_y )
-    local dir_x, dir_y = vec_rotate( wand_vx, wand_vy, angle )
-	shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml", wand_x + dir_x, wand_y + dir_y, dir_x * 30, dir_y * 30 )
+	if wand.mana > wand.manaMax * 0.15 then
 
-	-- spawn charging particles within the projectile's radius
-	-- if charges > max_charges * 0.25 then
-	for i=1,math.floor( 1 + ( charges * 0.004 ) ) do
+		-- spawn particles from the player's wand
 		local theta = math.random() * 2 * math.pi
-		local randomRadius = Random( expl_radius * 0.5, expl_radius ) * ( charges * 0.001 )
-		local x_offset = math.cos(theta) * randomRadius
-		local y_offset = math.sin(theta) * randomRadius
-		local dir_x = ( x + x_offset ) - x
+		local x_offset = math.cos(theta) * 5
+		local y_offset = math.sin(theta) * 5
+	    local dir_x = ( x + x_offset ) - x
 		local dir_y = ( y + y_offset ) - y
+		shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml", wand_x + dir_x, wand_y + dir_y, dir_x * 20, dir_y * 20 )
 
-		shoot_projectile( entity_id, "mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml", x + x_offset, y + y_offset, dir_x * -50, dir_y * -50 )
+		-- spawn particles within the projectile's radius
+		for i=1,math.floor( 1 + ( charges * 0.004 ) ) do
+			theta = math.random() * 2 * math.pi
+			local randomRadius = Random( expl_radius * 0.5, expl_radius ) * math.max( charges * 0.001, 1.0 )
+			x_offset = math.cos(theta) * randomRadius
+			y_offset = math.sin(theta) * randomRadius
+			dir_x = ( x + x_offset ) - x
+			dir_y = ( y + y_offset ) - y
+
+			shoot_projectile( entity_id, "mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml", x + x_offset, y + y_offset, 0, 0 )
+		end
 	end
-	-- end
 end
 
 local controls = EntityGetFirstComponent( get_player(), "ControlsComponent" )
 local is_fire_pressed = ComponentGetValue2( controls, "mButtonDownFire" )
-if not is_fire_pressed or wand.mana <= 10 then
+if not is_fire_pressed or wand.mana <= 10 or wand.entity_id ~= wand_id then
 	local proj_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "ProjectileComponent" )
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_radius", 25 + ( charges * 0.05 ) ) -- 75 at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "damage", 2.4 + ( charges * 0.0216 ) ) -- 600 at 1000 charges
