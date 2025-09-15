@@ -1,0 +1,30 @@
+<Entity>
+
+	<SpriteComponent 
+		image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/unstable_nucleus.png" 
+		offset_x="8"
+		offset_y="24">
+	</SpriteComponent>   
+	
+	<LifetimeComponent
+		lifetime="60"
+		fade_sprites="1"
+		>
+	</LifetimeComponent>
+
+	<VelocityComponent
+		mass="0.05"
+		affect_physics_bodies="1"
+		gravity_y="-200">
+	</VelocityComponent>
+		
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/projectiles/alt_fire_spell_icon_fade.lua"
+		execute_every_n_frame="1"
+		execute_times="-1"
+		>
+	</LuaComponent>
+
+</Entity>
+
+

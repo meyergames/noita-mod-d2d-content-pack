@@ -351,7 +351,7 @@ d2d_actions = {
 		spawn_probability   = "0.25,0.5,0.75,1,1,0.75",
 	    price               = 480,
 	    mana                = 100,
-	    -- max_uses			= 5,
+	    max_uses			= 3,
 	    custom_uses_logic	= true,
 	    action              = function()
                                 c.fire_rate_wait    = c.fire_rate_wait + 160
@@ -365,8 +365,6 @@ d2d_actions = {
                                 	draw_actions( 1, true )
                                 	mana = mana + 100
                                 else
-                                	-- local action = hand[1]
-									-- action.uses_remaining = action.uses_remaining - 1
                                 	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
                                 end
 	                        end,
