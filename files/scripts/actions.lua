@@ -347,25 +347,25 @@ d2d_actions = {
         inject_after        = { "GRENADE_TIER_3" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/unstable_nucleus.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.5,0.8,1,1.1,1,0.8,0.5",
+		spawn_level         = "2,3,4,5,6,10",
+		spawn_probability   = "0.25,0.5,0.75,1,1,0.75",
 	    price               = 480,
 	    mana                = 100,
 	    action              = function()
-                                c.fire_rate_wait    = c.fire_rate_wait + 120
+                                c.fire_rate_wait    = c.fire_rate_wait + 160
                                 if reflecting then return end
-                                c.fire_rate_wait	= c.fire_rate_wait - 120
+                                c.fire_rate_wait	= c.fire_rate_wait - 160
 
                                 dofile_once( "data/scripts/lib/utilities.lua" )
-                                local proj_id = get_internal_int( get_player(), "pk_flash_id" )
+                                local proj_id = get_internal_int( get_player(), "unstable_nucleus_id" )
                                 if proj_id ~= nil and proj_id ~= -1 then
                                 	-- shoot charging "projectile"
                                 	draw_actions( 1, true )
                                 	mana = mana + 100
-                                	-- add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml")
+                                	-- add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge.xml")
                                 else
-                                	c.fire_rate_wait	= c.fire_rate_wait + 120
-                                	add_projectile("mods/D2DContentPack/files/entities/projectiles/pk_flash.xml")
+                                	c.fire_rate_wait	= c.fire_rate_wait + 160
+                                	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
                                 end
 	                        end,
     },

@@ -36,7 +36,7 @@
   </ProjectileComponent>
 
   <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_charge_homing.lua"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_charge_homing.lua"
     execute_every_n_frame="1"
     >
   </LuaComponent>
@@ -89,7 +89,7 @@
   </LightComponent>
 	
 	<!-- <HomingComponent
-		target_tag="pk_flash"
+		target_tag="unstable_nucleus"
 		homing_targeting_coeff="0.7"
 		detect_distance="350"
 		homing_velocity_multiplier="1.2"

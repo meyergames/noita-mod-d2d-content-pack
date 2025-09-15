@@ -39,7 +39,7 @@ if wand.mana > 10 then
 		local y_offset = math.sin(theta) * 5
 	    local dir_x = ( x + x_offset ) - x
 		local dir_y = ( y + y_offset ) - y
-		shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml", wand_x + dir_x, wand_y + dir_y, dir_x * 20, dir_y * 20 )
+		shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge.xml", wand_x + dir_x, wand_y + dir_y, dir_x * 20, dir_y * 20 )
 
 		-- spawn particles within the projectile's radius
 		for i=1,math.floor( 1 + ( charges * 0.004 ) ) do
@@ -50,7 +50,7 @@ if wand.mana > 10 then
 			dir_x = ( x + x_offset ) - x
 			dir_y = ( y + y_offset ) - y
 
-			shoot_projectile( entity_id, "mods/D2DContentPack/files/entities/projectiles/deck/pk_flash_charge.xml", x + x_offset, y + y_offset, 0, 0 )
+			shoot_projectile( entity_id, "mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge.xml", x + x_offset, y + y_offset, 0, 0 )
 		end
 	end
 end
@@ -70,9 +70,9 @@ if not is_fire_pressed or wand.mana <= 10 or wand.entity_id ~= wand_id then
 	ComponentSetValue2( light_comp, "radius", 60 + ( charges * 0.12 ) )
 	
 	local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
-	ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + 120 )
-	ComponentSetValue2( acomp, "mReloadFramesLeft", 120 )
-	ComponentSetValue2( acomp, "reload_time_frames", 120 )
+	ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + 160 )
+	ComponentSetValue2( acomp, "mReloadFramesLeft", 160 )
+	ComponentSetValue2( acomp, "reload_time_frames", 160 )
 
 	EntityKill( entity_id )
 end

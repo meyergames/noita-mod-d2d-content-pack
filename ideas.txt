@@ -80,8 +80,6 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 - 800+ charges: bomb will release an earthquake upon exploding
 - damage scaling should be somewhat exponential, to give a player a good reason to chase max mana > mana charge speed
 
-
-
 [ ] A simple spell that grows bigger and more powerful the more mana the wand is missing, and the longer it takes for the wand to recharge its mana. A simplified missing mana to damage, basically. Maybe instead of increasing damage based on mana charge speed, the spell (and its low mana cost) naturally asks for a slow-charging wand in order to even reach the high damage boost.
 
 

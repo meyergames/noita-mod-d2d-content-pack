@@ -13,12 +13,12 @@ raise_internal_int( entity, "frames_alive", 1 )
 
 local projectile = EntityGetFirstComponentIncludingDisabled( entity, "ProjectileComponent" )
 if projectile ~= nil then
-    local pk_flash_id = get_internal_int( get_player(), "pk_flash_id" )
+    local unstable_nucleus_id = get_internal_int( get_player(), "unstable_nucleus_id" )
     local charges = get_internal_int( entity, "charges" )
     if charges == nil then charges = 0 end
 
-    if pk_flash_id ~= nil and pk_flash_id ~= -1 then
-        local target_x, target_y = EntityGetTransform( pk_flash_id )
+    if unstable_nucleus_id ~= nil and unstable_nucleus_id ~= -1 then
+        local target_x, target_y = EntityGetTransform( unstable_nucleus_id )
         local x, y = EntityGetTransform( entity )
         local target_angle = math.atan2( target_y - y, target_x - x )
         local velocity = EntityGetFirstComponentIncludingDisabled( entity, "VelocityComponent" )

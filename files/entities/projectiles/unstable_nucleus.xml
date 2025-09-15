@@ -1,4 +1,4 @@
-<Entity name="$projectile_default" tags="projectile_player,pk_flash" >
+<Entity name="$projectile_default" tags="projectile_player,unstable_nucleus" >
   
 	<Base file="data/entities/base_projectile.xml" >
 		<VelocityComponent
@@ -85,7 +85,7 @@
     <!-- image_file="data/projectiles_gfx/grenade_green.xml"  -->
 
   <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_homing.lua"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_homing.lua"
     execute_every_n_frame="1"
     >
   </LuaComponent>
@@ -97,32 +97,32 @@
   </AudioLoopComponent>
 
   <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_on.lua"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_on.lua"
     execute_on_added="1"
     execute_times="1"
     >
   </LuaComponent>
 
   <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_update.lua"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_update.lua"
     execute_every_n_frame="6"
     >
   </LuaComponent>
 
   <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_disable_mana_recharge.lua"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_disable_mana_recharge.lua"
     execute_every_n_frame="1"
     >
   </LuaComponent>
 
   <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_gravity.lua"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_gravity.lua"
     execute_every_n_frame="1"
     >
   </LuaComponent>
 
   <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/pk_flash_off.lua"
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_off.lua"
     execute_on_removed="1"
     execute_every_n_frame="-1"
     execute_times="1"
