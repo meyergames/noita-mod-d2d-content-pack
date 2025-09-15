@@ -39,7 +39,7 @@ if wand.mana > 10 then
 		local y_offset = math.sin(theta) * 5
 	    local dir_x = ( x + x_offset ) - x
 		local dir_y = ( y + y_offset ) - y
-		shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge.xml", wand_x + dir_x, wand_y + dir_y, dir_x * 20, dir_y * 20 )
+		shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge_white.xml", wand_x + dir_x, wand_y + dir_y, dir_x * 20, dir_y * 20 )
 
 		-- spawn particles within the projectile's radius
 		for i=1,math.floor( 1 + ( charges * 0.004 ) ) do

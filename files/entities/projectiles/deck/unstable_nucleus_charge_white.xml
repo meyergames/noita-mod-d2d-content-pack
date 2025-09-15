@@ -42,7 +42,7 @@
   </LuaComponent>
   
 	<ParticleEmitterComponent 
-		emitted_material_name="spark_green"
+		emitted_material_name="spark_white"
 		delay_frames="6"
 		offset.x="0"
 		offset.y="0"
@@ -72,9 +72,9 @@
 
 	<LightComponent 
     _enabled="1" 
-	r="40"
+	r="255"
 	g="255"
-	b="40"
+	b="255"
     radius="30" >
   </LightComponent>
 	

@@ -362,7 +362,6 @@ d2d_actions = {
                                 	-- shoot charging "projectile"
                                 	draw_actions( 1, true )
                                 	mana = mana + 100
-                                	-- add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge.xml")
                                 else
                                 	c.fire_rate_wait	= c.fire_rate_wait + 160
                                 	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
