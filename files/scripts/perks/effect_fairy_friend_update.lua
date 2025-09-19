@@ -12,7 +12,7 @@ if ( #targets > 0 ) then
             GetGameEffectLoadTo( target_id, "CHARM", false )
             EntityAddTag( target_id, "fairy" )
         -- if the target is not a fairy, make them spawn one on death
-        else
+        elseif not string.find( EntityGetName( target_id ), "helpless_animal" ) then
             local effect_id = get_internal_int( target_id, "fairy_friend_effect_id" )
 
             -- not sure why the polymorph check is in place, but Oprah's Youth did it for their Grave Worms mod so it must have a good reason?

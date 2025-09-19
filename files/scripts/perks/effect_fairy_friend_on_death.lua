@@ -36,12 +36,8 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
                 spawns_left = spawns_left - 1
             end
 
-            raise_internal_int( get_player(), "player_fairies_spawned", 1 )
-            local fairies_rescued = get_internal_int( get_player(), "player_fairies_spawned" )
-            if fairies_rescued % 100 == 0 then
-                -- GamePrint( "You've rescued a total of " .. fairies_rescued .. " fairies!" )
-                CreateItemActionEntity( "D2D_SUMMON_FAIRIES", pos_x, pos_y )
-            end
+            -- raise_internal_int( get_player(), "player_fairies_spawned", 1 )  
+            -- local fairies_rescued = get_internal_int( get_player(), "player_fairies_spawned" )
         end
     end
 end
