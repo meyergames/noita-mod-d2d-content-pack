@@ -83,7 +83,7 @@ if ( GameHasFlagRun( flag ) == false ) then
                 			wand.manaMax = math.min( old_mana_max + math.max( old_mana_max * 0.1, 30 ), 5000 )
 
                 			if not is_mega_upgrade then
-                				GamePrint("Your " .. z .. number_suffix .. " wand's max mana was increased. (" .. old_mana_max .. " > " .. wand.manaMax .. ")" )
+                				GamePrint("Your " .. z .. number_suffix .. " wand's max mana was increased. (" .. string.format( "%.2f", old_mana_max ) .. " > " .. string.format( "%.2f", wand.manaMax ) .. ")" )
                 				goto upgrades_finished
                 			end
                 		end
