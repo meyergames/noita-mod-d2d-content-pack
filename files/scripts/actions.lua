@@ -309,37 +309,6 @@ d2d_actions = {
 	                        end,
     },
 
-    -- {
-	--     id                  = "D2D_HOLLOW_ORB",
-	--     name 		        = "Hollow Bomb",
-	--     description         = "More powerful when your wand is low on mana",
-    --     inject_after        = { "CHAINSAW" },
-	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/hollow_orb.png",
-	--     type 		        = ACTION_TYPE_PROJECTILE,
-	-- 	spawn_level         = "0,1,2,3,4,5,6",
-	-- 	spawn_probability   = "0.5,0.8,1,1.1,1,0.8,0.5",
-	--     price               = 160,
-	--     mana                = 10,
-	--     action              = function()
-    --                             c.fire_rate_wait    = c.fire_rate_wait + 40
-	-- 				            if reflecting then return end
-
-	-- 						    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-	-- 						    local wand = EZWand.GetHeldWand()
-	-- 						    local mana_cost = wand.manaMax * 0.1
-	-- 						    wand.mana = wand.mana - mana_cost
-
-	-- 					    	c.knockback_force = c.knockback_force + 5
-	-- 					    	shot_effects.recoil_knockback = shot_effects.recoil_knockback + 200
-
-    --                             -- c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana * 0.03 ) -- 0.5s delay at 1000 missing mana
-    --                             -- c.knockback_force				= c.knockback_force + ( missing_mana * 0.001 * 5 ) -- max 5 at "
-	-- 							-- shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana * 0.001 * 200 ) -- max 200 at "
-
-    --                             add_projectile("mods/D2DContentPack/files/entities/projectiles/hollow_orb.xml")
-	--                         end,
-    -- },
-
     {
 	    id                  = "D2D_UNSTABLE_NUCLEUS",
 	    name 		        = "$spell_d2d_unstable_nucleus_name",
@@ -731,50 +700,6 @@ d2d_actions = {
 								draw_actions( 1, true )
 		                    end,
 	},
-
-	-- {
-	-- 	id                  = "D2D_REWIND",
-	-- 	name 		        = "Rewind",
-	-- 	description         = "Teleports you where you were 4 seconds ago",
-	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/rewind.png",
-	-- 	type 		        = ACTION_TYPE_PASSIVE,
-	-- 	spawn_level         = "1,2,3,4,5,6",
-	-- 	spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1.0",
-	-- 	price               = 280,
-	-- 	mana                = 40,
-	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/torch.xml",
-	-- 	action 		        = function()
-	-- 							if reflecting then return end
-
-	-- 							local player = GetUpdatedEntityID()
-
-	-- 							-- local vel_x, vel_y = getPlayerVelocities()
-	-- 							-- ^ this seems to be an existing method?
-
-	-- 							local vcomp = EntityGetFirstComponent( player, "VelocityComponent" )
-	-- 							local cdcomp = EntityGetFirstComponent( player, "CharacterDataComponent" )
-	-- 						    if vcomp ~= nil then
-	-- 								local v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
-	-- 								local d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
-
-	-- 							    if ( v_vel_y > 0 ) then
-	-- 									-- edit_component( player, "VelocityComponent", function(vcomp,vars)
-	-- 									-- 	ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, ( v_vel_y * 0.25 ) - 6 ) end)
-										
-	-- 									-- edit_component( player, "CharacterDataComponent", function(ccomp,vars)
-	-- 									-- 	ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, ( d_vel_y * 0.25 ) - 12 ) end)
-	-- 									edit_component( player, "VelocityComponent", function(vcomp,vars)
-	-- 										ComponentSetValueVector2( vcomp, "mVelocity", v_vel_x, -6 ) end)
-										
-	-- 									edit_component( player, "CharacterDataComponent", function(ccomp,vars)
-	-- 										ComponentSetValueVector2( cdcomp, "mVelocity", d_vel_x, -12 ) end)
-
-	-- 									v_vel_x, v_vel_y = ComponentGetValueVector2( vcomp, "mVelocity" )
-	-- 									d_vel_x, d_vel_y = ComponentGetValueVector2( cdcomp, "mVelocity" )
-	-- 								end
-	-- 						    end
-	-- 	                    end,
-	-- },
 }
 
 if(actions ~= nil)then
