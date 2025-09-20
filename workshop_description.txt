@@ -1,0 +1,181 @@
+A collection of spells, perks and items to spice up your run.
+
+Things you could be doing with this mod:
+- Sacrificing immunity perks for crazy firepower
+- Racing to the next Holy Mountain for wealth and glory
+- Racing to the next Holy Mountain because you injected something questionable
+- Risking your life to gain max health with a short-range drain spell
+- Hitting quickscope collaterals with Snipuhiisi's sniper bolt
+- Blasting worms with the infamous banana bomb
+- Overclocking your wand, only for it to explode in your face
+
+...and much more!
+
+
+⚠️ [i]Note: not all of this mod's content is showcased on this page. To see everything and in more detail, be sure to check out [url=https://noita.wiki.gg/wiki/Mod:D2D_Content_Pack]this mod's section on the Noita wiki[/url][/i]
+
+
+
+[hr][/hr]
+
+[h1]SPELL HIGHLIGHTS[/h1]
+
+
+[h3]Sniper Bolt (With Trigger)[/h3]
+[img]https://i.imgur.com/Kbsfg71.gif[/img]
+Pretty much the same as Snipuhiisi’s projectile.
+Penetrates all enemies it encounters in a straight line.
+Super satisfying to use.
+
+Its low fire rate makes accuracy very important; not ideal against small/fast enemies.
+
+
+
+[h3]Giga Drain[/h3]
+[img]https://i.imgur.com/69qcaWJ.gif[/img]
+Causes organic creatures to spawn healing bubbles that last a few seconds.
+If it kills a creature, pink bubbles are spawned that increase max health.
+
+By default, the spell is slow and expensive to use, and can only be used at melee range.
+Using it on a trigger is advised, but you do need to pick up the bubbles fast.
+
+
+
+[h3]Super Banana Bomb[/h3]
+[img]https://i.imgur.com/Fa8WGtT.gif[/img]
+Especially strong against worms.
+(not really)
+
+
+
+[h3]Unstable Nucleus[/h3]
+[img]https://i.imgur.com/5FmAUn8.gif[/img]
+Stays alive as long as you hold the fire button.
+Mana fuels it to become more and more powerful.
+
+
+
+[h3]Overclock[/h3]
+[img]https://i.imgur.com/sMW6S0N.gif[/img]
+Modifier that pushes your wand's fire rate to its limits, but gives it a chance to overheat.
+
+Overheat chance is higher when mana is low.
+As such, it is advised to fire an overclocked wand in short bursts.
+
+
+
+[h3]Fixed Altitude[/h3]
+[img]https://i.imgur.com/gmhcAji.gif[/img]
+Passive spell that resets your vertical velocity while firing.
+A rapidfire wand will effectively make you hover in the air.
+
+
+
+[hr][/hr]
+
+[h1]ITEM HIGHLIGHTS[/h1]
+
+[h3]Emergency Injection[/h3]
+[img]https://i.imgur.com/hUpZRlP.png[/img]
+A dubious mixture of healthium and some pitch-black liquid.
+Instantly restores [i]all[/i] health. At a cost, of course...
+
+
+
+[h3]Cursed Chest[/h3]
+[img]https://i.imgur.com/DUdt23J.png[/img]
+Open it for a blessing and a [i]Curse[/i].
+Curses are perks with (mostly) subtle negative side effects.
+An example can be found a bit further down.
+
+Potential loot includes (normal) perks and a few unique spells.
+
+
+
+
+[hr][/hr]
+
+[h1]PERK HIGHLIGHTS[/h1]
+
+[h3]Time Trial[/h3]
+[img]https://i.imgur.com/pGxyYp0.gif[/img]
+The gods challenge you to a race.
+Reach the next Holy Mountain within 60 seconds to be greatly rewarded.
+Obtain a random Curse if you lose.
+
+
+
+[h3]Repel Gold (curse)[/h3]
+[img]https://i.imgur.com/uPLX2ND.gif[/img]
+One example of a Curse.
+Does what it says on the tin.
+
+
+
+[h3]Evolving Wands[/h3]
+[img]https://i.imgur.com/T9KWfEx.png[/img]
+Your wands gain a random upgrade each time you enter a new biome.
+Each 5th upgrade is a bigger, all-round upgrade.
+
+Rewards holding on to your (starter) wands.
+
+
+
+[h3]Master Of Bombs[/h3]
+[img]https://i.imgur.com/yJR8pEY.gif[/img]
+Your explosions are bigger and can destroy stronger materials.
+Non-explosive projectiles become explosive, as well.
+
+Only works if you are NOT immune to explosions.
+
+
+
+[h3]Master Of Lightning[/h3]
+[img]https://i.imgur.com/wumG5Hi.gif[/img]
+Permanently increases your fire rate.
+Gives all your projectiles an electric charge.
+After being electrocuted, gain an even stronger buff.
+
+Only works if you are NOT immune to electricity.
+
+
+
+[h3]Borrowed Time[/h3]
+[img]https://i.imgur.com/mIEU62s.gif[/img]
+You survive fatal damage, at the cost of your max health.
+
+
+
+[hr][/hr]
+
+[h1]CROSS-MOD COMPATIBILITY[/h1]
+
+✅ [b]Apotheosis[/b]
+Compatible! Additionally, this mod has some content that requires Apotheosis to work. If you want to enable that content, be sure to place Apotheosis above this mod in your mod list.
+
+If Apotheosis is not enabled, the aforementioned content will simply be disabled.
+
+
+❓️ [b]Entangled Worlds[/b]
+So far, spells appear to work, but the effects of the "Master Of" perks seem to be invisible to other players.
+
+
+
+[hr][/hr]
+
+[h1]KNOWN ISSUES[/h1]
+(feel free to help)
+
+- [b]Missing Mana To Damage[/b] does not increase damage if it's an always-cast
+
+
+
+[hr][/hr]
+
+[h1]FINAL NOTES[/h1]
+
+This mod will probably be updated every now and then, with balance tweaks and more new content.
+
+I've tried making everything feel as natural within the world of Noita as possible, and as balanced as I could with only my own two eyes. If you notice something is too strong, too weak, too common, too rare etc, please let me know!
+
+Also feel free to think along and share your suggestions with me. For example, I'd like the "Master Of" perks to feel a bit more special than just another perk you can find in every Holy Mountain, so maybe you know of a cool way to unlock them?

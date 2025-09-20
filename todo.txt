@@ -112,3 +112,63 @@ Current Limitations / Known Bugs
 - Invisibility is not interrupted when alt-firing
 
 [-] check out "directors_helpers.lua" for entity_load_chest --> better place for cursed chest logic? <-- can't find a hook here
+
+
+
+
+
+=== 15.09.2025 ===
+
+nucleus move speed:
+[ ] make nucleus use the projectile's own speed, but let it naturally not decelerate
+[ ] consider making the nucleus' move speed lower if it's far away from the player
+
+nucleus mechanics:
+[ ] maybe make the whole spell mana-blue?! or even electric??!!?!?! (look at thunder charge (thunderball.xml))
+[ ] don't use get_player() to store variables, use e.g. "owner" instead (so that for example enemies can also use it)
+
+nucleus vfx:
+[ ] add gradually increasing screenshake while charging
+[ ] right before exploding, make ALL particles zap towards the projectile's absolute centerpoint (0,0); explode ~20 frames later
+[ ] Nathan's idea for explosion particles with less drag / more spin?
+[ ] Graham's idea for an extra bright flash of light on detonation?
+[ ] Copi's idea for a hit stun?
+[ ] Mamumimi's idea for looking into orb_expanding to make the sprite bigger over time?
+
+nucleus sfx:
+[ ] look for a better firing sound maybe (not the firebolt one)
+[ ] maybe another looping sound on top of the black hole one? to make it layered/more unique
+[ ] add lava rumbling sound at some point, also ukko electric crackling maybe (can we edit "m_volume" in AudioLoopComponent?)
+[ ] concentrated mana sound that increases in volume 0-100 as charges increase from 0-1000?
+[ ] change/add to explosion sound based on charge amount
+
+nucleus testing/promo:
+[ ] current interaction with speed modifiers?
+[ ] interaction with larpa?
+[ ] quote the threaded post in #mod-showcase to broadcast its addition to the d2d pack
+
+
+
+=== 16.09.2025 ===
+
+[ ] mirror spell: "Polymorphs you into whatever creature it hits" (max. 10 uses)
+
+[ ] ice barrage mage: encases you in a block of ice when its projectile hits you
+
+[ ] "master of" perks: deal 10k+ damage with the corresponding element to unlock the perk?
+
+[ ] flamethrower: an actual continuous stream of small fire "projectiles" that penetrates enemies and does a tiny amount of (ACTUAL)
+    fire dmg per frame. to make it an actual stream, cast delay and reload time should be super low (like lumi drill: -0.58 / -0.17?)
+    [ ] could be cool but could also be feature creep: make each projectile fired increase the intensity of the flamethrower,
+        until mouse is released
+
+
+
+=== 19.09.2025
+
+[ ] perk that makes gold nuggets glow in the dark
+[x] friend of the fairies perk should not heal the player if it reduces incoming damage below 0; summon fairies should not spawn from 
+    it; limit damage reduction to 50% of original damage?
+[ ] flurry might be too strong, if you have a high mana charge speed wand it's miles ahead of reduce recharge time
+[ ] check "slow projectiles" spell code for double damage?
+[ ] spell that can only have 1 in existence, but its cast delay is extremely low (so it becomes super strong close-range)
