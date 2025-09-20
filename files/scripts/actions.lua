@@ -664,6 +664,8 @@ d2d_actions = {
 	    mana                = 100,
 	    max_uses			= 10,
 	    action              = function()
+	    						if reflecting then return end
+	    						
 								-- add_projectile( "data/entities/projectiles/deck/xray.xml" )
                                 LoadGameEffectEntityTo( get_player(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_reveal.xml" )
 	                        end,
