@@ -75,7 +75,7 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 		cats_petted = get_internal_int( entity_who_interacted, "cats_petted" )
 		if cats_petted == 10 then
 			spawn_perk( "D2D_CAT_RADAR", x, y )
-		elseif cats_petted % 20 == 0 then
+		elseif cats_petted % 50 == 0 then
 			CreateItemActionEntity( "D2D_SUMMON_CAT", x, y )
 		end
 
@@ -86,22 +86,6 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 		local is_health_missing = p_hp < p_max_hp
 		if is_health_missing then
 			LoadGameEffectEntityTo( entity_who_interacted, "mods/D2DContentPack/files/entities/misc/status_effects/effect_regeneration_short.xml" )
-			if p_hp <= p_max_hp * 0.9 then
-				GamePrint( "It soothes your spirit" )
-			end
-		end
-		if p_hp > p_max_hp * 0.9 then
-			raise_internal_int( entity_who_interacted, "cats_petted_at_full_health", 1 )
-			if get_internal_int( entity_interacted, "is_spawned_through_feline_affection" ) ~= nil then
-				local max_hp_increase = math.max( 0.2, p_max_hp * 0.05 )
-				GamePrint( "It lifts your spirits (" .. string.format( "%d", ( max_hp_increase ) ) .. " max HP)" )
-				ComponentSetValue2( p_dcomp, "max_hp", p_max_hp + max_hp_increase )
-				ComponentSetValue2( p_dcomp, "hp", p_hp + max_hp_increase )
-			end
-			local cats_petted_at_full_health = get_internal_int( entity_who_interacted, "cats_petted_at_full_health" )
-			if cats_petted_at_full_health % 10 == 0 then
-   				CreateItemActionEntity( "D2D_SUMMON_CAT", x, y )
-			end
 		end
 
 		if cats_petted > 1 then

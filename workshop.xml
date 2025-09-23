@@ -12,5 +12,5 @@
 \n...and much more!"
     tags="gameplay,perks,spells,items"
     dont_upload_folders="files\gfx\ui_gfx\archive"
-    dont_upload_folders=".gitattributes|ideas.txt|todo.txt"
+    dont_upload_files=".gitattributes|ideas.txt|todo.txt|workshop_description.txt"
 ></Mod>

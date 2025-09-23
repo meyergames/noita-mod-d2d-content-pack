@@ -126,6 +126,7 @@ nucleus move speed:
 nucleus mechanics:
 [ ] maybe make the whole spell mana-blue?! or even electric??!!?!?! (look at thunder charge (thunderball.xml))
 [ ] don't use get_player() to store variables, use e.g. "owner" instead (so that for example enemies can also use it)
+[ ] also scale physics_power stuff, so that creatures that do get hit get blown away real good
 
 nucleus vfx:
 [ ] add gradually increasing screenshake while charging
@@ -169,6 +170,7 @@ nucleus testing/promo:
 [ ] perk that makes gold nuggets glow in the dark
 [x] friend of the fairies perk should not heal the player if it reduces incoming damage below 0; summon fairies should not spawn from 
     it; limit damage reduction to 50% of original damage?
-[ ] flurry might be too strong, if you have a high mana charge speed wand it's miles ahead of reduce recharge time
+[x] flurry might be too strong, if you have a wand with high mana charge speed, there's no reason to use reduce recharge time anymore
 [ ] check "slow projectiles" spell code for double damage?
 [ ] spell that can only have 1 in existence, but its cast delay is extremely low (so it becomes super strong close-range)
+[ ] summon fairies: add giant fairy death particles on small fairies spawn?

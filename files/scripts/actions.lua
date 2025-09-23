@@ -59,7 +59,7 @@ d2d_actions = {
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
 	    price               = 210,
-	    mana                = 1,
+	    mana                = 3,
 	    action              = function()
                                 c.fire_rate_wait    = c.fire_rate_wait - 15 -- so it shows in the UI
                                 current_reload_time = current_reload_time - 20 -- so it shows in the UI
@@ -67,19 +67,70 @@ d2d_actions = {
 					            if reflecting then return end
 
                                 local entity_id = GetUpdatedEntityID()
-
-							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-							    local wand = EZWand.GetHeldWand()
-
 							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
                                 current_reload_time = current_reload_time + 20 -- reset
 
-							    local remaining_mana_percent = ( 1.0 / wand.manaMax ) * wand.mana
-							    if ( remaining_mana_percent >= 0.75 ) then
-							    	c.fire_rate_wait	= c.fire_rate_wait - ( ( remaining_mana_percent - 0.75 ) * ( 15 / 0.25 ) )
-							    	current_reload_time	= current_reload_time - ( ( remaining_mana_percent - 0.75 ) * ( 20 / 0.25 ) )
-								end
-                                
+                                dofile_once( "data/scripts/lib/utilities.lua" )
+
+                                local ctrlcomp = EntityGetFirstComponentIncludingDisabled( get_player(), "ControlsComponent" )
+                                local fire_frame = ComponentGetValue2( ctrlcomp, "mButtonFrameFire" )
+                                local current_frame = GameGetFrameNum()
+
+                                local last_fire_frame = get_internal_int( get_player(), "flurry_last_fire_frame" )
+                                if last_fire_frame ~= nil then
+	                                local diff = fire_frame - last_fire_frame
+	                                if diff > 0 and diff < 30 then
+	                                	current_frame = current_frame + 20
+	                                end
+                                end
+                                set_internal_int( get_player(), "flurry_last_fire_frame", fire_frame )
+
+                                local frames_firing = current_frame - fire_frame
+                                local burst_duration = 20
+                                if frames_firing < burst_duration then
+                                	c.fire_rate_wait = c.fire_rate_wait - ( ( 15 / burst_duration ) * ( burst_duration - frames_firing ) )
+                                	current_reload_time = current_reload_time - ( ( 20 / burst_duration ) * ( burst_duration - frames_firing ) )
+	                            end
+
+			                    draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_RAMP_UP",
+	    name 		        = "$spell_d2d_ramp_up_name",
+	    description         = "$spell_d2d_ramp_up_desc",
+        inject_after        = { "D2D_FLURRY", "RECHARGE", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/ramp_up.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "1,1,1,0.9,0.8,0.7,0.6",
+	    price               = 210,
+	    mana                = 6,
+	    action              = function()
+                                c.fire_rate_wait    = c.fire_rate_wait - 15 -- so it shows in the UI
+                                current_reload_time = current_reload_time - 20 -- so it shows in the UI
+
+					            if reflecting then return end
+
+                                local entity_id = GetUpdatedEntityID()
+							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
+                                current_reload_time = current_reload_time + 20 -- reset
+
+                                local ctrlcomp = EntityGetFirstComponentIncludingDisabled( get_player(), "ControlsComponent" )
+                                local fire_frame = ComponentGetValue2( ctrlcomp, "mButtonFrameFire" )
+                                local current_frame = GameGetFrameNum()
+
+                                local frames_firing = current_frame - fire_frame
+                                local frames_for_max_effect = 150
+                                if frames_firing < frames_for_max_effect then
+                                	c.fire_rate_wait = c.fire_rate_wait - ( ( 15 / frames_for_max_effect ) * frames_firing )
+                                	current_reload_time = current_reload_time - ( ( 20 / frames_for_max_effect ) * frames_firing )
+                                else
+                                	c.fire_rate_wait = c.fire_rate_wait - 15
+                                	current_reload_time = current_reload_time - 20
+	                            end
+	                            
 			                    draw_actions( 1, true )
 	                        end,
     },
@@ -662,6 +713,8 @@ d2d_actions = {
 
                                 	EntityKill( marker_id )
                                 	set_internal_int( get_player(), "rewind_marker_id", -1 )
+                            	else
+                            		mana = mana + 40
                                 end
 	                        end,
     },
