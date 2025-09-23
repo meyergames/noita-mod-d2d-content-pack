@@ -165,9 +165,9 @@ nucleus testing/promo:
 
 
 
-=== 19.09.2025
+=== 19.09.2025 ===
 
-[ ] perk that makes gold nuggets glow in the dark
+[-] perk that makes gold nuggets glow in the dark <-- tooo niche
 [x] friend of the fairies perk should not heal the player if it reduces incoming damage below 0; summon fairies should not spawn from 
     it; limit damage reduction to 50% of original damage?
 [x] flurry might be too strong, if you have a wand with high mana charge speed, there's no reason to use reduce recharge time anymore
