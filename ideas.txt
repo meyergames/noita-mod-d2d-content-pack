@@ -82,6 +82,23 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] A simple spell that grows bigger and more powerful the more mana the wand is missing, and the longer it takes for the wand to recharge its mana. A simplified missing mana to damage, basically. Maybe instead of increasing damage based on mana charge speed, the spell (and its low mana cost) naturally asks for a slow-charging wand in order to even reach the high damage boost.
 
+[ ] essence to speed (increase fire rate if lots of enemies are nearby)
+
+[ ] spell that lasts ~5 frames and converts all nearby enemy projectiles (mWhoShot ~= player) into healing. huge cast delay/recharge time.
+
+[ ] Inverse Energy Shield: looks in the opposite direction of the player's aim
+
+[ ] Reactive Energy Shield: rotates independently of aim direction, always covering the side where the player was last hit
+
+[ ] Autonomous Energy Shield: rotates independently of aim direction, always looking at the nearest enemy that can be hit with a raycast
+
+[ ] Beacon (spell): creates a hovering beacon (similar to an aqua mine) that is always on the player's radar (until destroyed). It can be interacted with, using E, to change its color in the world and on the radar. Radar shape is unique to easily tell it apart from the radar perks.
+	[ ] While holding shift, show distance below radar marker?
+
+[ ] Beacon teleport (spell): warp to the nearest placed beacon (that a raycast can't reach?). Very limited-use. Eligible beacon is highlighted on the radar.
+
+[ ] Luminous Orb?
+
 
 
 ENTIRELY NEW MODS?
@@ -95,3 +112,7 @@ ENTIRELY NEW MODS?
 	[ ] Ring of Life: teleports you home if you reach critical health. leaves behind a portal to warp back to.
 
 [ ] Holy Mountain keys: randomly hidden somewhere in the biome above each HM, must be obtained before the player can progress.
+
+[ ] Beacon spell
+
+[ ] Mod that allows you to swap your wand's sprite (via UI)

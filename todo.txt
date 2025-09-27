@@ -174,3 +174,14 @@ nucleus testing/promo:
 [ ] check "slow projectiles" spell code for double damage?
 [ ] spell that can only have 1 in existence, but its cast delay is extremely low (so it becomes super strong close-range)
 [ ] summon fairies: add giant fairy death particles on small fairies spawn?
+
+
+=== 24.09.2025 ===
+
+[ ] make giga drain bubbles ignore shields (if possible), since touching them with a shield makes them un-pickupable
+[ ] giga drain damage could be changed to make it possible to deal minimal damage to a drained enemy
+[ ] giga drain recoil could be halved maybe
+[ ] enemies that do not drop gold (i.e. hive spawns) should not drop bubbles?
+[ ] giga drain: track total max hp gained by giga drain, GamePrint every 50th
+[ ] master of fire: bring 2 or 3 kivaskivi somewhere?
+[ ] make overclock always explode at the wand's position (instead of on a payload)
