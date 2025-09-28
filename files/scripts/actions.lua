@@ -431,36 +431,6 @@ d2d_actions = {
 	                        end,
     },
 
-    {
-	    id                  = "D2D_SUMMON_BEACON",
-	    name 		        = "$spell_d2d_summon_beacon_name",
-	    description         = "$spell_d2d_summon_beacon_desc",
-        inject_after        = { "D2D_PAYDAY", "SUMMON_ROCK" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/concrete_wall.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
-	    price               = 200,
-	    mana                = 80,
-	    max_uses			= 5,
-	    action              = function()
-	    						if reflecting then return end
-
-                                dofile_once( "data/scripts/lib/utilities.lua" )
-                                local radar_id = get_internal_int( get_player(), "beacon_radar_id" )
-                                if not radar_id:
-									radar_id = EntityAddComponent( entity_who_picked, "LuaComponent", 
-									{ 
-										script_source_file = "mods/D2DContentPack/files/scripts/projectiles/beacon_radar.lua",
-										execute_every_n_frame = "1", -- this could be set to 3 or 6 if it causes lag
-									} )
-									set_internal_int( get_player(), "beacon_radar_id", radar_id )
-                                end
-
-                                add_projectile("mods/D2DContentPack/files/entities/projectiles/beacon.xml")
-	                        end,
-    },
-
 	{
 		id                  = "D2D_BANANA_BOMB",
 		name 		        = "$spell_d2d_banana_bomb_name",
@@ -628,7 +598,7 @@ d2d_actions = {
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "1.2,1,0.8,0.6",
 	    price               = 120,
-	    mana                = 20,
+	    mana                = 18,
 	    action              = function()
 			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
@@ -781,6 +751,27 @@ d2d_actions = {
 		mana                = 1,
 		action 		        = function()
 								draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_BOLT_CATCHER",
+		name 		        = "$spell_d2d_bolt_catcher_name",
+		description         = "$spell_d2d_bolt_catcher_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/bolt_catcher.png",
+		type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.1,0.5,0.6,0.7,0.8,0.5",
+		price               = 220,
+		mana                = 30,
+		max_uses			= 30,
+		never_unlimited		= true,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 30
+			                    if reflecting then return end
+
+			                    local x, y = EntityGetTransform( get_player() )
+								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/bolt_catcher.xml" )
 		                    end,
 	},
 }

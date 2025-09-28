@@ -84,20 +84,20 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] essence to speed (increase fire rate if lots of enemies are nearby)
 
-[ ] spell that lasts ~5 frames and converts all nearby enemy projectiles (mWhoShot ~= player) into healing. huge cast delay/recharge time.
+[x] spell that lasts ~5 frames and converts all nearby enemy projectiles (mWhoShot ~= player) into healing. high cast delay/recharge time.
 
-[ ] Inverse Energy Shield: looks in the opposite direction of the player's aim
-
-[ ] Reactive Energy Shield: rotates independently of aim direction, always covering the side where the player was last hit
+[-] Inverse Energy Shield: looks in the opposite direction of the player's aim
 
 [ ] Autonomous Energy Shield: rotates independently of aim direction, always looking at the nearest enemy that can be hit with a raycast
 
-[ ] Beacon (spell): creates a hovering beacon (similar to an aqua mine) that is always on the player's radar (until destroyed). It can be interacted with, using E, to change its color in the world and on the radar. Radar shape is unique to easily tell it apart from the radar perks.
-	[ ] While holding shift, show distance below radar marker?
+[x] Beacon (spell): creates a hovering beacon (similar to an aqua mine) that is always on the player's radar (until destroyed). It can be interacted with, using E, to change its color in the world and on the radar. Radar shape is unique to easily tell it apart from the radar perks.
+	[-] While holding shift, show distance below radar marker? <-- faint/medium/strong does the job
 
 [ ] Beacon teleport (spell): warp to the nearest placed beacon (that a raycast can't reach?). Very limited-use. Eligible beacon is highlighted on the radar.
 
 [ ] Luminous Orb?
+
+[ ] heart balloon, alt. time trial
 
 
 
@@ -113,6 +113,6 @@ ENTIRELY NEW MODS?
 
 [ ] Holy Mountain keys: randomly hidden somewhere in the biome above each HM, must be obtained before the player can progress.
 
-[ ] Beacon spell
+[x] Beacon spell
 
 [ ] Mod that allows you to swap your wand's sprite (via UI)
