@@ -410,27 +410,6 @@ d2d_actions = {
 	                        end,
     },
 
-    {
-	    id                  = "D2D_CONCRETE_WALL_ALT_FIRE",
-	    name 		        = "$spell_d2d_concrete_wall_alt_fire_name",
-	    description         = "$spell_d2d_concrete_wall_alt_fire_desc",
-        inject_after        = { "D2D_CONCRETE_WALL", "D2D_PAYDAY", "SUMMON_ROCK" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.3,0.5,0.6,0.5,0.3,0.2",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_concrete_wall.xml",
-	    price               = 200,
-	    mana                = 80,
-	    max_uses			= 5,
-    	custom_uses_logic 	= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-        						mana = mana + 80
-	                        end,
-    },
-
 	{
 		id                  = "D2D_BANANA_BOMB",
 		name 		        = "$spell_d2d_banana_bomb_name",
@@ -568,27 +547,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
-	    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
-	    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
-        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "0,1,2,3,4,5",
-		spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
-	    price               = 230,
-	    mana                = 50,
-	    max_uses			= 10,
-    	custom_uses_logic 	= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-        						mana = mana + 50
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_SMALL_EXPLOSION",
 	    name 		        = "$spell_d2d_small_explosion_name",
 	    description         = "$spell_d2d_small_explosion_desc",
@@ -649,27 +607,6 @@ d2d_actions = {
 	            				-- end
 	                        end,
     },
-	
-    {
-	    id                  = "D2D_MANA_REFILL_ALT_FIRE",
-	    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
-	    description         = "$spell_d2d_mana_refill_alt_fire_desc",
-        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
-	    price               = 330,
-	    mana                = 0,
-	    max_uses			= 5,
-	    never_unlimited		= true,
-    	custom_uses_logic 	= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-	                        end,
-    },
 
     {
 	    id                  = "D2D_REVEAL",
@@ -719,25 +656,6 @@ d2d_actions = {
 	                        end,
     },
 
-    {
-	    id                  = "D2D_REWIND_ALT_FIRE",
-	    name 		        = "$spell_d2d_rewind_alt_fire_name",
-	    description         = "$spell_d2d_rewind_alt_fire_desc",
-        inject_after        = { "D2D_REWIND", "TELEPORT_PROJECTILE_STATIC" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_rewind.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "0,1,2,3,4,5,6", -- TELEPORT_PROJECTILE_STATIC
-		spawn_probability   = "0.6,0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_rewind.xml",
-	    price               = 90,
-	    mana                = 40,
-	    action              = function()
-	    						draw_actions( 1, true )
-        						mana = mana + 40
-	                        end,
-    },
-
 	{
 		id                  = "D2D_FIXED_ALTITUDE",
 		name 		        = "$spell_d2d_fixed_altitude_name",
@@ -784,8 +702,121 @@ if(actions ~= nil)then
 	end
 end
 
+-- if Alt Fire Anything is enabled and mod setting is true, don't add alt fire spells to the spell pool
+if not ( ModIsEnabled( "alt_fire_anything" ) and ModSettingGet( "D2DContentPack.afa_compat" ) ) then
+	d2d_alt_fire_actions = {
+	    {
+		    id                  = "D2D_CONCRETE_WALL_ALT_FIRE",
+		    name 		        = "$spell_d2d_concrete_wall_alt_fire_name",
+		    description         = "$spell_d2d_concrete_wall_alt_fire_desc",
+	        inject_after        = { "D2D_CONCRETE_WALL", "D2D_PAYDAY", "SUMMON_ROCK" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "1,2,3,4,5,6",
+			spawn_probability   = "0.3,0.5,0.6,0.5,0.3,0.2",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_concrete_wall.xml",
+		    price               = 200,
+		    mana                = 80,
+		    max_uses			= 5,
+	    	custom_uses_logic 	= true,
+		    action              = function()
+		    						draw_actions( 1, true )
+	        						mana = mana + 80
+		                        end,
+	    },
 
+	    {
+		    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
+		    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
+		    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
+	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "0,1,2,3,4,5",
+			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
+		    price               = 230,
+		    mana                = 50,
+		    max_uses			= 10,
+	    	custom_uses_logic 	= true,
+		    action              = function()
+		    						draw_actions( 1, true )
+	        						mana = mana + 50
+		                        end,
+	    },
+		
+	    {
+		    id                  = "D2D_MANA_REFILL_ALT_FIRE",
+		    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
+		    description         = "$spell_d2d_mana_refill_alt_fire_desc",
+	        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "0,1,2,3,4,5,6",
+			spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
+		    price               = 330,
+		    mana                = 0,
+		    max_uses			= 5,
+		    never_unlimited		= true,
+	    	custom_uses_logic 	= true,
+		    action              = function()
+		    						draw_actions( 1, true )
+		                        end,
+	    },
 
+	    {
+		    id                  = "D2D_REWIND_ALT_FIRE",
+		    name 		        = "$spell_d2d_rewind_alt_fire_name",
+		    description         = "$spell_d2d_rewind_alt_fire_desc",
+	        inject_after        = { "D2D_REWIND", "TELEPORT_PROJECTILE_STATIC" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_rewind.png",
+		    type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "0,1,2,3,4,5,6", -- TELEPORT_PROJECTILE_STATIC
+			spawn_probability   = "0.6,0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_rewind.xml",
+		    price               = 90,
+		    mana                = 40,
+		    action              = function()
+		    						draw_actions( 1, true )
+	        						mana = mana + 40
+		                        end,
+	    },
+
+		{
+			id                  = "D2D_BOLT_CATCHER_ALT_FIRE",
+			name 		        = "$spell_d2d_bolt_catcher_alt_fire_name",
+			description         = "$spell_d2d_bolt_catcher_alt_fire_desc",
+			sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_bolt_catcher.png",
+			type 		        = ACTION_TYPE_PASSIVE,
+	        subtype     		= { altfire = true },
+			spawn_level         = "1,2,3,4,5,6",
+			spawn_probability   = "0.1,0.5,0.6,0.7,0.8,0.5",
+			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_bolt_catcher.xml",
+			price               = 220,
+			mana                = 30,
+			max_uses			= 30,
+			never_unlimited		= true,
+	    	custom_uses_logic 	= true,
+			action 		        = function()
+		    						draw_actions( 1, true )
+	        						mana = mana + 30
+			                    end,
+		},
+	}
+end
+
+if( actions ~= nil ) then
+	for k, v in pairs( d2d_alt_fire_actions ) do
+		if( not HasSettingFlag( v.id .. "_disabled" ) ) then
+			table.insert(actions, v)
+		end
+	end
+end
 
 -- spells that should only be added if the player has Apotheosis enabled
 if ( ModIsEnabled("Apotheosis") ) then

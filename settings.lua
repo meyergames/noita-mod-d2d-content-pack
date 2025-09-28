@@ -24,6 +24,13 @@ mod_settings =
         ui_description = "",
         settings = {
             {
+                id = "afa_compat",
+                ui_name = "Disable alt fire spells if Alt Fire Anything is enabled",
+                ui_description = "If the Alt Fire Anything mod is enabled, disable this\nmod's individual alt fire spell variations.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
                 id = "spawn_time_trial_at_start",
                 ui_name = "Sometimes spawn Time Trial at start",
                 ui_description = "When enabled, there's a 5% chance for a copy of the\nTime Trial perk to spawn at the mountain entrance.",
