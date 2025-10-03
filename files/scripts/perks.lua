@@ -1,4 +1,5 @@
 d2d_perks = {
+
 	{
 		id = "D2D_TIME_TRIAL",
 		ui_name = "$perk_d2d_time_trial_name",
@@ -12,6 +13,24 @@ d2d_perks = {
             LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_time_trial.xml" )
 		end,
 	},
+
+	-- {
+	-- 	id = "D2D_BALLOON_HEART",
+	-- 	ui_name = "$perk_d2d_balloon_heart_name",
+	-- 	ui_description = "$perk_d2d_balloon_heart_desc",
+	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/balloon_heart_016.png",
+	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/balloon_heart.png",
+	-- 	stackable = STACKABLE_YES, -- doesn't work for now (smth with the effect's internal variable tracking)
+	-- 	one_off_effect = true,
+	-- 	usable_by_enemies = false,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
+	-- 		local x,y = EntityGetTransform( entity_who_picked )
+
+	-- 		child_id = EntityLoad( "mods/D2DContentPack/files/entities/misc/perks/balloon_heart.xml", x, y - 36 )
+	-- 		EntityAddChild( entity_who_picked, child_id )
+	-- 		-- TODO: Look at verlet physics (i.e. Lukki legs)
+	-- 	end,
+	-- },
 
 	-- {
 	-- 	id = "D2D_RING_OF_LIFE",

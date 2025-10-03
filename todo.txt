@@ -176,7 +176,7 @@ nucleus testing/promo:
 [ ] summon fairies: add giant fairy death particles on small fairies spawn?
 
 
-=== 24.09.2025 ===
+=== 24.09.2025 (and later) ===
 
 [ ] make giga drain bubbles ignore shields (if possible), since touching them with a shield makes them un-pickupable
 [ ] giga drain damage could be finetuned to make it possible to deal minimal damage to a drained enemy
@@ -186,3 +186,5 @@ nucleus testing/promo:
 [ ] master of fire: bring 2 or 3 kivaskivi somewhere?
 [ ] make overclock always explode at the wand's position (instead of on a payload)
 [ ] set giga drain's speed to 0, but spawn it at the wand's launch point if not on a payload?
+
+[x] reverse force field vfx (absorb instead of repulse) --> test / change in open aseprite project <-- eh, revert

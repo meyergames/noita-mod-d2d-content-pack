@@ -99,6 +99,40 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] heart balloon, alt. time trial
 
+[ ] cursed chest addition: super strong wands, with a catch:
+	[x] very high max mana, but 0 charge speed (so it cannot be used anymore at some point)
+	[ ] always cast nolla
+	[x] always cast mana to damage
+	[ ] always cast blood to acid
+	[ ] always cast water to poison
+	[ ] always cast liquid detonation
+	[ ] always cast overclock
+	[ ] always cast random damage
+	[ ] always cast personal lightning caster
+	[ ] always cast acid trail(?)
+	[ ] always cast phasing arc
+	[ ] always cast fly upwards/downwards
+	[ ] always cast true orbit
+	[ ] always cast chaotic path (yo lmao)
+	[x] always cast anti homing
+	[ ] always cast acid (1 drop per cycle)
+	[ ] always cast formation pentagon
+	[ ] always cast formation behind your back (this could actually be a fun niche to explore)
+	[ ] always cast add trigger/variants (after defeating mestarien mestari)
+	[ ] always cast add trigger + some exotic projectile (after defeating mestarien mestari) <-- concentrated light/flock of ducks
+	[x] always cast fizzle (slow and strong wand, so big shots have a chance to fail)
+	[ ] always cast null shot
+	[ ] always cast no explosion
+	[x] always cast horizontal path (very rapid-fire wand)
+	[x] a very sick sniper bolt wand
+	[ ] always cast chaos larpa
+	[ ] always cast orbit larpa (after defeating the dragon)
+	[ ] a super strong rapidfire wand with always cast heavy spread (so you need ) but with high enough spread that you need 2 reduce spread spells to counter it (which has -60)
+
+[ ] force field modifier: spawns a damage-less explosion that knocks back nearby physics objects and enemies
+
+[ ] 
+
 
 
 ENTIRELY NEW MODS?
