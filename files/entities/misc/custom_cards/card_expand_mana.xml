@@ -1,0 +1,19 @@
+<Entity tags="card_action">
+
+    <Base file="data/entities/base_custom_card.xml" >
+        <SpriteComponent 
+            image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_block.png" >
+        </SpriteComponent>
+
+        <ItemActionComponent 
+            _tags="enabled_in_world"
+            action_id="D2D_MANA_BLOCK" >
+        </ItemActionComponent>
+    </Base>
+
+    <LuaComponent
+        _tags="enabled_in_hand"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/expand_mana_block_regen.lua"
+        execute_every_n_frame="1"
+    ></LuaComponent>
+</Entity>

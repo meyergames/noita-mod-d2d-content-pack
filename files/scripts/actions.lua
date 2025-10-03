@@ -687,6 +687,45 @@ d2d_actions = {
 								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/bolt_catcher.xml" )
 		                    end,
 	},
+
+	{
+		id                  = "D2D_EXPAND_MANA",
+		name 		        = "$spell_d2d_expand_mana_name",
+		description         = "$spell_d2d_expand_mana_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/expand_mana.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_expand_mana.xml",
+		price               = 280,
+		mana                = 0,
+		action 		        = function()
+								-- disable Add Mana etc
+								for i,v in ipairs( deck ) do
+									local spell_data = deck[i]
+									if spell_data.mana < 0 then
+										mana = mana - math.abs( spell_data.mana )
+									end
+								end
+								for i,v in ipairs( discarded ) do
+									local spell_data = discarded[i]
+									if spell_data.mana < 0 then
+										mana = mana - math.abs( spell_data.mana )
+									end
+								end
+
+								draw_actions( 1, true )
+								local mana_regain = 0
+								for _,v in ipairs( hand ) do
+									local spell_data = v
+									GamePrint( spell_data.name )
+									if spell_data.mana > 0 then
+										mana_regain = mana_regain + ( spell_data.mana * 0.8 )
+									end
+								end
+								mana = mana + mana_regain
+		                    end,
+	},
 }
 
 if(actions ~= nil)then
