@@ -3,12 +3,7 @@ dofile_once("data/scripts/lib/utilities.lua")
 -------------------------------------------------------------------------------
 
 function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
-	local set_rnd = false 
-	if( set_rnd_ ~= nil ) then set_rnd = set_rnd_ end
-
-	if( set_rnd ) then
-		SetRandomSeed( GameGetFrameNum(), x + y + entity_id )
-	end
+	SetRandomSeed( GameGetFrameNum(), x + y + entity_id )
 	
 	local good_item_dropped = true
 	
@@ -64,14 +59,8 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		elseif ( rnd2 <= 100 ) then -- 0.5%
 			table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
 		end
-	-- maybe spawn a curse-related spell (15% chance)
+	-- maybe spawn a perk (15% chance)
 	elseif ( rnd <= 55 ) then
-		local spells = { "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" }
-		local rnd2 = Random( 1, #spells )
-		local spell_to_spawn = spells[rnd2]
-   		CreateItemActionEntity( spell_to_spawn, x, y )
-	-- maybe spawn a perk (10% chance)
-	elseif ( rnd <= 65 ) then
 		local rnd2 = Random( 1, 100 )
 		if ( not has_perk( "D2D_HUNT_CURSES" ) ) then
 			spawn_random_perk( x - 10, y )
@@ -86,12 +75,17 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		-- 	spawn_random_perk_custom( x - 10, y, { "D2D_LIFT_CURSES" } )
 		-- 	spawn_random_perk( x + 10, y )
 		-- end
-	-- maybe spawn a bunch of spells (10% chance)
-	elseif ( rnd <= 75 ) then
-		local amount = 4
+	-- maybe spawn a bunch of spells, including a guaranteed curse-related spell (15% chance)
+	elseif ( rnd <= 70 ) then
+		local spells = { "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" }
+		local rnd2 = Random( 1, #spells )
+		local spell_to_spawn = spells[rnd2]
+   		CreateItemActionEntity( spell_to_spawn, x, y )
+
+		local amount = 3
 		local rnd2 = Random(0,100)
 		if (rnd2 <= 50) then -- 5%
-			amount = 4
+			amount = 3
 		elseif (rnd2 <= 70) then -- 2%
 			amount = amount + 1
 		elseif (rnd2 <= 80) then -- 1%
@@ -109,44 +103,31 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 			dofile_once( "data/scripts/items/chest_random.lua" )
 			make_random_card( spx, spy )
 		end
-	-- maybe spawn one or more cats (2% chance), if Apotheosis is enabled
-	elseif ( rnd <= 77 and ModIsEnabled("Apotheosis") ) then
-		local rnd2 = Random( 1, 100 )
-		local cats_to_spawn = 0
-		if( rnd2 <= 50 ) then -- 1% (1/100)
-			cats_to_spawn = 1
-		elseif( rnd2 <= 75 ) then -- 0.5% (1/200)
-			cats_to_spawn = 2
-		elseif( rnd2 <= 90 ) then -- 0.3% (1/333)
-			cats_to_spawn = 3
-		elseif( rnd2 <= 100 ) then -- 0.2% (1/500)
-			cats_to_spawn = 9
-		end
-
-		for i = 1, cats_to_spawn do
-			local var = cats_to_spawn * 3
-            EntityLoad( "mods/Apotheosis/files/entities/special/conjurer_cat_spawner.xml", target_x, target_y )
-        	-- spawn_random_cat( target_x + Random( -var, var ), target_y - Random( -var * 2, 0 ) )
-        end
-	-- maybe spawn a wand
+	-- maybe spawn a wand (30% chance)
 	else
-		local rnd2 = Random( 1, 100 )
-		if( rnd2 <= 25 ) then -- 6.25%
-			table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
-		elseif( rnd2 <= 50 ) then -- 6.25%
-			table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
-		elseif( rnd2 <= 75 ) then -- 6.25%
-			table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
-		elseif( rnd2 <= 90 ) then -- 3.75%
-			table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
-		elseif( rnd2 <= 96 ) then -- 1.5%
-			table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-		elseif( rnd2 <= 98 ) then -- 0.5%
-			table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
-		elseif( rnd2 <= 99 ) then -- 0.25%
-			table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-		elseif( rnd2 <= 100 ) then -- 0.25%
-			table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
+		local rnd2 = Random( 1, 5 )
+		if rnd2 == 1 then -- 6% chance for a unique staff
+	    	dofile_once( "mods/D2DContentPack/files/scripts/special_wand_utils.lua" )
+			spawn_random_staff( x, y )
+		else
+			local rnd3 = Random( 1, 100 )
+			if( rnd3 <= 25 ) then -- 6.25%
+				table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
+			elseif( rnd3 <= 50 ) then -- 6.25%
+				table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
+			elseif( rnd3 <= 75 ) then -- 6.25%
+				table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
+			elseif( rnd3 <= 90 ) then -- 3.75%
+				table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
+			elseif( rnd3 <= 96 ) then -- 1.5%
+				table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
+			elseif( rnd3 <= 98 ) then -- 0.5%
+				table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
+			elseif( rnd3 <= 99 ) then -- 0.25%
+				table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
+			elseif( rnd3 <= 100 ) then -- 0.25%
+				table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
+			end
 		end
 	end
 
