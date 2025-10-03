@@ -736,6 +736,7 @@ if(actions ~= nil)then
 	end
 end
 
+d2d_alt_fire_actions = nil
 -- if Alt Fire Anything is enabled and mod setting is true, don't add alt fire spells to the spell pool
 if not ( ModIsEnabled( "alt_fire_anything" ) and ModSettingGet( "D2DContentPack.afa_compat" ) ) then
 	d2d_alt_fire_actions = {
@@ -844,7 +845,7 @@ if not ( ModIsEnabled( "alt_fire_anything" ) and ModSettingGet( "D2DContentPack.
 	}
 end
 
-if( actions ~= nil ) then
+if actions ~= nil and d2d_alt_fire_actions ~= nil then
 	for k, v in pairs( d2d_alt_fire_actions ) do
 		if( not HasSettingFlag( v.id .. "_disabled" ) ) then
 			table.insert(actions, v)
