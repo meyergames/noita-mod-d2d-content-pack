@@ -20,28 +20,23 @@ d2d_actions = {
 
 							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
-                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-
-							    -- local remaining_mana_percent = ( 1.0 / wand.manaMax ) * (wand.mana - c.action_mana_drain)
-							    -- if ( remaining_mana_percent >= 0.5 ) then
-							    -- 	c.fire_rate_wait	= c.fire_rate_wait - ( ( remaining_mana_percent - 0.5 ) * 10 )
-								-- end
+                                local x, y = EntityGetTransform( wand.entity_id )
 
 							    local rand = Random( 0, 200 )
 							    local chance = 1.0 / ( (1.0 / wand.manaMax) * wand.mana )
                                 if( rand <= chance ) then
-                                    c.fire_rate_wait    = 40
+                                    c.fire_rate_wait = 40
                                     GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
 
                                     local rand2 = Random( 0, 8 )
                                     if( rand2 < 1 ) then -- 2/250 or 1/125
-                                        EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
+                                        EntityInflictDamage( get_player(), 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
                                     elseif( rand2 < 3 ) then -- 2/250 or 1/125
-                                        add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
+                                        EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml", x, y )
                                     elseif( rand2 < 5 ) then -- 2/250 or 1/125
-                                        add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
+                                        EntityLoad( "mods/D2DContentPack/files/entities/projectiles/overclock.xml", x, y )
                                     else -- 3/250 or 1/83
-                                        add_projectile("data/entities/projectiles/deck/fizzle.xml")
+                                        EntityLoad( "data/entities/projectiles/deck/fizzle.xml", x, y )
                                     end
                                 end
                                 
