@@ -1,3 +1,16 @@
+function HasSettingFlag(name)
+    return ModSettingGet(name) or false
+end
+
+function AddSettingFlag(name)
+    ModSettingSet(name, true)
+  --  ModSettingSetNextValue(name, true)
+end
+
+function RemoveSettingFlag(name)
+    ModSettingRemove(name)
+end
+
 d2d_actions = {
     {
 	    id                  = "D2D_OVERCLOCK",
@@ -173,67 +186,67 @@ d2d_actions = {
 		                    end,
 	},
 
-    {
-	    id                  = "D2D_DAMAGE_MISSING_MANA",
-	    name 		        = "$spell_d2d_damage_missing_mana_name",
-	    description         = "$spell_d2d_damage_missing_mana_desc",
-        inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "2,3,4,5,6",
-		spawn_probability   = "0.5,0.7,0.9,0.8,0.7",
-	    price               = 270,
-	    mana                = 20,
-	    action              = function()
-                                c.fire_rate_wait    = c.fire_rate_wait + 4 -- so it shows in the UI
+    -- {
+	--     id                  = "D2D_DAMAGE_MISSING_MANA",
+	--     name 		        = "$spell_d2d_damage_missing_mana_name",
+	--     description         = "$spell_d2d_damage_missing_mana_desc",
+    --     inject_after        = { "DAMAGE_FOREVER", "DAMAGE" },
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
+	--     type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "2,3,4,5,6",
+	-- 	spawn_probability   = "0.5,0.7,0.9,0.8,0.7",
+	--     price               = 270,
+	--     mana                = 20,
+	--     action              = function()
+    --                             c.fire_rate_wait    = c.fire_rate_wait + 4 -- so it shows in the UI
 
-					            if reflecting then return end
+	-- 				            if reflecting then return end
 
-							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-							    local wand = EZWand.GetHeldWand()
+	-- 						    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+	-- 						    local wand = EZWand.GetHeldWand()
 							    
-                                c.fire_rate_wait    			= c.fire_rate_wait - 4 -- reset
+    --                             c.fire_rate_wait    			= c.fire_rate_wait - 4 -- reset
 
-							    local remaining_mana_percent	= ( 1.0 / wand.manaMax ) * wand.mana
-						    	local missing_mana				= wand.manaMax - wand.mana
-                                local missing_mana_percent		= 1.0 - remaining_mana_percent
-						    	local sec_to_recharge_wand		= wand.manaMax / math.max( wand.manaChargeSpeed, 1 ) -- careful for division by zero
+	-- 						    local remaining_mana_percent	= ( 1.0 / wand.manaMax ) * wand.mana
+	-- 					    	local missing_mana				= wand.manaMax - wand.mana
+    --                             local missing_mana_percent		= 1.0 - remaining_mana_percent
+	-- 					    	local sec_to_recharge_wand		= wand.manaMax / math.max( wand.manaChargeSpeed, 1 ) -- careful for division by zero
 
-                                c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana_percent * 20 ) -- max 20
-                                c.knockback_force				= c.knockback_force + ( missing_mana_percent * 5 ) -- max 5
-								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana_percent * 200 ) -- max 200
+    --                             c.fire_rate_wait    			= c.fire_rate_wait + ( missing_mana_percent * 20 ) -- max 20
+    --                             c.knockback_force				= c.knockback_force + ( missing_mana_percent * 5 ) -- max 5
+	-- 							shot_effects.recoil_knockback	= shot_effects.recoil_knockback + ( missing_mana_percent * 200 ) -- max 200
 
-                                -- draw the next (chain of) card(s)
-			                    draw_actions( 1, true )
+    --                             -- draw the next (chain of) card(s)
+	-- 		                    draw_actions( 1, true )
 
-                                -- calculate how much mana the hand's projectiles cost
-                                local projectile_count = 0
-                                local projectiles_mana_drain = 0
-								if ( hand ~= nil ) then
-									for i,data in ipairs( hand ) do
-										local rec = check_recursion( data, recursion_level )
-										if ( data ~= nil ) and ( data.type == ACTION_TYPE_PROJECTILE ) and ( rec > -1 ) then
-											projectile_count = projectile_count + 1
-											projectiles_mana_drain = projectiles_mana_drain + data.mana
-										end
-									end
-								end
-								if ( projectile_count == 0 ) then return end
+    --                             -- calculate how much mana the hand's projectiles cost
+    --                             local projectile_count = 0
+    --                             local projectiles_mana_drain = 0
+	-- 							if ( hand ~= nil ) then
+	-- 								for i,data in ipairs( hand ) do
+	-- 									local rec = check_recursion( data, recursion_level )
+	-- 									if ( data ~= nil ) and ( data.type == ACTION_TYPE_PROJECTILE ) and ( rec > -1 ) then
+	-- 										projectile_count = projectile_count + 1
+	-- 										projectiles_mana_drain = projectiles_mana_drain + data.mana
+	-- 									end
+	-- 								end
+	-- 							end
+	-- 							if ( projectile_count == 0 ) then return end
 								
-								-- calculate net bonus damage
-                                local bonus_dmg_raw				= remap( missing_mana, 0, 5000, 0.00, remap( projectiles_mana_drain / projectile_count, 5, 120, 10 * 0.04, 125 * 0.04 ) )
-                                								  * remap( sec_to_recharge_wand, 1, 60, 1.0, 10.0 ) -- multiply by the time it takes to recharge
-                                								  -- * remap( projectiles_mana_drain, 5, 100, 0.1, 1.0 ) -- higher mana draining projectiles get more damage
-                                								  -- * ( 1.0 / projectile_count ) -- divide by the amount of projectiles in the hand/shot
+	-- 							-- calculate net bonus damage
+    --                             local bonus_dmg_raw				= remap( missing_mana, 0, 5000, 0.00, remap( projectiles_mana_drain / projectile_count, 5, 120, 10 * 0.04, 125 * 0.04 ) )
+    --                             								  * remap( sec_to_recharge_wand, 1, 60, 1.0, 10.0 ) -- multiply by the time it takes to recharge
+    --                             								  -- * remap( projectiles_mana_drain, 5, 100, 0.1, 1.0 ) -- higher mana draining projectiles get more damage
+    --                             								  -- * ( 1.0 / projectile_count ) -- divide by the amount of projectiles in the hand/shot
 
-								c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
-								c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
+	-- 							c.damage_projectile_add			= c.damage_projectile_add + ( bonus_dmg_raw * missing_mana_percent )
+	-- 							c.extra_entities				= c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
 
-								if ( remaining_mana_percent <= 0.25 ) then
-									c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_orange.xml,"
-								end
-	                        end,
-    },
+	-- 							if ( remaining_mana_percent <= 0.25 ) then
+	-- 								c.extra_entities    = c.extra_entities .. "data/entities/particles/tinyspark_orange.xml,"
+	-- 							end
+	--                         end,
+    -- },
 
 	{
 		id          = "D2D_CURSES_TO_DAMAGE",
@@ -718,7 +731,6 @@ d2d_actions = {
 								local mana_regain = 0
 								for _,v in ipairs( hand ) do
 									local spell_data = v
-									GamePrint( spell_data.name )
 									if spell_data.mana > 0 then
 										mana_regain = mana_regain + ( spell_data.mana * 0.8 )
 									end
@@ -728,10 +740,10 @@ d2d_actions = {
 	},
 }
 
-if(actions ~= nil)then
-	for k, v in pairs(d2d_actions)do
-		if(not HasSettingFlag(v.id.."_disabled"))then
-			table.insert(actions, v)
+if actions ~= nil then
+	for k, v in pairs( d2d_actions ) do
+		if not HasSettingFlag( v.id.."_disabled" ) then
+			table.insert( actions, v )
 		end
 	end
 end
@@ -906,21 +918,6 @@ if ( ModIsEnabled("Apotheosis") ) then
 			end
 		end
 	end
-end
-
-
-
-function HasSettingFlag(name)
-    return ModSettingGet(name) or false
-end
-
-function AddSettingFlag(name)
-    ModSettingSet(name, true)
-  --  ModSettingSetNextValue(name, true)
-end
-
-function RemoveSettingFlag(name)
-    ModSettingRemove(name)
 end
 
 
