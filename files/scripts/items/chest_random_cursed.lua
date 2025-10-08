@@ -145,7 +145,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		-- auto_pickup e.g. gold should have a delay in the next_frame_pickable, since they get gobbled up too fast by the player to see
 		if item_comp ~= nil then
 			if( ComponentGetValue2( item_comp, "auto_pickup") ) then
-				ComponentSetValue2( item_comp, "next_frame_pickable", GameGetFrameNum() + 30 )	
+				ComponentSetValue2( item_comp, "next_frame_pickable", GameGetFrameNum() + 30 )
 			end
 		end
 	end

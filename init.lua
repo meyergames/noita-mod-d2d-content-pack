@@ -30,6 +30,10 @@ function OnPlayerSpawned(player)
             local perk = perk_spawn( 800, -100, "D2D_TIME_TRIAL" )
         end
     end
+
+    dofile_once( "mods/D2DContentPack/files/scripts/special_wand_utils.lua" )
+    -- spawn_random_staff( 0, -100, 55 )
+    spawn_random_staff( 20, -100, 75 )
 end
 
 

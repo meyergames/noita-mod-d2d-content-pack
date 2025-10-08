@@ -118,7 +118,7 @@ function add_random_cards_to_wand( entity_id, level, deck_capacity )
 	end
 end
 
-function spawn_random_staff( x, y )
+function spawn_random_staff( x, y, force_rng )
 	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 	local wand = EZWand()
 
@@ -126,8 +126,8 @@ function spawn_random_staff( x, y )
 	local wand_lvl = hm_visits + 1
 
 	SetRandomSeed( x, y + GameGetFrameNum() )
-	local rng = force_rng or Random( 1, 100 )
-	if( rng <= 25 ) then
+	local rng = force_rng or Random( 1, 120 )
+	if( rng <= 20 ) then
 
 		wand:SetName( "Staff of Justice", true )
 		wand.shuffle = false
@@ -142,7 +142,7 @@ function spawn_random_staff( x, y )
 		wand:AddSpells( "D2D_SNIPE_SHOT" )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ags.png", 8, 6, 17, 0 )
 
-	elseif( rng <= 50 ) then
+	elseif( rng <= 40 ) then
 
 		wand:SetName( "Staff of Transience", true )
 		wand.shuffle = false
@@ -158,7 +158,7 @@ function spawn_random_staff( x, y )
 		add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_zs.png", 11, 4, 17, 0 )
 
-	elseif( rng <= 75 ) then
+	elseif( rng <= 60 ) then
 
 		wand:SetName( "Staff of Ancients", true )
 		wand.shuffle = false
@@ -169,12 +169,57 @@ function spawn_random_staff( x, y )
 		wand.manaChargeSpeed = 192 + ( 192 + Random( -4, 4 ) ) * wand_lvl
 		wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
 		wand.spread = Random( -5, 0 )
-		local random_attach = { "ANTI_HOMING", "LINE_ARC", "HORIZONTAL_ARC", "CHAOTIC_ARC", "TRUE_ORBIT", "GRAVITY", "DECELERATING_SHOT", "ACCELERATING_SHOT", "MATERIAL_ACID", "WATER_TO_POISON", "BLOOD_TO_ACID", "ZERO_DAMAGE", "EXPLOSION_REMOVE", "RECOIL", "LIFETIME_DOWN" }
+		local random_attach = { "FREEZE" }
 		wand:AttachSpells( random_attach[ Random( 1, #random_attach ) ] )
 		add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient.png", 11, 4, 17, 0 )
 
+	-- elseif( rng <= 80 ) then
+
+	-- 	wand:SetName( "Staff of Duality", true )
+	-- 	wand.shuffle = false
+	-- 	wand.spellsPerCast = 1
+	-- 	wand.castDelay = Random( -3, 5 )
+	-- 	wand.rechargeTime = Random( 3, 7 )
+	-- 	wand.manaMax = 128 + ( 128 + Random( -4, 4 ) ) * wand_lvl
+	-- 	wand.manaChargeSpeed = 192 + ( 192 + Random( -4, 4 ) ) * wand_lvl
+	-- 	wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
+	-- 	wand.spread = 0
+	-- -- 	-- local random_attach_2 = { "DYNAMITE", "BOMB", "ROCKET" }
+	-- 	wand:AttachSpells( "I_SHOT" )
+	-- 	add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
+	-- 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_dual.png", 15, 4, 14, 0 )
+
+	elseif( rng <= 80 ) then
+
+		wand:SetName( "Staff of Humble Beginnings", true )
+		wand.shuffle = false
+		wand.spellsPerCast = 1
+		wand.castDelay = Random( 9, 15 )
+		wand.rechargeTime = Random( 20, 28 )
+		wand.manaMax = Random( 80, 130 ) * 10
+		wand.manaChargeSpeed = Random( 25, 40 ) * 10
+		wand.capacity = 20
+		wand.spread = 0
+		wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET" )
+		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_starter_1.png", 11, 4, 17, 0 )
+
 	elseif( rng <= 100 ) then
+
+		wand:SetName( "Staff of Humble Bombings", true )
+		wand.shuffle = true
+		wand.spellsPerCast = 1
+		wand.castDelay = Random( 3, 8 )
+		wand.rechargeTime = Random( 1, 10 )
+		wand.manaMax = Random( 80, 110 ) * 10
+		wand.manaChargeSpeed = Random( 5, 20 ) * 10
+		wand.capacity = 1
+		wand.spread = 0
+		wand:AttachSpells( "EXPLOSIVE_PROJECTILE", "EXPLOSIVE_PROJECTILE", "EXPLOSIVE_PROJECTILE", "EXPLOSIVE_PROJECTILE" )
+		wand:AddSpells( "BOMB" )
+		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_starter_2.png", 11, 4, 17, 0 )
+
+	elseif( rng <= 120 ) then
 
 		wand:SetName( "Staff of Glass", true )
 		wand.shuffle = false
