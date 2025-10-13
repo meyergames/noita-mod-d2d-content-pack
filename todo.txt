@@ -193,3 +193,15 @@ nucleus testing/promo:
 
 
 CardUI, Card, CardCopy ==> CardUI, CardData, Card
+
+[ ] "Reach the next UNVISITED Holy Mountain within 60 seconds"
+
+[ ] check out the balloon of Graham's Things for Heart Balloon technical inspiration
+[ ] check out the umbrella shield of Graham's Things for Reactive Shield technical inspiration
+[ ] https://github.com/Neffc/narg/ for alchemy recipe predictions (for cursed chest loot)
+[ ] https://noita.wiki.gg/wiki/Mod:Graham%27s_Things/Spells/Connection_Trail coooool
+[ ] fixed altituded could do with a little -cast delay/recharge time for flavour and appeal
+
+[x] giving Master Of Lightning stun protection disables its boost after being electrocuted. maybe change that to "only damaging projectiles gain an electric charge?"
+
+[ ] Pokeball-like spell that captures a creature if its health is low enough. Make it have a chance to escape

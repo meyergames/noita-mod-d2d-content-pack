@@ -14,9 +14,9 @@ end
 extra_modifiers["d2d_master_of_lightning_boost"] = function()
 	local is_immune_to_electricity = has_game_effect( get_player(), "PROTECTION_ELECTRICITY" )
     if( not is_immune_to_electricity ) then
-		c.lightning_count = c.lightning_count + 1
 		c.damage_electricity_add = c.damage_electricity_add + 0.2
-		c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
+        c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
+        c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_lightning_try_electrify.xml,"
         
 		c.speed_multiplier = c.speed_multiplier * 2
 		c.fire_rate_wait   = (c.fire_rate_wait / 4) * 3

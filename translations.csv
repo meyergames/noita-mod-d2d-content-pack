@@ -1,6 +1,6 @@
 ,en,ru,pt-br,es-es,de,fr-fr,it,pl,zh-cn,jp,ko,,NOTES – use \n for newline,max length
 perk_d2d_time_trial_name,Time Trial,,,,,,,,,,,,,
-perk_d2d_time_trial_desc,Reach the next Holy Mountain within 60 seconds to be greatly rewarded.\nObtain a random curse if you lose.,,,,,,,,,,,,,
+perk_d2d_time_trial_desc,Reach the next unvisited Holy Mountain within 60 seconds to be greatly rewarded.\nObtain a random curse if you lose.,,,,,,,,,,,,,
 perk_d2d_master_of_explosions_name,Master Of Bombs,,,,,,,,,,,,,
 perk_d2d_master_of_explosions_desc,Become infused with the power of explosions.\nOnly works if you are NOT immune to explosions.,,,,,,,,,,,,,
 perk_d2d_master_of_lightning_name,Master Of Lightning,,,,,,,,,,,,,

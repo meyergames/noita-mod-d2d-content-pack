@@ -31,9 +31,9 @@ function OnPlayerSpawned(player)
         end
     end
 
-    dofile_once( "mods/D2DContentPack/files/scripts/special_wand_utils.lua" )
+    -- dofile_once( "mods/D2DContentPack/files/scripts/special_wand_utils.lua" )
     -- spawn_random_staff( 0, -100, 55 )
-    spawn_random_staff( 20, -100, 75 )
+    -- spawn_random_staff( 20, -100, 75 )
 end
 
 
