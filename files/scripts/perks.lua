@@ -108,8 +108,7 @@ d2d_perks = {
 			if immunity_effect_id ~= nil then
 				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
 			end
-
-			LoadGameEffectEntityTo( entity_who_picked, "data/entities/misc/effect_stun_protection_electricity.xml" )
+			
            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_lightning.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
             { 
