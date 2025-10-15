@@ -194,7 +194,7 @@ nucleus testing/promo:
 
 CardUI, Card, CardCopy ==> CardUI, CardData, Card
 
-[ ] "Reach the next UNVISITED Holy Mountain within 60 seconds"
+[x] "Reach the next UNVISITED Holy Mountain within 60 seconds"
 
 [ ] check out the balloon of Graham's Things for Heart Balloon technical inspiration
 [ ] check out the umbrella shield of Graham's Things for Reactive Shield technical inspiration

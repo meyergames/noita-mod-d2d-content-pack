@@ -131,8 +131,120 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] force field modifier: spawns a damage-less explosion that knocks back nearby physics objects and enemies
 
+[ ] perk reroll voucher, grants one free perk reroll
+
+[ ] a one-way door to a parallel world left or right of the one you're in
+
+[ ] slay the spire inspired content:
+- meal ticket (perk): heal 15 hp (or 5% of max HP) each time you buy something from the shop
+- the boot: whenever you deal 4 or less damage, increase it to 5
+- toy ornithopter: whenever you drink from a magical liquid potion, restore 5 HP
+- shuriken: every 3rd projectile you cast deals double damage
+
+[!] perk: the courier (STS): when you buy a spell from a shop, 50% chance for a new spell to appear (100% at 2 stacks)
+
+[ ] perk that restores HP on each enemy kill, equal to 1% of their max HP
+
+[ ] passive spell that greatly empowers shuffle wands (for each unique spell in it?)
+
+[ ] projectile that converts spell cards into +2 max health bubbles?
+
+[ ] dolly's mirror (STS): perk that duplicates a random spell in your inventory
+
+[ ] 'other' spell that halves the next spell's mana drain
+
+[!] perk that gives enemies a chance to drop a spell card (scaling with max HP)
+
+[ ] perk: when a limited-use spell reaches 0, it is temporarily converted into an optimize-like modifier (slight fire rate and mana improvements)
+
+[ ] perk: the first spell in your inventory has its mana cost reduced to 0, but gains limited uses
+
+[ ] perk: after not taking damage for at least 5 seconds, the first instance of damage is reduced by 90%
+
+[ ] banshee's veil: after killing an enemy, gain an 8-second spell shield that destroys the first incoming projectile
+[ ] banshee's veil: limited-use utility spell that creates a spell shield, which destroys one incoming projectile
+
+[ ] passive spell: mana charge speed is doubled when the wand is not your active wand
+
+[ ] some kind of item/staff/thing hidden in the ground below the temple heart and spell refresher?
+
+[ ] perk: temple health and ammo pickups are replaced with 2 extra random perks to choose from
+
+[ ] perk: all holy mountains gain a portal that teleports you to one of the exit portals in the biome above (random)
+
+[ ] greek spell: copy a random spell in your wand, 0 mana cost
+
+[!!] perk (or default feature?): temple hearts and spell refreshers are linked with a new item: hammer. upgrades your wand. picking up the heart or refresh makes the hammer disappear, picking up the hammer makes the heart and refresh disappear.
+
+[ ] lizard tail: when you would die, gain a random curse but respawn at the last HM (using dead isn't dead code)
+
+[ ] perk: limited-use spells cost 0 mana to use
+
+[!] perk (one-off): all spells in your inventory are transformed into a random other spell of the same category; duplicate spells change into the same spells
+
+[!] recycle buff: 75% chance not to use charge when it's the last one
+
+[!] perk: obtain a curse. the other two perks will no longer cause the other to disappear.
+
+[ ] some kind of positive resource, like RPG Maker's TP? that can be used for special interactions
+	[ ] DnD-esque "Inspiration"? "Luck" that makes failed rng rolls still succeed? "Miracles"?
+
+[ ] simplified missing mana to damage: +1 or +1% damage for every 100 or 10% missing mana
+
+[!] expand mana buff: reduce cost by 90%
+
+[ ] perk: gain 1 hp and max hp for every enemy killed. non-heart sources of healing become ineffective.
+
+[ ] utility spell (limited-use): your (max) hp is doubled for 20 seconds, then halved again.
+(basically "gain 50% dmg reduction for 20 seconds", a bit boring)
+
+[ ] "Lock-On" (projectile): applies a debuff that makes the next projectile crit. high cast delay.
+
+[ ] ambrosia modifier: makes the target immune to all damage for 2 seconds. friendly fire off.
+
+[ ] "die die die" (rename to "piercing volley"): projectile that shoots 9 piercing darts in a large cone to deal damage in a wide AoE.
+
+[ ] "reverse hand": 'other' spell that adds your discard pile to your deck in reversed order.
+
+[ ] modifier: +3 damage for every projectile in your discard
+
+[ ] greek spell: copy a random spell in your inventory, 0 mana cost
+
+[!] perk/modifier: when a limited-use spell reaches 0 uses, swap it with the leftern-most spell in your inventory that has <>0 uses remaining
+(play the UI card swap sound when this happens + GamePrint)
+
+[ ] perk: when a limited-use spell reaches 0 uses, move it to your inventory and replace it with a random new spell
+
+[ ] 'other': add all cards in your inventory to your hand
+
+[ ] Thunder (spell): causes the entity with the most remaining HP on screen to take immense electric damage
+
+[!] passive spell: +0.25/+0.33 fire rate if the wand has shuffle 'Yes'
+
+[ ] 'other' spell (1 max use): if the next spell has 0 uses remaining, refill it
+
+[ ] replenish mana (modifier): restore 25-50% of your wand's missing mana; adds cast delay like add mana.
+
+[ ] projectile: deals 10 damage. high cast delay. if it kills an enemy, its damage is permanently increased by +1.
+(limited-use?)
+
+[ ] nasus Q: short-range drill attack that deals 12 damage; if it kills the enemy, the spell's damage is permanently increased by +1 to +3 (based on enemy max HP?). high cast delay.
+
+[ ] curse: "Thorned Grip" take 1 damage when you switch between wands
+
+[ ] modifier spell: "Combo" if the previous spell is a projectile different than the currently modified projectile --> Damage Plus but better
+
+[ ] Viral Shot (modifier): applies a virus (LuaComponent) that deals 20 damage over 20 seconds. spreads to enemies; reapplied if an enemy dies from the virus.
+
 [ ] 
 
+
+
+CROSS-MOD IDEAS
+
+[ ] dead isn't dead / other respawn mods: apply a random curse upon death
+
+[ ] community mod: special perks that are only available to classes? (maybe optional)
 
 
 ENTIRELY NEW MODS?
@@ -150,3 +262,7 @@ ENTIRELY NEW MODS?
 [x] Beacon spell
 
 [ ] Mod that allows you to swap your wand's sprite (via UI)
+
+[ ] card packs (shop): replaces all nearby spells in the shop with spells from the corresponding mod (i.e. there would be an Apotheosis pack, a D2D pack, a Graham's pack...)
+	[ ] compatibility for custom card packs, so if one mod's spell synergizes really well with another mod's spell, you can combine them with a high chance to spawn together
+	[ ] spawn 3 'Card Pack' items before spells are spawned, which dictate the source of spells in the shop. the middle one is always 'random' (i.e. vanilla + all mods mashed together)
