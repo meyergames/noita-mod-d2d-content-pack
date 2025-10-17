@@ -220,3 +220,52 @@ so it'd reward players who can give up the heal, while still being useful for th
 
 
 [x] emergency injection: (toggleable option to) automatically inject if the player would've died
+
+
+
+
+
+
+
+[x] Surface (normal start)
+^ no new setup needed
+
+[ ] Mines (light)
++ primary: light + 2x spark bolt/bubble shot/spitter bolt/bouncing burst
++ secondary: energy orb/magic bolt w/ trigger + all-seeing eye
+    > trigger spell with *some* digging potential (it shouldn't be worse than the basic loadout)
+    > with *just* enough mana for both
+        -- learns the player about triggers. more specifically, when their payloads do and do not trigger:
+            -- there must be collision
+            -- there must be enough mana on the wand for the entire payload
++ possible items: default pool
+
+[ ] Coal Pits (mining)
++ primary: energy orb / shotgun (fast but expensive to use, so it can burst but also teach firing restraint) / plasma beam
++ secondary: drill shot (common) / plasma beam? (uncommon)
++ possible items: gunpowder (common) / acid potion (uncommon) / water
+    -- any wand mechanics we could teach the player here?
+
+[ ] Snowy Depths (fire)
++ primary: ( torch + burst of air ) || ( fire trail + projectile )
++ secondary: fireball orbit + firebomb
++ possible items: water / lava (uncommon)
+
+[ ] Hiisi Base (explosions)
++ primary: projectile w/ trigger + (magical) explosion
++ secondary: shuffle wand w/ always-cast explosive projectile + dynamite + bomb (invite the player to slap projectiles on this; wand power should fall off around snowy chasm)
++ possible items: berserkium / gunpowder / 
+
+[ ] Underground Jungle (homing)
+
+
+[ ] The Vault (electricity)
++ primary: 
++ secondary: lightning bolt
++ possible items: 
+
+[ ] Temple of the Art (melee)
+
+
+[ ] The Laboratory (alchemy)
+
