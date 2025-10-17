@@ -81,8 +81,8 @@ d2d_perks = {
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			local x,y = EntityGetTransform( entity_perk_item )
-    		EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer.xml", x, y - 20 )
+			-- local x,y = EntityGetTransform( entity_perk_item )
+    		-- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer.xml", x, y - 20 )
 		end,
 	},
 
