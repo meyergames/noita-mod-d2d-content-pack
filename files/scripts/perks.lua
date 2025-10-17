@@ -247,12 +247,9 @@ d2d_perks = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			local x,y = EntityGetTransform( entity_perk_item )
 
-			-- temporarily set perk destroy chance to 0, until player leaves HM
+			-- briefly set perk destroy chance to 0, so other perks remain
 			local value_to_cache = GlobalsGetValue( "TEMPLE_PERK_DESTROY_CHANCE", 100 )
-			-- local biome_name = BiomeMapGetName( x, y )
 			set_internal_int( get_player(), "blurse_cached_perk_destroy_chance", tonumber( value_to_cache ) )
-			-- addNewInternalVariable( get_player(), "blurse_init_biome", "value_string", biome_name )
-
 			GlobalsSetValue( "TEMPLE_PERK_DESTROY_CHANCE", 0 )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{
@@ -261,7 +258,7 @@ d2d_perks = {
 				execute_every_n_frame="3",
 				remove_after_executed="1",
 			} )
-
+			
             local nearby_perks = EntityGetInRadiusWithTag( x, y, 50, "perk" )
             if nearby_perks then
             	dofile_once( "data/scripts/perks/perk.lua" )
