@@ -8,7 +8,12 @@ function spawn_hp( x, y )
 
 	if has_perk( "D2D_WANDSMITH" ) then
 		-- spawn the hammer and cache its id
-		local hammer_id = EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer.xml", x, y )
+		local hammer_id = -1
+		if ModIsEnabled( "disable-auto-pickup" ) then
+			hammer_id = EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer_manual_pickup.xml", x, y )
+		else
+			hammer_id = EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer.xml", x, y )
+		end
 
 		-- disable auto pickup if mod setting
 		-- local config_auto_pickup_hammer = ModSettingGet( "D2DContentPack.auto_pickup_hammer" )

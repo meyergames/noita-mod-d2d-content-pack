@@ -204,16 +204,19 @@ CardUI, Card, CardCopy ==> CardUI, CardData, Card
 
 [x] giving Master Of Lightning stun protection disables its boost after being electrocuted. maybe change that to "only damaging projectiles gain an electric charge?"
 
-[ ] add mod settings to disable individual spells/perks
+[x] add mod settings to disable individual spells/perks
 
-
+[ ] if the "Disable Auto Pickup" mod is enabled, spawn a non-auto-pickup version of the Hammer
 
 
 
 TEMPLE SMITH
-[ ] Goki: "I think that it'd add some value for the main path, since once people are in PWs it's a clear choice to use it, but in the main path, the value of the HM heal is way higher than the refresh
+[x] Goki: "I think that it [downgrading the hammer instead of removing it when taking only the heart or only the refresher] would add some value for the main path, since once people are in PWs it's a clear choice to use it, but in the main path, the value of the HM heal is way higher than the refresh
 so it'd reward players who can give up the heal, while still being useful for those that need the heal but can forgo the refresh"
 
 [ ] also Goki: "does it work if you leave hearts and refreshes behind on prior HMs?"
     me: "could add a scan that checks if there are any hearts + refreshes without nearby hammers and spawn them retroactively, though I'll add that to my to-do for later :P
     Goki: "it'd probably be easiest to have an entity loaded in the HM by default if the perk is able to load (i.e. the mod is on, and if the mod can disable perks, that isn't disabled) and then use that entity to spawn it if the perk is enabled"
+
+
+[x] emergency injection: (toggleable option to) automatically inject if the player would've died
