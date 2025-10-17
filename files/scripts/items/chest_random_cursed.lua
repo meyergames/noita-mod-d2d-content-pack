@@ -27,14 +27,17 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	-- [ ] live Circle Of Gold spellcast
 
 	local rnd = Random(1,100)
-	-- maybe spawn gold (15% chance)
-	if ( rnd <= 15 ) then
+	-- maybe spawn gold (10% chance)
+	if ( rnd <= 10 ) then
 		local rnd2 = Random( 1,100 )
 		if ( rnd2 <= 99 ) then
 			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_128.xml" } )
 		elseif ( rnd2 <= 100) then -- 1/1,000
 			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml" } )
 		end
+	-- maybe spawn a hammer (5% chance)
+	if ( rnd <= 15 ) then
+		table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/hammer.xml" } )
 	-- maybe spawn a heart (15% chance)
 	elseif ( rnd <= 30 ) then
 		local rnd2 = Random( 1, 100 )
@@ -107,7 +110,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	else
 		local rnd2 = Random( 1, 5 )
 		if rnd2 == 1 then -- 6% chance for a unique staff
-	    	dofile_once( "mods/D2DContentPack/files/scripts/special_wand_utils.lua" )
+	    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
 			spawn_random_staff( x, y )
 		else
 			local rnd3 = Random( 1, 100 )

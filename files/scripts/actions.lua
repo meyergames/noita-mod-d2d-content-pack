@@ -738,6 +738,22 @@ d2d_actions = {
 								mana = mana + mana_regain
 		                    end,
 	},
+
+	-- {
+	-- 	id          = "D2D_ALT_FIRE_CTRL_SHIELD",
+	-- 	name 		= "Alt-Ctrl Shield",
+	-- 	description = "Right-click to change its direction",
+	-- 	sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_ctrl_shield.png",
+	-- 	type 		= ACTION_TYPE_PASSIVE,
+	-- 	spawn_level                       = "0,1,2,3,4,5", -- ENERGY_SHIELD_SECTOR
+	-- 	spawn_probability                 = "0.1,0.5,0.6,0.8,0.5,0.4", -- ENERGY_SHIELD_SECTOR
+	-- 	price = 160,
+	-- 	custom_xml_file = "mods/D2DContentPack/files/entities/projectiles/deck/alt_fire_ctrl_shield.xml",
+	-- 	action 		= function()
+	-- 		-- does nothing to the projectiles
+	-- 		draw_actions( 1, true )
+	-- 	end,
+	-- },
 }
 
 if actions ~= nil then

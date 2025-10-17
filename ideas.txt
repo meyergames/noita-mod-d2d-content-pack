@@ -174,7 +174,8 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] greek spell: copy a random spell in your wand, 0 mana cost
 
-[!!] perk (or default feature?): temple hearts and spell refreshers are linked with a new item: hammer. upgrades your wand. picking up the heart or refresh makes the hammer disappear, picking up the hammer makes the heart and refresh disappear.
+[x] perk: temple hearts and spell refreshers are linked with a new item: hammer. upgrades your wand. picking up the heart or refresh makes the hammer disappear, picking up the hammer makes the heart and refresh disappear.
+(use the Anvil of Destiny hammer sounds? if open source)
 
 [ ] lizard tail: when you would die, gain a random curse but respawn at the last HM (using dead isn't dead code)
 
@@ -182,7 +183,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [!] perk (one-off): all spells in your inventory are transformed into a random other spell of the same category; duplicate spells change into the same spells
 
-[!] recycle buff: 75% chance not to use charge when it's the last one
+[?] recycle buff: 75% chance not to use charge when it's the last one
 
 [!] perk: obtain a curse. the other two perks will no longer cause the other to disappear.
 
@@ -230,13 +231,24 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] nasus Q: short-range drill attack that deals 12 damage; if it kills the enemy, the spell's damage is permanently increased by +1 to +3 (based on enemy max HP?). high cast delay.
 
-[ ] curse: "Thorned Grip" take 1 damage when you switch between wands
+[ ] curse: "Thorned Grip" take 1 damage when you switch between wands --> add a "script_enabled_changed" LuaComponent to all wands in hand and all wands picked up after getting this curse
 
 [ ] modifier spell: "Combo" if the previous spell is a projectile different than the currently modified projectile --> Damage Plus but better
 
 [ ] Viral Shot (modifier): applies a virus (LuaComponent) that deals 20 damage over 20 seconds. spreads to enemies; reapplied if an enemy dies from the virus.
 
-[ ] 
+[ ] ring of life: on death, drop all your wands, potions and spells (in a gravestone?(c)) and respawn with 100 or 25% of your max hp at the nearest HM exit above you. you must make it back to your death place with an empty inventory.
+
+[ ] modifier: sends spells flying in random directions, sets their speed low, and makes them gradually home in on a nearby enemy (heavy spread + accelerative homing?)
+(https://discord.com/channels/453998283174576133/626947516369338388/1427814108429811783)
+
+[ ] perk: transform starter wand into the "wand of humble beginnings" / bombings
+
+[ ] nerf 'evolving wands' to only apply to the wand in your hand; make it stackable. maybe the first spell on your wand dictates which upgrade is applied to the wand? (also apply this to the hammer pickup?)
+
+[ ] Pokeball-like spell that captures a creature if its health is low enough. Make it have a chance to escape
+
+
 
 
 
@@ -245,6 +257,9 @@ CROSS-MOD IDEAS
 [ ] dead isn't dead / other respawn mods: apply a random curse upon death
 
 [ ] community mod: special perks that are only available to classes? (maybe optional)
+
+
+
 
 
 ENTIRELY NEW MODS?

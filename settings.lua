@@ -37,6 +37,13 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
+            -- {
+            --     id = "auto_pickup_hammer",
+            --     ui_name = "Auto pickup Hammer",
+            --     ui_description = "Whether to automatically pick up the Hammer item.",
+            --     value_default = true,
+            --     scope = MOD_SETTING_SCOPE_RESTART,
+            -- },
         },
     },
 }

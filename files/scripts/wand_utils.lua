@@ -249,3 +249,113 @@ function spawn_random_staff( x, y, force_rng )
 	-- wand:UpdateSprite()
 	wand:PlaceAt( x, y )
 end
+
+function Test_SpawnCommunityModWand()
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand()
+    local x, y = EntityGetTransform( get_player() )
+
+    local rnd = Random( 1, 14 )
+    if rnd == 1 then
+	    wand:SetName( "Bolt", true )
+	    wand.shuffle = false
+	    wand.spellsPerCast = 1
+	    wand.castDelay = 2 -- 0.03
+	    wand.rechargeTime = Random( 28, 35 ) -- between 0.47 and 0.58
+	    wand.manaMax = Random( 90, 110 )
+	    wand.manaChargeSpeed = Random( 27, 33 )
+	    wand.capacity = 4
+	    wand.spread = 0
+	    wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "SCATTER_2", "ELECTRIC_CHARGE" )
+	    -- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ags.png", 8, 6, 17, 0 )
+		-- wand:UpdateSprite()
+		wand:PlaceAt( x - 10, y - 20 )
+
+	    wand:SetName( "Wand", true )
+	    wand.shuffle = true
+	    wand.spellsPerCast = 1
+	    wand.castDelay = Random( 3, 8 ) -- between 0.03 and 0.07
+	    wand.rechargeTime = Random( 1, 10 ) -- between 0.52 and 0.58
+	    wand.manaMax = Random( 72, 78 )
+	    wand.manaChargeSpeed = Random( 22, 28 )
+	    wand.capacity = 1
+	    wand.spread = 0
+	    wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "SCATTER_2", "ELECTRIC_CHARGE" )
+	    -- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ags.png", 8, 6, 17, 0 )
+		-- wand:UpdateSprite()
+		wand:PlaceAt( x + 10, y - 20 )
+	end
+
+    local x, y = EntityGetTransform( get_player() )
+	wand:PlaceAt( x, y - 20 )
+end
+
+function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
+	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+
+	-- get the wand's base name (i.e. without upgrade suffix)
+	local base_wand_name, show_in_ui = wand:GetName()
+	local wand_version = 1
+	if ( string.find( base_wand_name, " Mk." ) ) then
+		wand_version = tonumber( split_string( base_wand_name, " Mk." )[2] ) or 1
+		base_wand_name = split_string( base_wand_name, " Mk." )[1]
+	end
+	if ( string.find( base_wand_name, "_" ) or base_wand_name == "" ) then
+		base_wand_name = "Wand"
+	end
+
+	if not wand_name then wand_name = base_wand_name end
+
+	-- apply upgrades
+	if upgrade_amt == 0 then upgrade_amt = 1 end
+	for i = 1, upgrade_amt do
+		local rnd = Random( 0, 100 )
+
+		if rnd <= 10 and wand.shuffle == true then -- 5% chance to make non-shuffle
+			wand.shuffle = false
+
+			GamePrint("Your " .. wand_name .. " became non-shuffle!")
+
+		elseif rnd <= 20 and wand.capacity < 25 then
+			local old_capacity = wand.capacity
+			wand.capacity = old_capacity + 1
+
+			GamePrint( "Your " .. wand_name .. "'s capacity was increased! (" .. old_capacity .. " > " .. wand.capacity .. ")" )
+
+		elseif rnd <= 40 and wand.spread > -30.0 then
+			local old_spread = wand.spread
+			wand.spread = math.max( wand.spread - math.max( wand.spread * 0.5, 3.0 ), -30.0 )
+
+			GamePrint("Your " .. wand_name .. "'s accuracy was increased. (" .. old_spread .. " > " .. wand.spread .. ")" )
+
+		elseif rnd <= 60 and wand.manaMax < 20000 then
+			local old_mana_max = wand.manaMax
+			wand.manaMax = math.min( old_mana_max + math.max( old_mana_max * 0.1, 30 ), 5000 )
+
+			GamePrint("Your " .. wand_name .. "'s max mana was increased. (" .. string.format( "%.0f", old_mana_max ) .. " > " .. string.format( "%.0f", wand.manaMax ) .. ")" )
+
+		elseif rnd <= 80 and wand.manaChargeSpeed < 20000 then
+			local old_mana_charge_speed = wand.manaChargeSpeed
+			wand.manaChargeSpeed = math.min( old_mana_charge_speed + math.max( old_mana_charge_speed * 0.1, 30 ), 5000 )
+
+			GamePrint("Your " .. wand_name .. "'s mana charge speed was increased. (" .. string.format("%.0f",old_mana_charge_speed) .. " > " .. string.format("%.0f",wand.manaChargeSpeed) .. ")" )
+
+		elseif rnd <= 100 then
+			local old_cast_delay = wand.castDelay
+			local old_recharge_time = wand.rechargeTime
+
+			if ( wand.castDelay > -21 ) then
+				wand.castDelay = math.max( old_cast_delay - math.max( old_cast_delay * 0.1, 2 ), -21 ) -- at least 0.03s reduction
+			end
+			if ( wand.rechargeTime > -21) then
+				wand.rechargeTime = math.max( old_recharge_time - math.max( old_recharge_time * 0.1, 3 ), -21 ) -- at least 0.05s reduction
+			end
+
+			GamePrint("Your " .. wand_name .. "'s fire rate was increased! (" .. string.format( "%.2f", old_cast_delay / 60 ) .. "/" .. string.format( "%.2f", old_recharge_time / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. "/" .. string.format( "%.2f", wand.rechargeTime / 60 ) .. ")" )
+		end
+	end
+
+	-- change the wand's name and play sfx
+	wand:SetName( base_wand_name .. " Mk." .. ( wand_version + upgrade_amt ), true )
+	-- GamePlaySound( "mods/D2DContentPack/lib/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit", x, y )
+end

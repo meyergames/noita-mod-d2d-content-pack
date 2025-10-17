@@ -25,10 +25,14 @@ d2d_perks = {
 	-- 	usable_by_enemies = false,
 	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
 	-- 		local x,y = EntityGetTransform( entity_who_picked )
+    --         LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/balloon_heart.xml" )
 
-	-- 		child_id = EntityLoad( "mods/D2DContentPack/files/entities/misc/perks/balloon_heart.xml", x, y - 36 )
-	-- 		EntityAddChild( entity_who_picked, child_id )
-	-- 		-- TODO: Look at verlet physics (i.e. Lukki legs)
+    --         dofile_once( "data/scripts/lib/utilities.lua" )
+	-- 		local lua_comp_id = EntityAddComponent2( entity_who_picked, "LuaComponent", {
+    --     		script_damage_received="mods/D2DContentPack/files/scripts/perks/effect_balloon_heart_on_damage_received.lua",
+    --     		execute_every_n_frame=-1,
+	-- 		})
+	-- 		set_internal_int( entity_who_picked, "balloon_heart_lua_comp_id", lua_comp_id )
 	-- 	end,
 	-- },
 
@@ -52,17 +56,34 @@ d2d_perks = {
 		ui_description = "$perk_d2d_evolving_wands_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/evolving_wands_016.png",
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/evolving_wands.png",
-		stackable = STACKABLE_YES,
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if ( pickup_count <= 1 ) then
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{
+					_tags = "perk_component",
+					script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_evolving_wands_update.lua",
+					execute_every_n_frame = "60",
+				} )
+			end
+        end,
+	},
+
+	{
+		id = "D2D_WANDSMITH",
+		ui_name = "$perk_d2d_wandsmith_name",
+		ui_description = "$perk_d2d_wandsmith_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/wandsmith_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/wandsmith.png",
+		stackable = STACKABLE_NO, -- doesn't work for now (smth with the effect's internal variable tracking)
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			EntityAddComponent( entity_who_picked, "LuaComponent", 
-			{
-				_tags = "perk_component",
-				script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_evolving_wands_update.lua",
-				execute_every_n_frame = "60",
-			} )
-        end,
+			local x,y = EntityGetTransform( entity_perk_item )
+    		EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer.xml", x, y - 20 )
+		end,
 	},
 
 	{
@@ -108,7 +129,7 @@ d2d_perks = {
 			if immunity_effect_id ~= nil then
 				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
 			end
-			
+
            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_lightning.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
             { 
@@ -212,6 +233,60 @@ d2d_perks = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_hunt_curses.xml" )
         end,
+	},
+
+	{
+		id = "D2D_BLESSINGS_AND_CURSE",
+		ui_name = "$perk_d2d_blessings_and_curse_name",
+		ui_description = "$perk_d2d_blessings_and_curse_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/blessings_and_curse_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/blessings_and_curse.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = true,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			local x,y = EntityGetTransform( entity_perk_item )
+
+			-- temporarily set perk destroy chance to 0, until player leaves HM
+			local value_to_cache = GlobalsGetValue( "TEMPLE_PERK_DESTROY_CHANCE", 100 )
+			-- local biome_name = BiomeMapGetName( x, y )
+			set_internal_int( get_player(), "blurse_cached_perk_destroy_chance", tonumber( value_to_cache ) )
+			-- addNewInternalVariable( get_player(), "blurse_init_biome", "value_string", biome_name )
+
+			GlobalsSetValue( "TEMPLE_PERK_DESTROY_CHANCE", 0 )
+			EntityAddComponent( entity_who_picked, "LuaComponent", 
+			{
+				_tags="perk_component",
+				script_source_file="mods/D2DContentPack/files/scripts/perks/effect_blessings_and_curse_revert.lua",
+				execute_every_n_frame="3",
+				remove_after_executed="1",
+			} )
+
+            local nearby_perks = EntityGetInRadiusWithTag( x, y, 50, "perk" )
+            if nearby_perks then
+            	dofile_once( "data/scripts/perks/perk.lua" )
+				for _,perk_id in ipairs( nearby_perks ) do
+					local vscomps = EntityGetComponentIncludingDisabled( perk_id, "VariableStorageComponent" )
+					local has_pdro = false
+					for _,vscomp in ipairs( vscomps ) do
+						local var_name = ComponentGetValue2( vscomp, "name" )
+						if var_name == "perk_dont_remove_others" then
+							has_pdro = true
+							ComponentSetValue2( vscomp, "value_bool", true )
+						end
+					end
+					if not has_pdro then
+						addNewInternalVariable( perk_id, "perk_dont_remove_others", "value_bool", true )
+					end
+				end
+			end
+
+			-- spawn a random extra perk
+			perk_spawn_random( x, y, true )
+
+			-- apply a random curse
+			apply_random_curse( get_player() )
+		end,
 	},
 
 

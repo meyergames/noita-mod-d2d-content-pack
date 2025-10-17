@@ -10,6 +10,7 @@ ModMaterialsFileAdd("mods/D2DContentPack/files/materials/materials.xml")
 
 ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural.lua", "mods/D2DContentPack/files/scripts/gun_procedural.lua")
 ModLuaFileAppend("data/scripts/biome_scripts.lua", "mods/D2DContentPack/files/scripts/biome_scripts.lua")
+ModLuaFileAppend("data/scripts/biomes/temple_altar.lua", "mods/D2DContentPack/files/scripts/biomes/temple_altar.lua")
 ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/D2DContentPack/files/scripts/items/heart_fullhp_temple_custom.lua")
 ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/D2DContentPack/files/scripts/items/orb_pickup_custom.lua")
 
@@ -31,9 +32,14 @@ function OnPlayerSpawned(player)
         end
     end
 
-    -- dofile_once( "mods/D2DContentPack/files/scripts/special_wand_utils.lua" )
+    -- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
     -- spawn_random_staff( 0, -100, 55 )
     -- spawn_random_staff( 20, -100, 75 )
+
+    -- dofile_once( "data/scripts/perks/perk.lua" )
+    -- spawn_random_perk( -20, -50 )
+    -- spawn_perk( "D2D_BLESSINGS_AND_CURSE", 0, -50 )
+    -- spawn_random_perk( 20, -50 )
 end
 
 
