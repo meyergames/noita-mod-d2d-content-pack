@@ -732,7 +732,7 @@ d2d_actions = {
 								for _,v in ipairs( hand ) do
 									local spell_data = v
 									if spell_data.mana > 0 then
-										mana_regain = mana_regain + ( spell_data.mana * 0.8 )
+										mana_regain = mana_regain + ( spell_data.mana * 0.9 )
 									end
 								end
 								mana = mana + mana_regain
