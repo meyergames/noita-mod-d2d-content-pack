@@ -52,6 +52,11 @@
 		script_item_picked_up="data/scripts/items/potion_effect.lua"
 	></LuaComponent>
 
+  <LuaComponent
+    remove_after_executed="1"
+    script_item_picked_up="mods/D2DContentPack/files/scripts/items/emergency_injection_add_revive_script_to_player.lua"
+  ></LuaComponent>
+
   <LuaComponent 
     script_death="data/scripts/items/potion_glass_break.lua" 
   ></LuaComponent>
