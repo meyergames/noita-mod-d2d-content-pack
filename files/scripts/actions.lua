@@ -572,13 +572,72 @@ d2d_actions = {
 	                        end,
     },
 
+	{
+		id                  = "D2D_BOLT_CATCHER",
+		name 		        = "$spell_d2d_bolt_catcher_name",
+		description         = "$spell_d2d_bolt_catcher_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/bolt_catcher.png",
+		type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.1,0.5,0.6,0.7,0.8,0.5",
+		price               = 220,
+		mana                = 30,
+		max_uses			= 30,
+		never_unlimited		= true,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 30
+			                    if reflecting then return end
+
+			                    local x, y = EntityGetTransform( get_player() )
+								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/bolt_catcher.xml" )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_EXPAND_MANA",
+		name 		        = "$spell_d2d_expand_mana_name",
+		description         = "$spell_d2d_expand_mana_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/expand_mana.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_expand_mana.xml",
+		price               = 280,
+		mana                = 0,
+		action 		        = function()
+								-- disable Add Mana etc
+								for i,v in ipairs( deck ) do
+									local spell_data = deck[i]
+									if spell_data.mana < 0 then
+										mana = mana - math.abs( spell_data.mana )
+									end
+								end
+								for i,v in ipairs( discarded ) do
+									local spell_data = discarded[i]
+									if spell_data.mana < 0 then
+										mana = mana - math.abs( spell_data.mana )
+									end
+								end
+
+								draw_actions( 1, true )
+								local mana_regain = 0
+								for _,v in ipairs( hand ) do
+									local spell_data = v
+									if spell_data.mana > 0 then
+										mana_regain = mana_regain + ( spell_data.mana * 0.9 )
+									end
+								end
+								mana = mana + mana_regain
+		                    end,
+	},
+
     {
 	    id                  = "D2D_MANA_REFILL",
 	    name 		        = "$spell_d2d_mana_refill_name",
 	    description         = "$spell_d2d_mana_refill_desc",
         inject_after        = { "MANA_REDUCE" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_refill.png",
-	    type 		        = ACTION_TYPE_UTILITY,
+	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 	    price               = 330,
@@ -587,32 +646,16 @@ d2d_actions = {
 		never_unlimited 	= true,
 		-- custom_uses_logic	= true,
 	    action              = function()
-	    						-- c.fire_rate_wait = c.fire_rate_wait + 30
 	    						if reflecting then return end
-	    						-- c.fire_rate_wait = c.fire_rate_wait - 30
 
 							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 							    local wand = EZWand.GetHeldWand()
                                 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
-                                -- if ( mana <= wand.manaMax * 0.25 ) then
 						    	mana = wand.manaMax
             					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
-	    						-- end
 
-								-- 	local uses_remaining = -1
-								-- 	local icomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ItemComponent" )
-								-- 	if ( icomp ~= nil ) then
-								-- 	    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
-								-- 	end
-						        --     local spells, attached_spells = wand:GetSpells()
-						        --     for i,spell in ipairs( spells ) do
-						        --         if ( spell.action_id == "D2D_MANA_REFILL" ) then
-						        --             ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
-						        --             break
-						        --         end
-						        --     end
-	            				-- end
+            					draw_actions( 1, true )
 	                        end,
     },
 
@@ -677,65 +720,6 @@ d2d_actions = {
 		mana                = 1,
 		action 		        = function()
 								draw_actions( 1, true )
-		                    end,
-	},
-
-	{
-		id                  = "D2D_BOLT_CATCHER",
-		name 		        = "$spell_d2d_bolt_catcher_name",
-		description         = "$spell_d2d_bolt_catcher_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/bolt_catcher.png",
-		type 		        = ACTION_TYPE_STATIC_PROJECTILE,
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.1,0.5,0.6,0.7,0.8,0.5",
-		price               = 220,
-		mana                = 30,
-		max_uses			= 30,
-		never_unlimited		= true,
-		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 30
-			                    if reflecting then return end
-
-			                    local x, y = EntityGetTransform( get_player() )
-								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/bolt_catcher.xml" )
-		                    end,
-	},
-
-	{
-		id                  = "D2D_EXPAND_MANA",
-		name 		        = "$spell_d2d_expand_mana_name",
-		description         = "$spell_d2d_expand_mana_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/expand_mana.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_expand_mana.xml",
-		price               = 280,
-		mana                = 0,
-		action 		        = function()
-								-- disable Add Mana etc
-								for i,v in ipairs( deck ) do
-									local spell_data = deck[i]
-									if spell_data.mana < 0 then
-										mana = mana - math.abs( spell_data.mana )
-									end
-								end
-								for i,v in ipairs( discarded ) do
-									local spell_data = discarded[i]
-									if spell_data.mana < 0 then
-										mana = mana - math.abs( spell_data.mana )
-									end
-								end
-
-								draw_actions( 1, true )
-								local mana_regain = 0
-								for _,v in ipairs( hand ) do
-									local spell_data = v
-									if spell_data.mana > 0 then
-										mana_regain = mana_regain + ( spell_data.mana * 0.9 )
-									end
-								end
-								mana = mana + mana_regain
 		                    end,
 	},
 
