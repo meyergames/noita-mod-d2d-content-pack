@@ -114,7 +114,7 @@ extra_modifiers["d2d_spray_and_pray"] = function()
     if wand and wand.shuffle then
         c.fire_rate_wait = c.fire_rate_wait * 0.25
         current_reload_time = current_reload_time * 0.5
-        wand.mana = wand.mana + 10
+        wand.mana = wand.mana + 5
     end
 end
     
