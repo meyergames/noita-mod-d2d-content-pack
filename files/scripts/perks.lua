@@ -87,6 +87,36 @@ d2d_perks = {
 	},
 
 	{
+		id = "D2D_SPELL_COURIER",
+		ui_name = "$perk_d2d_spell_courier_name",
+		ui_description = "$perk_d2d_spell_courier_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/spell_courier_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/spell_courier.png",
+		stackable = STACKABLE_NO,
+		-- max_in_perk_pool = 3,
+		-- stackable_maximum = 3,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			local nearby_shop_items = EntityGetWithTag( "card_action" )
+			if nearby_shop_items then
+				for i,item_id in ipairs( nearby_shop_items ) do
+					local iccomp = EntityGetComponentIncludingDisabled( item_id, "ItemCostComponent" )
+					if iccomp then
+						EntityAddComponent2( item_id, "LuaComponent", {
+							script_item_picked_up="mods/D2DContentPack/files/scripts/perks/effect_spell_courier_item_bought.lua",
+							execute_every_n_frame=-1,
+						})
+					end
+				end
+			end
+
+			perk_pickup_event( "RAT" )
+			add_rattiness_level( entity_who_picked )
+        end,
+	},
+
+	{
 		id = "D2D_MASTER_OF_EXPLOSIONS",
 		ui_name = "$perk_d2d_master_of_explosions_name",
 		ui_description = "$perk_d2d_master_of_explosions_desc",
@@ -232,36 +262,6 @@ d2d_perks = {
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_hunt_curses.xml" )
-        end,
-	},
-
-	{
-		id = "D2D_SPELL_COURIER",
-		ui_name = "$perk_d2d_spell_courier_name",
-		ui_description = "$perk_d2d_spell_courier_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/spell_courier_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/spell_courier.png",
-		stackable = STACKABLE_NO,
-		-- max_in_perk_pool = 3,
-		-- stackable_maximum = 3,
-		one_off_effect = false,
-		usable_by_enemies = false,
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			local nearby_shop_items = EntityGetWithTag( "card_action" )
-			if nearby_shop_items then
-				for i,item_id in ipairs( nearby_shop_items ) do
-					local iccomp = EntityGetComponentIncludingDisabled( item_id, "ItemCostComponent" )
-					if iccomp then
-						EntityAddComponent2( item_id, "LuaComponent", {
-							script_item_picked_up="mods/D2DContentPack/files/scripts/perks/effect_spell_courier_item_bought.lua",
-							execute_every_n_frame=-1,
-						})
-					end
-				end
-			end
-
-			perk_pickup_event("RAT")
-			add_rattiness_level(entity_who_picked)
         end,
 	},
 

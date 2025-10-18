@@ -141,7 +141,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 - toy ornithopter: whenever you drink from a magical liquid potion, restore 5 HP
 - shuriken: every 3rd projectile you cast deals double damage
 
-[!] perk: the courier (STS): when you buy a spell from a shop, 50% chance for a new spell to appear (100% at 2 stacks)
+[x] perk: the courier (STS): when you buy a spell from a shop, 50% chance for a new spell to appear (100% at 2 stacks)
 
 [ ] perk that restores HP on each enemy kill, equal to 1% of their max HP
 

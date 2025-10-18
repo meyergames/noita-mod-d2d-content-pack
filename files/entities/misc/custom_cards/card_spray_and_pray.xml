@@ -3,19 +3,19 @@
     <Base file="data/entities/base_custom_card.xml" >
 
         <SpriteComponent 
-            image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/rapidfire_salvo.png" >
+            image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/spray_and_pray.png" >
         </SpriteComponent>
 
         <ItemActionComponent 
             _tags="enabled_in_world"
-            action_id="D2D_RAPIDFIRE_SALVO" >
+            action_id="D2D_SPRAY_PRAY" >
         </ItemActionComponent>
 
     </Base>
 
     <LuaComponent
         _tags="enabled_in_hand"
-        script_enabled_changed="mods/D2DContentPack/files/scripts/projectiles/rapidfire_salvo_toggle.lua"
+        script_enabled_changed="mods/D2DContentPack/files/scripts/projectiles/spray_and_pray_toggle.lua"
         execute_every_n_frame="-1"
     ></LuaComponent>    
 </Entity>

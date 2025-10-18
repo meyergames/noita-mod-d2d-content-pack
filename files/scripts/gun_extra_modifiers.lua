@@ -99,12 +99,23 @@ extra_modifiers["d2d_divine_prank"] = function()
         set_internal_int( get_player(), "prank_enable_propane", 0 )
     end
 end
-    
+
 extra_modifiers["d2d_rapidfire_salvo"] = function()
     local old_fire_rate_wait = c.fire_rate_wait
     c.fire_rate_wait = c.fire_rate_wait * 0.25
     -- current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.375 )
     current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.75 )
+end
+
+extra_modifiers["d2d_spray_and_pray"] = function()
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand.GetHeldWand()
+
+    if wand and wand.shuffle then
+        c.fire_rate_wait = c.fire_rate_wait * 0.25
+        current_reload_time = current_reload_time * 0.5
+        wand.mana = wand.mana + 10
+    end
 end
     
 extra_modifiers["d2d_fairy_friend"] = function()

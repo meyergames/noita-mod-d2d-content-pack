@@ -144,6 +144,29 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_SPRAY_AND_PRAY",
+	    name 		        = "$spell_d2d_spray_and_pray_name",
+	    description         = "$spell_d2d_spray_and_pray_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spray_and_pray.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_spray_and_pray.xml",
+	    price               = 330,
+	    mana                = 5,
+	    action              = function()
+								c.spread_degrees = c.spread_degrees + 3.0
+                                -- c.fire_rate_wait    = c.fire_rate_wait * 0.25 -- so it shows in the UI
+                                -- current_reload_time = current_reload_time * 0.5 -- so it shows in the UI
+                                if reflecting then return end
+                                -- c.fire_rate_wait    = c.fire_rate_wait + 15
+                                -- current_reload_time = current_reload_time + 20
+
+			                    draw_actions( 1, true )
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_RAPIDFIRE_SALVO",
 	    name 		        = "$spell_d2d_rapidfire_salvo_name",
 	    description         = "$spell_d2d_rapidfire_salvo_desc",
