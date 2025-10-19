@@ -101,13 +101,18 @@ extra_modifiers["d2d_divine_prank"] = function()
 end
 
 extra_modifiers["d2d_rapidfire_salvo"] = function()
+    local is_enabled = get_internal_bool( get_player(), "d2d_rapidfire_salvo_enabled", is_enabled )
+    if not is_enabled then return end
+
     local old_fire_rate_wait = c.fire_rate_wait
     c.fire_rate_wait = c.fire_rate_wait * 0.25
-    -- current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.375 )
     current_reload_time = current_reload_time + ( old_fire_rate_wait * 0.75 )
 end
 
 extra_modifiers["d2d_spray_and_pray"] = function()
+    local is_enabled = get_internal_bool( get_player(), "d2d_spray_and_pray_enabled", is_enabled )
+    if not is_enabled then return end
+
     local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand.GetHeldWand()
 

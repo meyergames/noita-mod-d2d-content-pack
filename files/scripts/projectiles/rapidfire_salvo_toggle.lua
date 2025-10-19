@@ -5,27 +5,11 @@ local owner = EntityGetParent( entity_id )
 local player = get_player()
 
 function enabled_changed( entity_id, is_enabled )
-	local enabled_int = 0
-	if ( is_enabled ) then
-		enabled_int = 1
+	local has_modifier = get_internal_bool( get_player(), "d2d_rapidfire_salvo_modifier_applied" ) or false
+	if not has_modifier then
+		EntityAddComponent( player, "ShotEffectComponent", { extra_modifier = "d2d_rapidfire_salvo" } )
+		set_internal_bool( get_player(), "d2d_rapidfire_salvo_modifier_applied", true )
 	end
-
-	local effect_id = getInternalVariableValue( player, "rapidfire_salvo_modifier_id", "value_int" )
-	if ( effect_id == nil ) then
-		local new_effect_id = EntityAddComponent( player, "ShotEffectComponent", { extra_modifier = "d2d_rapidfire_salvo" } )
-		addNewInternalVariable( player, "rapidfire_salvo_modifier_id", "value_int", new_effect_id )
-		effect_id = new_effect_id
-	end
-
-	EntitySetComponentIsEnabled( player, effect_id, is_enabled )
-	-- if ( is_enabled ) then
-	-- 	setInternalVariableValue( player, "volley_modifier_id", "value_int", new_effect_id )
-	-- else
-	-- 	GamePrint("Trying to remove " .. getInternalVariableValue( entity_id, "volley_modifier_id", "value_int" ) .. "..." )
-	-- 	if ( getInternalVariableValue( entity_id, "volley_modifier_id", "value_int" ) ~= nil ) then
-	-- 		GamePrint( "Removing component " .. getInternalVariableValue( entity_id, "volley_modifier_id", "value_int" ) .. "..." )
-	-- 		EntityRemoveComponent( player, getInternalVariableValue( entity_id, "volley_modifier_id", "value_int" ) )
-	-- 		setInternalVariableValue( entity_id, "volley_modifier_id", "value_int", -1 )
-	-- 	end
-	-- end
+	
+	set_internal_bool( get_player(), "d2d_rapidfire_salvo_enabled", is_enabled )
 end

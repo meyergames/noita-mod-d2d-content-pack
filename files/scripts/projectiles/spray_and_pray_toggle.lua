@@ -5,17 +5,11 @@ local owner = EntityGetParent( entity_id )
 local player = get_player()
 
 function enabled_changed( entity_id, is_enabled )
-	local enabled_int = 0
-	if ( is_enabled ) then
-		enabled_int = 1
+	local has_modifier = get_internal_bool( get_player(), "d2d_spray_and_pray_modifier_applied" ) or false
+	if not has_modifier then
+		EntityAddComponent( player, "ShotEffectComponent", { extra_modifier = "d2d_spray_and_pray" } )
+		set_internal_bool( get_player(), "d2d_spray_and_pray_modifier_applied", true )
 	end
 
-	local effect_id = getInternalVariableValue( player, "spray_and_pray_modifier_id", "value_int" )
-	if ( effect_id == nil ) then
-		local new_effect_id = EntityAddComponent( player, "ShotEffectComponent", { extra_modifier = "d2d_spray_and_pray" } )
-		addNewInternalVariable( player, "spray_and_pray_modifier_id", "value_int", new_effect_id )
-		effect_id = new_effect_id
-	end
-
-	EntitySetComponentIsEnabled( player, effect_id, is_enabled )
+	set_internal_bool( get_player(), "d2d_spray_and_pray_enabled", is_enabled )
 end
