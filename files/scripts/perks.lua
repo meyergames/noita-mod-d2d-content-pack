@@ -649,8 +649,6 @@ d2d_curses = {
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
 
            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_floor_is_lava.xml" )
-
-           	-- BUG: no longer works after restarting the game
         end,
 	},
 

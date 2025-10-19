@@ -3,8 +3,6 @@ dofile_once("data/scripts/lib/utilities.lua")
 local entity_id = GetUpdatedEntityID()
 local owner = EntityGetRootEntity( entity_id )
 
-addNewInternalVariable( owner, "floor_is_lava_counter", "value_int", 0 )
-
 local matconv_lavarock_id = EntityAddComponent2( owner, "MagicConvertMaterialComponent", 
 {
 	from_material_tag = "[solid]",
@@ -13,7 +11,7 @@ local matconv_lavarock_id = EntityAddComponent2( owner, "MagicConvertMaterialCom
 	radius = 0,
 	kill_when_finished = false,
 } )
-addNewInternalVariable( owner, "floor_is_lava_matconv_lavarock_id", "value_int", matconv_lavarock_id )
+EntityAddTag( matconv_lavarock_id, "d2d_floor_is_lava_matconv_1" )
 
 local matconv_lavarockburning_id = EntityAddComponent2( owner, "MagicConvertMaterialComponent", 
 {
@@ -24,7 +22,7 @@ local matconv_lavarockburning_id = EntityAddComponent2( owner, "MagicConvertMate
 	ignite_materials = 100,
 	kill_when_finished = false,
 } )
-addNewInternalVariable( owner, "floor_is_lava_matconv_lavarockburning_id", "value_int", matconv_lavarockburning_id )
+EntityAddTag( matconv_lavarock_id, "d2d_floor_is_lava_matconv_2" )
 
 local matconv_lava_id = EntityAddComponent2( owner, "MagicConvertMaterialComponent", 
 {
@@ -34,4 +32,4 @@ local matconv_lava_id = EntityAddComponent2( owner, "MagicConvertMaterialCompone
 	radius = 0,
 	kill_when_finished = false,
 } )
-addNewInternalVariable( owner, "floor_is_lava_matconv_lava_id", "value_int", matconv_lava_id )
+EntityAddTag( matconv_lavarock_id, "d2d_floor_is_lava_matconv_3" )

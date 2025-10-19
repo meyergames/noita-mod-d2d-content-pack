@@ -12,44 +12,45 @@ local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
 local cdatacomp = EntityGetFirstComponentIncludingDisabled( owner, "CharacterDataComponent" )
 local is_on_ground = ComponentGetValue2( cdatacomp, "is_on_ground" )
 
-local matconv_lavarock_id = getInternalVariableValue( owner, "floor_is_lava_matconv_lavarock_id", "value_int" )
-local matconv_lavarockburning_id = getInternalVariableValue( owner, "floor_is_lava_matconv_lavarockburning_id", "value_int" )
-local matconv_lava_id = getInternalVariableValue( owner, "floor_is_lava_matconv_lava_id", "value_int" )
+local mccomp_1
+local mccomp_2
+local mccomp_3
+local mccomps = EntityGetComponentIncludingDisabled( owner, "MagicConvertMaterialComponent" )
+for i,mccomp in ipairs( mccomps ) do
+	local to_mat = ComponentGetValue2( mccomp, "to_material" )
+	local ignite = ComponentGetValue2( mccomp, "ignite_materials" )
+	if to_mat == CellFactory_GetType( "lavarock_static" ) and ignite == 0 then
+		mccomp_1 = mccomp
+	elseif to_mat == CellFactory_GetType( "lavarock_static" ) and ignite == 100 then
+		mccomp_2 = mccomp
+	elseif to_mat == CellFactory_GetType( "lava" ) then
+		mccomp_3 = mccomp
+	end
+end
 
-local old_val = getInternalVariableValue( owner, "floor_is_lava_counter", "value_int" )
-local new_val = 0
+local old_val = get_internal_int( owner, "d2d_floor_is_lava_counter" ) or 0
+local counter = 0
 if ( is_on_ground ) then
-    new_val = old_val + 1
+    counter = old_val + 1
 else
-	new_val = math.max( old_val - 2, 0 )
+	counter = math.max( old_val - 2, 0 )
 end
-setInternalVariableValue( owner, "floor_is_lava_counter", "value_int", new_val )
+set_internal_int( owner, "d2d_floor_is_lava_counter", counter )
 
-local counter = getInternalVariableValue( owner, "floor_is_lava_counter", "value_int" )
 if ( counter < 24 ) then
-	ComponentSetValue2( matconv_lavarock_id, "radius", 0 )
-	ComponentSetValue2( matconv_lavarockburning_id, "radius", 0 )
-	ComponentSetValue2( matconv_lava_id, "radius", 0 )
+	ComponentSetValue2( mccomp_1, "radius", 0 )
+	ComponentSetValue2( mccomp_2, "radius", 0 )
+	ComponentSetValue2( mccomp_3, "radius", 0 )
 elseif ( counter >= 24 and counter < 36 ) then
-	ComponentSetValue2( matconv_lavarock_id, "radius", CONVERT_RADIUS )
-	ComponentSetValue2( matconv_lavarockburning_id, "radius", 0 )
-	ComponentSetValue2( matconv_lava_id, "radius", 0 )
+	ComponentSetValue2( mccomp_1, "radius", CONVERT_RADIUS )
+	ComponentSetValue2( mccomp_2, "radius", 0 )
+	ComponentSetValue2( mccomp_3, "radius", 0 )
 elseif ( counter >= 36 and counter < 42 ) then
-	ComponentSetValue2( matconv_lavarock_id, "radius", 0 )
-	ComponentSetValue2( matconv_lavarockburning_id, "radius", CONVERT_RADIUS )
-	ComponentSetValue2( matconv_lava_id, "radius", 0 )
+	ComponentSetValue2( mccomp_1, "radius", 0 )
+	ComponentSetValue2( mccomp_2, "radius", CONVERT_RADIUS )
+	ComponentSetValue2( mccomp_3, "radius", 0 )
 elseif ( counter >= 42 ) then
-	ComponentSetValue2( matconv_lavarock_id, "radius", 0 )
-	ComponentSetValue2( matconv_lavarockburning_id, "radius", 0)
-	ComponentSetValue2( matconv_lava_id, "radius", CONVERT_RADIUS )
+	ComponentSetValue2( mccomp_1, "radius", 0 )
+	ComponentSetValue2( mccomp_2, "radius", 0)
+	ComponentSetValue2( mccomp_3, "radius", CONVERT_RADIUS )
 end
-
-
-
---if ( comp ~= nil ) then
---	local old_mtp = ComponentObjectGetValue2( comp, "damage_multipliers", "fire" )
---	local new_mtp = old_mtp * -0.1
---    GamePrint("mtp old: " .. old_mtp)
---	ComponentObjectSetValue2( comp, "damage_multipliers", "fire", new_mtp )
---    GamePrint("mtp new: " .. ComponentObjectGetValue2( comp, "damage_multipliers", "fire" ) )
---end
