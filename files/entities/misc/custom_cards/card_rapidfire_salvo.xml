@@ -17,5 +17,5 @@
         _tags="enabled_in_hand"
         script_enabled_changed="mods/D2DContentPack/files/scripts/projectiles/rapidfire_salvo_toggle.lua"
         execute_every_n_frame="-1"
-    ></LuaComponent>    
+    ></LuaComponent>
 </Entity>

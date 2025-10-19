@@ -154,7 +154,7 @@ function spawn_random_staff( x, y, force_rng )
 		wand.manaChargeSpeed = 0
 		wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
 		wand.spread = Random( -3, 3 )
-		wand:AddSpells( "D2D_EXPAND_MANA" )
+		wand:AttachSpells( "D2D_MANA_LOCK" )
 		add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_zs.png", 11, 4, 17, 0 )
 

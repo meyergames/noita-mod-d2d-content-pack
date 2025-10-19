@@ -153,12 +153,12 @@ d2d_actions = {
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_spray_and_pray.xml",
 	    price               = 330,
-	    mana                = 0,
+	    mana                = 1,
 	    action              = function()
 								c.spread_degrees = c.spread_degrees + 3.0
                                 -- c.fire_rate_wait    = c.fire_rate_wait * 0.25 -- so it shows in the UI
                                 -- current_reload_time = current_reload_time * 0.5 -- so it shows in the UI
-                                if reflecting then return end
+                                -- if reflecting then return end
                                 -- c.fire_rate_wait    = c.fire_rate_wait + 15
                                 -- current_reload_time = current_reload_time + 20
 
@@ -617,40 +617,32 @@ d2d_actions = {
 	},
 
 	{
-		id                  = "D2D_EXPAND_MANA",
-		name 		        = "$spell_d2d_expand_mana_name",
-		description         = "$spell_d2d_expand_mana_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/expand_mana.png",
-		type 		        = ACTION_TYPE_MODIFIER,
+		id                  = "D2D_MANA_LOCK",
+		name 		        = "$spell_d2d_mana_lock_name",
+		description         = "$spell_d2d_mana_lock_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_lock.png",
+		type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_expand_mana.xml",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mana_lock.xml",
 		price               = 280,
 		mana                = 0,
 		action 		        = function()
 								-- disable Add Mana etc
-								for i,v in ipairs( deck ) do
-									local spell_data = deck[i]
-									if spell_data.mana < 0 then
-										mana = mana - math.abs( spell_data.mana )
-									end
-								end
-								for i,v in ipairs( discarded ) do
-									local spell_data = discarded[i]
-									if spell_data.mana < 0 then
-										mana = mana - math.abs( spell_data.mana )
-									end
-								end
+								-- for i,v in ipairs( deck ) do
+								-- 	local spell_data = deck[i]
+								-- 	if spell_data.mana < 0 then
+								-- 		mana = mana - math.abs( spell_data.mana )
+								-- 	end
+								-- end
+								-- for i,v in ipairs( discarded ) do
+								-- 	local spell_data = discarded[i]
+								-- 	if spell_data.mana < 0 then
+								-- 		mana = mana - math.abs( spell_data.mana )
+								-- 	end
+								-- end
 
 								draw_actions( 1, true )
-								local mana_regain = 0
-								for _,v in ipairs( hand ) do
-									local spell_data = v
-									if spell_data.mana > 0 then
-										mana_regain = mana_regain + ( spell_data.mana * 0.9 )
-									end
-								end
-								mana = mana + mana_regain
 		                    end,
 	},
 

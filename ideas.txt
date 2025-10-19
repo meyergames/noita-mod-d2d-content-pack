@@ -192,7 +192,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] simplified missing mana to damage: +1 or +1% damage for every 100 or 10% missing mana
 
-[!] expand mana buff: reduce cost by 90%
+[x] expand mana buff: reduce cost by 90%
 
 [ ] perk: gain 1 hp and max hp for every enemy killed. non-heart sources of healing become ineffective.
 

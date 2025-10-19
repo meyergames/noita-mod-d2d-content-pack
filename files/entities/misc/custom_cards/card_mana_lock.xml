@@ -1,0 +1,25 @@
+<Entity tags="card_action">
+
+    <Base file="data/entities/base_custom_card.xml" >
+        <SpriteComponent 
+            image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_lock.png" >
+        </SpriteComponent>
+
+        <ItemActionComponent 
+            _tags="enabled_in_world"
+            action_id="D2D_MANA_LOCK" >
+        </ItemActionComponent>
+    </Base>
+
+    <LuaComponent
+        _tags="enabled_in_hand,enabled_in_inventory"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/mana_lock_counter_regen.lua"
+        execute_every_n_frame="1"
+    ></LuaComponent>
+
+    <LuaComponent
+        _tags="enabled_in_hand"
+        script_enabled_changed="mods/D2DContentPack/files/scripts/projectiles/mana_lock_toggle.lua"
+        execute_every_n_frame="-1"
+    ></LuaComponent>
+</Entity>

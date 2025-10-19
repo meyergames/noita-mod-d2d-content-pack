@@ -119,7 +119,27 @@ extra_modifiers["d2d_spray_and_pray"] = function()
     if wand and wand.shuffle then
         c.fire_rate_wait = c.fire_rate_wait * 0.25
         current_reload_time = current_reload_time * 0.5
-        wand.mana = wand.mana + 5
+    end
+end
+
+extra_modifiers["d2d_mana_lock"] = function()
+    local is_enabled = get_internal_bool( get_player(), "d2d_mana_lock_enabled", is_enabled )
+    if not is_enabled then return end
+
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand.GetHeldWand()
+    if wand then
+        local mana_cost = wand.mana - mana
+        -- mana = mana + ( mana_cost * 0.9 )
+        -- GamePrint("mana cost: " .. mana_cost)
+        for i,v in ipairs( hand ) do
+            local spell_data = hand[i]
+            if spell_data.mana > 0 then
+                mana = mana + ( spell_data.mana * 0.9 )
+            elseif spell_data.mana < 0 then
+                mana = mana + spell_data.mana -- additive because it's a negative number
+            end
+        end
     end
 end
     
