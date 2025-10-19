@@ -123,7 +123,7 @@ perk_d2d_balloon_heart_desc,Lose 25% of your max health.\nTriple your max health
 perk_d2d_perk_gluttony_name,Perk Gluttony,,,,,,,,,,,,,
 perk_d2d_perk_gluttony_desc,Gain a Curse.\nYou can freely take this Holy Mountain's other perks.,,,,,,,,,,,,,
 perk_d2d_wandsmith_name,Artisan,,,,,,,,,,,,,
-perk_d2d_wandsmith_desc,"In future Holy Mountains, you may sacrifice the\nHeart and Spell Refresher to upgrade your wands.",,,,,,,,,,,,,
+perk_d2d_wandsmith_desc,"In future Holy Mountains, you may sacrifice the\nHeart and/or Spell Refresher to upgrade your wands.",,,,,,,,,,,,,
 perk_d2d_blind_trade_name,Blind Trade,,,,,,,,,,,,,
 perk_d2d_blind_trade_desc,All spells in your inventory are converted into random different spells of the same tier.,,,,,,,,,,,,,
 item_d2d_reroll_voucher_name,Reroll Voucher,,,,,,,,,,,,,

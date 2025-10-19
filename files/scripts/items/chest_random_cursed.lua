@@ -36,7 +36,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml" } )
 		end
 	-- maybe spawn a hammer (5% chance)
-	if ( rnd <= 15 ) then
+	elseif ( rnd <= 15 ) then
 		table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/hammer.xml" } )
 	-- maybe spawn a heart (15% chance)
 	elseif ( rnd <= 30 ) then

@@ -6,7 +6,7 @@ mod_settings =
 {
     {
         category_id = "default_settings",
-        ui_name = "Build version: 25.10.18.1",
+        ui_name = "Build version: 25.10.19.1",
         ui_description = "",
         settings = {
         }

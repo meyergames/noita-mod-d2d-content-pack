@@ -81,7 +81,6 @@ function set_internal_int( entity_id, variable_name, new_value )
 	end
 end
 
--- custom shorthand that quickly gets an internal int value
 function get_internal_float( entity_id, variable_name )
 	local value = nil
 	local components = EntityGetComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
@@ -96,7 +95,6 @@ function get_internal_float( entity_id, variable_name )
 	return value
 end
 
--- custom variation that makes a variable if it doesn't exist yet
 function set_internal_float( entity_id, variable_name, new_value )
 	local variable_found = false
 	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
@@ -115,7 +113,6 @@ function set_internal_float( entity_id, variable_name, new_value )
 	end
 end
 
--- custom shorthand that quickly gets an internal int value
 function get_internal_bool( entity_id, variable_name )
 	local value = nil
 	local components = EntityGetComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
@@ -130,7 +127,6 @@ function get_internal_bool( entity_id, variable_name )
 	return value
 end
 
--- custom variation that makes a variable if it doesn't exist yet
 function set_internal_bool( entity_id, variable_name, new_value )
 	local variable_found = false
 	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
