@@ -283,13 +283,13 @@ d2d_actions = {
 		mana 		= 5,
 		action 		= function()
 			c.fire_rate_wait		= c.fire_rate_wait + 5
-			c.damage_curse_add 		= c.damage_curse_add + 0.4 -- for the tooltip
+			c.damage_curse_add 		= c.damage_curse_add + 0.2 -- for the tooltip
 			if reflecting then return end
 
-			c.damage_curse_add 		= c.damage_curse_add - 0.4 -- reset
+			c.damage_curse_add 		= c.damage_curse_add - 0.2 -- reset
             local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
             if curse_count ~= nil then
-				c.damage_curse_add 		= c.damage_curse_add + ( 0.4 * tonumber( curse_count ) )
+				c.damage_curse_add 		= c.damage_curse_add + ( 0.2 * tonumber( curse_count ) )
 				c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
 	            draw_actions( 1, true )
 	        end
