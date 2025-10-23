@@ -45,7 +45,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 
 	local cursed_chests_opened = get_internal_int( get_player(), "d2d_cursed_chests_opened" )
 	if cursed_chests_opened == 1 then
-		random_perk_reward()
+		random_perk_reward( x, y )
 	else
 		local rnd = Random(1,100)
 		-- maybe spawn gold (10% chance)
@@ -83,7 +83,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 			end
 		-- maybe spawn a perk (15-25% chance)
 		elseif ( rnd <= 55 ) then
-			random_perk_reward()
+			random_perk_reward( x, y )
 		-- maybe spawn a bunch of spells, including a guaranteed curse-related spell (15% chance)
 		elseif ( rnd <= 70 ) then
 			local spells = { "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" }
@@ -192,7 +192,7 @@ function drop_money( entity_item )
 end
 
 function on_open( entity_item )
-	raise_internal_int( get_player(), "d2d_cursed_chests_opened" )
+	raise_internal_int( get_player(), "d2d_cursed_chests_opened", 1 )
 
 	local x, y = EntityGetTransform( entity_item )
 	local rand_x = x

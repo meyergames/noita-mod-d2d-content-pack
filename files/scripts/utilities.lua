@@ -569,13 +569,21 @@ function apply_random_curse( entity_id )
 		end
 	end
 
-	if #curses_not_picked_up == 0 then return end
-	local random_perk = random_from_array( curses_not_picked_up )
-    local spawned_perk = perk_spawn( x, y, random_perk.id )
-    perk_pickup( spawned_perk, entity_id, EntityGetName( spawned_perk ), false, false )
-    
-    GamePrintImportant( "You obtained a curse: " .. random_perk.id, random_perk.description )
-    GamePlaySound( "data/audio/Desktop/animals.bank", "animals/sheep/confused", x, y )
+	-- if #curses_not_picked_up == 0 then return end
+	-- -- local perk_to_spawn = curses_not_picked_up[ Random( 1, #curses_not_picked_up ) ]
+	-- local perk_to_spawn = random_from_array( curses_not_picked_up ).id
+	-- GamePrint( "test1" )
+	-- GamePrint( perk_to_spawn )
+	-- GamePrint( "test2" )]
+	if ( #curses_not_picked_up > 0 ) then
+		local curse_to_spawn = curses_not_picked_up[ Random( 1, #curses_not_picked_up ) ]
+		GamePrint("curse to spawn: " .. curse_to_spawn.id )
+	    local spawned_perk = perk_spawn( x, y, curse_to_spawn.id, true )
+	    perk_pickup( spawned_perk, entity_id, EntityGetName( spawned_perk ), false, false )
+
+	    GamePrintImportant( GameTextGetTranslatedOrNot( curse_to_spawn.ui_name ), GameTextGetTranslatedOrNot( curse_to_spawn.ui_description ) )
+	    GamePlaySound( "data/audio/Desktop/animals.bank", "animals/sheep/confused", x, y )
+	end
 end
 
 

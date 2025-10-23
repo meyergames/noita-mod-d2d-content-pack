@@ -154,7 +154,8 @@ function spawn_random_staff( x, y, force_rng )
 		wand.manaChargeSpeed = 0
 		wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
 		wand.spread = Random( -3, 3 )
-		wand:AttachSpells( "D2D_MANA_LOCK", "D2D_CURSES_TO_DAMAGE" )
+		wand:AttachSpells( "D2D_MANA_LOCK" )
+		wand:AddSpells( "D2D_CURSES_TO_DAMAGE" )
 		add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_zs.png", 11, 4, 17, 0 )
 
@@ -169,8 +170,8 @@ function spawn_random_staff( x, y, force_rng )
 		wand.manaChargeSpeed = 192 + ( 192 + Random( -4, 4 ) ) * wand_lvl
 		wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
 		wand.spread = Random( -5, 0 )
-		local random_attach = { "D2D_CURSES_TO_DAMAGE", "FREEZE" }
-		wand:AttachSpells( random_attach[ Random( 1, #random_attach ) ] )
+		wand:AttachSpells( "FREEZE" )
+		wand:AddSpells( "D2D_CURSES_TO_DAMAGE" )
 		add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient.png", 11, 4, 17, 0 )
 
