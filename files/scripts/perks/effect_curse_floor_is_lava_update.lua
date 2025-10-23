@@ -4,6 +4,7 @@ local CONVERT_RADIUS = 8
 
 local entity_id = GetUpdatedEntityID()
 local owner = EntityGetRootEntity( entity_id )
+local x,y = EntityGetTransform( owner )
 
 local p_dcomp = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
 local p_hp = ComponentGetValue2( p_dcomp, "hp" )
@@ -30,26 +31,27 @@ end
 
 local old_val = get_internal_int( owner, "d2d_floor_is_lava_counter" ) or 0
 local counter = 0
-if ( is_on_ground ) then
+local biome_name = BiomeMapGetName( x, y )
+if is_on_ground and not string.find( biome_name, "holy" ) then
     counter = old_val + 1
 else
-	counter = math.max( old_val - 2, 0 )
+	counter = math.max( old_val - 4, 0 )
 end
 set_internal_int( owner, "d2d_floor_is_lava_counter", counter )
 
-if ( counter < 24 ) then
+if ( counter < 60 ) then
 	ComponentSetValue2( mccomp_1, "radius", 0 )
 	ComponentSetValue2( mccomp_2, "radius", 0 )
 	ComponentSetValue2( mccomp_3, "radius", 0 )
-elseif ( counter >= 24 and counter < 36 ) then
+elseif ( counter >= 60 and counter < 78 ) then
 	ComponentSetValue2( mccomp_1, "radius", CONVERT_RADIUS )
 	ComponentSetValue2( mccomp_2, "radius", 0 )
 	ComponentSetValue2( mccomp_3, "radius", 0 )
-elseif ( counter >= 36 and counter < 42 ) then
+elseif ( counter >= 78 and counter < 90 ) then
 	ComponentSetValue2( mccomp_1, "radius", 0 )
 	ComponentSetValue2( mccomp_2, "radius", CONVERT_RADIUS )
 	ComponentSetValue2( mccomp_3, "radius", 0 )
-elseif ( counter >= 42 ) then
+elseif ( counter >= 90 ) then
 	ComponentSetValue2( mccomp_1, "radius", 0 )
 	ComponentSetValue2( mccomp_2, "radius", 0)
 	ComponentSetValue2( mccomp_3, "radius", CONVERT_RADIUS )
