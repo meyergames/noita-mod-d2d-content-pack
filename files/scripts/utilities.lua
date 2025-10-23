@@ -569,22 +569,12 @@ function apply_random_curse( entity_id )
 		end
 	end
 
-	local random_perk
-	if ( #curses_not_picked_up > 0 ) then
-		random_perk = random_from_array( curses_not_picked_up )
-	else
-		random_perk = random_from_array( stackable_curses )
-	end
+	if #curses_not_picked_up == 0 then return end
+	local random_perk = random_from_array( curses_not_picked_up )
     local spawned_perk = perk_spawn( x, y, random_perk.id )
     perk_pickup( spawned_perk, entity_id, EntityGetName( spawned_perk ), false, false )
-
-    -- local curse_count = getInternalVariableValue( entity_id, "CURSE_COUNT", "value_int" )
-    -- if curse_count then
-    -- 	setInternalVariableValue( entity_id, "PLAYER_CURSE_COUNT", "value_int", curse_count + 1 )
-    -- else
-    -- 	addNewInternalVariable( entity_id, "PLAYER_CURSE_COUNT", "value_int", 1 )
-    -- end
-
+    
+    GamePrintImportant( "You obtained a curse: " .. random_perk.id, random_perk.description )
     GamePlaySound( "data/audio/Desktop/animals.bank", "animals/sheep/confused", x, y )
 end
 

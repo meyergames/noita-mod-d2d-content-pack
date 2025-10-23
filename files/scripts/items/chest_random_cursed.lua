@@ -2,6 +2,23 @@ dofile_once("data/scripts/lib/utilities.lua")
 
 -------------------------------------------------------------------------------
 
+function random_perk_reward( x, y )
+	if ( not has_perk( "D2D_HUNT_CURSES" ) ) then
+		spawn_random_perk( x - 20, y )
+		spawn_perk( "D2D_HUNT_CURSES", x, y )
+		spawn_random_perk( x + 20, y )
+	else
+		-- local rnd = Random( 1, 100 )
+		spawn_random_perk( x - 20, y )
+		spawn_random_perk( x, y )
+		spawn_random_perk( x + 20, y )
+	end
+	-- else -- 1%
+	-- 	spawn_random_perk_custom( x - 10, y, { "D2D_LIFT_CURSES" } )
+	-- 	spawn_random_perk( x + 10, y )
+	-- end
+end
+
 function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	SetRandomSeed( GameGetFrameNum(), x + y + entity_id )
 	
@@ -26,110 +43,123 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	-- [ ] live super/giga banana bomb
 	-- [ ] live Circle Of Gold spellcast
 
-	local rnd = Random(1,100)
-	-- maybe spawn gold (10% chance)
-	if ( rnd <= 10 ) then
-		local rnd2 = Random( 1,100 )
-		if ( rnd2 <= 99 ) then
-			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_128.xml" } )
-		elseif ( rnd2 <= 100) then -- 1/1,000
-			table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml" } )
-		end
-	-- maybe spawn a hammer (5% chance)
-	elseif ( rnd <= 15 ) then
-		table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/hammer.xml" } )
-	-- maybe spawn a heart (15% chance)
-	elseif ( rnd <= 30 ) then
-		local rnd2 = Random( 1, 100 )
-		if ( rnd2 <= 70 ) then -- 10.5% chance for +50 max hp
-			table.insert( entities, { "data/entities/items/pickup/heart.xml" } )
-		elseif ( rnd2 <= 85 ) then -- 2.25% chance for +50 max hp
-			table.insert( entities, { "data/entities/items/pickup/heart_better.xml" } )
-		elseif ( rnd2 <= 100 ) then -- 2.25% chance for a full heal
-			table.insert( entities, { "data/entities/items/pickup/heart_fullhp.xml" } )
-		end
-	-- maybe spawn an item (10% chance)
-	elseif ( rnd <= 40 ) then
-		local rnd2 = Random( 1, 100 )
-		if ( rnd2 <= 25 ) then -- 2.5%
-			table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml" } )
-		elseif ( rnd2 <= 35 ) then -- 1%
-			table.insert( entities, { "data/entities/items/pickup/safe_haven.xml" } )
-		elseif ( rnd2 <= 65 ) then -- 3%
-			table.insert( entities, { "data/entities/items/pickup/lightningstone.xml" } )
-		elseif ( rnd2 <= 95 ) then -- 3%
-			table.insert( entities, { "data/entities/items/pickup/brimstone.xml" } )
-		elseif ( rnd2 <= 100 ) then -- 0.5%
-			table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
-		end
-	-- maybe spawn a perk (15% chance)
-	elseif ( rnd <= 55 ) then
-		local rnd2 = Random( 1, 100 )
-		if ( not has_perk( "D2D_HUNT_CURSES" ) ) then
-			spawn_random_perk( x - 10, y )
-			spawn_perk( "D2D_HUNT_CURSES", x + 10, y )
-		elseif ( rnd2 <= 70 ) then -- 7%
-			spawn_random_perk( x, y )
-		elseif ( rnd2 <= 100 ) then -- 3%
-			spawn_random_perk( x - 10, y )
-			spawn_random_perk( x + 10, y )
-		end
-		-- else -- 1%
-		-- 	spawn_random_perk_custom( x - 10, y, { "D2D_LIFT_CURSES" } )
-		-- 	spawn_random_perk( x + 10, y )
-		-- end
-	-- maybe spawn a bunch of spells, including a guaranteed curse-related spell (15% chance)
-	elseif ( rnd <= 70 ) then
-		local spells = { "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" }
-		local rnd2 = Random( 1, #spells )
-		local spell_to_spawn = spells[rnd2]
-   		CreateItemActionEntity( spell_to_spawn, x, y )
-
-		local amount = 3
-		local rnd2 = Random(0,100)
-		if (rnd2 <= 50) then -- 5%
-			amount = 3
-		elseif (rnd2 <= 70) then -- 2%
-			amount = amount + 1
-		elseif (rnd2 <= 80) then -- 1%
-			amount = amount + 2
-		elseif (rnd2 <= 90) then -- 1%
-			amount = amount + 3
-		elseif (rnd2 <= 100) then -- 1%
-			amount = amount + 4
-		end
-
-		for i=1,amount do
-			local spx = x + (i - (amount / 2)) * 12
-			local spy = y - 4 + Random(-5,5)
-
-			dofile_once( "data/scripts/items/chest_random.lua" )
-			make_random_card( spx, spy )
-		end
-	-- maybe spawn a wand (30% chance)
+	local cursed_chests_opened = get_internal_int( get_player(), "d2d_cursed_chests_opened" )
+	if cursed_chests_opened == 1 then
+		random_perk_reward()
 	else
-		local rnd2 = Random( 1, 5 )
-		if rnd2 == 1 then -- 6% chance for a unique staff
-	    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-			spawn_random_staff( x, y )
+		local rnd = Random(1,100)
+		-- maybe spawn gold (10% chance)
+		if ( rnd <= 10 ) then
+			local rnd2 = Random( 1,100 )
+			if rnd2 <= 99 - cursed_chests_opened then -- higher chance for the big circle if you have more curses
+				table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_128.xml" } )
+			elseif rnd2 <= 100 then -- 1/1,000
+				table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml" } )
+			end
+		-- maybe spawn a hammer (5% chance)
+		elseif ( rnd <= 15 ) then
+			table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/hammer.xml" } )
+		-- maybe spawn a heart (15% chance)
+		elseif ( rnd <= 30 ) then
+			local rnd2 = Random( 1, 100 )
+			if ( rnd2 <= 80 ) then -- 12% chance for +50 max hp
+				table.insert( entities, { "data/entities/items/pickup/heart_better.xml" } )
+			elseif ( rnd2 <= 100 ) then -- 3% chance for a full heal
+				table.insert( entities, { "data/entities/items/pickup/heart_fullhp.xml" } )
+			end
+		-- maybe spawn an item (15-5% chance)
+		elseif rnd <= math.max( 45 - cursed_chests_opened, 35 ) then
+			local rnd2 = Random( 1, 100 )
+			if ( rnd2 <= 25 ) then -- 2.5%
+				table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml" } )
+			elseif ( rnd2 <= 35 ) then -- 1%
+				table.insert( entities, { "data/entities/items/pickup/safe_haven.xml" } )
+			elseif ( rnd2 <= 65 ) then -- 3%
+				table.insert( entities, { "data/entities/items/pickup/lightningstone.xml" } )
+			elseif ( rnd2 <= 95 ) then -- 3%
+				table.insert( entities, { "data/entities/items/pickup/brimstone.xml" } )
+			elseif ( rnd2 <= 100 ) then -- 0.5%
+				table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
+			end
+		-- maybe spawn a perk (15-25% chance)
+		elseif ( rnd <= 55 ) then
+			random_perk_reward()
+		-- maybe spawn a bunch of spells, including a guaranteed curse-related spell (15% chance)
+		elseif ( rnd <= 70 ) then
+			local spells = { "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" }
+			local rnd2 = Random( 1, #spells )
+			local spell_to_spawn = spells[rnd2]
+	   		CreateItemActionEntity( spell_to_spawn, x, y )
+
+			local amount = 3
+			local rnd2 = Random(0,100)
+			if (rnd2 <= 50) then -- 5%
+				amount = 3
+			elseif (rnd2 <= 70) then -- 2%
+				amount = amount + 1
+			elseif (rnd2 <= 80) then -- 1%
+				amount = amount + 2
+			elseif (rnd2 <= 90) then -- 1%
+				amount = amount + 3
+			elseif (rnd2 <= 100) then -- 1%
+				amount = amount + 4
+			end
+
+			for i=1,amount do
+				local spx = x + (i - (amount / 2)) * 12
+				local spy = y - 4 + Random(-5,5)
+
+				dofile_once( "data/scripts/items/chest_random.lua" )
+				make_random_card( spx, spy )
+			end
+		-- maybe spawn a wand (30% chance)
 		else
 			local rnd3 = Random( 1, 100 )
-			if( rnd3 <= 25 ) then -- 6.25%
-				table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
-			elseif( rnd3 <= 50 ) then -- 6.25%
-				table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
-			elseif( rnd3 <= 75 ) then -- 6.25%
-				table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
-			elseif( rnd3 <= 90 ) then -- 3.75%
-				table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
-			elseif( rnd3 <= 96 ) then -- 1.5%
-				table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-			elseif( rnd3 <= 98 ) then -- 0.5%
-				table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
-			elseif( rnd3 <= 99 ) then -- 0.25%
-				table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-			elseif( rnd3 <= 100 ) then -- 0.25%
-				table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
+			if cursed_chests_opened <= 2 then
+
+				if rnd3 <= 50 then -- 50%
+					table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
+				elseif rnd3 <= 80 then -- 30%
+					table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
+				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+					spawn_random_staff( x, y )
+				end
+
+			elseif cursed_chests_opened <= 3 then
+
+				if rnd3 <= 50 then -- 50%
+					table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
+				elseif rnd3 <= 80 then -- 30%
+					table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
+				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+					spawn_random_staff( x, y )
+				end
+
+			elseif cursed_chests_opened <= 4 then
+
+				if rnd3 <= 50 then -- 50%
+					table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
+				elseif rnd3 <= 80 then -- 30%
+					table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
+				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+					spawn_random_staff( x, y )
+				end
+
+			elseif cursed_chests_opened >= 5 then
+
+				if rnd3 <= 25 then -- 25%
+					table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
+				elseif rnd3 <= 40 then -- 15%
+					table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
+				elseif rnd3 <= 80 then -- 40%
+					table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
+				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+					spawn_random_staff( x, y )
+				end
 			end
 		end
 	end
@@ -162,6 +192,8 @@ function drop_money( entity_item )
 end
 
 function on_open( entity_item )
+	raise_internal_int( get_player(), "d2d_cursed_chests_opened" )
+
 	local x, y = EntityGetTransform( entity_item )
 	local rand_x = x
 	local rand_y = y

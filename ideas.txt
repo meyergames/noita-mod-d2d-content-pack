@@ -248,7 +248,14 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Pokeball-like spell that captures a creature if its health is low enough. Make it have a chance to escape
 
+[ ] curse: passing a wand without firing it within 10 seconds has a chance to animate it, making it hostile towards you.
+- discarding a wand*
 
+[ ] really wanna make that polymorph clone shot work!! maybe learn about NXML and see if that can help me?
+
+[ ] alt fire spawns should be fixed... was very disappointing to not find the guaranteed spawn in the wizard's den
+
+[ ] voucher item that can be held to purchase one item (incl. perk reroll) for free
 
 
 
