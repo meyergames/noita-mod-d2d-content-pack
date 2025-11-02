@@ -68,8 +68,6 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 								 and get_internal_int( entity_interacted, "feline_affection_granted" ) == nil
 
 	if trigger_player_heal and can_be_triggered_now then
-		set_internal_int( entity_interacted, "feline_affection_granted", 1 )
-
 		-- count towards spawning the Cat Radar perk
 		raise_internal_int( entity_who_interacted, "cats_petted", 1 )
 		cats_petted = get_internal_int( entity_who_interacted, "cats_petted" )
@@ -93,5 +91,9 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 		else
 			GamePrint( "You have petted " .. cats_petted .. " cat" )
 		end
+
+		-- "teleport" the cat away
+		EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", x, y )
+		EntityKill( entity_interacted )
 	end
 end

@@ -12,7 +12,7 @@ if ( #targets > 0 ) then
 
         if target_is_far_away and effect_id == nil then
             addNewInternalVariable( target_id, "feline_affection_tried_to_spawn_cat", "value_int", 1 )
-            if Random( 0, math.max( 25 - ( 5 * get_perk_pickup_count( "D2D_FELINE_AFFECTION" ) ), 5 ) ) == 0 then
+            if Random( 0, math.max( 30 - ( 5 * get_perk_pickup_count( "D2D_FELINE_AFFECTION" ) ), 5 ) ) == 0 then
                 local cat_id = spawn_random_cat( target_x, target_y )
                 EntityAddTag( cat_id, "cat" )
                 set_internal_int( cat_id, "is_spawned_through_feline_affection", 1 )
