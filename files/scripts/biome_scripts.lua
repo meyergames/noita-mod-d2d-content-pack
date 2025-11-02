@@ -11,7 +11,7 @@ function spawn_heart( x, y )
 
 
 	if (r > heart_spawn_percent) then
-		local entity = EntityLoad( "data/entities/items/pickup/heart.xml", x, y)
+		local entity = EntityLoad( "data/entities/items/pickup/heart.xml", x, y )
 	elseif (r > 0.3) then
 		SetRandomSeed( x+45, y-2123 )
 		local rnd = Random( 1, 100 )
@@ -23,20 +23,20 @@ function spawn_heart( x, y )
 
 			-- local config_curses_enabled = ModSettingGet("D2DContentPack.enable_curses")
 			if ( rnd < 950 - get_perk_pickup_count( "D2D_HUNT_CURSES" ) * 150 ) then
-				local entity = EntityLoad( "data/entities/items/pickup/chest_random.xml", x, y)
+				local entity = EntityLoad( "data/entities/items/pickup/chest_random.xml", x, y )
 			elseif ( rnd < 1000 ) then
-				local entity = EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_random_cursed_d2d.xml", x, y)
+				local entity = EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_random_cursed_d2d.xml", x, y )
 			else
-				local entity = EntityLoad( "data/entities/items/pickup/chest_random_super.xml", x, y)
+				local entity = EntityLoad( "data/entities/items/pickup/chest_random_super.xml", x, y )
 			end
 		else
 			rnd = Random( 1, 100 )
 			if( Random( 1, 30 ) == 1 ) then spawn_mimic_sign( x, y ) end
 
 			if( rnd <= 95 ) then
-				local entity = EntityLoad( "data/entities/animals/chest_mimic.xml", x, y)
+				local entity = EntityLoad( "data/entities/animals/chest_mimic.xml", x, y )
 			else
-				local entity = EntityLoad( "data/entities/items/pickup/chest_leggy.xml", x, y)
+				local entity = EntityLoad( "data/entities/items/pickup/chest_leggy.xml", x, y )
 			end
 		end
 	end

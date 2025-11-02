@@ -274,6 +274,7 @@ d2d_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = true,
 		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			local x,y = EntityGetTransform( entity_perk_item )
 

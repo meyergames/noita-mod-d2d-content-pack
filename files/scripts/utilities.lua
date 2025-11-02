@@ -556,32 +556,18 @@ function apply_random_curse( entity_id )
     local x, y = EntityGetTransform( entity_id )
 
     local curses_not_picked_up = {}
-	for k,v in pairs( d2d_curses ) do
+	for k,v in ipairs( d2d_curses ) do
 		if ( not has_perk( v.id ) ) then
-			curses_not_picked_up[k] = v
+			table.insert( curses_not_picked_up, v )
 		end
 	end
 
-    local stackable_curses = {}
-	for k,v in pairs( d2d_curses ) do
-		if ( v.stackable == STACKABLE_YES ) then
-			stackable_curses[k] = v
-		end
-	end
+	if #curses_not_picked_up > 0 then
+		local random_perk = curses_not_picked_up[ Random( 1, #curses_not_picked_up ) ]
+    	local spawned_perk = perk_spawn( x, y, random_perk.id )
+    	perk_pickup( spawned_perk, entity_id, EntityGetName( spawned_perk ), false, false )
 
-	-- if #curses_not_picked_up == 0 then return end
-	-- -- local perk_to_spawn = curses_not_picked_up[ Random( 1, #curses_not_picked_up ) ]
-	-- local perk_to_spawn = random_from_array( curses_not_picked_up ).id
-	-- GamePrint( "test1" )
-	-- GamePrint( perk_to_spawn )
-	-- GamePrint( "test2" )]
-	if ( #curses_not_picked_up > 0 ) then
-		local curse_to_spawn = curses_not_picked_up[ Random( 1, #curses_not_picked_up ) ]
-		GamePrint("curse to spawn: " .. curse_to_spawn.id )
-	    local spawned_perk = perk_spawn( x, y, curse_to_spawn.id, true )
-	    perk_pickup( spawned_perk, entity_id, EntityGetName( spawned_perk ), false, false )
-
-	    GamePrintImportant( GameTextGetTranslatedOrNot( curse_to_spawn.ui_name ), GameTextGetTranslatedOrNot( curse_to_spawn.ui_description ) )
+		GamePrintImportant( GameTextGetTranslatedOrNot( random_perk.ui_name ), GameTextGetTranslatedOrNot( random_perk.ui_description ) )
 	    GamePlaySound( "data/audio/Desktop/animals.bank", "animals/sheep/confused", x, y )
 	end
 end
