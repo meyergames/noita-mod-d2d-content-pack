@@ -1,13 +1,13 @@
-<Entity>
+<Entity tags="d2d_curse_perk">
 
     <InheritTransformComponent />
 
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="CURSE_FALL_DAMAGE"
+        custom_effect_id="D2D_CURSE_FALL_DAMAGE"
     ></GameEffectComponent >
   
-    <LuaComponent 
+    <LuaComponent
         _enabled="1" 
         script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_fall_damage_update.lua" 
         execute_every_n_frame="1"

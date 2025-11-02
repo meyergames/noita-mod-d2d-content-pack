@@ -28,7 +28,7 @@ if pranked_times == nil then
     set_internal_int( owner, "pranked_times", 0 )
     pranked_times = get_internal_int( owner, "pranked_times" )
 end
-if get_perk_pickup_count( "D2D_CURSE_DIVINE_PRANK" ) - pranked_times <= 0 then return end
+-- if get_perk_pickup_count( "D2D_CURSE_DIVINE_PRANK" ) - pranked_times <= 0 then return end
 
 
 

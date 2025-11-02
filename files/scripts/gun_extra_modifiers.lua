@@ -46,41 +46,47 @@ extra_modifiers["d2d_master_of_fire_boost_plus"] = function()
 end
 
 extra_modifiers["d2d_overheating_wands"] = function()
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-    local entity_id = GetUpdatedEntityID()
-    local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
-    local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
-    local wand = EZWand(active_wand)
-    local x, y = EntityGetTransform( get_player() )
+    local enabled = get_perk_pickup_count( "D2D_CURSE_OVERHEATING" ) > 0
+    if ( enabled ) then
+        local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+        local entity_id = GetUpdatedEntityID()
+        local inventory = EntityGetFirstComponent( entity_id, "Inventory2Component" )
+        local active_wand = ComponentGetValue2( inventory, "mActiveItem" )
+        local wand = EZWand(active_wand)
+        local x, y = EntityGetTransform( get_player() )
 
-    local mana = wand.mana
-    local max_mana = wand.manaMax
+        local mana = wand.mana
+        local max_mana = wand.manaMax
 
-	local not_enough_mana = c.action_mana_drain < mana
+    	local not_enough_mana = c.action_mana_drain < mana
 
-    local rand = Random( 0, 100 )
-    local chance = 1.0 / ( ( 1.0 / ( max_mana * 0.5 ) ) * math.max( mana, 0.1 ) )
-    if( mana <= max_mana * 0.5 and rand <= chance ) then -- at 100% mana, 1/100 chance for *something* to happen
-        c.fire_rate_wait    = 40
-        GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+        local rand = Random( 0, 100 )
+        local chance = 1.0 / ( ( 1.0 / ( max_mana * 0.5 ) ) * math.max( mana, 0.1 ) )
+        if( mana <= max_mana * 0.5 and rand <= chance ) then -- at 100% mana, 1/100 chance for *something* to happen
+            c.fire_rate_wait    = 40
+            GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
 
-        local rand2 = Random( 0, 8 )
-        if( rand2 < 1 ) then
-            EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
-        elseif( rand2 < 3 ) then
-            add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
-        elseif( rand2 < 5 ) then
-            add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
-        else
-            add_projectile("data/entities/projectiles/deck/fizzle.xml")
+            local rand2 = Random( 0, 8 )
+            if( rand2 < 1 ) then
+                EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
+            elseif( rand2 < 3 ) then
+                add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
+            elseif( rand2 < 5 ) then
+                add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
+            else
+                add_projectile("data/entities/projectiles/deck/fizzle.xml")
+            end
         end
     end
 end
 
 extra_modifiers["d2d_no_rhythm"] = function()
-    local rand = Random( 72, 128 )
-    c.fire_rate_wait = c.fire_rate_wait * rand * 0.01
-    current_reload_time = current_reload_time * rand * 0.01
+    local enabled = get_perk_pickup_count( "D2D_CURSE_NO_RHYTHM" ) > 0
+    if ( enabled ) then
+        local rand = Random( 72, 128 )
+        c.fire_rate_wait = c.fire_rate_wait * rand * 0.01
+        current_reload_time = current_reload_time * rand * 0.01
+    end
 end
 
 extra_modifiers["d2d_divine_prank"] = function()

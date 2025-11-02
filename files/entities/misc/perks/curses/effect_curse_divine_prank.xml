@@ -1,0 +1,15 @@
+<Entity tags="perk_entity,d2d_curse_perk">
+
+    <InheritTransformComponent />
+
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="D2D_CURSE_DIVINE_PRANK"
+    ></GameEffectComponent >
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_update.lua"
+		execute_every_n_frame="60"
+	></LuaComponent>
+
+</Entity>

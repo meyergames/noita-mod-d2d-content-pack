@@ -1,10 +1,10 @@
-<Entity>
+<Entity tags="d2d_curse_perk">
 
     <InheritTransformComponent />
 	
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="CURSE_REPEL_GOLD"
+        custom_effect_id="D2D_CURSE_REPEL_GOLD"
     ></GameEffectComponent >
 	
     <LuaComponent 

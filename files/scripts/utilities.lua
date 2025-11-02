@@ -600,7 +600,7 @@ function spawn_random_perk( x, y )
     local perk_ids_to_consider = {}
 	for k,v in pairs( perk_list ) do
 		if ( not v.not_in_default_perk_pool ) then
-			perk_ids_to_consider[k] = v.id
+			table.insert( perk_ids_to_consider, v.id )
 		end
 	end
 
@@ -732,4 +732,53 @@ function make_serializable( entity_id )
 	-- end
 	-- local xml_output = xml2lua.toXml(handler.root, "Entity", 0)
 	-- ModTextFileSetContent("data/entities/props/existing_entity.xml", xml_output)
+end
+
+function lift_all_curses( entity_id )
+    dofile_once( "data/scripts/perks/perk.lua" )
+    dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" )
+
+    -- local active_curses = EntityGetWithTag( "perk_entity" )
+	-- for i,curse_entity_id in ipairs( active_curses or {} ) do
+	-- 	GamePrint( "REMOVED(?) " .. curse_entity_id )
+
+	-- 	EntityKill( curse_entity_id )
+	-- 	GlobalsSetValue( v.id .. "_PICKUP_COUNT", "0" )
+	-- 	-- EntityAddComponent2( perk_entity, "LifetimeComponent", { lifetime = 1 } )
+	-- end
+
+	local curse_entities = EntityGetWithTag( "d2d_curse_perk" )
+	for i,curse_entity in ipairs( curse_entities or {} ) do
+		EntityKill( curse_entity )
+	end
+
+	-- remove flags, reset pickup count
+	for k,v in ipairs( d2d_curses or {} ) do
+		if has_perk( v.id ) then
+		    local perk = get_perk_with_id( perk_list, v.id )
+		    local flag_name = get_perk_picked_flag_name( v.id )
+			GlobalsSetValue( flag_name .. "_PICKUP_COUNT", "0" )
+		    GameRemoveFlagRun( flag_name )
+		end
+	end
+
+	-- remove all UI icons
+    local perk_entities = EntityGetWithTag( "perk_entity" )
+    for i,perk_entity in ipairs( perk_entities or {} ) do
+    	GamePrint("checking for id " .. perk_entity)
+
+    	local icon_comp = EntityGetFirstComponentIncludingDisabled( perk_entity, "UIIconComponent" )
+    	if icon_comp then
+	    	local icon_name = ComponentGetValue2( icon_comp, "name" )
+	    	if string.find( icon_name, "d2d_curse" ) then
+	        	EntityAddComponent2( perk_entity, "LifetimeComponent", { lifetime = 1 } )
+	    	end
+    	end
+    end
+
+    -- destroy all remaining cursed chests
+    local cursed_chests = EntityGetWithTag( "cursed_chest" )
+    for i,cursed_chest in ipairs( cursed_chests or {} ) do
+    	EntityKill( cursed_chest )
+    end
 end

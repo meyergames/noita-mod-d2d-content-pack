@@ -71,4 +71,4 @@ function change_materials_that_damage(entity_id, materials)
   end
 end
 
-change_materials_that_damage( owner, { water = 0.00005 })
+change_materials_that_damage( owner, { water = 0 } )

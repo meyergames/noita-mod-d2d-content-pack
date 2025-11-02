@@ -8,15 +8,22 @@ function random_perk_reward( x, y )
 		spawn_perk( "D2D_HUNT_CURSES", x, y )
 		spawn_random_perk( x + 20, y )
 	else
-		-- local rnd = Random( 1, 100 )
 		spawn_random_perk( x - 20, y )
 		spawn_random_perk( x, y )
 		spawn_random_perk( x + 20, y )
 	end
-	-- else -- 1%
-	-- 	spawn_random_perk_custom( x - 10, y, { "D2D_LIFT_CURSES" } )
-	-- 	spawn_random_perk( x + 10, y )
-	-- end
+end
+
+function random_perk_reward_incl_lift_curses( x, y )
+	if ( not has_perk( "D2D_LIFT_CURSES" ) ) then
+		spawn_random_perk( x - 20, y )
+		spawn_perk( "D2D_LIFT_CURSES", x, y )
+		spawn_random_perk( x + 20, y )
+	else
+		spawn_random_perk( x - 20, y )
+		spawn_random_perk( x, y )
+		spawn_random_perk( x + 20, y )
+	end
 end
 
 function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
@@ -31,21 +38,18 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	local entities = {}
 	local count = 1
 
-	-- if( Random( 0, 100000) >= 100000 ) then
-	-- 	EntityLoadEndGameItem( "data/entities/animals/boss_centipede/sampo.xml", x, y )
-	-- 	count = 0
-	-- 	return 
-	-- end
-
 	-- TODO:
 	-- [ ] LC/AP component potions
-	-- [ ] 2-3 perks to choose from, including Curse Lifter
-	-- [ ] live super/giga banana bomb
-	-- [ ] live Circle Of Gold spellcast
+
+	-- give the player the opportunity to lift all curses, once they have them all curses
+    dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" )
+    local max_curse_count = #d2d_curses
 
 	local cursed_chests_opened = get_internal_int( get_player(), "d2d_cursed_chests_opened" )
 	if cursed_chests_opened == 1 then
 		random_perk_reward( x, y )
+	elseif cursed_chests_opened == max_curse_count + 1 then
+		random_perk_reward_incl_lift_curses( x, y )
 	else
 		local rnd = Random(1,100)
 		-- maybe spawn gold (10% chance)

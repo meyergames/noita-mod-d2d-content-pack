@@ -252,20 +252,6 @@ d2d_perks = {
 	},
 
 	{
-		id = "D2D_HUNT_CURSES",
-		ui_name = "$perk_d2d_hunt_curses_name",
-		ui_description = "$perk_d2d_hunt_curses_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/hunt_curses_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/hunt_curses.png",
-		stackable = STACKABLE_YES,
-		one_off_effect = false,
-		usable_by_enemies = false,
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_hunt_curses.xml" )
-        end,
-	},
-
-	{
 		id = "D2D_BLESSINGS_AND_CURSE",
 		ui_name = "$perk_d2d_blessings_and_curse_name",
 		ui_description = "$perk_d2d_blessings_and_curse_desc",
@@ -274,7 +260,6 @@ d2d_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = true,
 		usable_by_enemies = false,
-		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			local x,y = EntityGetTransform( entity_perk_item )
 
@@ -315,6 +300,37 @@ d2d_perks = {
 			-- apply a random curse
 			apply_random_curse( get_player() )
 		end,
+	},
+
+	{
+		id = "D2D_HUNT_CURSES",
+		ui_name = "$perk_d2d_hunt_curses_name",
+		ui_description = "$perk_d2d_hunt_curses_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/hunt_curses_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/hunt_curses.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_hunt_curses.xml" )
+        end,
+	},
+
+	{
+		id = "D2D_LIFT_CURSES",
+		ui_name = "$perk_d2d_lift_curses_name",
+		ui_description = "$perk_d2d_lift_curses_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/lift_curses_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/lift_curses.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = true,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			dofile_once( "data/scripts/lib/utilities.lua" )
+			lift_all_curses( entity_who_picked )
+        end,
 	},
 
 
@@ -540,7 +556,7 @@ d2d_curses = {
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
 
-           LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_repel_gold.xml" )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_repel_gold.xml" )
         end,
 	},
 
@@ -550,7 +566,7 @@ d2d_curses = {
 		ui_description = "$perk_d2d_curse_divine_prank_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/divine_prank_016.png",
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/divine_prank.png",
-		stackable = STACKABLE_YES,
+		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
@@ -559,14 +575,10 @@ d2d_curses = {
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
 			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
 			
-    		-- var_int_add( owner, "pranks_looming", 1 )
+			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_divine_prank.xml" )
+
     		dofile_once( "data/scripts/lib/utilities.lua" )
 			if get_perk_pickup_count( "D2D_CURSE_DIVINE_PRANK" ) == 1 then
-		        EntityAddComponent( entity_who_picked, "LuaComponent",
-		        {
-		            script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_curse_divine_prank_update.lua",
-		            execute_every_n_frame = "60",
-		        } )
 	            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
 	            { 
 		            extra_modifier = "d2d_divine_prank",
@@ -664,7 +676,30 @@ d2d_curses = {
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
+			if reflecting then return end
+			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_combustion.xml" )
+        end,
+	},
+
+	{
+		id = "D2D_LEVITATION_CRAMPS",
+		ui_name = "$perk_d2d_curse_levitation_cramps_name",
+		ui_description = "$perk_d2d_curse_levitation_cramps_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/levitation_cramps_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/levitation_cramps.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			if reflecting then return end
+			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+
+			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_levitation_cramps.xml" )
         end,
 	},
 
@@ -679,6 +714,10 @@ d2d_curses = {
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
+			if reflecting then return end
+			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_fall_damage.xml" )
         end,
 	},

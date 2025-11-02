@@ -1,10 +1,10 @@
-<Entity>
+<Entity tags="d2d_curse_perk">
 
     <InheritTransformComponent />
 
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="CURSE_STENDARI"
+        custom_effect_id="D2D_CURSE_STENDARI"
     ></GameEffectComponent >
 
     <!--INIT -->
@@ -19,13 +19,13 @@
         script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_stendari_update.lua" 
         execute_every_n_frame="60"
     ></LuaComponent>
-
-    <!-- ON REMOVE -->
-    <!--<LuaComponent
-      script_source_file="mods/D2DContentPack/files/scripts/status_effects/effect_time_trial_off.lua"
-      execute_every_n_frame="-1"
+  
+    <LuaComponent 
+        _enabled="1" 
+        script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_stendari_off.lua"
+        execute_every_n_frame="-1"
         execute_on_added="0"
         execute_on_removed="1"
-    ></LuaComponent>-->
+    ></LuaComponent>
 
 </Entity>

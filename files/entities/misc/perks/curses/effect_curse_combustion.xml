@@ -1,10 +1,10 @@
-<Entity>
+<Entity tags="d2d_curse_perk">
 
     <InheritTransformComponent />
 	
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="CURSE_COMBUSTION"
+        custom_effect_id="D2D_CURSE_COMBUSTION"
     ></GameEffectComponent >
 
     <LuaComponent
@@ -14,10 +14,10 @@
       >
     </LuaComponent>
 	
-	<LuaComponent 
-		_enabled="1" 
-		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_combustion_update.lua" 
-		execute_every_n_frame="60">
-	</LuaComponent>
+  	<LuaComponent 
+  		_enabled="1" 
+  		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_combustion_update.lua" 
+  		execute_every_n_frame="60">
+  	</LuaComponent>
 
 </Entity>
