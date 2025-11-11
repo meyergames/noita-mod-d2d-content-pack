@@ -41,6 +41,10 @@ function OnPlayerSpawned(player)
     -- spawn_random_perk( -20, -50 )
     -- spawn_perk( "D2D_BLESSINGS_AND_CURSE", 0, -50 )
     -- spawn_random_perk( 20, -50 )
+
+    -- dofile_once( "data/scripts/lib/utilities.lua" )
+    -- local px, py = EntityGetTransform( get_player() )
+    -- CreateItemActionEntity( "D2D_BLINK_TRIGGER", px, py )
 end
 
 

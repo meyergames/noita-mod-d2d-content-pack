@@ -650,6 +650,50 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_BLINK",
+	    name 		        = "$spell_d2d_blink_name",
+	    description         = "$spell_d2d_blink_desc",
+        -- inject_after        = { "GRENADE_ANTI", "GRENADE_TIER_3" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink.png",
+        -- custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_smoke_bomb.xml",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "1,2,4,5,6", -- TELEPORT_PROJECTILE
+		spawn_probability   = "0.4,0.4,0.2,0.2,0.2", -- TELEPORT_PROJECTILE
+	    price               = 300,
+	    mana                = 40,
+	    max_uses			= 10,
+	    action              = function()
+                                c.fire_rate_wait = c.fire_rate_wait + 60
+                                current_reload_time = current_reload_time + 60
+	    						if reflecting then return end
+
+	    						add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml" )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_BLINK_TRIGGER",
+	    name 		        = "$spell_d2d_blink_trigger_name",
+	    description         = "$spell_d2d_blink_trigger_desc",
+        -- inject_after        = { "GRENADE_ANTI", "GRENADE_TIER_3" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_trigger.png",
+        -- custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_smoke_bomb.xml",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "1,2,4,5,6", -- TELEPORT_PROJECTILE
+		spawn_probability   = "0.2,0.2,0.1,0.1,0.1", -- TELEPORT_PROJECTILE ÷ 2
+	    price               = 360,
+	    mana                = 45,
+	    max_uses			= 10,
+	    action              = function()
+                                c.fire_rate_wait = c.fire_rate_wait + 60
+                                current_reload_time = current_reload_time + 60
+	    						if reflecting then return end
+
+								add_projectile_trigger_death( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml", 1 )
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_REWIND",
 	    name 		        = "$spell_d2d_rewind_name",
 	    description         = "$spell_d2d_rewind_desc",

@@ -257,6 +257,20 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] voucher item that can be held to purchase one item (incl. perk reroll) for free
 
+[ ] sticky modifier: causes a projectile to stick to whatever it collides with first
+
+[-] teleport to cursor: high cast delay/recharge time.
+[x] Flash: teleports you a short distance towards your cursor (max 1/4 screen); 1.0s cast delay + recharge time.
+		[-] the estimated destination could be displayed with an enabled_in_hand script? <-- eh
+
+[ ] modifier that causes a projectile to be destroyed if it's too far away from the player
+
+[ ] modifier that causes a projectile to exist until you release fire / switch to a different wand
+
+[ ] homing modifier that locks on to enemy projectiles?
+
+
+
 
 
 CROSS-MOD IDEAS
