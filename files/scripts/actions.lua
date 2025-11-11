@@ -209,6 +209,31 @@ d2d_actions = {
 		                    end,
 	},
 
+    {
+	    id                  = "D2D_QUICK_BURNER",
+	    name 		        = "$spell_d2d_quick_burner_name",
+	    description         = "$spell_d2d_quick_burner_desc",
+        inject_after        = { "D2D_FLURRY", "RECHARGE", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/quick_burner.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "1,1,1,0.9,0.7,0.5,0.3",
+		related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml" },
+	    price               = 330,
+	    mana                = 8,
+	    action              = function()
+					            c.damage_projectile_add = c.damage_projectile_add + 0.4
+								c.fire_rate_wait 		= c.fire_rate_wait - 10
+								current_reload_time 	= current_reload_time - 20
+								c.speed_multiplier		= c.speed_multiplier * 2
+								if reflecting then return end
+								c.knockback_force 		= c.knockback_force + 3.0
+
+								c.extra_entities    	= c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml,"
+			                    draw_actions( 1, true )
+	                        end,
+    },
+
     -- {
 	--     id                  = "D2D_OPENING_SHOT",
 	--     name 		        = "Opening Shot",
