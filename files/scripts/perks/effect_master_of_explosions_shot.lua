@@ -10,7 +10,9 @@ function shot( entity_id )
 
 	-- increase projectile's max_durability_to_destroy by 2 + 1 per Bomberman perk pickup
 	local current_mdtd_value = ComponentObjectGetValue2( projectile, "config_explosion", "max_durability_to_destroy" )
-	ComponentObjectSetValue2( projectile, "config_explosion", "max_durability_to_destroy", current_mdtd_value + 2 + master_of_explosions_pickup_count )
+	if current_mdtd_value then
+		ComponentObjectSetValue2( projectile, "config_explosion", "max_durability_to_destroy", current_mdtd_value + 2 + master_of_explosions_pickup_count )
+	end
 
 	local etypes = { "ray_energy", "sparks_count_max", "camera_shake", "damage", "material_sparks_count_max" }
 	for a,b in ipairs(etypes) do
