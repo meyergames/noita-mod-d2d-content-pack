@@ -703,10 +703,19 @@ function spawn_random_cat( x, y )
 	local cats = { "cat_mocreeps", "cat_mocreeps_black", "cat_mocreeps", "cat_mocreeps_black", "cat_mocreeps_white", "cat_mocreeps_spoopy", "cat_mocreeps_spoopy_skittle", "cat_mocreeps_spoopy_frisky", "cat_mocreeps_spoopy_tiger" }
 	cat_to_spawn = random_from_array( cats )
 
-	local folder = "animals/cat_immortal/"
+	-- local folder = "animals/cat_immortal/"
+	local folder = "animals/"
 	-- if not ModSettingGet( "Apotheosis.congacat_cat_immortal" ) then folder = "animals/" end
 	local path = table.concat( { "mods/Apotheosis/data/entities/", folder, cat_to_spawn, ".xml" } )
-	return EntityLoad( path, x, y )
+	local cat = EntityLoad( path, x, y )
+
+	EntityAddComponent( cat, "LuaComponent", 
+	{ 
+		script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/animals/cat_damage_incoming.lua",
+		execute_every_n_frame = "-1",
+	} )
+
+	return cat
 end
 
 function try_find_luacomp( entity_id, script_type, script_name )

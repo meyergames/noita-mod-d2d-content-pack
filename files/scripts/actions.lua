@@ -904,6 +904,29 @@ if ( ModIsEnabled("Apotheosis") ) then
 	    },
 
 	    {
+		    id                  = "D2D_CATS_TO_DAMAGE",
+		    name 		        = "$spell_d2d_cats_to_damage_name",
+		    description         = "$spell_d2d_cats_to_damage_desc",
+	        inject_after        = { "D2D_SUMMON_CAT" },
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/cats_to_damage.png",
+		    type 		        = ACTION_TYPE_MODIFIER,
+			spawn_level         = "0", -- never spawns in the world
+			spawn_probability   = "0", -- never spawns in the world
+		    price               = 400,
+		    mana                = 5,
+		    action              = function()
+									c.fire_rate_wait		= c.fire_rate_wait + 5
+									c.damage_projectile_add = c.damage_projectile_add + 0.04 -- for the tooltip
+									if reflecting then return end
+									c.damage_projectile_add = c.damage_projectile_add - 0.04 -- reset
+
+									dofile_once( "data/scripts/lib/utilities.lua" )
+						            local cats_petted = get_internal_int( get_player(), "cats_petted", 1 )
+						            c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * cats_petted )
+		                        end,
+	    },
+
+	    {
 		    id                  = "D2D_SUMMON_FAIRIES",
 		    name 		        = "$spell_d2d_summon_fairies_name",
 		    description         = "$spell_d2d_summon_fairies_desc",

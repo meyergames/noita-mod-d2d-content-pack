@@ -26,8 +26,13 @@ end
 local cats = EntityGetInRadiusWithTag( x, y, 500, "helpless_animal" )
 if ( #cats > 0 ) then
     for i,cat in ipairs( cats ) do
-        if string.find( EntityGetName(cat), "cat_" ) then
+        if string.find( EntityGetName(cat), "cat_" ) and not EntityHasTag( cat, "cat" ) then
             EntityAddTag( cat, "cat" )
+            EntityAddComponent( cat, "LuaComponent", 
+            { 
+                script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/animals/cat_damage_incoming.lua",
+                execute_every_n_frame = "-1",
+            } )
         end
     end
 end

@@ -71,10 +71,10 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 		-- count towards spawning the Cat Radar perk
 		raise_internal_int( entity_who_interacted, "cats_petted", 1 )
 		cats_petted = get_internal_int( entity_who_interacted, "cats_petted" )
+		-- if cats_petted == 10 then
+			-- spawn_perk( "D2D_CAT_RADAR", x, y )
 		if cats_petted == 10 then
-			spawn_perk( "D2D_CAT_RADAR", x, y )
-		elseif cats_petted % 50 == 0 then
-			CreateItemActionEntity( "D2D_SUMMON_CAT", x, y )
+			CreateItemActionEntity( "D2D_CATS_TO_DAMAGE", x, y )
 		end
 
 		-- try to heal the player, OR (if they are full health) count towards spawning the Summon Cat spell
