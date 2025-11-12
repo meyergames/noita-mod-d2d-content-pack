@@ -60,6 +60,7 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         -- spawn reward chest based on depth
         local spx, spy = 0,0
         local chest = "data/entities/items/pickup/chest_random.xml"
+        local spell = "D2D_BLINK"
 --        local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
 --        if( hm_visits == 1 ) then
         if( y < 1500 ) then
@@ -75,14 +76,18 @@ if ( owner ~= nil ) and ( owner ~= NULL_ENTITY ) and EntityGetIsAlive( owner ) t
         elseif ( y < 12500 ) then
             spx, spy = -680, 10610
             chest = "data/entities/items/pickup/chest_random_super.xml"
+            spell = "D2D_BLINK_TRIGGER"
         elseif ( y > 12500 ) then
             spx, spy = 1910, 13170
             chest = "data/entities/items/pickup/chest_random_super.xml"
+            spell = "D2D_BLINK_TRIGGER"
         end
         if( was_player_REALLY_fast ) then
             chest = "data/entities/items/pickup/chest_random_super.xml"
+            spell = "D2D_BLINK_TRIGGER"
         end
         EntityLoad( chest, spx, spy )
+        CreateItemActionEntity( spell, spx, spy - 20 )
         GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest/create", x, y )
 
         -- remove_perk( "D2D_TIME_TRIAL" )

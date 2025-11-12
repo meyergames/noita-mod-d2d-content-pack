@@ -44,7 +44,7 @@ function OnPlayerSpawned(player)
 
     -- dofile_once( "data/scripts/lib/utilities.lua" )
     -- local px, py = EntityGetTransform( get_player() )
-    -- CreateItemActionEntity( "D2D_QUICK_BURNER", px, py )
+    -- CreateItemActionEntity( "D2D_BLINK", px, py )
 end
 
 

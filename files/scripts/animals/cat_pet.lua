@@ -73,7 +73,7 @@ function interacting(entity_who_interacted, entity_interacted, interactable_name
 		cats_petted = get_internal_int( entity_who_interacted, "cats_petted" )
 		-- if cats_petted == 10 then
 			-- spawn_perk( "D2D_CAT_RADAR", x, y )
-		if cats_petted == 10 then
+		if cats_petted == 20 then
 			CreateItemActionEntity( "D2D_CATS_TO_DAMAGE", x, y )
 		end
 

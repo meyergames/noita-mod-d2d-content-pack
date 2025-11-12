@@ -263,11 +263,32 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [x] Flash: teleports you a short distance towards your cursor (max 1/4 screen); 1.0s cast delay + recharge time.
 		[-] the estimated destination could be displayed with an enabled_in_hand script? <-- eh
 
-[ ] modifier that causes a projectile to be destroyed if it's too far away from the player
+[x] modifier that causes a projectile to be destroyed if it's too far away from the player
 
 [ ] modifier that causes a projectile to exist until you release fire / switch to a different wand
 
 [ ] homing modifier that locks on to enemy projectiles?
+
+[ ] modifier that halves the next spell's mana cost
+
+[ ] buff Bolt Catcher with infinite casts?
+
+[ ] Time Trial rework
+		[ ] Rewards:
+				[ ] +15% mov speed
+				[ ] Blink (if <60s) or Blink With Trigger (if <30s)
+						[ ] ...or a variant of the spell with much less cast delay / recharge time?
+				[ ] Chest (if <60s) or Greater Chest (if <30s)
+		[ ] Mechanics
+				[ ] Check if the player is in a PW; adjust X-position of chest (and area checks?) accordingly
+				[ ] For every 10 gold picked up, gain 10-30 extra gold once you arrive at the HM
+				[ ] Make the perk stackable
+
+[ ] Heart Balloon
+		[ ] For now, make it work without a balloon attached
+		[ ] Reduce health to 80%, bring to 200% afterwards ( x0.8 --> x2.5 )
+
+[ ] add Alt Fire Anything to D2D, IF the player doesn't have AFA already enabled
 
 
 
