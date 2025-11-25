@@ -224,7 +224,10 @@ so it'd reward players who can give up the heal, while still being useful for th
 [x] Mana Lock at 90% reduction rate sometimes sets mana drain to 0? try with GamePrint to see what is stored/refunded
 [x] Mana Lock more accurate wording: call it "refund" instead of "reduce"
 
+[x] Feline Affection: cats not immortal, but on_damage_about_to_received() nullifies damage coming from enemies, and "teleports" them away if the player is the damage source
+    [ ] Test if different despawn approach works
 
+[ ] AFA: disable when electrocuted etc
 
 
 
