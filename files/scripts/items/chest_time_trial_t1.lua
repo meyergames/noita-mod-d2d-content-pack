@@ -3,16 +3,32 @@ dofile_once("data/scripts/lib/utilities.lua")
 -------------------------------------------------------------------------------
 
 function drop_rewards( x, y )
+	CreateItemActionEntity( "TELEPORT_PROJECTILE_SHORT", x, y )
 	if ModIsEnabled( "Apotheosis" ) then
-		CreateItemActionEntity( "APOTHEOSIS_ALT_FIRE_TELEPORT_SHORT", x - 12, y )
+		CreateItemActionEntity( "APOTHEOSIS_ALT_FIRE_TELEPORT_SHORT", x, y )
 	end
-	CreateItemActionEntity( "TELEPORT_PROJECTILE_SHORT", x - 12, y )
-
+	
     dofile_once( "data/scripts/perks/perk.lua" )
-	perk_spawn( x, y, "D2D_WARP_RUSH", true )
+	perk_spawn( x, y - 20, "D2D_WARP_RUSH", true )
 
-	CreateItemActionEntity( "D2D_REWIND", x + 12, y )
+	-- spawn wand
+	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+	local wand = EZWand()
+	wand:SetName( "Staff of Time", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 24
+	wand.rechargeTime = 240
+	wand.manaMax = 400
+	wand.manaChargeSpeed = 40
+	wand.capacity = 0
+	wand.spread = 0
+	wand:AttachSpells( "D2D_CHAOTIC_FACTOR", "D2D_BLINK", "D2D_REWIND_ALT_FIRE" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_time_t1.png", 8, 4, 19, 0 )
+	wand:PlaceAt( x, y - 40 )
 
+	-- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t3.xml", 230, -79 )
+	
 	return true
 end
 

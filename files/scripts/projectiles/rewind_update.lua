@@ -23,6 +23,11 @@ local function is_slotted_in_wand()
                                 return true
                             end
                         end
+                        for i,spell in ipairs( attached_spells ) do
+                            if spell.action_id == "D2D_REWIND" or spell.action_id == "D2D_REWIND_ALT_FIRE" then
+                                return true
+                            end
+                        end
                     end
                 end 
             end

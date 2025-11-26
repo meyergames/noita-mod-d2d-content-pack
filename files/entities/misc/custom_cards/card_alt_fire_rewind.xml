@@ -17,6 +17,12 @@
 	</InheritTransformComponent>
 
     <LuaComponent
+        _tags="enabled_in_hand,enabled_in_inventory"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/rewind_update.lua"
+        execute_every_n_frame="1"
+    ></LuaComponent>
+
+    <LuaComponent
         _tags="enabled_in_hand"
         script_source_file="mods/D2DContentPack/files/scripts/projectiles/alt_fire_rewind.lua"
         execute_every_n_frame="1"

@@ -654,6 +654,50 @@ d2d_actions = {
 	                        end,
     },
 
+	{
+		id                  = "D2D_CHAOTIC_FACTOR",
+		name 		        = "$spell_d2d_chaotic_factor_name",	
+		description         = "$spell_d2d_chaotic_factor_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/chaotic_factor.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "6,10",
+		spawn_probability   = "0.4,0.5",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_fixed_altitude.xml",
+		price               = 333,
+		mana                = -100,
+		action 		        = function()
+								if reflecting then return end
+
+							    local rand = Random( 1, 20 )
+							    if rand == 1 then
+							    	local rand2 = Random( 1, 20 )
+							    	if rand2 ~= 1 then
+		                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+
+								    	-- electrocute
+			                            EntityInflictDamage( GetUpdatedEntityID(), 0.4, "DAMAGE_ELECTRICITY", "chaotic factor", "ELECTROCUTION", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+			                            -- explode
+			                            EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml", x, y )
+
+			                            -- deal 10% max health damage (cannot kill)
+										local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+										local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+										local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+			                            EntityInflictDamage( GetUpdatedEntityID(), max( p_max_hp * 0.1, p_hp - 0.04 ), "DAMAGE_CURSE", "chaotic factor", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+			                            -- clear the hand
+	                                	hand = {}
+			                        else
+			                            -- 1/400 chance to fake polymorph jumpscare
+	        							LoadGameEffectEntityTo( GetUpdatedEntityID(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_polymorph_short.xml" )
+	        						end
+	                            else
+									draw_actions( 1, true )
+	                            end
+		                    end,
+	},
+
     {
 	    id                  = "D2D_REVEAL",
 	    name 		        = "$spell_d2d_reveal_name",
@@ -742,6 +786,25 @@ d2d_actions = {
                             		mana = mana + 40
                                 end
 	                        end,
+    },
+
+    {
+	    id                  = "D2D_REWIND_ALT_FIRE",
+	    name 		        = "$spell_d2d_rewind_alt_fire_name",
+	    description         = "$spell_d2d_rewind_alt_fire_desc",
+        inject_after        = { "D2D_REWIND", "TELEPORT_PROJECTILE_STATIC" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_rewind.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0,1,2,3,4,5,6", -- TELEPORT_PROJECTILE_STATIC
+		spawn_probability   = "0.6,0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_rewind.xml",
+	    price               = 90,
+	    mana                = 40,
+	    action              = function()
+	    						draw_actions( 1, true )
+        						mana = mana + 40
+	                        end,	
     },
 
 	{
@@ -849,25 +912,6 @@ if not ( ModIsEnabled( "alt_fire_anything" ) and ModSettingGet( "D2DContentPack.
 	    	custom_uses_logic 	= true,
 		    action              = function()
 		    						draw_actions( 1, true )
-		                        end,
-	    },
-
-	    {
-		    id                  = "D2D_REWIND_ALT_FIRE",
-		    name 		        = "$spell_d2d_rewind_alt_fire_name",
-		    description         = "$spell_d2d_rewind_alt_fire_desc",
-	        inject_after        = { "D2D_REWIND", "TELEPORT_PROJECTILE_STATIC" },
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_rewind.png",
-		    type 		        = ACTION_TYPE_PASSIVE,
-	        subtype     		= { altfire = true },
-			spawn_level         = "0,1,2,3,4,5,6", -- TELEPORT_PROJECTILE_STATIC
-			spawn_probability   = "0.6,0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
-			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_rewind.xml",
-		    price               = 90,
-		    mana                = 40,
-		    action              = function()
-		    						draw_actions( 1, true )
-	        						mana = mana + 40
 		                        end,
 	    },
 
