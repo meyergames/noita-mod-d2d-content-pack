@@ -1,0 +1,16 @@
+<Entity tags="perk_entity" >
+
+    <InheritTransformComponent />
+  
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="WARP_RUSH"
+    ></GameEffectComponent >
+
+    <LuaComponent
+      _enabled="1" 
+      script_source_file="mods/D2DContentPack/files/scripts/perks/effect_warp_rush_update.lua"
+      execute_every_n_frame="3"
+    ></LuaComponent>
+
+</Entity>

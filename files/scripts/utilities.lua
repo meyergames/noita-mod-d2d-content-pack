@@ -387,17 +387,19 @@ end
 
 
 
-function multiply_move_speed( entity_id, effect_name, mtp )
+function multiply_move_speed( entity_id, effect_name, mtp_x, mtp_y )
     local character_platforming_component = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
 
+    if not mtp_y then mtp_y = mtp_x end
+
     local properties_to_change = {
-        velocity_min_x = mtp,
-        velocity_max_x = mtp,
-	    jump_velocity_y = mtp,
-	    jump_velocity_x = mtp,
-	    fly_speed_max_up = mtp,
-	    fly_speed_max_down = mtp,
-	    fly_velocity_x = mtp
+        velocity_min_x = mtp_x,
+        velocity_max_x = mtp_x,
+	    jump_velocity_y = mtp_y,
+	    jump_velocity_x = mtp_x,
+	    fly_speed_max_up = mtp_y,
+	    fly_speed_max_down = mtp_y,
+	    fly_velocity_x = mtp_x
     }
 
     if character_platforming_component then
@@ -417,7 +419,7 @@ function multiply_move_speed( entity_id, effect_name, mtp )
 
 	    EntityAddComponent2( entity_id, "VariableStorageComponent", {
 		    name = effect_name .. "_move_speed_mtp",
-		    value_string = mtp,
+		    value_string = mtp_x .. "," .. mtp_y,
 	    })
     end
 end
@@ -427,14 +429,18 @@ function reset_move_speed( entity_id, effect_name )
     local var_store = get_variable_storage_component( entity_id, effect_name .. "_move_speed_mtp" )
     stored_mtp_value = ComponentGetValue2( var_store, "value_string" )
 
+    local parsed = split_string( stored_mtp_value, ',' )
+    local mtp_x = parsed[1]
+    local mtp_y = parsed[2]
+
     local properties_to_change = {
-        velocity_min_x = 1.0 / stored_mtp_value,
-        velocity_max_x = 1.0 / stored_mtp_value,
-	    jump_velocity_y = 1.0 / stored_mtp_value,
-	    jump_velocity_x = 1.0 / stored_mtp_value,
-	    fly_speed_max_up = 1.0 / stored_mtp_value,
-	    fly_speed_max_down = 1.0 / stored_mtp_value,
-	    fly_velocity_x = 1.0 / stored_mtp_value
+        velocity_min_x = 1.0 / mtp_x,
+        velocity_max_x = 1.0 / mtp_x,
+	    jump_velocity_y = 1.0 / mtp_y,
+	    jump_velocity_x = 1.0 / mtp_x,
+	    fly_speed_max_up = 1.0 / mtp_y,
+	    fly_speed_max_down = 1.0 / mtp_y,
+	    fly_velocity_x = 1.0 / mtp_x
     }
 
     if character_platforming_component then

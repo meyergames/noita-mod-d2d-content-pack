@@ -32,12 +32,13 @@ local hms_visited = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
 local biomes_visited = tonumber( GlobalsGetValue( "visited_biomes_count", "0" ) )
 
 -- to keep track of variables
-addNewInternalVariable( owner, "is_doing_time_trial", "value_int", 1 )
-addNewInternalVariable( owner, "visited_biomes_count_on_trial_start", "value_int", biomes_visited )
-addNewInternalVariable( owner, "hms_visited_on_trial_start", "value_int", hms_visited )
-addNewInternalVariable( owner, "time_trial_update_count", "value_int", 0 )
+set_internal_int( owner, "is_doing_time_trial", 1 )
+set_internal_int( owner, "visited_biomes_count_on_trial_start", biomes_visited )
+set_internal_int( owner, "hms_visited_on_trial_start", hms_visited )
+set_internal_int( owner, "time_trial_update_count", 0 )
 --addNewInternalVariable( owner, "time_trial_duration", "value_int", 60 )
-addNewInternalVariable( owner, "reached_time_trial_finish", "value_int", 0 )
+set_internal_int( owner, "reached_time_trial_finish", 0 )
+set_internal_int( owner, "time_trial_start_y", y )
 
 
 

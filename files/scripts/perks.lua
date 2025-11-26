@@ -6,11 +6,33 @@ d2d_perks = {
 		ui_description = "$perk_d2d_time_trial_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/time_trial_016.png",
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/time_trial.png",
-		stackable = STACKABLE_NO, -- doesn't work for now (smth with the effect's internal variable tracking)
+		stackable = STACKABLE_NO, -- doesn't work for now (smth with the effect's internal variable tracking?)
+		max_in_perk_pool = 1,
+		stackable_maximum = 1,
 		one_off_effect = true,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
             LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_time_trial.xml" )
+		end,
+	},
+
+	{
+		id = "D2D_WARP_RUSH",
+		ui_name = "$perk_d2d_warp_rush_name",
+		ui_description = "$perk_d2d_warp_rush_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/warp_rush_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/warp_rush.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if ( pickup_count <= 1 ) then
+            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_warp_rush.xml" )
+
+            	dofile_once( "data/scripts/lib/utilities.lua" )
+				multiply_move_speed( entity_who_picked, "d2d_warp_rush", 1.0 )
+        	end
 		end,
 	},
 
