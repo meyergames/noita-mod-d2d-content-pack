@@ -741,11 +741,6 @@ d2d_actions = {
 										end
 									end
 
-									for i,v in ipairs( hand ) do
-										local spell_data = hand[i]
-		    							GamePrint( "hand: " .. spell_data.id )
-									end
-
 									-- local cached_fire_rate_wait = c.fire_rate_wait
 									c.spread_degrees = c.spread_degrees + ( 1.5 * copies )
 									draw_actions( copies, true )
