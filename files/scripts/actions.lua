@@ -690,11 +690,11 @@ d2d_actions = {
 	    action              = function()
 	    						if reflecting then return end
 
-	                            -- deal 10% max health damage (cannot kill)
+	                            -- deal 5% max health damage (cannot kill)
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
 								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.1, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
                                 draw_actions( 1, true )
 	                        end,
