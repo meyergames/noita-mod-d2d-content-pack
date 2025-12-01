@@ -1,10 +1,10 @@
-<Entity tags="perk_entity">
+<Entity tags="perk_entity,d2d_master_of_fire">
 
     <InheritTransformComponent />
 
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="PYRELORD"
+        custom_effect_id="D2D_MASTER_OF_FIRE"
     ></GameEffectComponent >
 
     <!--INIT -->

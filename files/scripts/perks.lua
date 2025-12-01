@@ -17,6 +17,60 @@ d2d_perks = {
 	},
 
 	{
+		id = "D2D_GLASS_HEART",
+		ui_name = "$perk_d2d_glass_heart_name",
+		ui_description = "$perk_d2d_glass_heart_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_heart_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_heart.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = true,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if reflecting then return end
+			dofile_once( "data/scripts/lib/utilities.lua" )
+
+			-- register the current y position to disqualify nearby hearts
+			local x, y = EntityGetTransform( entity_who_picked )
+        	set_internal_float( entity_who_picked, "d2d_glass_heart_start_y", y )
+
+	        -- add a damage_received script, if it doesn't exist already
+		    if not has_lua( entity_who_picked, "d2d_glass_heart" ) then
+		        EntityAddComponent( entity_who_picked, "LuaComponent",
+		        {
+					_tags = "perk_component,d2d_glass_heart",
+		            script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_glass_heart_on_damage_received.lua",
+		            execute_every_n_frame = "-1",
+		        })
+
+		        local p_dcomp = EntityGetFirstComponentIncludingDisabled( entity_who_picked, "DamageModelComponent" )
+		        local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+		        ComponentSetValue2( p_dcomp, "max_hp", p_max_hp * 0.75 )
+
+            	-- exclude nearby hearts from being valid for completion
+            	local nearby_drillables = EntityGetInRadiusWithTag( x, y, 600, "drillable" )
+            	if nearby_drillables and #nearby_drillables > 0 then
+	            	for i,drillable in ipairs( nearby_drillables ) do
+	            		EntityAddTag( drillable, "d2d_glass_heart_disqualified" )
+	            	end
+	            end
+		    end
+
+			-- add a UI component, if it doesn't exist already
+			local ui_icon_id = get_child_with_name( entity_who_picked, "effect_glass_heart.xml" )
+			if not ui_icon_id then
+            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_glass_heart.xml" )
+			end
+		end,
+		func_remove = function( entity_who_picked )
+			remove_lua( entity_who_picked, "d2d_glass_heart" )
+	        local ui_icon_id = get_child_with_name( entity_who_picked, "effect_glass_heart.xml" )
+	        if ui_icon_id then
+	            EntityKill( ui_icon_id )
+	        end
+		end,
+	},
+
+	{
 		id = "D2D_WARP_RUSH",
 		ui_name = "$perk_d2d_warp_rush_name",
 		ui_description = "$perk_d2d_warp_rush_desc",
@@ -35,28 +89,6 @@ d2d_perks = {
         	end
 		end,
 	},
-
-	-- {
-	-- 	id = "D2D_BALLOON_HEART",
-	-- 	ui_name = "$perk_d2d_balloon_heart_name",
-	-- 	ui_description = "$perk_d2d_balloon_heart_desc",
-	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/balloon_heart_016.png",
-	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/balloon_heart.png",
-	-- 	stackable = STACKABLE_YES, -- doesn't work for now (smth with the effect's internal variable tracking)
-	-- 	one_off_effect = true,
-	-- 	usable_by_enemies = false,
-	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
-	-- 		local x,y = EntityGetTransform( entity_who_picked )
-    --         LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/balloon_heart.xml" )
-
-    --         dofile_once( "data/scripts/lib/utilities.lua" )
-	-- 		local lua_comp_id = EntityAddComponent2( entity_who_picked, "LuaComponent", {
-    --     		script_damage_received="mods/D2DContentPack/files/scripts/perks/effect_balloon_heart_on_damage_received.lua",
-    --     		execute_every_n_frame=-1,
-	-- 		})
-	-- 		set_internal_int( entity_who_picked, "balloon_heart_lua_comp_id", lua_comp_id )
-	-- 	end,
-	-- },
 
 	-- {
 	-- 	id = "D2D_RING_OF_LIFE",
@@ -155,15 +187,21 @@ d2d_perks = {
 			end
 
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-            { 
+            {
+				_tags = "perk_component,d2d_master_of_bombs",
 	            extra_modifier = "d2d_master_of_explosions_boost",
             } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
-			{ 
+			{
+				_tags = "perk_component,d2d_master_of_bombs",
 				script_shot = "mods/D2DContentPack/files/scripts/perks/effect_master_of_explosions_shot.lua",
 				execute_every_n_frame = "-1",
 			} )
         end,
+		func_remove = function( entity_who_picked )
+			remove_lua( entity_who_picked, "d2d_master_of_bombs" )
+			remove_shoteffect( entity_who_picked, "d2d_master_of_bombs" )
+		end,
 	},
 
 	{
@@ -184,10 +222,15 @@ d2d_perks = {
 
            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_lightning.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-            { 
+            {
+				_tags = "perk_component,d2d_master_of_lightning",
 	            extra_modifier = "d2d_master_of_lightning_boost",
             } )
         end,
+		func_remove = function( entity_who_picked )
+			remove_lua( entity_who_picked, "d2d_master_of_lightning" )
+			remove_shoteffect( entity_who_picked, "d2d_master_of_lightning" )
+		end,
         -- effects:
         -- > x1.33 fire rate and reload speed
         -- > x2.0 projectile speed
@@ -218,14 +261,20 @@ d2d_perks = {
             LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_fire.xml" )
             EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
             { 
+				_tags="perk_component,d2d_master_of_fire",
 	            extra_modifier = "d2d_master_of_fire_boost",
             } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{ 
+				_tags="perk_component,d2d_master_of_fire",
 				script_shot = "mods/D2DContentPack/files/scripts/perks/effect_master_of_fire_increased_damage.lua",
 				execute_every_n_frame = "-1",
 			} )	
         end,
+		func_remove = function( entity_who_picked )
+			remove_lua( entity_who_picked, "d2d_master_of_fire" )
+			remove_shoteffect( entity_who_picked, "d2d_master_of_fire" )
+		end,
         -- effects:
         -- > all projectiles deal +5 fire damage and ignite enemies
         -- > everyone takes more damage from fire
@@ -238,22 +287,33 @@ d2d_perks = {
         -- > burning damage taken spreads to enemies
 	},
 
---	{
---		id = "D2D_PANIC_MODE",
---		ui_name = "Panic Mode",
---		ui_description = "Upon taking heavy damage, gain a short burst of speed.",
---		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ringoflife_016.png",
---		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ringoflife.png",
---		stackable = STACKABLE_NO,
---		one_off_effect = true,
---		usable_by_enemies = false,
---		func = function( entity_perk_item, entity_who_picked, item_name )
---            LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_ringoflife.xml" )
---        end,
---        _remove = function( entity_id )
---            -- do nothing
---		end,
---	},
+	-- {
+	-- 	id = "D2D_PANIC_BUTTON",
+	-- 	ui_name = "Panic Button",
+	-- 	ui_description = "Upon taking damage, gain a short burst of move speed.",
+	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/panic_button_016.png",
+	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/panic_button.png",
+	-- 	stackable = STACKABLE_YES,
+	-- 	one_off_effect = false,
+	-- 	usable_by_enemies = true,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
+	-- 		EntityAddComponent( entity_who_picked, "LuaComponent", 
+	-- 		{ 
+	-- 			_tags="perk_component,d2d_panic_button",
+	-- 			script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_panic_button_on_damage.lua",
+	-- 			execute_every_n_frame = "-1",
+	-- 		} )	
+	-- 		EntityAddComponent( entity_who_picked, "LuaComponent", 
+	-- 		{ 
+	-- 			_tags="perk_component,d2d_panic_button",
+	-- 			script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_panic_button_update.lua",
+	-- 			execute_every_n_frame = "3",
+	-- 		} )
+    --    	end,
+	-- 	func_remove = function( entity_who_picked )
+	-- 		remove_lua( entity_who_picked, "d2d_panic_button" )
+	-- 	end,
+	-- },
 
 	{
 		id = "D2D_BORROWED_TIME",

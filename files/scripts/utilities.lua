@@ -338,6 +338,51 @@ function get_perk_pickup_count( perk_id )
     return pickup_count
 end
 
+function has_lua( entity_id, tag )
+	local comps = EntityGetComponentIncludingDisabled( entity_id, "LuaComponent", tag ) or {}
+	return #comps > 0
+end
+
+function remove_lua( entity_id, tag )
+	local comps = EntityGetComponentIncludingDisabled( entity_id, "LuaComponent", tag ) or {}
+	for i = 1, #comps do
+		EntityRemoveComponent( entity_id, comps[i] )
+	end
+end
+
+function remove_shoteffect( entity_id, tag )
+	local comps = EntityGetComponentIncludingDisabled( entity_id, "ShotEffectComponent", tag ) or {}
+	for i = 1, #comps do
+		EntityRemoveComponent( entity_id, comps[i] )
+	end
+end
+
+function get_child_with_name( parent_id, name )
+    local children = EntityGetAllChildren( parent_id )
+    if children then
+	    for i,child in ipairs( children ) do
+	        local filename = EntityGetFilename( child )
+	        if string.find( filename, name ) then
+	            return child
+	        end
+	    end
+	end
+
+	return nil
+end
+
+function get_child_with_tag( parent_id, tag )
+    local children = EntityGetAllChildren( parent_id, tag )
+    for i,child in ipairs( children ) do
+        local tags = EntityGetTags( child )
+        if string.find( tags, tag ) then
+            return child
+        end
+    end
+
+	return nil
+end
+
 
 -- This method was originally written by Horscht for the "Removable perks" mod, slightly adjusted to better fit this mod's needs. Thank you Horscht! ---
 function remove_perk( perk_id )

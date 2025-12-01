@@ -126,7 +126,7 @@ function spawn_random_staff( x, y, force_rng )
 	local wand_lvl = hm_visits + 1
 
 	SetRandomSeed( x, y + GameGetFrameNum() )
-	local rng = force_rng or Random( 1, 120 )
+	local rng = force_rng or Random( 1, 100 )
 	if( rng <= 20 ) then
 
 		wand:SetName( "Staff of Justice", true )
@@ -220,30 +220,30 @@ function spawn_random_staff( x, y, force_rng )
 		wand:AddSpells( "BOMB" )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_starter_2.png", 11, 4, 17, 0 )
 
-	elseif( rng <= 120 ) then
+	-- elseif( rng <= 120 ) then
 
-		wand:SetName( "Staff of Glass", true )
-		wand.shuffle = false
-		wand.spellsPerCast = 1
-		wand.castDelay = Random( -4, -1 )
-		wand.rechargeTime = Random( 1, 4 )
-		wand.manaMax = 128 + ( 128 + Random( -4, 4 ) ) * wand_lvl
-		wand.manaChargeSpeed = 192 + ( 192 + Random( -4, 4 ) ) * wand_lvl
-		wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
-		wand.spread = Random( -8, -2 )
-		add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
-		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_glass.png", 6, 4, 18, 0 )
+	-- 	wand:SetName( "Staff of Glass", true )
+	-- 	wand.shuffle = false
+	-- 	wand.spellsPerCast = 1
+	-- 	wand.castDelay = Random( -4, -1 )
+	-- 	wand.rechargeTime = Random( 1, 4 )
+	-- 	wand.manaMax = 128 + ( 128 + Random( -4, 4 ) ) * wand_lvl
+	-- 	wand.manaChargeSpeed = 192 + ( 192 + Random( -4, 4 ) ) * wand_lvl
+	-- 	wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
+	-- 	wand.spread = Random( -8, -2 )
+	-- 	add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
+	-- 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_glass.png", 6, 4, 18, 0 )
 
-		set_internal_int( wand.entity_id, "is_glass", 1 )
-		local existing_effect_id = get_internal_int( get_player(), "glass_wand_effect_id" )
-		if not existing_effect_id then
-			local comp_id = EntityAddComponent( get_player(), "LuaComponent",
-			{
-				script_damage_received = "mods/D2DContentPack/files/scripts/items/wand_of_glass_on_damage_received.lua",
-				execute_every_n_frame = "-1",
-			})
-			set_internal_int( get_player(), "glass_wand_effect_id", comp_id )
-		end
+	-- 	set_internal_int( wand.entity_id, "is_glass", 1 )
+	-- 	local existing_effect_id = get_internal_int( get_player(), "glass_wand_effect_id" )
+	-- 	if not existing_effect_id then
+	-- 		local comp_id = EntityAddComponent( get_player(), "LuaComponent",
+	-- 		{
+	-- 			script_damage_received = "mods/D2DContentPack/files/scripts/items/wand_of_glass_on_damage_received.lua",
+	-- 			execute_every_n_frame = "-1",
+	-- 		})
+	-- 		set_internal_int( get_player(), "glass_wand_effect_id", comp_id )
+	-- 	end
 
 	end
 
@@ -359,4 +359,36 @@ function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
 	-- change the wand's name and play sfx
 	wand:SetName( base_wand_name .. " Mk." .. ( wand_version + upgrade_amt ), true )
 	-- GamePlaySound( "mods/D2DContentPack/lib/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit", x, y )
+end
+
+function spawn_glass_staff( x, y )
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand()
+    local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
+    local wand_lvl = hm_visits + 1
+    wand:SetName( "Staff of Glass", true )
+    wand.shuffle = false
+    wand.spellsPerCast = 1
+    wand.castDelay = Random( 1, 5 ) - wand_lvl
+    wand.rechargeTime = Random( 6, 10 ) - ( wand_lvl * 2 )
+    wand.manaMax = 64 + ( 128 + Random( -4, 4 ) ) * wand_lvl
+    wand.manaChargeSpeed = 96 + ( 192 + Random( -4, 4 ) ) * wand_lvl
+    wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
+    wand.spread = Random( -8, -2 )
+    dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+    add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
+    wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_glass.png", 6, 4, 18, 0 )
+
+    set_internal_int( wand.entity_id, "is_glass", 1 )
+    local existing_effect_id = get_child_with_name( get_player(), "wand_of_glass_on_damage_received" )
+    if not existing_effect_id then
+        local comp_id = EntityAddComponent( get_player(), "LuaComponent",
+        {
+            script_damage_received = "mods/D2DContentPack/files/scripts/items/wand_of_glass_on_damage_received.lua",
+            execute_every_n_frame = "-1",
+        })
+    end
+
+    EntityAddTag( wand.entity_id, "glass_wand" )
+    wand:PlaceAt( x, y - 20 )
 end

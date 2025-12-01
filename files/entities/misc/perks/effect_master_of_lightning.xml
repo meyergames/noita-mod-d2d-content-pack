@@ -1,10 +1,10 @@
-<Entity tags="perk_entity">
+<Entity tags="perk_entity,d2d_master_of_lightning">
 
     <InheritTransformComponent />
 
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="LIGHTNINGLORD"
+        custom_effect_id="D2D_MASTER_OF_LIGHTNING"
     ></GameEffectComponent >
 
     <!--INIT -->
