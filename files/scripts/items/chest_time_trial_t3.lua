@@ -17,13 +17,13 @@ function drop_rewards( x, y )
 	wand:SetName( "Staff of Time", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
-	wand.castDelay = 6
-	wand.rechargeTime = 60
-	wand.manaMax = 400
-	wand.manaChargeSpeed = 40
+	wand.castDelay = 0
+	wand.rechargeTime = 0
+	wand.manaMax = 240
+	wand.manaChargeSpeed = 60
 	wand.capacity = 0
 	wand.spread = 0
-	wand:AttachSpells( "D2D_BLINK_TRIGGER", "D2D_REWIND_ALT_FIRE" )
+	wand:AttachSpells( "D2D_BLOOD_PRICE", "D2D_BLINK_TRIGGER", "D2D_REWIND_ALT_FIRE" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_time_t3.png", 8, 4, 19, 0 )
 	wand:PlaceAt( x, y - 40 )
 
@@ -49,7 +49,6 @@ function on_open( entity_item )
 	local good_item_dropped = drop_rewards( x, y )
 
 	EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
-	LoadGameEffectEntityTo( get_player(), "data/entities/misc/effect_regeneration.xml" )
 end
 
 function item_pickup( entity_item, entity_who_picked, name )

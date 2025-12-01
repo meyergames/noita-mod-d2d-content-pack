@@ -1,4 +1,4 @@
-<Entity tags="perk_entity">
+<Entity tags="perk_entity,d2d_time_trial">
 
     <InheritTransformComponent />
 	
@@ -6,27 +6,20 @@
 		lifetime="3600"
 	></LifetimeComponent>
 
-    <!--<UIIconComponent
-        icon_sprite_file="mods/D2DContentPack/files/gfx/ui_gfx/perks/time_trial.png"
-        name="Run Or Die"
-        description="No time to read tooltips now!"
-        display_in_hud="true"
-        is_perk="false"
-    ></UIIconComponent>-->
-
     <GameEffectComponent 
         effect="CUSTOM"
-        custom_effect_id="RUN_OR_DIE"
+        custom_effect_id="D2D_TIME_TRIAL"
         frames="3600"
     ></GameEffectComponent >
-	
-    <!-- REGISTER -->
-	<!--<LuaComponent 
-	    execute_every_n_frame="1"
-		remove_after_executed="1"
-		execute_on_added="1"
-	    script_source_file="mods/D2DContentPack/files/scripts/status_effects/effect_time_trial_register.lua"
-	></LuaComponent>-->
+
+    <UIIconComponent
+        icon_sprite_file="mods/D2DContentPack/files/gfx/ui_gfx/status_effects/time_trial_overhead.png"
+        name="Time Trial"
+        description="You don't have time to read tooltips!!"
+        display_in_hud="false"
+        display_above_head="true"
+        is_perk="false"
+    ></UIIconComponent>
 
     <!--INIT -->
     <LuaComponent

@@ -654,49 +654,95 @@ d2d_actions = {
 	                        end,
     },
 
-	{
-		id                  = "D2D_CHAOTIC_FACTOR",
-		name 		        = "$spell_d2d_chaotic_factor_name",	
-		description         = "$spell_d2d_chaotic_factor_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/chaotic_factor.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "6,10",
-		spawn_probability   = "0.4,0.5",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_fixed_altitude.xml",
-		price               = 333,
-		mana                = -100,
-		action 		        = function()
-								if reflecting then return end
+    {
+	    id                  = "D2D_BLOOD_PRICE",
+	    name 		        = "$spell_d2d_blood_price_name",
+	    description         = "$spell_d2d_blood_price_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_price.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level       	= "0", -- cannot be found normally
+		spawn_probability 	= "0", -- cannot be found normally
+	    price               = 500,
+	    mana                = 0,
+	    action              = function()
+	    						if reflecting then return end
 
-							    local rand = Random( 1, 20 )
-							    if rand == 1 then
-							    	local rand2 = Random( 1, 20 )
-							    	if rand2 ~= 1 then
-		                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	                            -- deal 2% max health damage (cannot kill)
+								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
-								    	-- electrocute
-			                            EntityInflictDamage( GetUpdatedEntityID(), 0.4, "DAMAGE_ELECTRICITY", "chaotic factor", "ELECTROCUTION", 0, 0, GetUpdatedEntityID(), x, y, 0)
+                                draw_actions( 1, true )
+	                        end,
+    },
 
-			                            -- explode
-			                            EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml", x, y )
+    {
+	    id                  = "D2D_BLOOD_TOLL",
+	    name 		        = "$spell_d2d_blood_toll_name",
+	    description         = "$spell_d2d_blood_toll_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_toll.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level       	= "0", -- cannot be found normally
+		spawn_probability 	= "0", -- cannot be found normally
+	    price               = 500,
+	    mana                = 0,	
+	    action              = function()
+	    						if reflecting then return end
 
-			                            -- deal 10% max health damage (cannot kill)
-										local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-										local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-										local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-			                            EntityInflictDamage( GetUpdatedEntityID(), max( p_max_hp * 0.1, p_hp - 0.04 ), "DAMAGE_CURSE", "chaotic factor", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+	                            -- deal 10% max health damage (cannot kill)
+								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.1, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
-			                            -- clear the hand
-	                                	hand = {}
-			                        else
-			                            -- 1/400 chance to fake polymorph jumpscare
-	        							LoadGameEffectEntityTo( GetUpdatedEntityID(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_polymorph_short.xml" )
-	        						end
-	                            else
-									draw_actions( 1, true )
-	                            end
-		                    end,
-	},
+                                draw_actions( 1, true )
+	                        end,
+    },
+
+	-- {
+	-- 	id                  = "D2D_CHAOTIC_FACTOR",
+	-- 	name 		        = "$spell_d2d_chaotic_factor_name",	
+	-- 	description         = "$spell_d2d_chaotic_factor_desc",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/chaotic_factor.png",
+	-- 	type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "6,10",
+	-- 	spawn_probability   = "0.4,0.5",
+	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_fixed_altitude.xml",
+	-- 	price               = 333,
+	-- 	mana                = -100,
+	-- 	action 		        = function()
+	-- 							if reflecting then return end
+
+	-- 						    local rand = Random( 1, 20 )
+	-- 						    if rand == 1 then
+	-- 						    	local rand2 = Random( 1, 20 )
+	-- 						    	if rand2 ~= 1 then
+	-- 	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+
+	-- 							    	-- electrocute
+	-- 		                            EntityInflictDamage( GetUpdatedEntityID(), 0.4, "DAMAGE_ELECTRICITY", "chaotic factor", "ELECTROCUTION", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+	-- 		                            -- explode
+	-- 		                            EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml", x, y )
+
+	-- 		                            -- deal 10% max health damage (cannot kill)
+	-- 									local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+	-- 									local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+	-- 									local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	-- 		                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.1, p_hp - 0.04 ), "DAMAGE_CURSE", "chaotic factor", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+	-- 		                            -- clear the hand
+	--                                 	hand = {}
+	-- 		                        else
+	-- 		                            -- 1/400 chance to fake polymorph jumpscare
+	--         							LoadGameEffectEntityTo( GetUpdatedEntityID(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_polymorph_short.xml" )
+	--         						end
+	--                             else
+	-- 								draw_actions( 1, true )
+	--                             end
+	-- 	                    end,
+	-- },
 
     {
 	    id                  = "D2D_REVEAL",

@@ -19,15 +19,15 @@ function drop_rewards( x, y )
 	wand.spellsPerCast = 1
 	wand.castDelay = 24
 	wand.rechargeTime = 240
-	wand.manaMax = 400
-	wand.manaChargeSpeed = 40
+	wand.manaMax = 60
+	wand.manaChargeSpeed = 15
 	wand.capacity = 0
 	wand.spread = 0
-	wand:AttachSpells( "D2D_CHAOTIC_FACTOR", "D2D_BLINK", "D2D_REWIND_ALT_FIRE" )
+	wand:AttachSpells( "D2D_BLOOD_TOLL", "D2D_BLINK", "D2D_REWIND_ALT_FIRE" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_time_t1.png", 8, 4, 19, 0 )
 	wand:PlaceAt( x, y - 40 )
 
-	-- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t3.xml", 230, -79 )
+	-- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t1.xml", 230, -79 )
 	
 	return true
 end
@@ -49,7 +49,6 @@ function on_open( entity_item )
 	local good_item_dropped = drop_rewards( x, y )
 
 	EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
-	LoadGameEffectEntityTo( get_player(), "data/entities/misc/effect_regeneration.xml" )
 end
 
 function item_pickup( entity_item, entity_who_picked, name )

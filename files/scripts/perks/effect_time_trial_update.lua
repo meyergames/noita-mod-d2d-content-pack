@@ -6,34 +6,65 @@ local entity_id = GetUpdatedEntityID()
 local owner = EntityGetParent(entity_id)
 local x, y = EntityGetTransform( owner )
 
---local time_trial_duration = getInternalVariableValue( owner, "time_trial_duration", "value_int" )
-local old_update_count = getInternalVariableValue( owner, "time_trial_update_count", "value_int" )
+function on_time_trial_win()
+    set_internal_bool( owner, "reached_time_trial_finish", true )
+    set_internal_bool( owner, "is_doing_time_trial", false )
+
+    local time_trial_duration = get_internal_int( owner, "time_trial_update_count" )
+    local chest = ""
+    if time_trial_duration <= 15 then
+        GamePrintImportant( "The gods are in disbelief", "" )
+        chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t3.xml"
+    elseif time_trial_duration <= 30 then
+        GamePrintImportant( "The gods are in awe", "" )
+        chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t2.xml"
+    else
+        GamePrintImportant( "The gods admire your speed", "" )
+        chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t1.xml"
+    end
+
+    local spx = x
+    local spy = y - 50
+    local nearby_entities = EntityGetInRadius( x, y, 220 )
+    for i,nearby_entity in ipairs( nearby_entities ) do
+        local filename = EntityGetFilename( nearby_entity )
+        if string.find( filename, "temple_statue_01" ) then
+            spx, spy = EntityGetTransform( nearby_entity )
+            spx = spx + 79
+            spy = spy + 38
+        end
+    end
+
+    EntityLoad( chest, spx, spy )
+    GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest/create", x, y )
+
+    -- remove Time Trial entity from player
+    EntityKill( entity_id )
+end
+
+
+
+local old_update_count = get_internal_int( owner, "time_trial_update_count" )
 if old_update_count then
     local new_update_count = old_update_count + 1
     set_internal_int( owner, "time_trial_update_count", new_update_count )
 
-    local old_hm_count = get_internal_int( owner, "hms_visited_on_trial_start" )
-    local new_hm_count = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
---    local has_finished = getInternalVariableValue( owner, "reached_time_trial_finish", "value_int" )
---    if ( has_finished == 1 ) then
-
-    if new_hm_count > old_hm_count then
-        local start_y = set_internal_int( owner, "time_trial_start_y", y )
-
-        if start_y < y - 1000 then
-            local nearby_entities = EntityGetInRadius( x, y, 200 )
-            for i,nearby_entity in ipairs( nearby_entities ) do
-                local filename = EntityGetFilename( nearby_entity )
-                if string.find( filename, "temple_statue_01" ) then
-                    set_internal_int( owner, "reached_time_trial_finish", 1 )
-                    set_internal_int( owner, "is_doing_time_trial", 0 )
-                    dofile_once( "mods/D2DContentPack/files/scripts/perks/effect_time_trial_win.lua" )
-                end
+    local start_y = get_internal_int( owner, "time_trial_start_y" )
+    if y > start_y + 1000 then
+        local nearby_entities = EntityGetInRadius( x, y, 200 )
+        for i,nearby_entity in ipairs( nearby_entities ) do
+            local filename = EntityGetFilename( nearby_entity )
+            if string.find( filename, "temple_statue_01" ) then
+                on_time_trial_win()
             end
         end
-    elseif new_update_count >= DURATION_IN_SEC - 10 then
+    end
+
+    if new_update_count >= DURATION_IN_SEC - 10 then
         GamePrint( ( DURATION_IN_SEC - new_update_count ) .. "..." )
     elseif new_update_count % 10 == 0 then
         GamePrint( ( DURATION_IN_SEC - new_update_count ) .. " seconds remaining" )
     end
+else
+    set_internal_int( owner, "time_trial_update_count", 0 )
 end

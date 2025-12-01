@@ -365,7 +365,7 @@ function spawn_glass_staff( x, y )
     local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
     local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
-    local wand_lvl = hm_visits + 1
+    local wand_lvl = hm_visits
     wand:SetName( "Staff of Glass", true )
     wand.shuffle = false
     wand.spellsPerCast = 1
@@ -373,7 +373,7 @@ function spawn_glass_staff( x, y )
     wand.rechargeTime = Random( 6, 10 ) - ( wand_lvl * 2 )
     wand.manaMax = 64 + ( 128 + Random( -4, 4 ) ) * wand_lvl
     wand.manaChargeSpeed = 96 + ( 192 + Random( -4, 4 ) ) * wand_lvl
-    wand.capacity = Random( 3, 5 ) + ( wand_lvl * 2 )
+    wand.capacity = ( wand_lvl * 4 ) + Random( -1, 1 )
     wand.spread = Random( -8, -2 )
     dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
     add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
