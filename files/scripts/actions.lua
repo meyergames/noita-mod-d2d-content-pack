@@ -700,6 +700,63 @@ d2d_actions = {
 	                        end,
     },
 
+    {
+	    id                  = "D2D_COMPACT_SHOT",
+	    name 		        = "$spell_d2d_compact_shot_name",
+	    description         = "$spell_d2d_compact_shot_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/compact_shot.png",
+	    type 		        = ACTION_TYPE_DRAW_MANY,
+		spawn_level       	= "1,2,3,4,5,6",
+		spawn_probability 	= "0.6,0.6,0.4,0.4,0.2,0.2",
+	    price               = 200,
+	    mana                = 5,
+	    action              = function()
+								c.damage_projectile_add = c.damage_projectile_add + 0.08
+
+	    						if reflecting then return end
+
+                                draw_actions( 1, true )
+
+	    						local first_proj_index = -1
+								for i,v in ipairs( hand ) do
+									local spell_data = hand[i]
+									if spell_data.type == ACTION_TYPE_PROJECTILE then
+										first_proj_index = i
+										break
+									end
+								end
+
+                                if first_proj_index > -1 then
+		    						local next_spell_id = hand[first_proj_index].id
+
+		    						local copies = 0
+		    						local mana_refund = 0
+									for i,v in ipairs( deck ) do
+										local spell_data = deck[i]
+										if spell_data.id == next_spell_id then
+											copies = copies + 1
+											-- mana_refund = mana_refund + spell_data.mana
+										else
+											break
+										end
+									end
+
+									for i,v in ipairs( hand ) do
+										local spell_data = hand[i]
+		    							GamePrint( "hand: " .. spell_data.id )
+									end
+
+									-- local cached_fire_rate_wait = c.fire_rate_wait
+									c.spread_degrees = c.spread_degrees + ( 1.5 * copies )
+									draw_actions( copies, true )
+
+									-- c.fire_rate_wait = cached_fire_rate_wait * copies * 0.5
+									-- current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10
+								end
+
+	                        end,
+    },
+
 	-- {
 	-- 	id                  = "D2D_CHAOTIC_FACTOR",
 	-- 	name 		        = "$spell_d2d_chaotic_factor_name",	
