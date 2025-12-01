@@ -19,6 +19,10 @@ if ModIsEnabled( "Apotheosis" ) then
     ModLuaFileAppend( "mods/Apotheosis/files/scripts/animals/cat_pet.lua", "mods/D2DContentPack/files/scripts/animals/cat_pet.lua" )
 end
 
+if ModIsEnabled("anvil_of_destiny") then
+  ModLuaFileAppend("mods/anvil_of_destiny/files/scripts/modded_content.lua", "mods/D2DContentPack/files/scripts/aod/aod_modded_content_append.lua")
+end
+
 function OnModPostInit()
     ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/D2DContentPack/files/scripts/perks.lua")
 end
