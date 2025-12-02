@@ -251,8 +251,6 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] curse: passing a wand without firing it within 10 seconds has a chance to animate it, making it hostile towards you.
 - discarding a wand*
 
-[ ] really wanna make that polymorph clone shot work!! maybe learn about NXML and see if that can help me?
-
 [ ] alt fire spawns should be fixed... was very disappointing to not find the guaranteed spawn in the wizard's den
 
 [ ] voucher item that can be held to purchase one item (incl. perk reroll) for free
@@ -273,23 +271,44 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] buff Bolt Catcher with infinite casts?
 
-[ ] Time Trial rework
-		[ ] Rewards:
-				[ ] +15% mov speed
-				[ ] Blink (if <60s) or Blink With Trigger (if <30s)
+[x] Time Trial rework
+		[x] Rewards:
+				[x] +15% mov speed
+				[-] Blink (if <60s) or Blink With Trigger (if <30s)
 						[ ] ...or a variant of the spell with much less cast delay / recharge time?
-				[ ] Chest (if <60s) or Greater Chest (if <30s)
-		[ ] Mechanics
-				[ ] Check if the player is in a PW; adjust X-position of chest (and area checks?) accordingly
-				[ ] For every 10 gold picked up, gain 10-30 extra gold once you arrive at the HM
-				[ ] Make the perk stackable
+				[-] Chest (if <60s) or Greater Chest (if <30s)
+		[x] Mechanics
+				[-] Check if the player is in a PW; adjust X-position of chest (and area checks?) accordingly
+				[-] For every 10 gold picked up, gain 10-30 extra gold once you arrive at the HM
+				[x] Make the perk stackable
 
-[ ] Heart Balloon
-		[ ] For now, make it work without a balloon attached
-		[ ] Reduce health to 80%, bring to 200% afterwards ( x0.8 --> x2.5 )
+[x] Heart Balloon
+		[x] For now, make it work without a balloon attached
+		[x] Reduce health to 80%, bring to 200% afterwards ( x0.8 --> x2.5 ) <-- made it 75% -> 300% (225% total)
 
 [ ] add Alt Fire Anything to D2D, IF the player doesn't have AFA already enabled
 
+[ ] some kind of static field that greatly buffs (ignores homing?) 
+
+[ ] really wanna make that polymorph clone shot work!! maybe learn about NXML and see if that can help me?
+
+[ ] curse that periodically spawns a large area that cannot be left until you stand still for 8 seconds
+
+[ ] item that, when held while standing still for 8 seconds, teleports you to the last HM exit
+
+[ ] curse that occasionally increases jump height dramatically
+
+[ ] perk that shoots a lightning-like projectile, dealing slice-based damage and ignoring terrain, between your teleport start and end locations (nothing personnel, kid)
+
+[ ] challenge perk where you must kill 100 enemies with a mana-locked wand
+		[ ] reward: wand with legit infinite mana?
+
+[ ] track kills made with Staff of Glass, print every 50th
+
+[ ] glass shard projectile: only 1 initial slice damage, but each hit adds a stack to the enemy; not hitting them for 1 second consumes all stacks for 11 damage per stack. higher net dps than all other "rapidfire-compatible" projectile spells, but delayed damage and easy to overshoot. maybe upon triggering, shards are fired from the enemy in random directions, potentially hitting other enemies <-- friendly fire enabled for obvious reasons.
+
+[ ] Warp Rush: also grant x2 damage on the next cast within 1 sec (i.e. empowers big shots)
+		[ ] or make this a separate perk
 
 
 

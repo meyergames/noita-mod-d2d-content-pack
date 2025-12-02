@@ -10,7 +10,31 @@ d2d_perks = {
 		one_off_effect = true,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-            LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_time_trial.xml" )
+			-- only give the perk when the player has yet to enter The Vault,
+			-- since the Laboratory has no temple statue and is not present in PWs.
+			-- 
+			-- TODO: check for heart_fullhp_temple.xml instead of temple_statue_01.xml,
+			-- to make it work for the Laboratory on the main path.
+			local x, y = EntityGetTransform( entity_perk_item )
+			if y < 9250 then
+	            LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_time_trial.xml" )
+	        else
+				-- briefly set perk destroy chance to 0, so other perks remain
+				-- (code copied from D2D_BLESSINGS_AND_CURSE)
+				local value_to_cache = GlobalsGetValue( "TEMPLE_PERK_DESTROY_CHANCE", 100 )
+				set_internal_int( get_player(), "blurse_cached_perk_destroy_chance", tonumber( value_to_cache ) )
+				GlobalsSetValue( "TEMPLE_PERK_DESTROY_CHANCE", 0 )
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{
+					_tags="perk_component",
+					script_source_file="mods/D2DContentPack/files/scripts/perks/effect_blessings_and_curse_revert.lua",
+					execute_every_n_frame="3",
+					remove_after_executed="1",
+				} )
+				
+				perk_spawn_random( x, y, false )
+	        	GamePrintImportant( "This perk has been rerolled", "There's no valid finish line for Time Trial below this temple." )
+	        end
 		end,
 	},
 
