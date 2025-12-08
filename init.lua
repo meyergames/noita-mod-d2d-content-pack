@@ -28,14 +28,40 @@ function OnModPostInit()
 end
 
 function OnPlayerSpawned(player)
-    local config_spawn_time_trial_at_start = ModSettingGet("D2DContentPack.spawn_time_trial_at_start")
-    if config_spawn_time_trial_at_start then
+    dofile_once( "data/scripts/perks/perk.lua" )
+    dofile("mods/D2DContentPack/files/scripts/actions.lua")
+    dofile("mods/D2DContentPack/files/scripts/perks.lua")
+
+    if ModSettingGet( "D2DContentPack.spawn_quest_perk_sometimes" ) then
         local rnd = Random( 0, 100 )
         if ( rnd <= 5 ) then
-            dofile_once( "data/scripts/perks/perk.lua" )
-            local perk = perk_spawn( 800, -100, "D2D_TIME_TRIAL" )
+            local rnd2 = Random( 1, 2 )
+            if rnd2 == 1 then
+                local perk = perk_spawn( 800, -100, "D2D_TIME_TRIAL" )
+            elseif rnd2 == 2 then
+                local perk = perk_spawn( 800, -100, "D2D_GLASS_HEART" )
+            end
         end
     end
+
+    for k, v in pairs( d2d_actions ) do
+        if HasSettingFlag( v.id.."_spawn_at_start" ) then
+            CreateItemActionEntity( v.id, 800, -100 )
+        end
+    end
+
+    for k, v in pairs( d2d_perks ) do
+        if HasSettingFlag( v.id.."_spawn_at_start" ) then
+            perk_spawn( 800, -100, v.id )
+        end
+    end
+    -- if d2d_apoth_perks then
+    --     for k, v in pairs( d2d_apoth_perks ) do
+    --         if HasSettingFlag( v.id.."_spawn_at_start" ) then
+    --             perk_spawn( 800, -100, v.id )
+    --         end
+    --     end
+    -- end
 
     -- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
     -- spawn_random_staff( 0, -100, 55 )

@@ -6,7 +6,7 @@ mod_settings =
 {
     {
         category_id = "default_settings",
-        ui_name = "Build version: 25.12.1.1",
+        ui_name = "Build version: 25.12.7.1",
         ui_description = "",
         settings = {
         }
@@ -17,9 +17,9 @@ mod_settings =
         ui_description = "",
         settings = {
             {
-                id = "spawn_time_trial_at_start",
-                ui_name = "Sometimes spawn Time Trial at start",
-                ui_description = "When enabled, there's a 5% chance for a copy of the\nTime Trial perk to spawn at the mountain entrance.",
+                id = "spawn_quest_perk_sometimes",
+                ui_name = "Sometimes spawn a Quest Perk on new game start",
+                ui_description = "When you start a new game with this setting enabled, there's\na 5% chance for Time Trial or Glass Heart to spawn at the\nmountain entrance.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
@@ -153,37 +153,58 @@ function ModSettingsGui( gui, in_main_menu )
         
         -- SPELLS
         dofile("mods/D2DContentPack/files/scripts/actions.lua")
+        local filtered_actions = {}
+        for i,action in ipairs( d2d_actions ) do
+            if action.spawn_probability ~= "0" then
+                table.insert( filtered_actions, action )
+            end
+        end
+
         GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
         if GuiButton( gui, new_id(), 0, 0, "Enable All Spells" )then
-            for k, v in pairs( d2d_actions ) do
+            for k, v in pairs( filtered_actions ) do
                 RemoveSettingFlag(v.id.."_disabled")
             end
         end
         if GuiButton( gui, new_id(), 0, 0, "Disable All Spells" )then
-            for k, v in pairs( d2d_actions ) do
+            for k, v in pairs( filtered_actions ) do
                 AddSettingFlag(v.id.."_disabled")
             end
         end
         GuiLayoutEnd(gui)
-        
-        for k, v in pairs( d2d_actions ) do
+
+        for k, v in pairs( filtered_actions ) do
 
             GuiLayoutBeginHorizontal( gui, 0, 0, false, 2, 2 )
 
-            if GuiImageButton( gui, new_id(), 0, 0, "", v.sprite ) then
-                if(HasSettingFlag(v.id.."_disabled"))then
+            local clicked,right_clicked = GuiImageButton( gui, new_id(), 0, 0, "", v.sprite )
+            if clicked then
+                if HasSettingFlag( v.id.."_disabled") then
                     RemoveSettingFlag(v.id.."_disabled")
                 else
                     AddSettingFlag(v.id.."_disabled")
+                    RemoveSettingFlag(v.id.."_spawn_at_start")
+                end
+            end
+            if right_clicked then
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    RemoveSettingFlag(v.id.."_spawn_at_start")
+                elseif not HasSettingFlag( v.id.."_disabled") then
+                    AddSettingFlag(v.id.."_spawn_at_start")
                 end
             end
 
-            if(HasSettingFlag(v.id.."_disabled"))then
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to enable ]" );
+            if HasSettingFlag( v.id.."_disabled" ) then
+                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to enable ]" )
             else
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to disable] " );
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )
+                else
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to disable ]   [ Right-click to enable spawn at start ]" )
+                end
             end
 
+            -- GuiImage( gui, new_id(), -36.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_square.png", 1, 1.2, 0 )
             GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_square.png", 1, 1.2, 0 )
             if(HasSettingFlag(v.id.."_disabled"))then
                 GuiZSetForNextWidget( gui, -80 )
@@ -191,13 +212,21 @@ function ModSettingsGui( gui, in_main_menu )
                 GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_disabled_overlay.png", 1, 1.2, 0 )
             end
 
-
-            if(HasSettingFlag(v.id.."_disabled"))then
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to enable ]" );
+            if HasSettingFlag( v.id.."_disabled" ) then
+                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to enable ]" )
             else
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to disable] " );
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )
+                else
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.description), "[ Click to disable ]   [ Right-click to enable spawn at start ]" )
+                end
             end
 
+            if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                GuiColorSetForNextWidget( gui, 0, 1, 0, 1 )
+            else
+                GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
+            end
             GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.name) )
 
             
@@ -211,35 +240,63 @@ function ModSettingsGui( gui, in_main_menu )
 
         -- PERKS
         dofile("mods/D2DContentPack/files/scripts/perks.lua")
+        local filtered_perks = {}
+        for i,perk in ipairs( d2d_perks ) do
+            if not perk.not_in_default_perk_pool then
+                table.insert( filtered_perks, perk )
+            end
+        end
+        -- if d2d_apoth_perks then
+        --     for i,perk in ipairs( d2d_apoth_perks ) do
+        --         if not perk.not_in_default_perk_pool then
+        --             table.insert( filtered_perks, perk )
+        --         end
+        --     end
+        -- end
+
         GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
         if GuiButton( gui, new_id(), 0, 0, "Enable All Perks" )then
-            for k, v in pairs( d2d_perks ) do
+            for k, v in pairs( filtered_perks ) do
                 RemoveSettingFlag(v.id.."_disabled")
             end
         end
         if GuiButton( gui, new_id(), 0, 0, "Disable All Perks" )then
-            for k, v in pairs( d2d_perks ) do
+            for k, v in pairs( filtered_perks ) do
                 AddSettingFlag(v.id.."_disabled")
             end
         end
         GuiLayoutEnd(gui)
 
-        for k, v in pairs( d2d_perks ) do
+        for k, v in pairs( filtered_perks ) do
 
             GuiLayoutBeginHorizontal( gui, 0, 0, false, 2, 2 )
 
-            if GuiImageButton( gui, new_id(), 0, 0, "", v.perk_icon ) then
-                if(HasSettingFlag(v.id.."_disabled"))then
+
+            local clicked,right_clicked = GuiImageButton( gui, new_id(), 0, 0, "", v.perk_icon )
+            if clicked then
+                if HasSettingFlag( v.id.."_disabled") then
                     RemoveSettingFlag(v.id.."_disabled")
                 else
                     AddSettingFlag(v.id.."_disabled")
+                    RemoveSettingFlag(v.id.."_spawn_at_start")
+                end
+            end
+            if right_clicked then
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    RemoveSettingFlag( v.id.."_spawn_at_start" )
+                elseif not HasSettingFlag( v.id.."_disabled") then
+                    AddSettingFlag( v.id.."_spawn_at_start" )
                 end
             end
 
             if(HasSettingFlag(v.id.."_disabled"))then
                 GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
             else
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ] " );
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )
+                else
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to enable spawn at start ]" )
+                end
             end
 
             GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_square.png", 1, 1.2, 0 )
@@ -249,13 +306,21 @@ function ModSettingsGui( gui, in_main_menu )
                 GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_disabled_overlay.png", 1, 1.2, 0 )
             end
 
-
             if(HasSettingFlag(v.id.."_disabled"))then
                 GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
             else
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ] " );
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )
+                else
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to enable spawn at start ]" )
+                end
             end
 
+            if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                GuiColorSetForNextWidget( gui, 0, 1, 0, 1 )
+            else
+                GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
+            end
             GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.ui_name) )
             GuiLayoutEnd(gui)
         end
