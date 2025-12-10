@@ -1,0 +1,17 @@
+<Entity>
+
+    <LuaComponent
+        _enabled="1"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/controlled_reach_on.lua"
+        execute_on_added="1"
+        execute_every_n_frame="1"
+        remove_after_executed="1"
+    ></LuaComponent>
+
+    <LuaComponent
+        _enabled="1"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/controlled_reach_update.lua"
+        execute_every_n_frame="1"
+    ></LuaComponent>
+
+</Entity>

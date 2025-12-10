@@ -310,6 +310,17 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] Warp Rush: also grant x2 damage on the next cast within 1 sec (i.e. empowers big shots)
 		[ ] or make this a separate perk
 
+[x] Precision: modifier that causes projectiles to disappear when they reach the position of the mouse where it was when the shot was fired (for e.g. precision teleporting)
+		[x] could be an improved version of Quick Burner, where a small area around the mouse pos gains extra dmg
+		[x] increase fire rate based on distance!!
+
+[x] Shockwave: static projectile that knocks back everything around it
+
+[x] Split Mana: "other" type spell that refunds 50% of the next spell's mana cost
+
+[ ] 1/50 chance for certain mobs to drop its spell? i.e. the phantoms dropping their homing/duplicating spells
+
+[ ] friend of the fairies reward: spell that causes all nearby fairies to be teleported to you
 
 
 

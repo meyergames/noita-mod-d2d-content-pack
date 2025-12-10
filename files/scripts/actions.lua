@@ -144,49 +144,76 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_SPRAY_AND_PRAY",
-	    name 		        = "$spell_d2d_spray_and_pray_name",
-	    description         = "$spell_d2d_spray_and_pray_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spray_and_pray.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_spray_and_pray.xml",
+	    id                  = "D2D_QUICK_BURNER", -- discontinued as of 10/12/25, to be removed in a future patch
+	    name 		        = "$spell_d2d_quick_burner_name",
+	    description         = "$spell_d2d_quick_burner_desc",
+        inject_after        = { "D2D_FLURRY", "RECHARGE", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/quick_burner.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
+		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
+		related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml" },
 	    price               = 330,
-	    mana                = 1,
+	    mana                = 8,
 	    action              = function()
-								c.spread_degrees = c.spread_degrees + 3.0
-                                -- c.fire_rate_wait    = c.fire_rate_wait * 0.25 -- so it shows in the UI
-                                -- current_reload_time = current_reload_time * 0.5 -- so it shows in the UI
-                                -- if reflecting then return end
-                                -- c.fire_rate_wait    = c.fire_rate_wait + 15
-                                -- current_reload_time = current_reload_time + 20
+					            c.damage_projectile_add = c.damage_projectile_add + 0.4
+								c.fire_rate_wait 		= c.fire_rate_wait - 10
+								current_reload_time 	= current_reload_time - 20
+								c.speed_multiplier		= c.speed_multiplier * 2
+								if reflecting then return end
+								c.knockback_force 		= c.knockback_force + 3.0
 
+								c.extra_entities    	= c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml,"
 			                    draw_actions( 1, true )
 	                        end,
     },
 
     {
-	    id                  = "D2D_RAPIDFIRE_SALVO",
-	    name 		        = "$spell_d2d_rapidfire_salvo_name",
-	    description         = "$spell_d2d_rapidfire_salvo_desc",
-        inject_after        = { "D2D_FLURRY", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/rapidfire_salvo.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
+	    id                  = "D2D_CONTROLLED_REACH",
+	    name 		        = "$spell_d2d_controlled_reach_name",
+	    description         = "$spell_d2d_controlled_reach_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/controlled_reach.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_rapidfire_salvo.xml",
+		spawn_probability   = "1,1,1,0.9,0.7,0.5,0.3",
+		related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/controlled_reach.xml" },
 	    price               = 330,
-	    mana                = 10,
+	    mana                = 3,
 	    action              = function()
-                                draw_actions( 1, true )
+	    						-- for the tooltip
+								c.fire_rate_wait 		= c.fire_rate_wait - 15
+								current_reload_time 	= current_reload_time - 20
+
+								if reflecting then return end
+
+								-- reset
+								c.fire_rate_wait 		= c.fire_rate_wait + 15
+								current_reload_time 	= current_reload_time + 20
+
+								-- add entity that controls the spell's reach
+								c.extra_entities    	= c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/controlled_reach.xml,"
+
+								-- determine the distance
+								dofile_once( "data/scripts/lib/utilities.lua" )
+								local ox, oy 			= EntityGetTransform( GetUpdatedEntityID() )
+								local mx, my 			= DEBUG_GetMouseWorld()
+								local dist 				= get_distance( ox, oy, mx, my )
+
+								-- increase fire rate and projectile speed based on distance
+								local buff_ratio 		= remap( dist, 180, 65, 0.1, 1.0 )
+								c.fire_rate_wait 		= c.fire_rate_wait - ( 15 * buff_ratio )
+								current_reload_time 	= current_reload_time - ( 20 * buff_ratio )
+								c.speed_multiplier		= c.speed_multiplier * ( 1.0 + ( 1.0 * buff_ratio ) )
+
+								-- finally, draw the next spell
+			                    draw_actions( 1, true )
 	                        end,
     },
 
 	{
 		id                  = "D2D_RECYCLE",
-		name 		        = "Recycle",
-		description         = "May spare a spell's limited uses",
+		name 		        = "$spell_d2d_recycle_name",
+		description         = "$spell_d2d_recycle_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/recycle.png",
 		type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5",
@@ -210,27 +237,30 @@ d2d_actions = {
 	},
 
     {
-	    id                  = "D2D_QUICK_BURNER",
-	    name 		        = "$spell_d2d_quick_burner_name",
-	    description         = "$spell_d2d_quick_burner_desc",
-        inject_after        = { "D2D_FLURRY", "RECHARGE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/quick_burner.png",
+	    id                  = "D2D_MANA_REFILL",
+	    name 		        = "$spell_d2d_mana_refill_name",
+	    description         = "$spell_d2d_mana_refill_desc",
+        inject_after        = { "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_refill.png",
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "1,1,1,0.9,0.7,0.5,0.3",
-		related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml" },
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 	    price               = 330,
-	    mana                = 8,
+	    mana                = 0,
+	    max_uses			= 5,
+		never_unlimited 	= true,
+		-- custom_uses_logic	= true,
 	    action              = function()
-					            c.damage_projectile_add = c.damage_projectile_add + 0.4
-								c.fire_rate_wait 		= c.fire_rate_wait - 10
-								current_reload_time 	= current_reload_time - 20
-								c.speed_multiplier		= c.speed_multiplier * 2
-								if reflecting then return end
-								c.knockback_force 		= c.knockback_force + 3.0
+	    						if reflecting then return end
 
-								c.extra_entities    	= c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml,"
-			                    draw_actions( 1, true )
+							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+							    local wand = EZWand.GetHeldWand()
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+
+						    	mana = wand.manaMax
+            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
+
+            					draw_actions( 1, true )
 	                        end,
     },
 
@@ -351,6 +381,23 @@ d2d_actions = {
 		                    end,
 	},
 
+	-- {
+	-- 	id                  = "D2D_GLASS_SHARD",
+	-- 	name 		        = "$spell_d2d_glass_shard_name",
+	-- 	description         = "$spell_d2d_glass_shard_desc",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/glass_shard.png",
+	-- 	related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/glass_shard.xml"},
+	-- 	type 		        = ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
+	-- 	spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
+	-- 	price               = 90,
+	-- 	mana                = 5,
+	-- 	action 		        = function()
+	-- 		                    c.fire_rate_wait = c.fire_rate_wait - 3
+	-- 		                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/glass_shard.xml" )
+	-- 	                    end,
+	-- },
+
     {
 	    id                  = "D2D_GIGA_DRAIN",
 	    name 		        = "$spell_d2d_giga_drain_name",
@@ -367,7 +414,7 @@ d2d_actions = {
 		                        current_reload_time = current_reload_time + 20
 								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 100
 
-                                add_projectile("mods/D2DContentPack/files/entities/projectiles/giga_drain_bullet.xml")
+                                add_projectile( "mods/D2DContentPack/files/entities/projectiles/giga_drain_bullet.xml" )
 	                        end,
     },
 
@@ -576,6 +623,26 @@ d2d_actions = {
     },
 
 	{
+		id                  = "D2D_SHOCKWAVE",
+		name 		        = "$spell_d2d_shockwave_name",
+		description         = "$spell_d2d_shockwave_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/shockwave.png",
+		type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		-- spawn_level         = "0,1,2,3",
+		-- spawn_probability   = "0.5,0.5,1,1",
+		spawn_level         = "0", -- natural spawning disabled until it works like intended (way more knockback)
+		spawn_probability   = "0",
+		price               = 220,
+		mana                = 30,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 30
+			                    if reflecting then return end
+
+								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/shockwave.xml" )
+		                    end,
+	},
+
+	{
 		id                  = "D2D_BOLT_CATCHER",
 		name 		        = "$spell_d2d_bolt_catcher_name",
 		description         = "$spell_d2d_bolt_catcher_desc",
@@ -591,114 +658,9 @@ d2d_actions = {
 			                    c.fire_rate_wait = c.fire_rate_wait + 30
 			                    if reflecting then return end
 
-			                    local x, y = EntityGetTransform( get_player() )
 								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/bolt_catcher.xml" )
 		                    end,
 	},
-
-	{
-		id                  = "D2D_MANA_LOCK",
-		name 		        = "$spell_d2d_mana_lock_name",
-		description         = "$spell_d2d_mana_lock_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_lock.png",
-		type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mana_lock.xml",
-		price               = 280,
-		mana                = 0,
-		action 		        = function()
-								-- disable Add Mana etc
-								-- for i,v in ipairs( deck ) do
-								-- 	local spell_data = deck[i]
-								-- 	if spell_data.mana < 0 then
-								-- 		mana = mana - math.abs( spell_data.mana )
-								-- 	end
-								-- end
-								-- for i,v in ipairs( discarded ) do
-								-- 	local spell_data = discarded[i]
-								-- 	if spell_data.mana < 0 then
-								-- 		mana = mana - math.abs( spell_data.mana )
-								-- 	end
-								-- end
-
-								draw_actions( 1, true )
-		                    end,
-	},
-
-    {
-	    id                  = "D2D_MANA_REFILL",
-	    name 		        = "$spell_d2d_mana_refill_name",
-	    description         = "$spell_d2d_mana_refill_desc",
-        inject_after        = { "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_refill.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-	    price               = 330,
-	    mana                = 0,
-	    max_uses			= 5,
-		never_unlimited 	= true,
-		-- custom_uses_logic	= true,
-	    action              = function()
-	    						if reflecting then return end
-
-							    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-							    local wand = EZWand.GetHeldWand()
-                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-
-						    	mana = wand.manaMax
-            					GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
-
-            					draw_actions( 1, true )
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_BLOOD_PRICE",
-	    name 		        = "$spell_d2d_blood_price_name",
-	    description         = "$spell_d2d_blood_price_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_price.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level       	= "0", -- cannot be found normally
-		spawn_probability 	= "0", -- cannot be found normally
-	    price               = 500,
-	    mana                = 0,
-	    action              = function()
-	    						if reflecting then return end
-
-	                            -- deal 2% max health damage (cannot kill)
-								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-                                draw_actions( 1, true )
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_BLOOD_TOLL",
-	    name 		        = "$spell_d2d_blood_toll_name",
-	    description         = "$spell_d2d_blood_toll_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_toll.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level       	= "0", -- cannot be found normally
-		spawn_probability 	= "0", -- cannot be found normally
-	    price               = 500,
-	    mana                = 0,	
-	    action              = function()
-	    						if reflecting then return end
-
-	                            -- deal 5% max health damage (cannot kill)
-								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-                                draw_actions( 1, true )
-	                        end,
-    },
 
     {
 	    id                  = "D2D_COMPACT_SHOT",
@@ -752,50 +714,6 @@ d2d_actions = {
 	                        end,
     },
 
-	-- {
-	-- 	id                  = "D2D_CHAOTIC_FACTOR",
-	-- 	name 		        = "$spell_d2d_chaotic_factor_name",	
-	-- 	description         = "$spell_d2d_chaotic_factor_desc",
-	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/chaotic_factor.png",
-	-- 	type 		        = ACTION_TYPE_MODIFIER,
-	-- 	spawn_level         = "6,10",
-	-- 	spawn_probability   = "0.4,0.5",
-	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_fixed_altitude.xml",
-	-- 	price               = 333,
-	-- 	mana                = -100,
-	-- 	action 		        = function()
-	-- 							if reflecting then return end
-
-	-- 						    local rand = Random( 1, 20 )
-	-- 						    if rand == 1 then
-	-- 						    	local rand2 = Random( 1, 20 )
-	-- 						    	if rand2 ~= 1 then
-	-- 	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-
-	-- 							    	-- electrocute
-	-- 		                            EntityInflictDamage( GetUpdatedEntityID(), 0.4, "DAMAGE_ELECTRICITY", "chaotic factor", "ELECTROCUTION", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-	-- 		                            -- explode
-	-- 		                            EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml", x, y )
-
-	-- 		                            -- deal 10% max health damage (cannot kill)
-	-- 									local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-	-- 									local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-	-- 									local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	-- 		                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.1, p_hp - 0.04 ), "DAMAGE_CURSE", "chaotic factor", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-	-- 		                            -- clear the hand
-	--                                 	hand = {}
-	-- 		                        else
-	-- 		                            -- 1/400 chance to fake polymorph jumpscare
-	--         							LoadGameEffectEntityTo( GetUpdatedEntityID(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_polymorph_short.xml" )
-	--         						end
-	--                             else
-	-- 								draw_actions( 1, true )
-	--                             end
-	-- 	                    end,
-	-- },
-
     {
 	    id                  = "D2D_REVEAL",
 	    name 		        = "$spell_d2d_reveal_name",
@@ -807,7 +725,7 @@ d2d_actions = {
 		spawn_probability 	= "0.6,0.8,0.8,0.6,0.4,0.2,0.1", -- X_RAY
 	    price               = 230,
 	    mana                = 100,
-	    max_uses			= 10,
+	    max_uses			= 20,
 	    action              = function()
 	    						if reflecting then return end
 	    						
@@ -887,22 +805,43 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_REWIND_ALT_FIRE",
-	    name 		        = "$spell_d2d_rewind_alt_fire_name",
-	    description         = "$spell_d2d_rewind_alt_fire_desc",
-        inject_after        = { "D2D_REWIND", "TELEPORT_PROJECTILE_STATIC" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_rewind.png",
+	    id                  = "D2D_SPRAY_AND_PRAY",
+	    name 		        = "$spell_d2d_spray_and_pray_name",
+	    description         = "$spell_d2d_spray_and_pray_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spray_and_pray.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "0,1,2,3,4,5,6", -- TELEPORT_PROJECTILE_STATIC
-		spawn_probability   = "0.6,0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_rewind.xml",
-	    price               = 90,
-	    mana                = 40,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_spray_and_pray.xml",
+	    price               = 330,
+	    mana                = 1,
 	    action              = function()
-	    						draw_actions( 1, true )
-        						mana = mana + 40
-	                        end,	
+								c.spread_degrees = c.spread_degrees + 3.0
+                                -- c.fire_rate_wait    = c.fire_rate_wait * 0.25 -- so it shows in the UI
+                                -- current_reload_time = current_reload_time * 0.5 -- so it shows in the UI
+                                -- if reflecting then return end
+                                -- c.fire_rate_wait    = c.fire_rate_wait + 15
+                                -- current_reload_time = current_reload_time + 20
+
+			                    draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_RAPIDFIRE_SALVO",
+	    name 		        = "$spell_d2d_rapidfire_salvo_name",
+	    description         = "$spell_d2d_rapidfire_salvo_desc",
+        inject_after        = { "D2D_FLURRY", "RECHARGE", "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/rapidfire_salvo.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_rapidfire_salvo.xml",
+	    price               = 330,
+	    mana                = 10,
+	    action              = function()
+                                draw_actions( 1, true )
+	                        end,
     },
 
 	{
@@ -921,21 +860,104 @@ d2d_actions = {
 		                    end,
 	},
 
-	-- {
-	-- 	id          = "D2D_ALT_FIRE_CTRL_SHIELD",
-	-- 	name 		= "Alt-Ctrl Shield",
-	-- 	description = "Right-click to change its direction",
-	-- 	sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_ctrl_shield.png",
-	-- 	type 		= ACTION_TYPE_PASSIVE,
-	-- 	spawn_level                       = "0,1,2,3,4,5", -- ENERGY_SHIELD_SECTOR
-	-- 	spawn_probability                 = "0.1,0.5,0.6,0.8,0.5,0.4", -- ENERGY_SHIELD_SECTOR
-	-- 	price = 160,
-	-- 	custom_xml_file = "mods/D2DContentPack/files/entities/projectiles/deck/alt_fire_ctrl_shield.xml",
-	-- 	action 		= function()
-	-- 		-- does nothing to the projectiles
-	-- 		draw_actions( 1, true )
-	-- 	end,
-	-- },
+	{
+		id                  = "D2D_MANA_LOCK",
+		name 		        = "$spell_d2d_mana_lock_name",
+		description         = "$spell_d2d_mana_lock_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_lock.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mana_lock.xml",
+		price               = 280,
+		mana                = 0,
+		action 		        = function()
+								-- disable Add Mana etc
+								-- for i,v in ipairs( deck ) do
+								-- 	local spell_data = deck[i]
+								-- 	if spell_data.mana < 0 then
+								-- 		mana = mana - math.abs( spell_data.mana )
+								-- 	end
+								-- end
+								-- for i,v in ipairs( discarded ) do
+								-- 	local spell_data = discarded[i]
+								-- 	if spell_data.mana < 0 then
+								-- 		mana = mana - math.abs( spell_data.mana )
+								-- 	end
+								-- end
+
+								draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_MANA_SPLIT",
+		name 		        = "$spell_d2d_mana_split_name",
+		description         = "$spell_d2d_mana_split_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_split.png",
+		type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "1,2,3,4,5,6", -- MANA_REDUCE
+		spawn_probability   = "0.7,0.9,1,1,1,1", -- MANA_REDUCE
+		price               = 250,
+		mana                = 0,
+		action 		        = function()
+								c.fire_rate_wait = c.fire_rate_wait + 10
+								draw_actions( 1, true )
+
+								if #hand >= 2 and hand[2] then
+									local refund = hand[2].mana * 0.5
+									if refund > 0 then
+										mana = mana + refund
+									end
+								end
+		                    end,
+	},
+
+    {
+	    id                  = "D2D_BLOOD_PRICE",
+	    name 		        = "$spell_d2d_blood_price_name",
+	    description         = "$spell_d2d_blood_price_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_price.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level       	= "0", -- cannot be found normally
+		spawn_probability 	= "0", -- cannot be found normally
+	    price               = 500,
+	    mana                = 0,
+	    action              = function()
+	    						if reflecting then return end
+
+	                            -- deal 2% max health damage (cannot kill)
+								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+                                draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_BLOOD_TOLL",
+	    name 		        = "$spell_d2d_blood_toll_name",
+	    description         = "$spell_d2d_blood_toll_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_toll.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level       	= "0", -- cannot be found normally
+		spawn_probability 	= "0", -- cannot be found normally
+	    price               = 500,
+	    mana                = 0,	
+	    action              = function()
+	    						if reflecting then return end
+
+	                            -- deal 5% max health damage (cannot kill)
+								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+                                draw_actions( 1, true )
+	                        end,
+    },
 }
 
 if actions ~= nil then
@@ -946,133 +968,17 @@ if actions ~= nil then
 	end
 end
 
-d2d_alt_fire_actions = nil
--- if Alt Fire Anything is enabled and mod setting is true, don't add alt fire spells to the spell pool
-if not ( ModIsEnabled( "alt_fire_anything" ) and ModSettingGet( "D2DContentPack.afa_compat" ) ) then
-	d2d_alt_fire_actions = {
-	    {
-		    id                  = "D2D_CONCRETE_WALL_ALT_FIRE",
-		    name 		        = "$spell_d2d_concrete_wall_alt_fire_name",
-		    description         = "$spell_d2d_concrete_wall_alt_fire_desc",
-	        inject_after        = { "D2D_CONCRETE_WALL", "D2D_PAYDAY", "SUMMON_ROCK" },
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
-		    type 		        = ACTION_TYPE_PASSIVE,
-	        subtype     		= { altfire = true },
-			spawn_level         = "1,2,3,4,5,6",
-			spawn_probability   = "0.3,0.5,0.6,0.5,0.3,0.2",
-			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_concrete_wall.xml",
-		    price               = 200,
-		    mana                = 80,
-		    max_uses			= 5,
-	    	custom_uses_logic 	= true,
-		    action              = function()
-		    						draw_actions( 1, true )
-	        						mana = mana + 80
-		                        end,
-	    },
 
-	    {
-		    id                  = "D2D_SMOKE_BOMB_ALT_FIRE",
-		    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
-		    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
-	        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
-		    type 		        = ACTION_TYPE_PASSIVE,
-	        subtype     		= { altfire = true },
-			spawn_level         = "0,1,2,3,4,5",
-			spawn_probability   = "0.4,0.6,0.7,0.6,0.4,0.2",
-			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
-		    price               = 230,
-		    mana                = 50,
-		    max_uses			= 10,
-	    	custom_uses_logic 	= true,
-		    action              = function()
-		    						draw_actions( 1, true )
-	        						mana = mana + 50
-		                        end,
-	    },
-		
-	    {
-		    id                  = "D2D_MANA_REFILL_ALT_FIRE",
-		    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
-		    description         = "$spell_d2d_mana_refill_alt_fire_desc",
-	        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
-		    type 		        = ACTION_TYPE_PASSIVE,
-	        subtype     		= { altfire = true },
-			spawn_level         = "0,1,2,3,4,5,6",
-			spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
-			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
-		    price               = 330,
-		    mana                = 0,
-		    max_uses			= 5,
-		    never_unlimited		= true,
-	    	custom_uses_logic 	= true,
-		    action              = function()
-		    						draw_actions( 1, true )
-		                        end,
-	    },
 
-		{
-			id                  = "D2D_BOLT_CATCHER_ALT_FIRE",
-			name 		        = "$spell_d2d_bolt_catcher_alt_fire_name",
-			description         = "$spell_d2d_bolt_catcher_alt_fire_desc",
-			sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_bolt_catcher.png",
-			type 		        = ACTION_TYPE_PASSIVE,
-	        subtype     		= { altfire = true },
-			spawn_level         = "1,2,3,4,5,6",
-			spawn_probability   = "0.1,0.5,0.6,0.7,0.8,0.5",
-			custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_bolt_catcher.xml",
-			price               = 220,
-			mana                = 30,
-			max_uses			= 30,
-			never_unlimited		= true,
-	    	custom_uses_logic 	= true,
-			action 		        = function()
-		    						draw_actions( 1, true )
-	        						mana = mana + 30
-			                    end,
-		},
-	}
-end
 
-if actions ~= nil and d2d_alt_fire_actions ~= nil then
-	for k, v in pairs( d2d_alt_fire_actions ) do
-		if( not HasSettingFlag( v.id .. "_disabled" ) ) then
-			table.insert(actions, v)
-		end
-	end
-end
 
 -- spells that should only be added if the player has Apotheosis enabled
 if ( ModIsEnabled("Apotheosis") ) then
 	d2d_apoth_actions = {
 	    {
-		    id                  = "D2D_SUMMON_CAT",
-		    name 		        = "$spell_d2d_summon_cat_name",
-		    description         = "$spell_d2d_summon_cat_desc",
-	        inject_after        = { "EXPLODING_DEER" },
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_cat.png",
-		    type 		        = ACTION_TYPE_PROJECTILE,
-			spawn_level         = "0", -- never spawns in the world
-			spawn_probability   = "0", -- never spawns in the world
-		    price               = 400,
-		    mana                = 150,
-		    max_uses			= 5,
-	    	never_unlimited 	= true,
-		    action              = function()
-		 							if reflecting then return end
-		 							
-	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-		    						add_projectile( "mods/Apotheosis/files/entities/special/conjurer_cat_spawner.xml", x, y )
-		                        end,
-	    },
-
-	    {
 		    id                  = "D2D_CATS_TO_DAMAGE",
 		    name 		        = "$spell_d2d_cats_to_damage_name",
 		    description         = "$spell_d2d_cats_to_damage_desc",
-	        inject_after        = { "D2D_SUMMON_CAT" },
 		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/cats_to_damage.png",
 		    type 		        = ACTION_TYPE_MODIFIER,
 			spawn_level         = "0", -- never spawns in the world
@@ -1092,14 +998,13 @@ if ( ModIsEnabled("Apotheosis") ) then
 	    },
 
 	    {
-		    id                  = "D2D_SUMMON_FAIRIES",
+		    id                  = "D2D_SUMMON_FAIRIES", -- discontinued as of 10/12/25, to be removed in a future patch
 		    name 		        = "$spell_d2d_summon_fairies_name",
 		    description         = "$spell_d2d_summon_fairies_desc",
-	        inject_after        = { "D2D_SUMMON_CAT", "EXPLODING_DEER" },
 		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairies.png",
 		    type 		        = ACTION_TYPE_PROJECTILE,
-			spawn_level         = "0,1,2,3,4",
-			spawn_probability   = "0.2,0.8,0.6,0.8,0.2",
+			spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
+			spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
 		    price               = 200,
 		    mana                = 15,
 		    max_uses			= 10,
@@ -1118,6 +1023,123 @@ if ( ModIsEnabled("Apotheosis") ) then
 			if(not HasSettingFlag(v.id.."_disabled"))then
 				table.insert(actions, v)
 			end
+		end
+	end
+end
+
+
+
+
+
+d2d_alt_fire_actions = {
+    {
+	    id                  = "D2D_MANA_REFILL_ALT_FIRE",
+	    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
+	    description         = "$spell_d2d_mana_refill_alt_fire_desc",
+        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
+	    price               = 330,
+	    mana                = 0,
+	    max_uses			= 5,
+	    never_unlimited		= true,
+    	custom_uses_logic 	= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_CONCRETE_WALL_ALT_FIRE",
+	    name 		        = "$spell_d2d_concrete_wall_alt_fire_name",
+	    description         = "$spell_d2d_concrete_wall_alt_fire_desc",
+        inject_after        = { "D2D_CONCRETE_WALL", "D2D_PAYDAY", "SUMMON_ROCK" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_concrete_wall.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.3,0.5,0.6,0.5,0.3,0.2",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_concrete_wall.xml",
+	    price               = 200,
+	    mana                = 80,
+	    max_uses			= 5,
+    	custom_uses_logic 	= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+        						mana = mana + 80
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_SMOKE_BOMB_ALT_FIRE", -- discontinued as of 10/12/25, to be removed
+	    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
+	    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
+        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed
+		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
+	    price               = 230,
+	    mana                = 50,
+	    max_uses			= 10,
+    	custom_uses_logic 	= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+        						mana = mana + 50
+	                        end,
+    },
+
+	{
+		id                  = "D2D_BOLT_CATCHER_ALT_FIRE",
+		name 		        = "$spell_d2d_bolt_catcher_alt_fire_name",
+		description         = "$spell_d2d_bolt_catcher_alt_fire_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_bolt_catcher.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.1,0.5,0.6,0.7,0.8,0.5",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_bolt_catcher.xml",
+		price               = 220,
+		mana                = 30,
+		max_uses			= 30,
+		never_unlimited		= true,
+    	custom_uses_logic 	= true,
+		action 		        = function()
+	    						draw_actions( 1, true )
+        						mana = mana + 30
+		                    end,
+	},
+
+    {
+	    id                  = "D2D_REWIND_ALT_FIRE",
+	    name 		        = "$spell_d2d_rewind_alt_fire_name",
+	    description         = "$spell_d2d_rewind_alt_fire_desc",
+        inject_after        = { "D2D_REWIND", "TELEPORT_PROJECTILE_STATIC" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_rewind.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0,1,2,3,4,5,6", -- TELEPORT_PROJECTILE_STATIC
+		spawn_probability   = "0.6,0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_rewind.xml",
+	    price               = 90,
+	    mana                = 40,
+	    action              = function()
+	    						draw_actions( 1, true )
+        						mana = mana + 40
+	                        end,	
+    },
+}
+
+if actions ~= nil and d2d_alt_fire_actions ~= nil then
+	for k, v in pairs( d2d_alt_fire_actions ) do
+		if( not HasSettingFlag( v.id .. "_disabled" ) ) then
+			table.insert(actions, v)
 		end
 	end
 end

@@ -229,11 +229,13 @@ so it'd reward players who can give up the heal, while still being useful for th
 
 [ ] AFA: disable when electrocuted etc
 
-[ ] Time Trial: instead of spawning all reward spells on the ground, make a cool wand hold them
-    [ ] unique teleport-themed wand sprite
-    [ ] bronze chest: t3 stats (non-shuffle)
-    [ ] silver chest: t4 stats (non-shuffle) + afa
-    [ ] gold chest: t6 stats (non-shuffle) + afa
+[x] Time Trial: instead of spawning all reward spells on the ground, make a cool wand hold them
+    [x] unique teleport-themed wand sprite
+    [-] bronze chest: t3 stats (non-shuffle) <-- went for a different approach
+    [-] silver chest: t4 stats (non-shuffle) + afa
+    [-] gold chest: t6 stats (non-shuffle) + afa
+
+[ ] "Cats to Damage seems to randomly 'substitute' the rest of the damage with itself if placed inside a trigger sometimes? Took at look at your actions.lua and I don't see how that's possible. will try reproducing consistently" (steam comment)
 
 
 
