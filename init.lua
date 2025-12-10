@@ -32,7 +32,7 @@ function OnPlayerSpawned(player)
     dofile("mods/D2DContentPack/files/scripts/actions.lua")
     dofile("mods/D2DContentPack/files/scripts/perks.lua")
 
-    if ModSettingGet( "D2DContentPack.spawn_quest_perk_sometimes" ) then
+    if ModSettingGet( "D2DContentPack.spawn_challenge_perk_sometimes" ) then
         local rnd = Random( 0, 100 )
         if ( rnd <= 5 ) then
             local rnd2 = Random( 1, 2 )
@@ -47,6 +47,13 @@ function OnPlayerSpawned(player)
     for k, v in pairs( d2d_actions ) do
         if HasSettingFlag( v.id.."_spawn_at_start" ) then
             CreateItemActionEntity( v.id, 800, -100 )
+        end
+    end
+    if d2d_alt_fire_actions then
+        for k, v in pairs( d2d_alt_fire_actions ) do
+            if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                CreateItemActionEntity( v.id, 800, -100 )
+            end
         end
     end
 

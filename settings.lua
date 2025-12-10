@@ -6,7 +6,7 @@ mod_settings =
 {
     {
         category_id = "default_settings",
-        ui_name = "Build version: 25.12.7.1",
+        ui_name = "Build version: 25.12.10.1",
         ui_description = "",
         settings = {
         }
@@ -55,13 +55,13 @@ mod_settings =
         ui_name = "Spells",
         ui_description = "",
         settings = {
-            {
-                id = "afa_compat",
-                ui_name = "Disable alt fire spells if Alt Fire Anything is enabled",
-                ui_description = "If the Alt Fire Anything mod is enabled, disable this\nmod's individual alt fire spell variations.",
-                value_default = true,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
-            },
+            -- {
+            --     id = "afa_compat",
+            --     ui_name = "Disable alt fire spells if Alt Fire Anything is enabled",
+            --     ui_description = "If the Alt Fire Anything mod is enabled, disable this\nmod's individual alt fire spell variations.",
+            --     value_default = true,
+            --     scope = MOD_SETTING_SCOPE_NEW_GAME,
+            -- },
             {
                 id = "Spells",
                 ui_name = "Enabled/disabled spells",
@@ -157,6 +157,13 @@ function ModSettingsGui( gui, in_main_menu )
         for i,action in ipairs( d2d_actions ) do
             if action.spawn_probability ~= "0" then
                 table.insert( filtered_actions, action )
+            end
+        end
+        if d2d_alt_fire_actions then
+            for i,action in ipairs( d2d_alt_fire_actions ) do
+                if action.spawn_probability ~= "0" then
+                    table.insert( filtered_actions, action )
+                end
             end
         end
 
