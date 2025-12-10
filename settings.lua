@@ -17,8 +17,8 @@ mod_settings =
         ui_description = "",
         settings = {
             {
-                id = "spawn_quest_perk_sometimes",
-                ui_name = "Sometimes spawn a Quest Perk on new game start",
+                id = "spawn_challenge_perk_sometimes",
+                ui_name = "Sometimes spawn a Challenge Perk on new game start",
                 ui_description = "When you start a new game with this setting enabled, there's\na 5% chance for Time Trial or Glass Heart to spawn at the\nmountain entrance.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,

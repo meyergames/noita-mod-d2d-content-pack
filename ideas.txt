@@ -322,6 +322,8 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] friend of the fairies reward: spell that causes all nearby fairies to be teleported to you
 
+[ ] modifier that disables a projectile's sound effect
+
 
 
 CROSS-MOD IDEAS

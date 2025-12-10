@@ -203,7 +203,8 @@ d2d_actions = {
 								local buff_ratio 		= remap( dist, 180, 65, 0.1, 1.0 )
 								c.fire_rate_wait 		= c.fire_rate_wait - ( 15 * buff_ratio )
 								current_reload_time 	= current_reload_time - ( 20 * buff_ratio )
-								c.speed_multiplier		= c.speed_multiplier * ( 1.0 + ( 1.0 * buff_ratio ) )
+								-- c.speed_multiplier		= c.speed_multiplier * ( 1.0 + ( 1.0 * buff_ratio ) )
+								c.speed_multiplier		= c.speed_multiplier * ( 1.5 + ( 1.0 * buff_ratio ) )
 
 								-- finally, draw the next spell
 			                    draw_actions( 1, true )
@@ -628,14 +629,12 @@ d2d_actions = {
 		description         = "$spell_d2d_shockwave_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/shockwave.png",
 		type 		        = ACTION_TYPE_STATIC_PROJECTILE,
-		-- spawn_level         = "0,1,2,3",
-		-- spawn_probability   = "0.5,0.5,1,1",
-		spawn_level         = "0", -- natural spawning disabled until it works like intended (way more knockback)
-		spawn_probability   = "0",
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "0.5,0.5,1,1",
 		price               = 220,
 		mana                = 30,
 		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 30
+			                    c.fire_rate_wait = c.fire_rate_wait + 40
 			                    if reflecting then return end
 
 								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/shockwave.xml" )
