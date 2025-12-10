@@ -28,8 +28,8 @@ function OnModPostInit()
 end
 
 function OnPlayerSpawned( player )
-    if GameHasFlagRun( "d2dcp_init_happened" ) then return end
-    GameAddFlagRun( "d2dcp_init_happened" )
+    if GameHasFlagRun( "d2d_content_pack_init_happened" ) then return end
+    GameAddFlagRun( "d2d_content_pack_init_happened" )
 
     dofile_once( "data/scripts/lib/utilities.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
@@ -87,7 +87,6 @@ function OnPlayerSpawned( player )
     -- local px, py = EntityGetTransform( get_player() )
     -- CreateItemActionEntity( "D2D_BLINK", px, py )
 
-    GamePrint("OnWorldInitialized!")
     EntityAddComponent( player, "LuaComponent", 
     {
         script_source_file="mods/D2DContentPack/files/scripts/perks/challenge_perk_scan.lua",
