@@ -27,10 +27,14 @@ function OnModPostInit()
     ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/D2DContentPack/files/scripts/perks.lua")
 end
 
-function OnPlayerSpawned(player)
+function OnPlayerSpawned( player )
+    if GameHasFlagRun( "d2dcp_init_happened" ) then return end
+    GameAddFlagRun( "d2dcp_init_happened" )
+
+    dofile_once( "data/scripts/lib/utilities.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
-    dofile("mods/D2DContentPack/files/scripts/actions.lua")
-    dofile("mods/D2DContentPack/files/scripts/perks.lua")
+    dofile( "mods/D2DContentPack/files/scripts/actions.lua" )
+    dofile( "mods/D2DContentPack/files/scripts/perks.lua" )
 
     if ModSettingGet( "D2DContentPack.spawn_challenge_perk_sometimes" ) then
         local rnd = Random( 0, 100 )
@@ -82,9 +86,14 @@ function OnPlayerSpawned(player)
     -- dofile_once( "data/scripts/lib/utilities.lua" )
     -- local px, py = EntityGetTransform( get_player() )
     -- CreateItemActionEntity( "D2D_BLINK", px, py )
+
+    GamePrint("OnWorldInitialized!")
+    EntityAddComponent( player, "LuaComponent", 
+    {
+        script_source_file="mods/D2DContentPack/files/scripts/perks/challenge_perk_scan.lua",
+        execute_every_n_frame="60",
+    } )
 end
-
-
 
 local translations = ModTextFileGetContent("data/translations/common.csv")
 local new_translations = ModTextFileGetContent("mods/D2DContentPack/translations.csv")
