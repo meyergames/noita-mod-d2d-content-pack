@@ -901,10 +901,10 @@ d2d_actions = {
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_alt_fire_teleport_bolt.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
         subtype     		= { altfire = true },
-        -- spawn_level         = "0,1,2,4,5,6,10", -- TELEPORT_PROJECTILE
-        -- spawn_probability   = "0.3,0.3,0.3,0.2,0.2,0.2,0.6", -- TELEPORT_PROJECTILE * ~0.67
-        spawn_level			= "4,5,6,10",
-        spawn_probability	= "0.2,0.2,0.2,0.6",
+        -- spawn_level			= "4,5,6,10",
+        -- spawn_probability	= "0.2,0.2,0.2,0.6",
+        spawn_level			= "0",
+        spawn_probability	= "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_alt_fire_teleport_bolt.xml",
         price 				= 130,
         mana 				= 20,
