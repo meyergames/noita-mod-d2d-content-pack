@@ -153,7 +153,22 @@ d2d_perks = {
 		ui_description = "$perk_d2d_wandsmith_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/wandsmith_016.png",
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/wandsmith.png",
-		stackable = STACKABLE_NO, -- doesn't work for now (smth with the effect's internal variable tracking)
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			-- local x,y = EntityGetTransform( entity_perk_item )
+    		-- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer.xml", x, y - 20 )
+		end,
+	},
+
+	{
+		id = "D2D_PERKSMITH",
+		ui_name = "$perk_d2d_perksmith_name",
+		ui_description = "$perk_d2d_perksmith_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/perksmith_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/perksmith.png",
+		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
