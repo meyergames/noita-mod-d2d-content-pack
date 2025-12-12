@@ -237,7 +237,9 @@ so it'd reward players who can give up the heal, while still being useful for th
 
 [ ] "Cats to Damage seems to randomly 'substitute' the rest of the damage with itself if placed inside a trigger sometimes? Took at look at your actions.lua and I don't see how that's possible. will try reproducing consistently" (steam comment)
 
+[ ] disable Challenge Perks from spawning outside of HMs, or at least from Cursed chests
 
+[ ] someone reported that unstable nucleus explodes immediately despite holding fire, even when it is the only spell on the wand
 
 
 

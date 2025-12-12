@@ -3,13 +3,8 @@ dofile_once("data/scripts/lib/utilities.lua")
 -------------------------------------------------------------------------------
 
 function drop_rewards( x, y )
-	CreateItemActionEntity( "TELEPORT_PROJECTILE_SHORT", x, y )
-	if ModIsEnabled( "Apotheosis" ) then
-		CreateItemActionEntity( "APOTHEOSIS_ALT_FIRE_TELEPORT_SHORT", x, y )
-	end
-	
     dofile_once( "data/scripts/perks/perk.lua" )
-	perk_spawn( x, y - 20, "D2D_WARP_RUSH", true )
+	perk_spawn( x, y - 8, "D2D_WARP_RUSH", true )
 
 	-- spawn wand
 	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
@@ -23,9 +18,9 @@ function drop_rewards( x, y )
 	wand.manaChargeSpeed = 15
 	wand.capacity = 0
 	wand.spread = 0
-	wand:AttachSpells( "D2D_BLOOD_TOLL", "D2D_BLINK", "D2D_REWIND_ALT_FIRE" )
+	wand:AttachSpells( "D2D_BLOOD_TOLL", "D2D_BLINK", "D2D_ALT_ALT_FIRE_TELEPORT_BOLT", "D2D_REWIND_ALT_FIRE" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_time_t1.png", 8, 4, 19, 0 )
-	wand:PlaceAt( x, y - 40 )
+	wand:PlaceAt( x, y - 28 )
 
 	-- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t1.xml", 230, -79 )
 	

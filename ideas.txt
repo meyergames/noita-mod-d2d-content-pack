@@ -322,8 +322,17 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] friend of the fairies reward: spell that causes all nearby fairies to be teleported to you
 
-[ ] modifier that disables a projectile's sound effect
+[ ] modifier that disables a projectile's sound effect (and maybe makes it completely invisible while we're at it)
 
+[ ] Challenge Perk that "steals" the wands and items in your inventory + lowers your Wand Tinkering level by 1, challenging you to make it to the next Holy Mountain with just the wands and items you find along the way.
+		- maybe: set max health to 10% or 100, whichever is higher? <--- meh, should be challenging enough as-is
+		- rewards? good question. could scale with the amount of kills you make
+
+[ ] telekinetic sip: utility spell that causes you to take a sip of the last potion in your inventory
+
+[ ] telekinetic bath: utility spell that causes you to be stained with some of the last potion in your inventory
+
+[ ] Backtrack perk: teleports you to the previous HM. other perks won't disappear when taking this one.
 
 
 CROSS-MOD IDEAS

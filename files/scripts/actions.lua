@@ -183,12 +183,14 @@ d2d_actions = {
 	    						-- for the tooltip
 								c.fire_rate_wait 		= c.fire_rate_wait - 15
 								current_reload_time 	= current_reload_time - 20
+								c.damage_projectile_add = c.damage_projectile_add + 0.2
 
 								if reflecting then return end
 
 								-- reset
 								c.fire_rate_wait 		= c.fire_rate_wait + 15
 								current_reload_time 	= current_reload_time + 20
+								c.damage_projectile_add = c.damage_projectile_add - 0.2
 
 								-- add entity that controls the spell's reach
 								c.extra_entities    	= c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/controlled_reach.xml,"
@@ -203,7 +205,7 @@ d2d_actions = {
 								local buff_ratio 		= remap( dist, 180, 65, 0.1, 1.0 )
 								c.fire_rate_wait 		= c.fire_rate_wait - ( 15 * buff_ratio )
 								current_reload_time 	= current_reload_time - ( 20 * buff_ratio )
-								-- c.speed_multiplier		= c.speed_multiplier * ( 1.0 + ( 1.0 * buff_ratio ) )
+								c.damage_projectile_add = c.damage_projectile_add + ( 0.2 * buff_ratio )
 								c.speed_multiplier		= c.speed_multiplier * ( 1.5 + ( 1.0 * buff_ratio ) )
 
 								-- finally, draw the next spell
@@ -543,7 +545,7 @@ d2d_actions = {
 		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
 		price               = 250,
 		mana                = 75,
-        max_uses            = 15,
+        max_uses            = 30,
        	custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
 		action 		        = function()
                                 local rand = Random( 0, 1000 )
@@ -865,12 +867,15 @@ d2d_actions = {
 		description         = "$spell_d2d_mana_lock_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_lock.png",
 		type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mana_lock.xml",
+		-- spawn_level         = "1,2,3,4,5,6,10",
+		-- spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1,1",
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		-- custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mana_lock.xml",
 		price               = 280,
 		mana                = 0,
 		action 		        = function()
+								GamePrint( "The 'Mana Lock' spell is currently out of order; please come back later.")
 								-- disable Add Mana etc
 								-- for i,v in ipairs( deck ) do
 								-- 	local spell_data = deck[i]
@@ -888,6 +893,26 @@ d2d_actions = {
 								draw_actions( 1, true )
 		                    end,
 	},
+
+    {
+	    id                  = "D2D_ALT_ALT_FIRE_TELEPORT_BOLT",
+	    name 		        = "$spell_d2d_alt_alt_fire_teleport_bolt_name",
+	    description         = "$spell_d2d_alt_alt_fire_teleport_bolt_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_alt_fire_teleport_bolt.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+        -- spawn_level         = "0,1,2,4,5,6,10", -- TELEPORT_PROJECTILE
+        -- spawn_probability   = "0.3,0.3,0.3,0.2,0.2,0.2,0.6", -- TELEPORT_PROJECTILE * ~0.67
+        spawn_level			= "4,5,6,10",
+        spawn_probability	= "0.2,0.2,0.2,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_alt_fire_teleport_bolt.xml",
+        price 				= 130,
+        mana 				= 20,
+	    action              = function()
+	    						draw_actions( 1, true )
+            					mana = mana + 20
+	                        end,
+    },
 
 	{
 		id                  = "D2D_MANA_SPLIT",
@@ -929,7 +954,7 @@ d2d_actions = {
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
 								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_NONE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
                                 draw_actions( 1, true )
 	                        end,
@@ -952,7 +977,7 @@ d2d_actions = {
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
 								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_NONE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
                                 draw_actions( 1, true )
 	                        end,
