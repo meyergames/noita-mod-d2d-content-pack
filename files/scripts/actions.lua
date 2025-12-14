@@ -829,41 +829,41 @@ d2d_actions = {
 	                        end,
     },
 
-    {
-	    id                  = "D2D_CHARMING_WHISTLE",
-	    name 		        = "$spell_d2d_charming_whistle_name",
-	    description         = "$spell_d2d_charming_whistle_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
-	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "0.3,0.4,0.5,0.6",
-	    price               = 180,
-	    mana                = 50,
-	    -- max_uses			= 20,
-	    action              = function()
-	 							if reflecting then return end
-	 							dofile_once( "data/scripts/lib/utilities.lua" )
+    -- {
+	--     id                  = "D2D_CHARMING_WHISTLE",
+	--     name 		        = "$spell_d2d_charming_whistle_name",
+	--     description         = "$spell_d2d_charming_whistle_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
+	--     type 		        = ACTION_TYPE_UTILITY,
+	-- 	spawn_level         = "0,1,2,3",
+	-- 	spawn_probability   = "0.3,0.4,0.5,0.6",
+	--     price               = 180,
+	--     mana                = 50,
+	--     -- max_uses			= 20,
+	--     action              = function()
+	--  							if reflecting then return end
+	--  							dofile_once( "data/scripts/lib/utilities.lua" )
 
-                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-	 							local nearby_targets = EntityGetInRadiusWithTag( x, y, 300, "homing_target" )
-	 							for i,target_id in ipairs( nearby_targets ) do
-	 								if GameGetGameEffect( target_id, "CHARM" ) ~= 0 then
-		 								local old_x, old_y = EntityGetTransform( target_id )
-										EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
-		 								EntitySetTransform( target_id, x, y )
+    --                             local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	--  							local nearby_targets = EntityGetInRadiusWithTag( x, y, 300, "homing_target" )
+	--  							for i,target_id in ipairs( nearby_targets ) do
+	--  								if GameGetGameEffect( target_id, "CHARM" ) ~= 0 then
+	-- 	 								local old_x, old_y = EntityGetTransform( target_id )
+	-- 									EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
+	-- 	 								EntitySetTransform( target_id, x, y )
 
-		 								if Random( 1, 2 ) == 1 then
-											local t_dcomp = EntityGetFirstComponentIncludingDisabled( target_id, "DamageModelComponent" )
-											local t_hp = ComponentGetValue2( t_dcomp, "hp" )
-											local t_max_hp = ComponentGetValue2( t_dcomp, "max_hp" )
-											local tx, ty = EntityGetTransform( target_id )
+	-- 	 								if Random( 1, 2 ) == 1 then
+	-- 										local t_dcomp = EntityGetFirstComponentIncludingDisabled( target_id, "DamageModelComponent" )
+	-- 										local t_hp = ComponentGetValue2( t_dcomp, "hp" )
+	-- 										local t_max_hp = ComponentGetValue2( t_dcomp, "max_hp" )
+	-- 										local tx, ty = EntityGetTransform( target_id )
 
-			 								EntityInflictDamage( target_id, t_max_hp * 0.1, "DAMAGE_CURSE", "experimental teleportation magic", "NONE", 0, 0, target_id, tx, ty, 0)
-			 							end
-		 							end
-	 							end
-	                        end,
-    },
+	-- 		 								EntityInflictDamage( target_id, t_max_hp * 0.1, "DAMAGE_CURSE", "experimental teleportation magic", "NONE", 0, 0, target_id, tx, ty, 0)
+	-- 		 							end
+	-- 	 							end
+	--  							end
+	--                         end,
+    -- },
 
     {
 	    id                  = "D2D_SPRAY_AND_PRAY",
@@ -1121,31 +1121,31 @@ if ( ModIsEnabled("Apotheosis") ) then
 		                        end,
 	    },
 
-	    {
-		    id                  = "D2D_FAIRY_WHISTLE",
-		    name 		        = "$spell_d2d_fairy_whistle_name",
-		    description         = "$spell_d2d_fairy_whistle_desc",
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
-		    type 		        = ACTION_TYPE_UTILITY,
-			spawn_level         = "0",
-			spawn_probability   = "0",
-		    price               = 200,
-		    mana                = 50,
-		    max_uses			= 10,
-		    action              = function()
-		 							if reflecting then return end
-		 							dofile_once( "data/scripts/lib/utilities.lua" )
+	    -- {
+		--     id                  = "D2D_FAIRY_WHISTLE",
+		--     name 		        = "$spell_d2d_fairy_whistle_name",
+		--     description         = "$spell_d2d_fairy_whistle_desc",
+		--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
+		--     type 		        = ACTION_TYPE_UTILITY,
+		-- 	spawn_level         = "0",
+		-- 	spawn_probability   = "0",
+		--     price               = 200,
+		--     mana                = 50,
+		--     max_uses			= 10,
+		--     action              = function()
+		--  							if reflecting then return end
+		--  							dofile_once( "data/scripts/lib/utilities.lua" )
 
-		 							-- place all fairies on the player to prevent them from getting stuck in solids
-	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-		 							local nearby_fairies = EntityGetInRadiusWithTag( x, y, 300, "fairy" )
-		 							for i,fairy_id in ipairs( nearby_fairies ) do
-		 								local old_x, old_y = EntityGetTransform( fairy_id )
-										EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
-		 								EntitySetTransform( fairy_id, x, y )
-		 							end
-		                        end,
-	    },
+		--  							-- place all fairies on the player to prevent them from getting stuck in solids
+	    --                             local x, y = EntityGetTransform( GetUpdatedEntityID() )
+		--  							local nearby_fairies = EntityGetInRadiusWithTag( x, y, 300, "fairy" )
+		--  							for i,fairy_id in ipairs( nearby_fairies ) do
+		--  								local old_x, old_y = EntityGetTransform( fairy_id )
+		-- 								EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
+		--  								EntitySetTransform( fairy_id, x, y )
+		--  							end
+		--                         end,
+	    -- },
 	}
 
 	if(actions ~= nil)then
