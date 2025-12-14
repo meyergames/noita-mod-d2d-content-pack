@@ -72,7 +72,7 @@ mod_settings =
     },
     {
         category_id = "content_toggles",
-        ui_name = "Toggle individual spells and perks",
+        ui_name = "Toggle individual reworks, spells and perks",
         ui_description = "",
         settings = {
         }
@@ -142,15 +142,89 @@ function ModSettingsGui( gui, in_main_menu )
     --GuiLayoutBeginVertical( gui, 0, 0, false, 0, 3 )
     if(not in_main_menu)then
 
+        -- PERK REWORKS
+        dofile("mods/D2DContentPack/files/scripts/perks.lua")
+        local filtered_perk_reworks = {}
+        for i,perk in ipairs( d2d_perk_reworks ) do
+            if not perk.not_in_default_perk_pool then
+                table.insert( filtered_perk_reworks, perk )
+            end
+        end
 
-    
-        --GuiBeginScrollContainer( gui, new_id(), 0, 0, 200, 150, true, 2, 2 )
-        --GuiLayoutBeginVertical( gui, 0, 0, false, 2, 2 )
+        GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
+        if GuiButton( gui, new_id(), 0, 0, "Enable All Reworks" )then
+            for k, v in pairs( filtered_perk_reworks ) do
+                AddSettingFlag(v.id.."_enabled")
+            end
+        end
+        if GuiButton( gui, new_id(), 0, 0, "Disable All Reworks" )then
+            for k, v in pairs( filtered_perk_reworks ) do
+                RemoveSettingFlag(v.id.."_enabled")
+            end
+        end
+        GuiLayoutEnd(gui)
+
+        for k, v in pairs( filtered_perk_reworks ) do
+
+            GuiLayoutBeginHorizontal( gui, 0, 0, false, 2, 2 )
+
+
+            local clicked,right_clicked = GuiImageButton( gui, new_id(), 0, 0, "", v.perk_icon )
+            if clicked then
+                if HasSettingFlag( v.id.."_enabled") then
+                    RemoveSettingFlag( v.id.."_enabled" )
+                else
+                    AddSettingFlag( v.id.."_enabled" )
+                    RemoveSettingFlag( v.id.."_spawn_at_start" )
+                end
+            end
+            if right_clicked then
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    RemoveSettingFlag( v.id.."_spawn_at_start" )
+                elseif not HasSettingFlag( v.id.."_disabled") then
+                    AddSettingFlag( v.id.."_spawn_at_start" )
+                end
+            end
+
+            if not HasSettingFlag( v.id.."_enabled" ) then
+                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
+            else
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable]   [ Right-click to disable spawn at start]" )
+                else
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable]   [ Right-click to enable spawn at start ]" )
+                end
+            end
+
+            GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_square.png", 1, 1.2, 0 )
+            if not HasSettingFlag( v.id.."_enabled" ) then
+                GuiZSetForNextWidget( gui, -80 )
+                GuiOptionsAddForNextWidget(gui, GUI_OPTION.NonInteractive)
+                GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_disabled_overlay.png", 1, 1.2, 0 )
+            end
+
+            if(HasSettingFlag(v.id.."_disabled"))then
+                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
+            else
+                if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )
+                else
+                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to enable spawn at start ]" )
+                end
+            end
+
+            if HasSettingFlag( v.id.."_spawn_at_start" ) then
+                GuiColorSetForNextWidget( gui, 0, 1, 0, 1 )
+            else
+                GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
+            end
+            GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.ui_name) )
+            GuiLayoutEnd(gui)
+        end
 
 
 
 
-        
         -- SPELLS
         dofile("mods/D2DContentPack/files/scripts/actions.lua")
         local filtered_actions = {}
@@ -246,7 +320,6 @@ function ModSettingsGui( gui, in_main_menu )
 
 
         -- PERKS
-        dofile("mods/D2DContentPack/files/scripts/perks.lua")
         local filtered_perks = {}
         for i,perk in ipairs( d2d_perks ) do
             if not perk.not_in_default_perk_pool then

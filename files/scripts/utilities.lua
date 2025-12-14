@@ -472,8 +472,9 @@ end
 function reset_move_speed( entity_id, effect_name )
     local character_platforming_component = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent")
     local var_store = get_variable_storage_component( entity_id, effect_name .. "_move_speed_mtp" )
-    stored_mtp_value = ComponentGetValue2( var_store, "value_string" )
+    if not var_store then return end
 
+    stored_mtp_value = ComponentGetValue2( var_store, "value_string" )
     local parsed = split_string( stored_mtp_value, ',' )
     local mtp_x = parsed[1]
     local mtp_y = parsed[2]
@@ -644,7 +645,7 @@ end
 
 
 
-function spawn_random_perk( x, y )
+function spawn_random_perk( x, y, dont_remove_others )
     dofile_once( "data/scripts/perks/perk_list.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
 

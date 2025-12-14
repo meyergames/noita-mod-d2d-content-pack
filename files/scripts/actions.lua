@@ -385,6 +385,30 @@ d2d_actions = {
 	},
 
 	-- {
+	-- 	id          		= "D2D_CHARMING_ARROW",
+	-- 	name 				= "$spell_d2d_charming_arrow_name",
+	-- 	description 		= "$spell_d2d_charming_arrow_desc",
+	-- 	sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/charming_arrow.png",
+	-- 	related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" },
+	-- 	type 				= ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "1,2,3,4,5", -- BULLET
+	-- 	spawn_probability	= "0.5,0.5,0.5,0.4,0.25", -- BULLET
+	-- 	price 				= 142,
+	-- 	mana 				= 20,
+	-- 	max_uses 			= 3,
+	-- 	action 				= function()
+	-- 		if reflecting then return end
+
+	-- 		add_projectile( "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" )
+	-- 		c.fire_rate_wait = c.fire_rate_wait + 4
+	-- 		c.screenshake = c.screenshake + 2
+	-- 		c.spread_degrees = c.spread_degrees + 2.0
+	-- 		c.damage_critical_chance = c.damage_critical_chance + 5
+	-- 		shot_effects.recoil_knockback = shot_effects.recoil_knockback + 23.0
+	-- 	end,
+	-- },
+
+	-- {
 	-- 	id                  = "D2D_GLASS_SHARD",
 	-- 	name 		        = "$spell_d2d_glass_shard_name",
 	-- 	description         = "$spell_d2d_glass_shard_desc",
@@ -674,7 +698,7 @@ d2d_actions = {
 	    price               = 200,
 	    mana                = 5,
 	    action              = function()
-								c.damage_projectile_add = c.damage_projectile_add + 0.08
+								c.damage_projectile_add = c.damage_projectile_add + 0.12
 
 	    						if reflecting then return end
 
@@ -806,6 +830,42 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_CHARMING_WHISTLE",
+	    name 		        = "$spell_d2d_charming_whistle_name",
+	    description         = "$spell_d2d_charming_whistle_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "0.3,0.4,0.5,0.6",
+	    price               = 180,
+	    mana                = 50,
+	    -- max_uses			= 20,
+	    action              = function()
+	 							if reflecting then return end
+	 							dofile_once( "data/scripts/lib/utilities.lua" )
+
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	 							local nearby_targets = EntityGetInRadiusWithTag( x, y, 300, "homing_target" )
+	 							for i,target_id in ipairs( nearby_targets ) do
+	 								if GameGetGameEffect( target_id, "CHARM" ) ~= 0 then
+		 								local old_x, old_y = EntityGetTransform( target_id )
+										EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
+		 								EntitySetTransform( target_id, x, y )
+
+		 								if Random( 1, 2 ) == 1 then
+											local t_dcomp = EntityGetFirstComponentIncludingDisabled( target_id, "DamageModelComponent" )
+											local t_hp = ComponentGetValue2( t_dcomp, "hp" )
+											local t_max_hp = ComponentGetValue2( t_dcomp, "max_hp" )
+											local tx, ty = EntityGetTransform( target_id )
+
+			 								EntityInflictDamage( target_id, t_max_hp * 0.1, "DAMAGE_CURSE", "experimental teleportation magic", "NONE", 0, 0, target_id, tx, ty, 0)
+			 							end
+		 							end
+	 							end
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_SPRAY_AND_PRAY",
 	    name 		        = "$spell_d2d_spray_and_pray_name",
 	    description         = "$spell_d2d_spray_and_pray_desc",
@@ -914,6 +974,26 @@ d2d_actions = {
 	                        end,
     },
 
+    -- {
+	--     id                  = "D2D_BLINK_MID_FIRE",
+	--     name 		        = "$spell_d2d_blink_name",
+	--     description         = "$spell_d2d_blink_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mid_fire_blink.png",
+	--     type 		        = ACTION_TYPE_PASSIVE,
+    --     subtype     		= { altfire = true },
+	-- 	spawn_level         = "0",
+	-- 	spawn_probability   = "0",
+	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mid_fire_blink.xml",
+	--     price               = 300,
+	--     mana                = 80,
+	--     max_uses			= 10,
+	--     never_unlimited		= true,
+	--     action              = function()	    						
+	--     						draw_actions( 1, true )
+    --         					mana = mana + 20
+	--                         end,
+    -- },
+
 	{
 		id                  = "D2D_MANA_SPLIT",
 		name 		        = "$spell_d2d_mana_split_name",
@@ -954,7 +1034,7 @@ d2d_actions = {
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
 								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_NONE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
                                 draw_actions( 1, true )
 	                        end,
@@ -977,7 +1057,7 @@ d2d_actions = {
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
 								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_NONE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
                                 draw_actions( 1, true )
 	                        end,
@@ -1038,6 +1118,32 @@ if ( ModIsEnabled("Apotheosis") ) then
 		 							
 	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
 	    							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
+		                        end,
+	    },
+
+	    {
+		    id                  = "D2D_FAIRY_WHISTLE",
+		    name 		        = "$spell_d2d_fairy_whistle_name",
+		    description         = "$spell_d2d_fairy_whistle_desc",
+		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
+		    type 		        = ACTION_TYPE_UTILITY,
+			spawn_level         = "0",
+			spawn_probability   = "0",
+		    price               = 200,
+		    mana                = 50,
+		    max_uses			= 10,
+		    action              = function()
+		 							if reflecting then return end
+		 							dofile_once( "data/scripts/lib/utilities.lua" )
+
+		 							-- place all fairies on the player to prevent them from getting stuck in solids
+	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+		 							local nearby_fairies = EntityGetInRadiusWithTag( x, y, 300, "fairy" )
+		 							for i,fairy_id in ipairs( nearby_fairies ) do
+		 								local old_x, old_y = EntityGetTransform( fairy_id )
+										EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
+		 								EntitySetTransform( fairy_id, x, y )
+		 							end
 		                        end,
 	    },
 	}

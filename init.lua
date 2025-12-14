@@ -92,6 +92,22 @@ function OnPlayerSpawned( player )
         script_source_file="mods/D2DContentPack/files/scripts/perks/challenge_perk_scan.lua",
         execute_every_n_frame="60",
     } )
+
+    -- spawn love wand
+    -- local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    -- local wand = EZWand()
+    -- wand:SetName( "Bow of Charming", true )
+    -- wand.shuffle = false
+    -- wand.spellsPerCast = 1
+    -- wand.castDelay = 59
+    -- wand.rechargeTime = 239
+    -- wand.manaMax = 99
+    -- wand.manaChargeSpeed = 19
+    -- wand.capacity = 0
+    -- wand.spread = 9
+    -- wand:AttachSpells( "D2D_BLOOD_TOLL", "D2D_CHARMING_ARROW" )
+    -- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_charm_bow.png", 3, 6, 7, 0 )
+    -- wand:PlaceAt( 750, -100 )
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")

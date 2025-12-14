@@ -1,0 +1,7 @@
+<Entity>
+    <LuaComponent
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/glass_shard_detonate_timer.lua"
+        execute_every_n_frames="3"
+        execute_on_added="false"
+    ></LuaComponent>
+</Entity>

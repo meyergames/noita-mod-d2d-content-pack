@@ -47,8 +47,6 @@ function on_open( entity_item )
 end
 
 function item_pickup( entity_item, entity_who_picked, name )
-	GamePrintImportant( "Your speed is rewarded", "" )
-
 	on_open( entity_item )
 	
 	EntityKill( entity_item )

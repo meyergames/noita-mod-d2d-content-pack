@@ -208,6 +208,27 @@ d2d_perks = {
 	},
 
 	{
+		id = "D2D_ALLY_PROTECTION",
+		ui_name = "$perk_d2d_ally_protection_name",
+		ui_description = "$perk_d2d_ally_protection_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ally_protection_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ally_protection.png",
+		stackable = STACKABLE_NO,
+		-- max_in_perk_pool = 3,
+		-- stackable_maximum = 3,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			EntityAddComponent( entity_who_picked, "LuaComponent", 
+			{
+				_tags="perk_component",
+				script_source_file="mods/D2DContentPack/files/scripts/perks/effect_ally_protection_update.lua",
+				execute_every_n_frame="15",
+			} )
+        end,
+	},
+
+	{
 		id = "D2D_MASTER_OF_EXPLOSIONS",
 		ui_name = "$perk_d2d_master_of_explosions_name",
 		ui_description = "$perk_d2d_master_of_explosions_desc",
@@ -859,6 +880,43 @@ d2d_curses = {
 	-- },
 }
 
+
+
+
+
+
+
+
+
+
+d2d_perk_reworks = {
+	{
+		id = "D2D_ALL_SEEING_EYE",
+		id_vanilla = "REMOVE_FOG_OF_WAR",
+		ui_name = "$perk_d2d_all_seeing_eye_rework_name",
+		ui_description = "$perk_d2d_all_seeing_eye_rework_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/all_seeing_eye_rework_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/all_seeing_eye_rework.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name )
+            EntityAddChild( entity_who_picked, EntityLoad( "mods/D2DContentPack/files/entities/misc/perks/effect_all_seeing_eye_rework.xml" ) )
+            -- GamePrint( "(Prefer the old All Seeing Eye? You can disable D2D Content Pack's rebalance changes in the mod settings.)" )
+        end,
+        func_remove = function( entity_who_picked )
+            remove_lua( entity_who_picked, "d2d_all_seeing_eye_rework" )
+        end,
+	},
+}
+
+
+
+
+
+
+
+
 function HasSettingFlag(name)
     return ModSettingGet(name) or false
 end
@@ -870,6 +928,16 @@ end
 
 function RemoveSettingFlag(name)
     ModSettingRemove(name)
+end
+
+-- add reworks 
+if ( perk_list ~= nil ) then
+	for k, v in pairs( d2d_perk_reworks )do
+		if HasSettingFlag( v.id .. "_enabled" ) then
+			table.insert( perk_list, v )
+			remove_perk( v.id_vanilla )
+		end
+	end
 end
 
 -- add perks
@@ -905,4 +973,17 @@ if ( perk_list ~= nil ) then
 			table.insert( perk_list, v )
 		end
 	end
+end
+
+local function remove_perk(perk_name)
+    local key_to_perk = nil
+    for key, perk in pairs(perk_list) do
+        if (perk.id == perk_name) then
+            key_to_perk = key
+        end
+    end
+
+    if (key_to_perk ~= nil) then
+        table.remove(perk_list, key_to_perk)
+    end
 end

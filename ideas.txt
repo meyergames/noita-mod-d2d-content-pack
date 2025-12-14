@@ -334,6 +334,36 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Backtrack perk: teleports you to the previous HM. other perks won't disappear when taking this one.
 
+[ ] perk that causes Polymorph to transform you into something stronger / more defensively capable than a sheep (mecha-sheep that can destroy projectiles and has *some* more than 1 HP??)
+
+[ ] spell that causes nearby fairies to be teleported to you
+
+[ ] spell that causes nearby charmed creatures to be teleported to you
+
+[ ] perk that gives you a circle of-sized aura that starts out inactive. it becomes active when a charmed creature enters, providing a shield and mana regeneration buff
+		[ ] alternatively: charmed creatures gain a shield and an aura that grants you extra mana regen
+
+[ ] arrow of love: limited-use, pheromone-coloured magic arrow (with heart particles) that charms whatever it hits. may only work on organic creatures, like with giga drain?
+		- option A: deals hefty damage on impact; only works on creatures that would survive the shot (ambrosia ftw?)
+		- option B: deals 2% of an enemy's max health per second, meaning the creature is on a 50-second death sentence
+
+[ ] friend of the fairies upgrades (extra perks?):
+		[ ] 100 fairies freed: touching a fairy will heal you for 1% of your max health, then teleport them away.
+		[ ] 250 fairies freed: fairies will try to intercept enemy projectiles heading in your direction.
+		[ ] 500 fairies freed: when you fall below 20% health, charmed big fairies come to the rescue.
+		[ ] 1000 fairies freed: the Fairy In A Jar item can be found in the Fairy Nest biome. when you die, the jar breaks to revive and teleport you to the Fairy Nest.
+
+[ ] big-scope idea: a tiny fairy biome at the bottom left or right corner of the coal mines. entering it without having killed any fairies spawns (and unlocks?) the Friend of the Fairies perk. (then it'd be removed from the HM pool)
+
+[ ] feline affection update: track which unique cat entities the player has petted; print the progress. petting all unique cat entities will unlock something cool (cat ear cosmetic for Mina?)
+
+[x] perk rebalance - all seeing eye: only reveals a small area around the cursor (like Magic Light)
+		[x] GamePrint on pickup: "Prefer the old All Seeing Eye? You can disable D2D Content Pack's rebalance changes in the mod settings."
+
+[ ] simple modifier that adds damage based on the projectile's speed
+
+
+
 
 CROSS-MOD IDEAS
 
