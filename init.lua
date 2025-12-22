@@ -120,7 +120,11 @@ function OnPlayerSpawned( player )
     
     -- spawn_ancient_staff( 230, -79 )
     -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_ghost.xml", -70, -79 )
-    EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_lurker.xml", -70, -79 )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_lurker.xml", -70, -79 )
+    
+    -- dofile_once( "data/scripts/lib/utilities.lua" )
+    -- local x, y = EntityGetTransform( get_player() )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/spell_gem.xml", x + 20, y + 40 )
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")

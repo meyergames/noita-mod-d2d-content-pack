@@ -1,0 +1,7 @@
+<Entity tags="perk_entity,d2d_spell_gems">
+
+    <LuaComponent
+    	script_source_file="mods/D2DContentPack/files/scripts/perks/effect_spell_gems_update.lua"
+    ></LuaComponent>
+
+</Entity>

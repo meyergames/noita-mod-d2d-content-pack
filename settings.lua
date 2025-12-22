@@ -204,7 +204,7 @@ function ModSettingsGui( gui, in_main_menu )
             end
 
             if(HasSettingFlag(v.id.."_disabled"))then
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
+                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description) .. "\n(Replaces " .. v.id_vanilla .. ")", "[ Click to enable ]" );
             else
                 if HasSettingFlag( v.id.."_spawn_at_start" ) then
                     GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )

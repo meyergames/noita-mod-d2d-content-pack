@@ -908,6 +908,24 @@ d2d_perk_reworks = {
             remove_lua( entity_who_picked, "d2d_all_seeing_eye_rework" )
         end,
 	},
+	{
+		id = "D2D_SPELL_GEMS",
+		id_vanilla = "UNLIMITED_SPELLS",
+		ui_name = "$perk_d2d_spell_gems_name",
+		ui_description = "$perk_d2d_spell_gems_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/spell_gems_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/spell_gems.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name )
+            EntityAddChild( entity_who_picked, EntityLoad( "mods/D2DContentPack/files/entities/misc/perks/effect_spell_gems.xml" ) )
+            -- GamePrint( "(Prefer the old Unlimited Spells? You can disable D2D Content Pack's rebalance changes in the mod settings.)" )
+        end,
+        func_remove = function( entity_who_picked )
+            remove_lua( entity_who_picked, "d2d_spell_gems" )
+        end,
+	},
 }
 
 

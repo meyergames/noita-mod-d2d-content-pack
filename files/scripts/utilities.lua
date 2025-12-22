@@ -145,6 +145,19 @@ function set_internal_bool( entity_id, variable_name, new_value )
 	end
 end
 
+function has_vscomp( entity_id, variable_name )
+	local vcomps = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( vcomps ~= nil ) then
+		for _,vcomp in pairs(vcomps) do 
+			local var_name = ComponentGetValue2( vcomp, "name" )
+			if( var_name == variable_name ) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 -- very shorthand version of getting OR setting an internal int variable
 function p_int( variable_name, delta )
 	return var_int( get_player(), variable_name, delta )
