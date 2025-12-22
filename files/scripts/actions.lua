@@ -384,29 +384,41 @@ d2d_actions = {
 		                    end,
 	},
 
-	-- {
-	-- 	id          		= "D2D_CHARMING_ARROW",
-	-- 	name 				= "$spell_d2d_charming_arrow_name",
-	-- 	description 		= "$spell_d2d_charming_arrow_desc",
-	-- 	sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/charming_arrow.png",
-	-- 	related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" },
-	-- 	type 				= ACTION_TYPE_PROJECTILE,
-	-- 	spawn_level         = "1,2,3,4,5", -- BULLET
-	-- 	spawn_probability	= "0.5,0.5,0.5,0.4,0.25", -- BULLET
-	-- 	price 				= 142,
-	-- 	mana 				= 20,
-	-- 	max_uses 			= 3,
-	-- 	action 				= function()
-	-- 		if reflecting then return end
+	{
+		id          		= "D2D_CHARMING_ARROW",
+		name 				= "$spell_d2d_charming_arrow_name",
+		description 		= "$spell_d2d_charming_arrow_desc",
+		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/charming_arrow.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" },
+		type 				= ACTION_TYPE_PROJECTILE,
+		spawn_level         = "1,2,4,5",
+		spawn_probability	= "0.4,0.5,0.7,0.8",
+		price 				= 270,
+		mana 				= 50,
+		max_uses 			= 6,
+		action 				= function()
+			c.fire_rate_wait = c.fire_rate_wait + 50
+			c.spread_degrees = c.spread_degrees + 12
 
-	-- 		add_projectile( "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" )
-	-- 		c.fire_rate_wait = c.fire_rate_wait + 4
-	-- 		c.screenshake = c.screenshake + 2
-	-- 		c.spread_degrees = c.spread_degrees + 2.0
-	-- 		c.damage_critical_chance = c.damage_critical_chance + 5
-	-- 		shot_effects.recoil_knockback = shot_effects.recoil_knockback + 23.0
-	-- 	end,
-	-- },
+			if reflecting then return end
+			add_projectile( "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" )
+		end,
+	},
+
+    {
+	    id                  = "D2D_COMMAND_ATTACK",
+	    name 		        = "$spell_d2d_command_attack_name",
+	    description         = "$spell_d2d_command_attack_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/command_attack.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "0.3,0.4,0.5,0.6",
+	    price               = 190,
+	    mana                = 50,
+	    action              = function()
+	 							add_projectile( "mods/D2DContentPack/files/entities/projectiles/command_attack_targetter.xml" )
+	 						end
+    },
 
 	-- {
 	-- 	id                  = "D2D_GLASS_SHARD",
@@ -833,7 +845,7 @@ d2d_actions = {
 	--     id                  = "D2D_CHARMING_WHISTLE",
 	--     name 		        = "$spell_d2d_charming_whistle_name",
 	--     description         = "$spell_d2d_charming_whistle_desc",
-	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/charming_whistle.png",
 	--     type 		        = ACTION_TYPE_UTILITY,
 	-- 	spawn_level         = "0,1,2,3",
 	-- 	spawn_probability   = "0.3,0.4,0.5,0.6",
@@ -846,22 +858,44 @@ d2d_actions = {
 
     --                             local x, y = EntityGetTransform( GetUpdatedEntityID() )
 	--  							local nearby_targets = EntityGetInRadiusWithTag( x, y, 300, "homing_target" )
+	--  							local someone_teleported = false
+	--  							local berserk_triggered = false
 	--  							for i,target_id in ipairs( nearby_targets ) do
 	--  								if GameGetGameEffect( target_id, "CHARM" ) ~= 0 then
 	-- 	 								local old_x, old_y = EntityGetTransform( target_id )
 	-- 									EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
 	-- 	 								EntitySetTransform( target_id, x, y )
+	-- 	 								someone_teleported = true
 
-	-- 	 								if Random( 1, 2 ) == 1 then
-	-- 										local t_dcomp = EntityGetFirstComponentIncludingDisabled( target_id, "DamageModelComponent" )
-	-- 										local t_hp = ComponentGetValue2( t_dcomp, "hp" )
-	-- 										local t_max_hp = ComponentGetValue2( t_dcomp, "max_hp" )
-	-- 										local tx, ty = EntityGetTransform( target_id )
+	-- 	 								-- inflict damage equal to 10% of max hp
+	-- 									local t_dcomp = EntityGetFirstComponentIncludingDisabled( target_id, "DamageModelComponent" )
+	-- 									local t_hp = ComponentGetValue2( t_dcomp, "hp" )
+	-- 									local t_max_hp = ComponentGetValue2( t_dcomp, "max_hp" )
+	-- 									local tx, ty = EntityGetTransform( target_id )
+	-- 		 							EntityInflictDamage( target_id, t_max_hp * 0.1, "DAMAGE_CURSE", "experimental teleportation magic", "NONE", 0, 0, target_id, tx, ty, 0)
 
-	-- 		 								EntityInflictDamage( target_id, t_max_hp * 0.1, "DAMAGE_CURSE", "experimental teleportation magic", "NONE", 0, 0, target_id, tx, ty, 0)
+	-- 	 								-- 5% chance to make the enemy turn berserk
+	-- 	 								if Random( 1, 20 ) == 1 then
+    --         								GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/on_fire/create", x, y )
+	-- 										EntityKill( get_child_with_name( target_id, "effect_charm.xml" ) )
+	-- 										EntityKill( get_child_with_name( target_id, "effect_charmed_short_d2d.xml" ) )
+	-- 										LoadGameEffectEntityTo( target_id, "data/entities/misc/effect_berserk.xml" )
+
+	-- 										berserk_triggered = true
 	-- 		 							end
 	-- 	 							end
 	--  							end
+
+	--  							if someone_teleported then
+	--     							GamePlaySound( "data/audio/Desktop/player.bank", "player/damage/projectile", x, y )
+	--     							GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/teleport/destroy", x, y )
+	--     						end
+
+    -- 							if berserk_triggered then
+    -- 								GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/on_fire/create", x, y )
+    -- 							else
+    -- 								GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/charm/create", x, y )
+    -- 							end
 	--                         end,
     -- },
 
