@@ -1,0 +1,30 @@
+<Entity tags="d2d_player_follow_projectile" >
+    <LuaComponent
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/projectile_morph_on.lua"
+        execute_on_added="1"
+        execute_times="1"
+    ></LuaComponent>
+    
+    <!-- <LuaComponent
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/charming_arrow_off.lua"
+        execute_every_n_frame="-1"
+        execute_on_added="0"
+        execute_on_removed="1"
+    ></LuaComponent> -->
+
+    <LuaComponent 
+        _enabled="1" 
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/projectile_morph_update.lua"
+        execute_every_n_frame="1">
+    </LuaComponent>
+
+    <LuaComponent
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/projectile_morph_off.lua"
+        execute_every_n_frame="-1"
+        execute_on_removed="1"
+    ></LuaComponent>
+
+    <LifetimeComponent
+        lifetime="1800"
+    ></LifetimeComponent>
+</Entity>

@@ -1,0 +1,78 @@
+<Entity tags="glue_NOT" name="$animal_d2d_ancient_ghost">
+	<!-- NOTE! This file is used for polymorph purpouses only -->
+	<!-- the spawned player ghost (that has an old wand) is now at entities/animals/apparition/playerghost.xml -->
+	
+	<Base file="data/entities/base_apparition.xml">
+		<!-- <AnimalAIComponent
+			sense_creatures_through_walls="1"
+		></AnimalAIComponent> -->
+
+		<DamageModelComponent
+			hp="10"
+			max_hp="10"
+			><damage_multipliers
+				projectile="1.0"
+			></damage_multipliers>
+		></DamageModelComponent>
+		
+		<CameraBoundComponent
+			_enabled="0"
+			max_count="30"
+			distance="160000"
+		></CameraBoundComponent>
+
+		<SpriteComponent 
+			image_file="mods/D2DContentPack/files/gfx/enemies_gfx/ancient_ghost.xml"
+		></SpriteComponent>
+	</Base>
+
+	<BossHealthBarComponent>
+	</BossHealthBarComponent>
+	
+	<LuaComponent 
+		_enabled="1"
+		remove_after_executed="1"
+		script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_ghost_spawn.lua" >
+	</LuaComponent>
+
+	<LuaComponent
+		script_wand_fired="mods/D2DContentPack/files/scripts/animals/ancient_ghost_wand_fired.lua"
+	></LuaComponent>
+
+	<LuaComponent
+		script_damage_received="mods/D2DContentPack/files/scripts/animals/ancient_ghost_damage_taken.lua"
+	></LuaComponent>
+	
+	<LuaComponent 
+		_enabled="1"
+		script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_ghost_update.lua"
+		execute_every_n_frame="6"
+	></LuaComponent>
+
+	<LuaComponent
+		script_death="mods/D2DContentPack/files/scripts/animals/ancient_ghost_death.lua"
+		execute_every_n_frame="-1"
+	></LuaComponent>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="0.5">
+    </MusicEnergyAffectorComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>

@@ -1,0 +1,147 @@
+<Entity tags="glue_NOT" name="$animal_d2d_ancient_lurker">
+	<!-- NOTE! This file is used for polymorph purpouses only -->
+	<!-- the spawned player ghost (that has an old wand) is now at entities/animals/apparition/playerghost.xml -->
+	
+	<Base file="data/entities/base_enemy_flying.xml">
+		<ItemChestComponent level="1" > </ItemChestComponent>
+
+		<AnimalAIComponent
+			attack_ranged_enabled="1"
+			attack_dash_enabled="0"
+			attack_ranged_offset_y="-2"
+			attack_ranged_min_distance="0"
+			attack_ranged_max_distance="150"
+			escape_if_damaged_probability="0"
+			needs_food="0"
+			can_fly="1"
+			sense_creatures_through_walls="1"
+			attack_ranged_entity_file="mods/D2DContentPack/files/entities/projectiles/enemy/ancient_lurker_darkflame.xml"
+			attack_ranged_frames_between="120"
+		></AnimalAIComponent>
+
+		<DamageModelComponent
+			_tags="lurker_data"
+            hp="70"
+			minimum_knockback_force="100000"
+            ragdoll_filenames_file=""
+			ragdoll_fx_forced="DISINTEGRATED"
+			ragdoll_material="material_darkness"
+			blood_material="material_darkness"
+			blood_spray_material="material_darkness"
+			fire_probability_of_ignition="0"
+			blood_sprite_directional="data/particles/bloodsplatters/bloodsplatter_directional_purple_$[1-3].xml"
+			blood_sprite_large="data/particles/bloodsplatters/bloodsplatter_purple_$[1-3].xml"
+			materials_that_damage="lava,poison,blood_cold,blood_cold_vapour" 
+			materials_how_much_damage="0.004,0.001,0.0008,0.0007"
+			><damage_multipliers
+				projectile="0.25"
+				radioactive="0.0" 
+				slice="0.0"
+				melee="0.0"
+				holy="2.0"
+			></damage_multipliers>
+		</DamageModelComponent>
+
+		<PathFindingComponent
+			can_fly="1" 
+			can_walk="0"
+		></PathFindingComponent>
+
+		<SpriteComponent
+			_tags="lurker_data"
+			image_file="mods/D2DContentPack/files/gfx/enemies_gfx/ancient_lurker_2.xml"
+			offset_x="0"
+			offset_y="0"
+			alpha="1"
+			additive="1"
+			>
+		</SpriteComponent>
+		
+		<GenomeDataComponent 
+			herd_id="slimes" >
+		</GenomeDataComponent>
+
+		<HitboxComponent
+			_tags="lurker_data"
+			_enabled="1" 
+			aabb_min_x="-6.0" 
+			aabb_max_x="6.0" 
+			aabb_min_y="-8" 
+			aabb_max_y="6" 
+			is_enemy="1" 
+			is_item="0" 
+			is_player="0" >
+		</HitboxComponent>
+
+		<CharacterDataComponent 
+			_enabled="1" 
+			climb_over_y="4" 
+			collision_aabb_min_x="-6.0" 
+			collision_aabb_max_x="6.0" 
+			collision_aabb_min_y="-8" 
+			collision_aabb_max_y="6" 
+			mass="0.9"
+			>
+	    </CharacterDataComponent>
+	</Base>
+
+	<BossHealthBarComponent>
+	</BossHealthBarComponent>
+
+	<LuaComponent
+		script_wand_fired="mods/D2DContentPack/files/scripts/animals/ancient_ghost_wand_fired.lua"
+	></LuaComponent>
+
+	<LuaComponent
+		script_damage_received="mods/D2DContentPack/files/scripts/animals/ancient_ghost_damage_taken.lua"
+	></LuaComponent>
+	
+	<LuaComponent 
+		_enabled="1"
+		script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_ghost_update.lua"
+		execute_every_n_frame="6"
+	></LuaComponent>
+
+	<LuaComponent
+		script_death="mods/D2DContentPack/files/scripts/animals/ancient_ghost_death.lua"
+		execute_every_n_frame="-1"
+	></LuaComponent>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="0.5">
+    </MusicEnergyAffectorComponent>
+	
+	<AreaDamageComponent
+		aabb_min.x="-10" 
+		aabb_min.y="-10" 
+		aabb_max.x="10" 
+		aabb_max.y="10" 
+		damage_per_frame="0.10"
+		update_every_n_frame="6"
+		entities_with_tag="prey"
+		damage_type="DAMAGE_CURSE"
+		>
+	</AreaDamageComponent>
+
+	<AudioComponent
+		file="data/audio/Desktop/animals.bank"
+		event_root="animals/slimeshooter" >
+	</AudioComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_MELEE"
+	        frames="-1"
+	    >
+		</GameEffectComponent >
+	</Entity>
+
+</Entity>
