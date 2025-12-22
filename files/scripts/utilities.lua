@@ -592,10 +592,27 @@ function has_game_effect( entity_id, game_effect_name )
 	return GameGetGameEffectCount( entity_id, game_effect_name ) > 0
 end
 
-function remove_game_effect( entity_id, game_effect_name )
-	GamePrint( "remove_game_effect: not implemented" )
-	-- return GameGetGameEffectCount( entity_id, game_effect_name ) > 0
-end
+-- function remove_game_effect( entity_id, game_effect_name )
+-- 	-- doesn't work :( return for now
+-- 	return
+
+-- 	if has_game_effect( entity_id, game_effect_name ) then
+-- 		GamePrint( "test 1" )
+-- 		for i,child_id in ipairs( EntityGetAllChildren( entity_id ) ) do
+-- 			GamePrint( "test 2" )
+-- 			local effect_comp = EntityGetComponent( child_id, "GameEffectComponent" )
+-- 			if effect_comp ~= 0 then
+-- 				local effect_name = ComponentGetValue2( effect_comp, "effect" )
+-- 				GamePrint( "test 3: " .. effect_name )
+-- 				if string.find( effect_name, game_effect_name ) then
+-- 					GamePrint( "test 4" )
+-- 					EntityKill( child_id )
+-- 					GamePrint( "game effect removed: " .. effect_name )
+-- 				end
+-- 			end
+-- 		end
+-- 	end
+-- end
 
 
 
@@ -842,4 +859,17 @@ function lift_all_curses( entity_id )
     for i,cursed_chest in ipairs( cursed_chests or {} ) do
     	EntityKill( cursed_chest )
     end
+end
+
+function set_controls_enabled(enabled)
+	local player = EntityGetWithTag("player_unit")[1]
+	if player then
+		local controls_component = EntityGetFirstComponentIncludingDisabled(player, "ControlsComponent")
+		ComponentSetValue2(controls_component, "enabled", enabled)
+		for prop, val in pairs(ComponentGetMembers(controls_component) or {}) do
+			if prop:sub(1, 11) == "mButtonDown" and not prop:find("DelayLine") then
+				ComponentSetValue2(controls_component, prop, false)
+			end
+		end
+	end
 end

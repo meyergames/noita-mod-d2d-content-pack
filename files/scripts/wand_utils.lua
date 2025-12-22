@@ -174,6 +174,7 @@ function spawn_random_staff( x, y, force_rng )
 		wand:AddSpells( "D2D_CURSES_TO_DAMAGE" )
 		add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
 		wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient.png", 11, 4, 17, 0 )
+		EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/staff_of_ancients.xml" ) )
 
 	-- elseif( rng <= 80 ) then
 
@@ -391,4 +392,68 @@ function spawn_glass_staff( x, y )
 
     EntityAddTag( wand.entity_id, "glass_wand" )
     wand:PlaceAt( x, y - 20 )
+end
+
+function spawn_ancient_staff( x, y )
+	local staff = init_ancient_staff( recharge_time )
+	staff:PlaceAt( x, y )
+end
+
+function init_ancient_staff( recharge_time )
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand()
+    wand:SetName( "Staff of Ancients", true )
+    wand.shuffle = false
+    wand.spellsPerCast = 1
+    wand.castDelay = 5
+    wand.rechargeTime = 117
+    wand.manaMax = 2277
+    wand.manaChargeSpeed = 702
+    wand.capacity = 25
+    wand.spread = 0
+    wand:AttachSpells( "D2D_PROJECTILE_MORPH" )
+	wand:AddSpells( "LARPA_DEATH", "DARKFLAME" )
+
+    wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient.png", 11, 4, 17, 0 )
+    EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/staff_of_ancients.xml" ) )
+
+    return wand
+end
+
+function init_staff_of_memories()
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand()
+    wand:SetName( "Staff of Memories", true )
+    wand.shuffle = false
+    wand.spellsPerCast = 1
+    wand.castDelay = 5
+    wand.rechargeTime = 237
+    wand.manaMax = 1023
+    wand.manaChargeSpeed = 255
+    wand.capacity = 6
+    wand.spread = 0
+
+    local csv = ModSettingGet( "D2DContentPack.soa_stored_spells" )
+    -- dofile_once( "data/scripts/gun/gun_actions.lua" ) -- to check if the spell exists?
+    if csv and csv ~= "" then
+        local spells = {}
+        for i,spell in ipairs( split_string( csv, ',' ) ) do
+            if spell ~= "" then
+                wand:AddSpells( spell )
+            end
+        end
+    else
+        -- local spells, attached_spells = wand:GetSpells()
+        -- for i,spell in ipairs( spells ) do
+        -- 	wand:AddSpells( spell.id )
+        -- end
+        wand:AttachSpells( "D2D_PROJECTILE_MORPH" )
+    	wand:AddSpells( "LARPA_DEATH", "DARKFLAME" )
+    	-- is this too strong for the second biome?
+    end
+
+    wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient.png", 11, 4, 17, 0 )
+    EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/staff_of_memories.xml" ) )
+
+    return wand
 end

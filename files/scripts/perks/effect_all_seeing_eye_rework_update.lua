@@ -1,6 +1,6 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 
-local MAX_EFFECT_DISTANCE = 100
+-- local MAX_EFFECT_DISTANCE = 100
 
 local entity = GetUpdatedEntityID()
 local parent = EntityGetParent( entity )

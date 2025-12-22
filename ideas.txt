@@ -338,7 +338,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] spell that causes nearby fairies to be teleported to you
 
-[ ] spell that causes nearby charmed creatures to be teleported to you
+[x] spell that causes nearby charmed creatures to be teleported to you <-- new icon
 
 [ ] perk that gives you a circle of-sized aura that starts out inactive. it becomes active when a charmed creature enters, providing a shield and mana regeneration buff
 		[ ] alternatively: charmed creatures gain a shield and an aura that grants you extra mana regen
@@ -355,12 +355,31 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] big-scope idea: a tiny fairy biome at the bottom left or right corner of the coal mines. entering it without having killed any fairies spawns (and unlocks?) the Friend of the Fairies perk. (then it'd be removed from the HM pool)
 
-[ ] feline affection update: track which unique cat entities the player has petted; print the progress. petting all unique cat entities will unlock something cool (cat ear cosmetic for Mina?)
+[ ] feline affection update: track which unique cat varieties the player has petted; print the progress. petting all unique cat entities will unlock something cool (cat ear cosmetic for Mina?)
 
 [x] perk rebalance - all seeing eye: only reveals a small area around the cursor (like Magic Light)
 		[x] GamePrint on pickup: "Prefer the old All Seeing Eye? You can disable D2D Content Pack's rebalance changes in the mod settings."
 
 [ ] simple modifier that adds damage based on the projectile's speed
+
+[ ] perk that pheromones anything you stay very close to for 8 seconds
+
+[ ] hmmm.... what happens if you fill a HM portal's teleportatium pool with some other liquid? :think
+
+[ ] cross-run (roguelite) base in HM!!
+
+[ ] staff of ancients: staff that always remembers its spells across runs. if it's thrown out of the inventory OR the player dies while it's in the inventory, it stores all spells in a string
+
+[ ] perk that gives enemies a chance to drop small "Gems" (despawns after a few seconds, like gold)
+		when picked up, limited-use spells regain 10% (rounded down) of their uses
+		+ [(max_uses % 10) * 10]% chance to regain 1 use
+
+
+
+
+
+
+
 
 
 
@@ -394,3 +413,13 @@ ENTIRELY NEW MODS?
 [ ] card packs (shop): replaces all nearby spells in the shop with spells from the corresponding mod (i.e. there would be an Apotheosis pack, a D2D pack, a Graham's pack...)
 	[ ] compatibility for custom card packs, so if one mod's spell synergizes really well with another mod's spell, you can combine them with a high chance to spawn together
 	[ ] spawn 3 'Card Pack' items before spells are spawned, which dictate the source of spells in the shop. the middle one is always 'random' (i.e. vanilla + all mods mashed together)
+
+[ ] TP as a resource: a resource unique to Minä. Used as fuel for limited-use spells, replacing uses.
+		Enemies may drop a bubble that restores 1 TP / Spell Refresh restores all.
+		100 max TP at run start
+		+10 TP for each Spell Refresh picked up
+		Example spell costs:
+		- Healing bolt:				 -5	TP (20 casts)
+		- Black hole:					-30 TP (4 casts after 2nd HM)
+		- Dark Flame:					 -2 TP (50 casts; +5 per spell refresh)
+		- Circle of Vigour:		-75 TP (2 casts after 2nd HM)

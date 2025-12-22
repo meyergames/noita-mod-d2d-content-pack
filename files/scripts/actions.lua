@@ -330,6 +330,24 @@ d2d_actions = {
 		end,
 	},
 
+	{
+		id          		= "D2D_PROJECTILE_MORPH",
+		name 				= "$spell_d2d_projectile_morph_name",
+		description 		= "$spell_d2d_projectile_morph_desc",
+		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/projectile_morph.png",
+		type 				= ACTION_TYPE_MODIFIER,
+		spawn_level 		= "3,4,5,6,10",
+		spawn_probability	= "0.3,0.4,0.5,0.6,0.7",
+        spawn_requires_flag	= "d2d_spell_unlocked_projectile_morph",
+		price 				= 390,
+		mana 				= 120,
+		action 				= function()
+			c.fire_rate_wait = c.fire_rate_wait + 24
+			c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/projectile_morph_entity.xml,"
+			draw_actions( 1, true )
+		end,
+	},
+
     {
 	    id                  = "D2D_SNIPE_SHOT",
 	    name 		        = "$spell_d2d_sniper_bolt_name",

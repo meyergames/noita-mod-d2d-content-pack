@@ -31,7 +31,7 @@ if GameGetFrameNum() >= cooldown_frame then
                     CrossCall("d2d_ew_alt_fire", root, x, y, aim_x, aim_y, "data/entities/projectiles/deck/teleport_projectile_short.xml")
                 end
         else
-            GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y );
+            GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/out_of_mana", x, y )
         end
     end
 end

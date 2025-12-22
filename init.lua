@@ -74,7 +74,7 @@ function OnPlayerSpawned( player )
     --     end
     -- end
 
-    -- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+    dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
     -- spawn_random_staff( 0, -100, 55 )
     -- spawn_random_staff( 20, -100, 75 )
 
@@ -93,21 +93,34 @@ function OnPlayerSpawned( player )
         execute_every_n_frame="60",
     } )
 
+    EntityAddComponent( player, "LuaComponent", 
+    {
+        script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_ghost_try_spawn.lua",
+        execute_every_n_frame="60",
+    } )
+
     -- spawn love wand
     -- local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     -- local wand = EZWand()
     -- wand:SetName( "Bow of Charming", true )
     -- wand.shuffle = false
     -- wand.spellsPerCast = 1
-    -- wand.castDelay = 59
-    -- wand.rechargeTime = 239
+    -- wand.castDelay = 5
+    -- wand.rechargeTime = 59
     -- wand.manaMax = 99
-    -- wand.manaChargeSpeed = 19
-    -- wand.capacity = 0
-    -- wand.spread = 9
-    -- wand:AttachSpells( "D2D_BLOOD_TOLL", "D2D_CHARMING_ARROW" )
+    -- wand.manaChargeSpeed = 99
+    -- wand.capacity = 4
+    -- wand.spread = 0
+    -- wand:AddSpells( "D2D_CHARMING_ARROW", "ND2D_ALT_FIRE_ANYTHING", "D2D_CHARMING_WHISTLE", "D2D_COMMAND_ATTACK" )
     -- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_charm_bow.png", 3, 6, 7, 0 )
     -- wand:PlaceAt( 750, -100 )
+
+    -- disable the line below to start storing the player's stored spells
+    ModSettingSet( "D2DContentPack.soa_stored_spells", "" )
+    
+    -- spawn_ancient_staff( 230, -79 )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_ghost.xml", -70, -79 )
+    EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_lurker.xml", -70, -79 )
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")
