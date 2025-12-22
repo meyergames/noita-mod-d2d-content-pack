@@ -1,8 +1,8 @@
-if not HasFlagPersistent( "d2d_spell_unlocked_projectile_morph" ) then
+if not HasFlagPersistent( "d2d_ancient_lurker_defeated" ) then
 	GamePrintImportant( "Secrets of morphing have been unlocked to you" )
 end
 
-AddFlagPersistent( "d2d_spell_unlocked_projectile_morph" )
+AddFlagPersistent( "d2d_ancient_lurker_defeated" )
 
 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 dofile_once( "mods/D2DContentPack/files/scripts/actions.lua" )

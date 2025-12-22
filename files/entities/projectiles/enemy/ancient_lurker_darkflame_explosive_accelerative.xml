@@ -1,0 +1,11 @@
+<Entity name="$projectile_default">
+
+	<Base file="mods/D2DContentPack/files/entities/projectiles/enemy/ancient_lurker_darkflame_explosive.xml" >
+		<VelocityComponent
+    		gravity_y="0"
+				air_friction="-1"
+				mass="0.03"
+			></VelocityComponent>
+	</Base>
+
+</Entity>

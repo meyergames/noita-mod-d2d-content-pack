@@ -1,4 +1,4 @@
-<Entity tags="energy_shield,d2d_ancient_ghost_shield">
+<Entity tags="energy_shield,d2d_ancient_lurker_shield">
 
 	<InheritTransformComponent>
 		<Transform 
@@ -10,21 +10,29 @@
 
     <!-- <EnergyShieldComponent 
         _tags="enabled_in_hand,item_identified__LEGACY"
-        recharge_speed="0.25" 
-		radius="16.0" >
+        recharge_speed="0.25"
+        max_energy="2.0"
+        energy="2.0"
+		radius="48.0" >
     </EnergyShieldComponent> -->
+	
+	<LuaComponent 
+		_enabled="1"
+		script_source_file="mods/D2DContentPack/files/scripts/projectiles/enemy/ancient_lurker_slowfield.lua"
+		execute_every_n_frame="1"
+	></LuaComponent>
 
     <ParticleEmitterComponent
 		_tags="character,enabled_in_hand,item_identified__LEGACY"
-		emitted_material_name="plasma_fading_pink"
+		emitted_material_name="plasma_fading_white"
 		gravity.y="0.0"
 		lifetime_min="0.1"
 		lifetime_max="0.5"
-		count_min="2"
-		count_max="4"
+		count_min="4"
+		count_max="8"
 		render_on_grid="1"
 		fade_based_on_lifetime="1"
-		area_circle_radius.max="16"
+		area_circle_radius.max="48"
 		cosmetic_force_create="0"
 		airflow_force="0.5"
 		airflow_time="0.1"
@@ -33,12 +41,12 @@
 		emission_interval_max_frames="1"
 		emit_cosmetic_particles="1"
 		is_emitting="1"
-		custom_alpha="0.3">
+		custom_alpha="1.0">
 	</ParticleEmitterComponent>
 
 	<ParticleEmitterComponent
 		_tags="character,enabled_in_hand,item_identified__LEGACY,shield_ring"
-		emitted_material_name="plasma_fading_pink"
+		emitted_material_name="plasma_fading_white"
 		gravity.y="0.0"
 		lifetime_min="0.02"
 		lifetime_max="0.05"
@@ -46,8 +54,8 @@
 		count_max="100"
 		render_on_grid="1"
 		fade_based_on_lifetime="1"
-		area_circle_radius.min="16"
-		area_circle_radius.max="16"
+		area_circle_radius.min="48"
+		area_circle_radius.max="48"
 		cosmetic_force_create="0"
 		airflow_force="0.3"
 		airflow_time="0.01"
@@ -56,12 +64,12 @@
 		emission_interval_max_frames="0"
 		emit_cosmetic_particles="1"
 		is_emitting="1"
-		custom_alpha="0.3">
+		custom_alpha="0.5">
 	</ParticleEmitterComponent>
 
 	<ParticleEmitterComponent
 		_tags="character,enabled_in_hand,item_identified__LEGACY,shield_hit"
-		emitted_material_name="plasma_fading_pink"
+		emitted_material_name="plasma_fading_white"
 		gravity.y="0.0"
 		lifetime_min="0.3"
 		lifetime_max="1"

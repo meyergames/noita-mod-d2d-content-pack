@@ -16,8 +16,14 @@ if proj_comp then
 		local ai_comp = EntityGetFirstComponent( proj_source, "AnimalAIComponent" )
 		if ai_comp then
 			local target_id = ComponentGetValue2( ai_comp, "mGreatestPrey" )
-			if distance_between( proj_source, target_id ) > 175 then
-				EntityKill( proj_id )
+			if target_id and distance_between( proj_source, target_id ) > 150 then
+				local last_cast_frame = get_internal_int( proj_id, "d2d_ancient_lurker_darkflame_last_cast_frame" )
+				if last_cast_frame then
+					local frames_since_cast = GameGetFrameNum() - last_cast_frame
+					if frames_since_cast > 60 then
+						EntityKill( proj_id )
+					end
+				end
 			end
 		end
 	end

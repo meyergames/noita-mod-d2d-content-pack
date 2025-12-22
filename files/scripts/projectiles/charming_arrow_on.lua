@@ -47,7 +47,6 @@ if others and #others > 1 then
 				-- make half of the infatuated creatures turn berserk when a new creature is infatuated
 				if other % 5 ~= 0 then
 					EntityKill( get_child_with_name( other, "effect_charmed_short_d2d.xml" ) )
-					GamePrint( other .. "'s infatuation should be removed" )
 
 					LoadGameEffectEntityTo( other, "data/entities/misc/effect_berserk.xml" )
 					-- was_other_charmed = true
