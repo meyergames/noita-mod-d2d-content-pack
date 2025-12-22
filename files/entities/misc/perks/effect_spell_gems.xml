@@ -2,6 +2,7 @@
 
     <LuaComponent
     	script_source_file="mods/D2DContentPack/files/scripts/perks/effect_spell_gems_update.lua"
+        execute_every_n_frame="1"
     ></LuaComponent>
 
 </Entity>

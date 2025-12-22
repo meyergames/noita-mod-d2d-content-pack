@@ -8,7 +8,6 @@ function get_max_uses( card_action )
 		local spell_id = ComponentGetValue2( itemx_comp, "action_id" )
 		for i,action in ipairs( actions ) do
 			if action.id == spell_id then
-				-- GamePrint( "max_uses found for [" .. spell_id .. "]: " .. action.max_uses )
 				return action.max_uses
 			end
 		end
@@ -21,7 +20,6 @@ function is_never_unlimited( card_action )
 		local spell_id = ComponentGetValue2( itemx_comp, "action_id" )
 		for i,action in ipairs( actions ) do
 			if action.id == spell_id then
-				-- GamePrint( "max_uses found for [" .. spell_id .. "]: " .. action.max_uses )
 				return action.never_unlimited
 			end
 		end
@@ -84,13 +82,13 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 				if uses_remaining < max_uses then
 
 					local do_restore = true
-					-- if the spell is "never unlimited", give it a 50% chance to be skipped
+					-- if the spell is "never unlimited", give it a 75% chance to be skipped
 					if is_never_unlimited( card_action ) then
-						do_restore = Random( 1, 100 ) < 50
+						do_restore = Random( 1, 100 ) < 25
 					end
 
 					if do_restore then
-						charge_amount = charge_amount + math.floor( max_uses / 10 )
+						charge_amount = charge_amount + math.ceil( max_uses / 10 )
 
 						if Random( 1, 10 ) < max_uses % 10 then
 							charge_amount = charge_amount + 1

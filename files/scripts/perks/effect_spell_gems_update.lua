@@ -8,11 +8,13 @@ local x, y = EntityGetTransform( entity_id )
 local spawned_creatures = EntityGetWithTag( "homing_target" )
 if #spawned_creatures > 0 then
     for i,creature_id in ipairs( spawned_creatures ) do
-    	if not has_lua( creature_id, "d2d_maybe_drop_spell_gem" ) then
+    	if not has_lua( creature_id, "d2d_spell_gems_maybe_drop" ) then
     		EntityAddComponent2( creature_id, "LuaComponent", 
 			{ 
-				script_death = "mods/D2DContentPack/files/scripts/perks/effect_spell_gems_creature_death.lua",
+				_tags="d2d_spell_gems_maybe_drop",
+				script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_spell_gems_creature_death.lua",
 				execute_every_n_frame = -1,
+				execute_on_removed = true,
 			} )	
     	end
     end
