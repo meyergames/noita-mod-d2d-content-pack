@@ -8,21 +8,26 @@ if proj_comp then
 	local lurker = EntityGetWithName( "$animal_d2d_ancient_lurker" )
 	if lurker then
 
+		-- try determine flame start angle
+		local start_angle = 0
+		local vel_comp = EntityGetComponent( proj_id, "VelocityComponent" )
+		if vel_comp and vel_comp ~= 0 then
+			local player_x, player_y = EntityGetTransform( get_player() )
+			-- start_angle = math.atan( ComponentGetValue2( vel_comp, "mVelocity" ) )
+			start_angle = math.atan2( player_x - x, player_y - y )
+		end
+		-- maybe increase flame amt
 		local phase = get_internal_int( lurker, "d2d_ancient_lurker_phase" )
-
 		local flame_amt = 6
 		if phase and phase >= 2 then
-			flame_amt = 8
-			
-			local shockwave_id = EntityLoad( "mods/D2DContentPack/files/entities/projectiles/enemy/ancient_lurker_shockwave.xml", x, y )
-			GameShootProjectile( lurker, x, y, x, y + 1, shockwave_id )
+			flame_amt = 6 + phase
 		end
+		-- spawn flames
 		for i = 1, flame_amt do
-		    local rdir_x, rdir_y = vec_rotate( 0, 1, math.rad( ( 360 / flame_amt ) * i ) )
+		    local rdir_x, rdir_y = vec_rotate( 0, 1, start_angle + math.rad( ( 360 / flame_amt ) * i ) )
 			GameShootProjectile( lurker, x, y, x+rdir_x, y+rdir_y, EntityLoad( "mods/D2DContentPack/files/entities/projectiles/enemy/ancient_lurker_darkflame_lesser.xml", x, y ) )
 		end
 
-		
 		-- toggle shield
 		local dmg_comp = EntityGetFirstComponent( lurker, "DamageModelComponent" )
 		if dmg_comp then

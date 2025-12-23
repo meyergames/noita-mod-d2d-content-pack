@@ -22,6 +22,12 @@
 		execute_every_n_frame="1"
 	></LuaComponent>
 
+	<LuaComponent
+		_enabled="1"
+		script_source_file="mods/D2DContentPack/files/scripts/projectiles/enemy/ancient_lurker_damaging_aura.lua"
+		execute_every_n_frame="6"
+	></LuaComponent>
+
     <ParticleEmitterComponent
 		_tags="character,enabled_in_hand,item_identified__LEGACY"
 		emitted_material_name="plasma_fading_white"

@@ -125,7 +125,7 @@
 		aabb_min.y="-10" 
 		aabb_max.x="10" 
 		aabb_max.y="10" 
-		damage_per_frame="0.10"
+		damage_per_frame="0.40"
 		update_every_n_frame="6"
 		entities_with_tag="prey"
 		damage_type="DAMAGE_CURSE"

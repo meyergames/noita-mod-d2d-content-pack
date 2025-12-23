@@ -34,22 +34,22 @@ if proj_comp then
 		local children = EntityGetAllChildren( proj_source )
 		for k=1,#children do
 			child = children[k]
-			-- hide the arm
 
+			-- show the arm
 		    if EntityGetName( child ) == "arm_r" then
 				for i,child_sprite_comp in ipairs( EntityGetComponent( child, "SpriteComponent" ) ) do
-					ComponentSetValue2( child_sprite_comp, "visible", false )
+					ComponentSetValue2( child_sprite_comp, "visible", true )
 				end
 		    end
 
-			-- hide the cape
+			-- show the cape
 		    if EntityGetName( child ) == "cape" then
 				for i,child_vp_comp in ipairs( EntityGetComponent( child, "VerletPhysicsComponent" ) ) do
-					ComponentSetValue2( child_vp_comp, "follow_entity_transform", false )
+					ComponentSetValue2( child_vp_comp, "follow_entity_transform", true )
 				end
 		    end
 
-			-- hide all wands
+			-- show all wands
 		    if EntityGetName( child ) == "inventory_quick" then
 		        local inventory_items = EntityGetAllChildren( child )
 		        if( inventory_items ~= nil ) then

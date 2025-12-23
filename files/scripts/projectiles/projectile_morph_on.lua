@@ -33,8 +33,8 @@ if proj_comp then
 		local children = EntityGetAllChildren( proj_source )
 		for k=1,#children do
 			child = children[k]
+			
 			-- hide the arm
-
 		    if EntityGetName( child ) == "arm_r" then
 				for i,child_sprite_comp in ipairs( EntityGetComponent( child, "SpriteComponent" ) ) do
 					ComponentSetValue2( child_sprite_comp, "visible", false )

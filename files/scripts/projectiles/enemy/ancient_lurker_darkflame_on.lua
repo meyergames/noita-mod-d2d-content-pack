@@ -3,6 +3,13 @@ dofile_once("data/scripts/lib/utilities.lua")
 local lurker = EntityGetWithName( "$animal_d2d_ancient_lurker" )
 if not lurker then return end
 
+-- disable explosion damage for lurker
+local proj_id = GetUpdatedEntityID()
+local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
+if proj_comp then
+	ComponentObjectSetValue2( proj_comp, "config_explosion", "dont_damage_this", lurker )
+end
+
 -- toggle shield
 local dmg_comp = EntityGetFirstComponent( lurker, "DamageModelComponent" )
 if dmg_comp then
@@ -35,4 +42,4 @@ if dmg_comp then
 	set_internal_bool( lurker, "d2d_ancient_lurker_shield_is_active", enable_shield )
 end
 
-set_internal_int( lurker, "d2d_ancient_lurker_darkflame_last_cast_frame", GameGetFrameNum() )
+set_internal_bool( lurker, "d2d_ancient_lurker_passed_player", false )

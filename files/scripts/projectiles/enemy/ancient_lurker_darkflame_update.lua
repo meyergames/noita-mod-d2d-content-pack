@@ -14,16 +14,20 @@ if proj_comp then
 
 		-- destroy this projectile if the player is too far away
 		local ai_comp = EntityGetFirstComponent( proj_source, "AnimalAIComponent" )
-		if ai_comp then
+		local vel_comp = EntityGetFirstComponent( proj_id, "VelocityComponent" )
+		if ai_comp and vel_comp then
 			local target_id = ComponentGetValue2( ai_comp, "mGreatestPrey" )
-			if target_id and distance_between( proj_source, target_id ) > 150 then
-				local last_cast_frame = get_internal_int( proj_id, "d2d_ancient_lurker_darkflame_last_cast_frame" )
-				if last_cast_frame then
-					local frames_since_cast = GameGetFrameNum() - last_cast_frame
-					if frames_since_cast > 60 then
-						EntityKill( proj_id )
-					end
-				end
+			local magnitude = get_magnitude( ComponentGetValue2( vel_comp, "mVelocity" ) )
+
+			local passed_player = get_internal_bool( proj_source, "d2d_ancient_lurker_passed_player" )
+			-- check if the projectile at any point is near the player
+			if not passed_player and distance_between( proj_id, get_player() ) < 100 then
+				set_internal_bool( proj_source, "d2d_ancient_lurker_passed_player", true )
+			end
+
+			-- end the projectile early if it flies past the player at reasonable speed
+			if target_id and distance_between( proj_id, get_player() ) > 100 and passed_player and magnitude < 400 then
+				EntityKill( proj_id )
 			end
 		end
 	end

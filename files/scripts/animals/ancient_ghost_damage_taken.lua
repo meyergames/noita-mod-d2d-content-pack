@@ -3,6 +3,9 @@ dofile_once("data/scripts/lib/utilities.lua")
 local entity_id = GetUpdatedEntityID()
 
 function damage_received( damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible )
+	local lurker = EntityGetWithName( "$animal_d2d_ancient_lurker" )
+	local x, y = EntityGetTransform( lurker )
+
 	local dmg_comp = EntityGetFirstComponent( entity_id, "DamageModelComponent" )
 	local hp = ComponentGetValue2( dmg_comp, "hp" )
 	local max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
@@ -17,12 +20,14 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 
 	if phase and phase == 1 and hp - damage < max_hp * 0.667 then
 		set_internal_int( entity_id, "d2d_ancient_lurker_phase", 2 )
+		EntityLoad( "mods/D2DContentPack/files/particles/image_emitters/ancient_lurker_symbol.xml", x, y )
+		GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/rune/create", x, y )
 
 		local shield_id = EntityLoad( "mods/D2DContentPack/files/entities/misc/ancient_lurker_shield.xml", x, y )
 		EntityAddChild( entity_id, shield_id )
 
-        ComponentObjectSetValue2( dmg_comp, "damage_multipliers", "projectile", 0.1 )
-        ComponentObjectSetValue2( dmg_comp, "damage_multipliers", "holy", 1.0 )
+        ComponentObjectSetValue2( dmg_comp, "damage_multipliers", "projectile", 0.2 )
+        ComponentObjectSetValue2( dmg_comp, "damage_multipliers", "holy", 1.5 )
 		if ai_comp then
 			ComponentSetValue2( ai_comp, "attack_ranged_entity_file", "mods/D2DContentPack/files/entities/projectiles/enemy/ancient_lurker_darkflame_explosive.xml" )
 			ComponentSetValue2( ai_comp, "attack_ranged_frames_between", 150 )
@@ -30,6 +35,8 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 
 	elseif phase and phase == 2 and hp - damage < max_hp * 0.334 then
 		set_internal_int( entity_id, "d2d_ancient_lurker_phase", 3 )
+		EntityLoad( "mods/D2DContentPack/files/particles/image_emitters/ancient_lurker_symbol.xml", x, y )
+		GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/rune/create", x, y )
 
         ComponentObjectSetValue2( dmg_comp, "damage_multipliers", "projectile", 0.1 )
         ComponentObjectSetValue2( dmg_comp, "damage_multipliers", "holy", 1.0 )

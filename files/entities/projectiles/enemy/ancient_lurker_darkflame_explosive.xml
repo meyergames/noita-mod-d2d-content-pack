@@ -1,11 +1,41 @@
 <Entity name="$projectile_default">
 
 	<Base file="mods/D2DContentPack/files/entities/projectiles/enemy/ancient_lurker_darkflame.xml" >
+		
 		<VelocityComponent
     		gravity_y="0"
-				air_friction="-1"
-				mass="0.03"
-			></VelocityComponent>
+			air_friction="-1"
+			mass="0.03"
+		></VelocityComponent>
+
+		<ProjectileComponent>
+		    <config_explosion
+				damage="6"
+				knockback_force="1.0"
+				never_cache="1" 
+				camera_shake="32"
+				explosion_radius="48"
+				explosion_sprite="mods/D2DContentPack/files/gfx/projectiles_gfx/shockwave.xml"
+				explosion_sprite_lifetime="0"
+				hole_destroy_liquid="0"
+      			ray_energy="670000"
+				max_durability_to_destroy="12"
+				hole_enabled="1"
+				hole_destroy_liquid="1"
+				particle_effect="0"
+				damage_mortals="1"
+				physics_explosion_power.min="1.6"
+				physics_explosion_power.max="2.4"
+				physics_throw_enabled="1"
+				physics_multiplier_ragdoll_force="1"
+				shake_vegetation="1" 
+				sparks_enabled="0"
+				light_fade_time="0.8"
+				stains_enabled="0"
+				audio_event_name="explosions/holy" >
+			</config_explosion>
+		</ProjectileComponent>
+
 	</Base>
 
 </Entity>
