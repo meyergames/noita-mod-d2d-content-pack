@@ -96,23 +96,23 @@
 	</LuaComponent>
 
 	<LuaComponent
-		script_damage_received="mods/D2DContentPack/files/scripts/animals/ancient_ghost_damage_taken.lua"
+		script_damage_received="mods/D2DContentPack/files/scripts/animals/ancient_lurker_damage_taken.lua"
 	></LuaComponent>
 	
 	<LuaComponent 
 		_enabled="1"
-		script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_ghost_update.lua"
+		script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_lurker_update.lua"
 		execute_every_n_frame="6"
 	></LuaComponent>
 	
 	<LuaComponent 
 		_enabled="1"
-		script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_ghost_update_slow.lua"
+		script_source_file="mods/D2DContentPack/files/scripts/animals/ancient_lurker_update_slow.lua"
 		execute_every_n_frame="180"
 	></LuaComponent>
 
 	<LuaComponent
-		script_death="mods/D2DContentPack/files/scripts/animals/ancient_ghost_death.lua"
+		script_death="mods/D2DContentPack/files/scripts/animals/ancient_lurker_death.lua"
 		execute_every_n_frame="-1"
 	></LuaComponent>
 

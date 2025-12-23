@@ -1,0 +1,41 @@
+<Entity tags="glue_NOT" name="$animal_d2d_ghost_of_memories">	
+	<Base file="data/entities/base_apparition.xml">
+		<DamageModelComponent
+			hp="10"
+			max_hp="10"
+		></DamageModelComponent>
+		
+		<CameraBoundComponent
+			_enabled="0"
+			max_count="30"
+			distance="160000"
+		></CameraBoundComponent>
+	</Base>
+	
+	<LuaComponent 
+		_enabled="1"
+		remove_after_executed="1"
+		script_source_file="mods/D2DContentPack/files/scripts/animals/ghost_of_memories_spawn.lua" >
+	</LuaComponent>
+
+    <MusicEnergyAffectorComponent
+    	energy_target="0.5">
+    </MusicEnergyAffectorComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<Entity>
+		<InheritTransformComponent />
+		
+	    <GameEffectComponent 
+	        effect="PROTECTION_FREEZE"
+	        frames="-1"
+	    ></GameEffectComponent >
+	</Entity>
+
+</Entity>

@@ -10,6 +10,7 @@ if last_x then
 	and not string.find( BiomeMapGetName( last_x, last_y ), "orb" )
 
 	if get_distance( last_x, last_y, current_x, current_y ) < 5 or is_outside_orb_room then
+		EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", current_x, current_y )
 		EntitySetTransform( entity_id, -3840, 10025 )
 	end
 end

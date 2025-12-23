@@ -19,7 +19,7 @@ for k=1,#children do
                 	local wand = EZWand( item )
 
                 	local name, show_name_in_ui = wand:GetName()
-                	if string.find( name, "Staff of Memories" ) then
+                	if string.find( name, "Remembrance" ) then
                 		wand_to_save = wand
                 	end
                 end
@@ -40,5 +40,5 @@ if wand_to_save then
 		csv = csv .. spell.action_id .. ","
 	end
 
-    ModSettingSet( "D2DContentPack.soa_stored_spells", csv )
+    ModSettingSet( "D2DContentPack.som_stored_spells", csv )
 end

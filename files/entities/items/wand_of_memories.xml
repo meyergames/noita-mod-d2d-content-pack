@@ -1,7 +1,7 @@
 <Entity>
 	<LuaComponent 
     	_tags="enabled_in_hand,enabled_in_inventory"
-        script_source_file="mods/D2DContentPack/files/scripts/items/staff_of_memories_update.lua"
+        script_source_file="mods/D2DContentPack/files/scripts/items/wand_of_memories_update.lua"
 		execute_every_n_frame="60" >
 	</LuaComponent>
 </Entity>

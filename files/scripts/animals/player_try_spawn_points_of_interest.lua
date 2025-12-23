@@ -19,10 +19,13 @@ function try_spawn_ghost_of_memories()
             if distance_between( entity_id, target_id ) > 300 and tx < px then
 
                 -- spawn the ghost on top of the first faraway enemy
-                EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_ghost.xml", tx, ty )
+                EntityLoad( "mods/D2DContentPack/files/entities/animals/ghost_of_memories.xml", tx, ty )
 
                 -- add flag so this function isn't run again
                 GameAddFlagRun( "d2d_poi_spawned_ghost_of_memories" )
+
+                -- return so it only spawns one ghost
+                return
             end
         end
     end

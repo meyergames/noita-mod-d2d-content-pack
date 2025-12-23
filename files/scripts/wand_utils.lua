@@ -419,40 +419,51 @@ function init_ancient_staff( recharge_time )
     return wand
 end
 
-function init_staff_of_memories()
+-- switching mods could cause stored spells to no longer 'exist' when the wand is loaded in
+function does_spell_exist( action_id )
+	if spell == "" then return false end
+    dofile_once( "data/scripts/gun/gun_actions.lua" )
+
+    for i,action in ipairs( actions ) do
+    	if action.id == action_id then
+    		GamePrint( "yep! " .. action_id .. " exists" )
+    		return true
+    	end
+    end
+    return false
+end
+
+function init_wand_of_memories()
     local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
-    wand:SetName( "Staff of Memories", true )
+    wand:SetName( "Remembrance", true )
     wand.shuffle = false
     wand.spellsPerCast = 1
-    wand.castDelay = 5
-    wand.rechargeTime = 237
-    wand.manaMax = 1023
+    wand.castDelay = 3
+    wand.rechargeTime = 20
+    wand.manaMax = 127
     wand.manaChargeSpeed = 255
-    wand.capacity = 6
+    wand.capacity = 5
     wand.spread = 0
 
-    local csv = ModSettingGet( "D2DContentPack.soa_stored_spells" )
-    -- dofile_once( "data/scripts/gun/gun_actions.lua" ) -- to check if the spell exists?
+    local csv = ModSettingGet( "D2DContentPack.som_stored_spells" )
     if csv and csv ~= "" then
-        local spells = {}
-        for i,spell in ipairs( split_string( csv, ',' ) ) do
-            if spell ~= "" then
+        local spells = split_string( csv, ',' )
+
+        local spells_added = 0
+        for i,spell in ipairs( spells ) do
+            if does_spell_exist( spell ) and spells_added < 5 then
                 wand:AddSpells( spell )
+                spells_added = spells_added + 1
             end
         end
     else
-        -- local spells, attached_spells = wand:GetSpells()
-        -- for i,spell in ipairs( spells ) do
-        -- 	wand:AddSpells( spell.id )
-        -- end
-        wand:AttachSpells( "D2D_PROJECTILE_MORPH" )
-    	wand:AddSpells( "LARPA_DEATH", "DARKFLAME" )
-    	-- is this too strong for the second biome?
+    	-- define the wand's initial spells
+    	wand:AddSpells( "D2D_SHOCKWAVE", "TELEPORT_PROJECTILE", "MEGALASER" )
     end
 
-    wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient.png", 11, 4, 17, 0 )
-    EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/staff_of_memories.xml" ) )
+    wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/remembrance.png", 10, 4, 15, 0 )
+    EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/wand_of_memories.xml" ) )
 
     return wand
 end
