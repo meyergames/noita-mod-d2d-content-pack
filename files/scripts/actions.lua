@@ -1114,38 +1114,6 @@ d2d_actions = {
                                 draw_actions( 1, true )
 	                        end,
     },
-
-    {
-	    id                  = "D2D_CEASEFIRE",
-	    name 		        = "$spell_d2d_ceasefire_name",
-	    description         = "$spell_d2d_ceasefire_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/ceasefire.png",
-	    type 		        = ACTION_TYPE_OTHER,
-		spawn_level       	= "10",
-		spawn_probability 	= "0.4",
-	    price               = 150,
-	    mana                = 0,	
-	    action              = function()
-	    						c.fire_rate_wait = 60
-								current_reload_time = 60
-								-- draw_actions( 1, true )
-
-							    -- local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-							    -- local wand = EZWand.GetHeldWand()
-								-- if wand then
-								-- 	local ability = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
-								-- 	if ability ~= nil then
-								-- 		GamePrint("woo")
-								-- 		local frame = GameGetFrameNum()
-								-- 		ComponentSetValue2( ability, "mNextFrameUsable", frame + 60 )
-								-- 		ComponentSetValue2( ability, "mCastDelayStartFrame", frame )
-								-- 	end
-								-- end
-
-	    						-- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-								-- EntityLoad( init_ancient_staff( 230, -69 ), 230, -69 )
-	                        end,
-    },
 }
 
 if actions ~= nil then
