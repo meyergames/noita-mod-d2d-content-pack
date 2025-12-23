@@ -438,22 +438,23 @@ d2d_actions = {
 	 						end
     },
 
-	-- {
-	-- 	id                  = "D2D_GLASS_SHARD",
-	-- 	name 		        = "$spell_d2d_glass_shard_name",
-	-- 	description         = "$spell_d2d_glass_shard_desc",
-	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/glass_shard.png",
-	-- 	related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/glass_shard.xml"},
-	-- 	type 		        = ACTION_TYPE_PROJECTILE,
-	-- 	spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
-	-- 	spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
-	-- 	price               = 90,
-	-- 	mana                = 5,
-	-- 	action 		        = function()
-	-- 		                    c.fire_rate_wait = c.fire_rate_wait - 3
-	-- 		                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/glass_shard.xml" )
-	-- 	                    end,
-	-- },
+	{
+		id                  = "D2D_GLASS_SHARD",
+		name 		        = "$spell_d2d_glass_shard_name",
+		description         = "$spell_d2d_glass_shard_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/glass_shard.png",
+		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/glass_shard.xml"},
+		type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
+		spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
+		price               = 90,
+		mana                = 5,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait - 1
+			                    c.spread_degrees = c.spread_degrees + 6
+			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/glass_shard.xml" )
+		                    end,
+	},
 
     {
 	    id                  = "D2D_GIGA_DRAIN",

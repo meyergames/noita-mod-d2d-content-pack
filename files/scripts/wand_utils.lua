@@ -377,7 +377,12 @@ function spawn_glass_staff( x, y )
     wand.capacity = ( wand_lvl * 4 ) + Random( -1, 1 )
     wand.spread = Random( -8, -2 )
     dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-    add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
+
+    wand:AddSpells( "D2D_COMPACT_SHOT" )
+    for i = 1, ( wand.capacity - 1 ) do
+    	wand:AddSpells( "D2D_GLASS_SHARD" )
+    end
+    
     wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_glass.png", 6, 4, 18, 0 )
 
     set_internal_int( wand.entity_id, "is_glass", 1 )

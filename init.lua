@@ -116,11 +116,11 @@ function OnPlayerSpawned( player )
     -- wand:PlaceAt( 750, -100 )
 
     -- disable the line below to start storing the player's stored spells
-    -- ModSettingSet( "D2DContentPack.soa_stored_spells", "" )
+    -- ModSettingSet( "D2DContentPack.som_stored_spells", "" )
     -- RemoveFlagPersistent( "d2d_ancient_lurker_defeated" )
     
     -- spawn_ancient_staff( 230, -79 )
-    -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_ghost.xml", -70, -79 )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ghost_of_memories.xml", -70, -79 )
     -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_lurker.xml", -70, -79 )
     
     -- dofile_once( "data/scripts/lib/utilities.lua" )

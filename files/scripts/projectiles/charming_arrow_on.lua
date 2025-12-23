@@ -62,13 +62,6 @@ if is_boss then
 	cancel_infatuation = true
 end
 
--- hard-coded exclude for this mod's ancient ghost creature
-local is_ancient_ghost = string.find( EntityGetFilename( owner ), "ancient_ghost_d2d.xml" )
-if is_ancient_ghost then
-	LoadGameEffectEntityTo( other, "data/entities/misc/effect_berserk.xml" )
-	cancel_infatuation = true
-end
-
 
 if cancel_infatuation then
 	EntityKill( get_child_with_name( owner, "effect_charmed_short_d2d.xml" ) )
