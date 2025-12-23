@@ -684,7 +684,7 @@ d2d_actions = {
 		name 		        = "$spell_d2d_shockwave_name",
 		description         = "$spell_d2d_shockwave_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/shockwave.png",
-		type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "0.5,0.5,1,1",
 		price               = 220,
@@ -693,7 +693,8 @@ d2d_actions = {
 			                    c.fire_rate_wait = c.fire_rate_wait + 40
 			                    if reflecting then return end
 
-								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/shockwave.xml" )
+			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/shockwave_modifier.xml,"
+			                    draw_actions( 1, true )
 		                    end,
 	},
 

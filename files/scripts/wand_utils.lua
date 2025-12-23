@@ -411,7 +411,7 @@ function init_ancient_staff( recharge_time )
     wand.manaChargeSpeed = 702
     wand.capacity = 25
     wand.spread = 0
-	wand:AddSpells( "D2D_PROJECTILE_MORPH", "LARPA_DEATH", "DARKFLAME" )
+	wand:AddSpells( "D2D_PROJECTILE_MORPH", "D2D_SHOCKWAVE", "LARPA_DEATH", "DARKFLAME" )
 
     wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient.png", 11, 4, 17, 0 )
     EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/staff_of_ancients.xml" ) )
