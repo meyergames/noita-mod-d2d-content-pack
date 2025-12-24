@@ -50,6 +50,11 @@
 		execute_on_added="1"
 		execute_times="1"
 	></LuaComponent>
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/projectiles/charming_arrow_update.lua"
+		execute_every_n_frame="10"
+	></LuaComponent>
 	
 	<LuaComponent
 		script_source_file="mods/D2DContentPack/files/scripts/projectiles/charming_arrow_off.lua"
