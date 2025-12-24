@@ -792,21 +792,90 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_BLINK_MID_FIRE_T1",
+	    name 		        = "$spell_d2d_blink_mid_fire_t1_name",
+	    description         = "$spell_d2d_blink_mid_fire_t1_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire_t1.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "2,3,4,5,6,10",
+		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
+        spawn_requires_flag	= "d2d_time_trial_bronze",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire_t1.xml",
+	    price               = 300,
+	    mana                = 80,
+	    max_uses			= 20,
+	    never_unlimited		= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+            					mana = mana + 80
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_BLINK_MID_FIRE_T2",
+	    name 		        = "$spell_d2d_blink_mid_fire_t2_name",
+	    description         = "$spell_d2d_blink_mid_fire_t2_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire_t2.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "2,3,4,5,6,10",
+		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
+        spawn_requires_flag	= "d2d_time_trial_silver",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire_t2.xml",
+	    price               = 300,
+	    mana                = 80,
+	    max_uses			= 20,
+	    never_unlimited		= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+            					mana = mana + 80
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_BLINK_MID_FIRE_T3",
+	    name 		        = "$spell_d2d_blink_mid_fire_t3_name",
+	    description         = "$spell_d2d_blink_mid_fire_t3_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire_t3.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "2,3,4,5,6,10",
+		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
+        spawn_requires_flag	= "d2d_time_trial_gold",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire_t3.xml",
+        price 				= 300,
+        mana 				= 80,
+        max_uses			= 20,
+        never_unlimited		= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+            					mana = mana + 80
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_BLINK",
 	    name 		        = "$spell_d2d_blink_name",
 	    description         = "$spell_d2d_blink_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink.png",
 	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "2,3,4,5,6,10", -- TELEPORT_PROJECTILE
-		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5", -- TELEPORT_PROJECTILE
+		spawn_level         = "2,3,4,5,6,10",
+		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
+        spawn_requires_flag	= "d2d_time_trial_gold",
 	    price               = 300,
 	    mana                = 80,
-	    max_uses			= 10,
+	    max_uses			= 20,
 	    never_unlimited		= true,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 60
-                                current_reload_time = current_reload_time + 60
 	    						if reflecting then return end
+
+	                            -- deal 2% max health damage (cannot kill)
+								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
 	    						add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml" )
 	                        end,
@@ -818,18 +887,23 @@ d2d_actions = {
 	    description         = "$spell_d2d_blink_trigger_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_trigger.png",
 	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "3,4,5,6,10", -- TELEPORT_PROJECTILE
-		spawn_probability   = "0.05,0.1,0.15,0.2,0.25", -- TELEPORT_PROJECTILE
+		spawn_level         = "0", -- discontinued
+		spawn_probability   = "0", -- discontinued
 	    price               = 360,
 	    mana                = 85,
-	    max_uses			= 10,
+	    max_uses			= 20,
 	    never_unlimited		= true,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 60
-                                current_reload_time = current_reload_time + 60
-								if reflecting then return end
+	    						if reflecting then return end
 
-								add_projectile_trigger_death( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml", 1 )
+	                            -- deal 2% max health damage (cannot kill)
+								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+	    						add_projectile_trigger_death( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml", 1 )
 	                        end,
     },
 
@@ -1009,14 +1083,12 @@ d2d_actions = {
 	},
 
     {
-	    id                  = "D2D_ALT_ALT_FIRE_TELEPORT_BOLT",
+	    id                  = "D2D_ALT_ALT_FIRE_TELEPORT_BOLT", -- discontinued as of 24/12/2025, to be removed later
 	    name 		        = "$spell_d2d_alt_alt_fire_teleport_bolt_name",
 	    description         = "$spell_d2d_alt_alt_fire_teleport_bolt_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_alt_fire_teleport_bolt.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
         subtype     		= { altfire = true },
-        -- spawn_level			= "4,5,6,10",
-        -- spawn_probability	= "0.2,0.2,0.2,0.6",
         spawn_level			= "0",
         spawn_probability	= "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_alt_fire_teleport_bolt.xml",
@@ -1070,52 +1142,6 @@ d2d_actions = {
 								end
 		                    end,
 	},
-
-    {
-	    id                  = "D2D_BLOOD_PRICE",
-	    name 		        = "$spell_d2d_blood_price_name",
-	    description         = "$spell_d2d_blood_price_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_price.png",
-	    type 		        = ACTION_TYPE_OTHER,
-		spawn_level       	= "0", -- cannot be found normally
-		spawn_probability 	= "0", -- cannot be found normally
-	    price               = 500,
-	    mana                = 0,
-	    action              = function()
-	    						if reflecting then return end
-
-	                            -- deal 2% max health damage (cannot kill)
-								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-                                draw_actions( 1, true )
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_BLOOD_TOLL",
-	    name 		        = "$spell_d2d_blood_toll_name",
-	    description         = "$spell_d2d_blood_toll_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blood_toll.png",
-	    type 		        = ACTION_TYPE_OTHER,
-		spawn_level       	= "0", -- cannot be found normally
-		spawn_probability 	= "0", -- cannot be found normally
-	    price               = 500,
-	    mana                = 0,	
-	    action              = function()
-	    						if reflecting then return end
-
-	                            -- deal 5% max health damage (cannot kill)
-								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.05, p_hp - 0.04 ), "DAMAGE_CURSE", "blood toll", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-                                draw_actions( 1, true )
-	                        end,
-    },
 }
 
 if actions ~= nil then

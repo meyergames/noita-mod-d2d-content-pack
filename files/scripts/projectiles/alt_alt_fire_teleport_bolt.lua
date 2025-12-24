@@ -18,8 +18,7 @@ if GameGetFrameNum() >= cooldown_frame then
     if InputIsMouseButtonDown( 3 ) then -- is the right mouse button pressed?
         local mana = wand.mana
         if (mana > manacost) then
-
-            add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml" )
+            
             GameShootProjectile(root, x+aim_x*12, y+aim_y*12, x+aim_x*20, y+aim_y*20, EntityLoad("data/entities/projectiles/deck/teleport_projectile_short.xml", x, y))
             wand.mana = mana - manacost
             ComponentSetValue2( variablecomp, "value_int", GameGetFrameNum() + cooldown_frames )

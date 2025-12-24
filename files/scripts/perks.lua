@@ -101,7 +101,8 @@ d2d_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		not_in_default_perk_pool = true,
+		-- not_in_default_perk_pool = true,
+        spawn_requires_flag	= "d2d_time_trial_completed",
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if ( pickup_count <= 1 ) then
             	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_warp_rush.xml" )
