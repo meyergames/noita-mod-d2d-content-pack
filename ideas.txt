@@ -368,15 +368,17 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] cross-run (roguelite) base in HM!!
 
-[ ] staff of ancients: staff that always remembers its spells across runs. if it's thrown out of the inventory OR the player dies while it's in the inventory, it stores all spells in a string
+[x] staff of ancients: staff that always remembers its spells across runs. if it's thrown out of the inventory OR the player dies while it's in the inventory, it stores all spells in a string
 
-[ ] perk that gives enemies a chance to drop small "Gems" (despawns after a few seconds, like gold)
+[x] perk that gives enemies a chance to drop small "Gems" (despawns after a few seconds, like gold)
 		when picked up, limited-use spells regain 10% (rounded down) of their uses
 		+ [(max_uses % 10) * 10]% chance to regain 1 use
 
+[ ] strong projectile that can only exist in liquids (i.e. is destroyed when it touches air)
 
+[ ] a new boss where ALL mana regeneration is disabled. the challenge will be to balance power with mana consumption.
 
-
+[ ] show an update print when the player walks near (or takes) "All-Seeing Eye" or "Unlimited Spells"
 
 
 
