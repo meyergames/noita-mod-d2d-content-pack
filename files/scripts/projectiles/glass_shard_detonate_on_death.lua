@@ -1,19 +1,12 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 
-local shard_entity = GetUpdatedEntityID()
-local owner = EntityGetParent( shard_entity )
-local x, y = EntityGetTransform( owner )
+function death( damage_type_bit_field, damage_message, entity_thats_responsible, drop_items )
+    local owner = GetUpdatedEntityID()
+	local x, y = EntityGetTransform( owner )
+	local stacks = get_internal_int( owner, "glass_shard_stacks" )
 
-local timer = get_internal_int( owner, "glass_shard_detonate_timer" )
-if timer then
-	set_internal_int( owner, "glass_shard_detonate_timer", timer - 1 )
-
-	if timer - 1 == 0 then
-		local stacks = get_internal_int( owner, "glass_shard_stacks" )
-		set_internal_int( owner, "glass_shard_stacks", 0 )
-
-		-- inflict damage and play sound
-	    EntityInflictDamage( owner, stacks * 0.28, "DAMAGE_SLICE", "glass shards", "NONE", 0, 0, owner, x, y, 0)
+	if stacks and stacks > 0 then
+		-- play sound
 	    if stacks >= 5 and stacks < 15 then
 			GamePlaySound( "data/audio/Desktop/materials.bank", "collision/glass_potion/destroy", x, y )
 		elseif stacks >= 15 then
@@ -29,15 +22,10 @@ if timer then
 		    if proj_comp then
 		    	ComponentSetValue2( proj_comp, "speed_min", 50 )
 		    end
-
-			GameShootProjectile( owner, x, y, x+rdir_x, y+rdir_y, proj_id )
+		    
+			GameShootProjectile( nil, x, y, x+rdir_x, y+rdir_y, proj_id )
 			-- GameShootProjectile( owner, x, y, x+rdir_x, y+rdir_y, EntityLoad( "data/entities/projectiles/deck/light_bullet.xml", x, y ) )
 			-- TODO: make the shooter the source of the projectile, somehow
 		end
-
-	    -- remove all stacks
-		EntityKill( shard_entity )
 	end
-elseif owner and owner ~= 0 then
-	set_internal_int( owner, "glass_shard_detonate_timer", 20 )
 end

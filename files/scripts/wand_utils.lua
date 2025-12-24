@@ -370,19 +370,19 @@ function spawn_glass_staff( x, y )
     wand:SetName( "Staff of Glass", true )
     wand.shuffle = false
     wand.spellsPerCast = 1
-    wand.castDelay = Random( 1, 5 ) - wand_lvl
-    wand.rechargeTime = Random( 6, 10 ) - ( wand_lvl * 2 )
+    wand.castDelay = 5
+    wand.rechargeTime = 6
     wand.manaMax = 64 + ( 128 + Random( -4, 4 ) ) * wand_lvl
     wand.manaChargeSpeed = 96 + ( 192 + Random( -4, 4 ) ) * wand_lvl
     wand.capacity = ( wand_lvl * 4 ) + Random( -1, 1 )
     wand.spread = Random( -8, -2 )
     dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
 
-    wand:AddSpells( "D2D_COMPACT_SHOT" )
-    for i = 1, ( wand.capacity - 1 ) do
+    wand:AddSpells( "SPREAD_REDUCE", "D2D_COMPACT_SHOT" )
+    for i = 1, ( wand.capacity - 2 ) do
     	wand:AddSpells( "D2D_GLASS_SHARD" )
     end
-    
+
     wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_glass.png", 6, 4, 18, 0 )
 
     set_internal_int( wand.entity_id, "is_glass", 1 )
