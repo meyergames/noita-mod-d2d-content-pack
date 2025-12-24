@@ -10,13 +10,14 @@ function on_time_trial_win()
     set_internal_bool( owner, "reached_time_trial_finish", true )
     set_internal_bool( owner, "is_doing_time_trial", false )
     AddFlagPersistent( "d2d_time_trial_completed" )
+    GameAddFlagRun( "d2d_time_trial_completed_this_run" )
 
     local time_trial_duration = get_internal_int( owner, "time_trial_update_count" )
     local chest = ""
     if time_trial_duration <= 15 then
         GamePrintImportant( "The gods are in disbelief", "" )
         chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t3.xml"
-
+        
         if not HasFlagPersistent( "d2d_time_trial_silver" ) and not HasFlagPersistent( "d2d_time_trial_gold" ) then
             AddFlagPersistent( "d2d_time_trial_bronze" )
         end

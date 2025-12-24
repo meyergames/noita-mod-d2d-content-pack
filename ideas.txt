@@ -380,6 +380,13 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] show an update print when the player walks near (or takes) "All-Seeing Eye" or "Unlimited Spells"
 
+[ ] some kind of unique staff to unlock from Cursed Chests; maybe the Remembrance ghost can be locked behind it?
+		(but first let's see how the Staff of Remembrance lands as-is)
+
+[ ] unlock "Infatuating Arrow" / "Command: Attack" / "Ally Protection" by pheromoning Friend?
+
+
+
 
 
 

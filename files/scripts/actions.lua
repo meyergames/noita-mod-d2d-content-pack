@@ -792,69 +792,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_BLINK_MID_FIRE_T1",
-	    name 		        = "$spell_d2d_blink_mid_fire_t1_name",
-	    description         = "$spell_d2d_blink_mid_fire_t1_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire_t1.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "2,3,4,5,6,10",
-		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
-        spawn_requires_flag	= "d2d_time_trial_bronze",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire_t1.xml",
-	    price               = 300,
-	    mana                = 80,
-	    max_uses			= 20,
-	    never_unlimited		= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-            					mana = mana + 80
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_BLINK_MID_FIRE_T2",
-	    name 		        = "$spell_d2d_blink_mid_fire_t2_name",
-	    description         = "$spell_d2d_blink_mid_fire_t2_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire_t2.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "2,3,4,5,6,10",
-		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
-        spawn_requires_flag	= "d2d_time_trial_silver",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire_t2.xml",
-	    price               = 300,
-	    mana                = 80,
-	    max_uses			= 20,
-	    never_unlimited		= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-            					mana = mana + 80
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_BLINK_MID_FIRE_T3",
-	    name 		        = "$spell_d2d_blink_mid_fire_t3_name",
-	    description         = "$spell_d2d_blink_mid_fire_t3_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire_t3.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "2,3,4,5,6,10",
-		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
-        spawn_requires_flag	= "d2d_time_trial_gold",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire_t3.xml",
-        price 				= 300,
-        mana 				= 80,
-        max_uses			= 20,
-        never_unlimited		= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-            					mana = mana + 80
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_BLINK",
 	    name 		        = "$spell_d2d_blink_name",
 	    description         = "$spell_d2d_blink_desc",
@@ -862,7 +799,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_UTILITY,
 		spawn_level         = "2,3,4,5,6,10",
 		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
-        spawn_requires_flag	= "d2d_time_trial_gold",
+        spawn_requires_flag	= "d2d_time_trial_bronze",
 	    price               = 300,
 	    mana                = 80,
 	    max_uses			= 20,
@@ -875,9 +812,35 @@ d2d_actions = {
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
 								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
 
+	                            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								local mtp = determine_blink_dmg_mtp()
+
+	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * mtp, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
+
+	                            -- spawn the "projectile"
 	    						add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml" )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_BLINK_MID_FIRE",
+	    name 		        = "$spell_d2d_blink_mid_fire_name",
+	    description         = "$spell_d2d_blink_mid_fire_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "2,3,4,5,6,10",
+		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
+        spawn_requires_flag	= "d2d_time_trial_gold",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire.xml",
+        price 				= 300,
+        mana 				= 80,
+        max_uses			= 20,
+        never_unlimited		= true,
+	    action              = function()
+	    						draw_actions( 1, true )
+            					mana = mana + 80
 	                        end,
     },
 

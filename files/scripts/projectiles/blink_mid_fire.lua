@@ -7,7 +7,7 @@ local wand = EZWand(EntityGetParent(entity_id))
 local x, y = EntityGetTransform(entity_id)
 local controlscomp = EntityGetFirstComponent(root, "ControlsComponent")
 local cooldown_frames = 60
-local actionid = "action_d2d_blink_mid_fire_t1"
+local actionid = "action_d2d_blink_mid_fire"
 local cooldown_frame
 local variablecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
 cooldown_frame = ComponentGetValue2( variablecomp, "value_int" )
@@ -31,7 +31,7 @@ if GameGetFrameNum() >= cooldown_frame then
             -- subtract a charge
             local spells, attached_spells = wand:GetSpells()
             for i,spell in ipairs( spells ) do
-                if ( spell.action_id == "D2D_BLINK_MID_FIRE_T1" ) then
+                if ( spell.action_id == "D2D_BLINK_MID_FIRE" ) then
                     ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
                     if ( uses_remaining == 1 ) then
                         GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y );
@@ -42,11 +42,14 @@ if GameGetFrameNum() >= cooldown_frame then
                 end
             end
 
-            -- deal 10% max health damage (cannot kill)
+            -- deal damage (cannot kill)
 			local p_dcomp = EntityGetFirstComponentIncludingDisabled( root, "DamageModelComponent" )
 			local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 			local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-            EntityInflictDamage( root, math.min( p_max_hp * 0.1, p_hp - 0.04 ), "DAMAGE_SLICE", "experimental teleportation", "NONE", 0, 0, root, x, y, 0)
+
+            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+            local mtp = determine_blink_dmg_mtp()
+            EntityInflictDamage( root, math.min( p_max_hp * mtp, p_hp - 0.04 ), "DAMAGE_SLICE", "experimental teleportation", "NONE", 0, 0, root, x, y, 0)
 
             -- teleport the player
             GameShootProjectile(root, x+aim_x*12, y+aim_y*12, x+aim_x*20, y+aim_y*20, EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml", x, y ) )
