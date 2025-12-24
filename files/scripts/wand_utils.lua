@@ -441,7 +441,7 @@ end
 function init_wand_of_memories()
     local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
-    wand:SetName( "Remembrance", true )
+    wand:SetName( "Staff of Remembrance", true )
     wand.shuffle = false
     wand.spellsPerCast = 1
     wand.castDelay = 3

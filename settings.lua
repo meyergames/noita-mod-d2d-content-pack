@@ -5,13 +5,6 @@ mod_settings_version = 1      -- This is a magic global that can be used to migr
 mod_settings =
 {
     {
-        category_id = "default_settings",
-        ui_name = "Build version: 25.12.12.1",
-        ui_description = "",
-        settings = {
-        }
-    },
-    {
         category_id = "perk_settings",
         ui_name = "Perks",
         ui_description = "",
