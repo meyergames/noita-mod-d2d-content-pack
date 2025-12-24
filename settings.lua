@@ -5,6 +5,20 @@ mod_settings_version = 1      -- This is a magic global that can be used to migr
 mod_settings =
 {
     {
+        category_id = "default_settings",
+        ui_name = "General",
+        ui_description = "",
+        settings = {
+            {
+                id = "enable_repeating_update_messages",
+                ui_name = "Show in-game messages about new updates",
+                ui_description = "When this setting is enabled, in-game messages about\nnew updates to this mod will be shown once per run.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+        }
+    },
+    {
         category_id = "perk_settings",
         ui_name = "Perks",
         ui_description = "",

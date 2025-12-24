@@ -382,8 +382,6 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 
 
-
-
 CROSS-MOD IDEAS
 
 [ ] dead isn't dead / other respawn mods: apply a random curse upon death

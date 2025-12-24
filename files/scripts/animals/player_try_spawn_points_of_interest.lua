@@ -6,6 +6,27 @@ local px, py = EntityGetTransform( entity_id )
 -- only try spawning the ghost if the player is in the collapsed mines
 local biome_name = BiomeMapGetName( px, py )
 
+function try_trigger_recent_update_message()
+    if GameHasFlagRun( "d2d_poi_recent_update_message_displayed" ) then return end
+    if not is_within_bounds( entity_id, -165, 115, 6400, 6600 ) then return end
+
+    GameAddFlagRun( "d2d_poi_recent_update_message_displayed" )
+
+    -- this print was added on 24 dec 2025; remove on 7 jan 2026
+    if not HasFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" ) then
+
+        GamePrintImportant( "A new presence lurks deep within the Lukki Lair..." )
+        GamePrint( "[D2D] A new boss can be found within the Lukki Lair." )
+
+        GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/orb_distant_monster/create", px, py )
+        GameScreenshake( 75 )
+
+        AddFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" )
+    elseif ModSettingGet( "D2DContentPack.enable_repeating_update_messages" ) then
+        GamePrint( "[D2D] A new boss can be found lurking deep within the Lukki Lair..." )
+    end
+end
+
 function try_spawn_ghost_of_memories()
     if GameHasFlagRun( "d2d_poi_spawned_ghost_of_memories" ) then return end
     if not is_within_bounds( entity_id, -1548, -1024, 392, 1110 ) then return end
@@ -39,5 +60,6 @@ function try_spawn_ancient_lurker()
     GameAddFlagRun( "d2d_poi_spawned_ancient_lurker" )
 end
 
+try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
