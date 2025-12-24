@@ -11,7 +11,7 @@ mod_settings =
         settings = {
             {
                 id = "enable_repeating_update_messages",
-                ui_name = "Show in-game messages about new updates",
+                ui_name = "Repeat in-game messages about new updates",
                 ui_description = "When this setting is enabled, in-game messages about\nnew updates to this mod will be shown once per run.",
                 value_default = true,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
@@ -161,12 +161,12 @@ function ModSettingsGui( gui, in_main_menu )
         GuiLayoutBeginHorizontal( gui, 0, 0, false, 15, 10 )
         if GuiButton( gui, new_id(), 0, 0, "Enable All Reworks" )then
             for k, v in pairs( filtered_perk_reworks ) do
-                AddSettingFlag(v.id.."_enabled")
+                RemoveSettingFlag(v.id.."_disabled")
             end
         end
         if GuiButton( gui, new_id(), 0, 0, "Disable All Reworks" )then
             for k, v in pairs( filtered_perk_reworks ) do
-                RemoveSettingFlag(v.id.."_enabled")
+                AddSettingFlag(v.id.."_disabled")
             end
         end
         GuiLayoutEnd(gui)
@@ -178,10 +178,10 @@ function ModSettingsGui( gui, in_main_menu )
 
             local clicked,right_clicked = GuiImageButton( gui, new_id(), 0, 0, "", v.perk_icon )
             if clicked then
-                if HasSettingFlag( v.id.."_enabled") then
-                    RemoveSettingFlag( v.id.."_enabled" )
+                if HasSettingFlag( v.id.."_disabled") then
+                    RemoveSettingFlag( v.id.."_disabled" )
                 else
-                    AddSettingFlag( v.id.."_enabled" )
+                    AddSettingFlag( v.id.."_disabled" )
                     RemoveSettingFlag( v.id.."_spawn_at_start" )
                 end
             end
@@ -193,7 +193,7 @@ function ModSettingsGui( gui, in_main_menu )
                 end
             end
 
-            if not HasSettingFlag( v.id.."_enabled" ) then
+            if HasSettingFlag( v.id.."_disabled" ) then
                 GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
             else
                 if HasSettingFlag( v.id.."_spawn_at_start" ) then
@@ -204,14 +204,14 @@ function ModSettingsGui( gui, in_main_menu )
             end
 
             GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_square.png", 1, 1.2, 0 )
-            if not HasSettingFlag( v.id.."_enabled" ) then
+            if HasSettingFlag( v.id.."_disabled" ) then
                 GuiZSetForNextWidget( gui, -80 )
                 GuiOptionsAddForNextWidget(gui, GUI_OPTION.NonInteractive)
                 GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_disabled_overlay.png", 1, 1.2, 0 )
             end
 
-            if(HasSettingFlag(v.id.."_disabled"))then
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description) .. "\n(Replaces " .. v.id_vanilla .. ")", "[ Click to enable ]" );
+            if HasSettingFlag( v.id.."_disabled" ) then
+                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
             else
                 if HasSettingFlag( v.id.."_spawn_at_start" ) then
                     GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )
@@ -225,7 +225,14 @@ function ModSettingsGui( gui, in_main_menu )
             else
                 GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
             end
-            GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.ui_name) )
+            local new_ui_name = GameTextGetTranslatedOrNot( v.ui_name )
+            local vanilla_ui_name = GameTextGetTranslatedOrNot( v.ui_name_vanilla )
+
+            local name_to_show = vanilla_ui_name
+            if new_ui_name ~= vanilla_ui_name then
+                name_to_show = vanilla_ui_name .. " -> " .. new_ui_name
+            end
+            GuiText( gui, 0, 3, name_to_show )
             GuiLayoutEnd(gui)
         end
 

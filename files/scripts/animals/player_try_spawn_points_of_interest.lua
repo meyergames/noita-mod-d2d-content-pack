@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local entity_id = GetUpdatedEntityID()
 local px, py = EntityGetTransform( entity_id )
@@ -15,8 +15,8 @@ function try_trigger_recent_update_message()
     -- this print was added on 24 dec 2025; remove on 7 jan 2026
     if not HasFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" ) then
 
-        GamePrintImportant( "A new presence lurks deep within the Lukki Lair..." )
-        GamePrint( "[D2D] A new boss can be found within the Lukki Lair." )
+        GamePrintImportant( "An unfamiliar presence lurks within the Lukki Lair..." )
+        GamePrintDelayed( "[D2D] A new boss can be found at the bottom of the Lukki Lair.", 300 )
 
         GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/orb_distant_monster/create", px, py )
         GameScreenshake( 75 )

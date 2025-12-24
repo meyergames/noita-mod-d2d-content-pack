@@ -9,32 +9,26 @@ local x, y = EntityGetTransform( owner )
 function on_time_trial_win()
     set_internal_bool( owner, "reached_time_trial_finish", true )
     set_internal_bool( owner, "is_doing_time_trial", false )
-    AddFlagPersistent( "d2d_time_trial_completed" )
-    GameAddFlagRun( "d2d_time_trial_completed_this_run" )
 
     local time_trial_duration = get_internal_int( owner, "time_trial_update_count" )
     local chest = ""
     if time_trial_duration <= 15 then
         GamePrintImportant( "The gods are in disbelief", "" )
         chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t3.xml"
-        
-        if not HasFlagPersistent( "d2d_time_trial_silver" ) and not HasFlagPersistent( "d2d_time_trial_gold" ) then
-            AddFlagPersistent( "d2d_time_trial_bronze" )
-        end
+
+        AddFlagPersistent( "d2d_time_trial_bronze" )
     elseif time_trial_duration <= 30 then
         GamePrintImportant( "The gods are in awe", "" )
         chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t2.xml"
 
-        RemoveFlagPersistent( "d2d_time_trial_bronze" )
-        if not HasFlagPersistent( "d2d_time_trial_gold" ) then
-            AddFlagPersistent( "d2d_time_trial_silver" )
-        end
+        AddFlagPersistent( "d2d_time_trial_bronze" )
+        AddFlagPersistent( "d2d_time_trial_silver" )
     else
         GamePrintImportant( "The gods admire your speed", "" )
         chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t1.xml"
 
-        RemoveFlagPersistent( "d2d_time_trial_bronze" )
-        RemoveFlagPersistent( "d2d_time_trial_silver" )
+        AddFlagPersistent( "d2d_time_trial_bronze" )
+        AddFlagPersistent( "d2d_time_trial_silver" )
         AddFlagPersistent( "d2d_time_trial_gold" )
     end
 

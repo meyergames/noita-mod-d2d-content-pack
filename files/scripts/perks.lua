@@ -101,8 +101,7 @@ d2d_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		-- not_in_default_perk_pool = true,
-        spawn_requires_flag	= "d2d_time_trial_completed",
+        spawn_requires_flag	= "d2d_time_trial_bronze",
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if ( pickup_count <= 1 ) then
             	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_warp_rush.xml" )
@@ -894,6 +893,7 @@ d2d_perk_reworks = {
 	{
 		id = "D2D_ALL_SEEING_EYE",
 		id_vanilla = "REMOVE_FOG_OF_WAR",
+		ui_name_vanilla = "All-Seeing Eye",
 		ui_name = "$perk_d2d_all_seeing_eye_rework_name",
 		ui_description = "$perk_d2d_all_seeing_eye_rework_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/all_seeing_eye_rework_016.png",
@@ -903,15 +903,23 @@ d2d_perk_reworks = {
 		usable_by_enemies = false,
         func = function( entity_perk_item, entity_who_picked, item_name )
             EntityAddChild( entity_who_picked, EntityLoad( "mods/D2DContentPack/files/entities/misc/perks/effect_all_seeing_eye_rework.xml" ) )
-            -- GamePrint( "(Prefer the old All Seeing Eye? You can disable D2D Content Pack's rebalance changes in the mod settings.)" )
+
+            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+            if not HasFlagPersistent( "d2d_update_msg_displayed_all_seeing_eye_rework" ) then
+	            GamePrintDelayed( "[D2D] Prefer the original All-Seeing Eye perk?", 600 )
+	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod settings.", 720 )
+	            AddFlagPersistent( "d2d_update_msg_displayed_all_seeing_eye_rework" )
+	        end
         end,
         func_remove = function( entity_who_picked )
             remove_lua( entity_who_picked, "d2d_all_seeing_eye_rework" )
         end,
 	},
+
 	{
 		id = "D2D_SPELL_GEMS",
 		id_vanilla = "UNLIMITED_SPELLS",
+		ui_name_vanilla = "Unlimited Spells",
 		ui_name = "$perk_d2d_spell_gems_name",
 		ui_description = "$perk_d2d_spell_gems_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/spell_gems_016.png",
@@ -921,7 +929,13 @@ d2d_perk_reworks = {
 		usable_by_enemies = false,
         func = function( entity_perk_item, entity_who_picked, item_name )
             EntityAddChild( entity_who_picked, EntityLoad( "mods/D2DContentPack/files/entities/misc/perks/effect_spell_gems.xml" ) )
-            -- GamePrint( "(Prefer the old Unlimited Spells? You can disable D2D Content Pack's rebalance changes in the mod settings.)" )
+
+            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+            if not HasFlagPersistent( "d2d_update_msg_displayed_unlimited_spells_rework" ) then
+	            GamePrintDelayed( "[D2D] This perk replaces the original Unlimited Spells perk.", 180 )
+	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod settings.", 300 )
+	            AddFlagPersistent( "d2d_update_msg_displayed_unlimited_spells_rework" )
+	        end
         end,
         func_remove = function( entity_who_picked )
             remove_lua( entity_who_picked, "d2d_spell_gems" )
@@ -952,7 +966,7 @@ end
 -- add reworks 
 if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_perk_reworks )do
-		if HasSettingFlag( v.id .. "_enabled" ) then
+		if not HasSettingFlag( v.id .. "_disabled" ) then
 			table.insert( perk_list, v )
 			remove_perk( v.id_vanilla )
 		end

@@ -145,6 +145,40 @@ function set_internal_bool( entity_id, variable_name, new_value )
 	end
 end
 
+-- custom shorthand that quickly gets an internal int value
+function get_internal_string( entity_id, variable_name )
+	local value = nil
+	local components = EntityGetComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
+	if ( components ~= nil ) then
+		for key,comp_id in pairs( components ) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			if( var_name == variable_name ) then
+				value = ComponentGetValue2( comp_id, "value_string" )
+			end
+		end
+	end
+	return value
+end
+
+-- custom variation that makes a variable if it doesn't exist yet
+function set_internal_string( entity_id, variable_name, new_value )
+	local variable_found = false
+	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( components ~= nil ) then
+		for key,comp_id in pairs(components) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			if( var_name == variable_name ) then
+				ComponentSetValue2( comp_id, "value_string", new_value )
+				variable_found = true
+			end
+		end
+	end
+
+	if not variable_found then
+		addNewInternalVariable( entity_id, variable_name, "value_string", new_value )
+	end
+end
+
 function has_vscomp( entity_id, variable_name )
 	local vcomps = EntityGetComponent( entity_id, "VariableStorageComponent" )	
 	if ( vcomps ~= nil ) then

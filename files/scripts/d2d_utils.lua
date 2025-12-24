@@ -29,3 +29,15 @@ end
 function player_take_max_hp_dmg( ratio, can_kill )
 	GamePrint( "<function not implemented>" )
 end
+
+function GamePrintDelayed( message, delay )
+    local print_entity_id = EntityCreateNew()
+    EntityAddComponent2( print_entity_id, "LuaComponent", {
+        script_source_file = "mods/D2DContentPack/files/scripts/gameprint_delayed.lua",
+        execute_on_added = false,
+        execute_every_n_frame = delay,
+        execute_times = 1,
+        remove_after_executed = true,
+    })
+    set_internal_string( print_entity_id, "d2d_delayed_print_msg", message )
+end
