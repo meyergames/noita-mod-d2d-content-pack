@@ -6,10 +6,6 @@ function drop_rewards( x, y )
     dofile_once( "data/scripts/perks/perk.lua" )
 	perk_spawn( x, y - 8, "D2D_WARP_RUSH", true )
 
-	-- create and immediately delete weaker blinks, for the progress menu
-	local t1 = CreateItemActionEntity( "D2D_BLINK_MID_FIRE_T1", x + 16, y - 24 )
-	EntityKill( t1 )
-
 	-- spawn wand
 	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 	local wand = EZWand()
@@ -22,7 +18,7 @@ function drop_rewards( x, y )
 	wand.manaChargeSpeed = 80
 	wand.capacity = 0
 	wand.spread = 0
-	wand:AttachSpells( "D2D_CONTROLLED_REACH", "TELEPORT_PROJECTILE", "D2D_BLINK_MID_FIRE_T2", "D2D_REWIND_ALT_FIRE" )
+	wand:AttachSpells( "D2D_CONTROLLED_REACH", "TELEPORT_PROJECTILE", "D2D_BLINK_MID_FIRE", "D2D_REWIND_ALT_FIRE" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_time_t2.png", 8, 4, 19, 0 )
 	wand:PlaceAt( x, y - 28 )
 	set_internal_int( wand.entity_id, "staff_of_time_tier", 2 )
