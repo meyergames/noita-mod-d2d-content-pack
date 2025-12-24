@@ -464,7 +464,7 @@ function init_wand_of_memories()
         end
     else
     	-- define the wand's initial spells
-    	wand:AddSpells( "D2D_SHOCKWAVE", "TELEPORT_PROJECTILE", "MEGALASER" )
+    	wand:AddSpells( "MEGALASER" )
     end
 
     wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/remembrance.png", 10, 4, 15, 0 )
