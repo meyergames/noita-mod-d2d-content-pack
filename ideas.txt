@@ -385,6 +385,13 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] unlock "Infatuating Arrow" / "Command: Attack" / "Ally Protection" by pheromoning Friend?
 
+[ ] "Does anyone know if there's any hax way to get game settings, like brightness, or more specifically "Allow firing of wands 		 while inventory is open"? I can't see anything in the lua API to scan for it"
+		- "just check inv gui?"
+
+[ ] perk that causes larpa etc to copy modifiers as well?
+
+[ ] carpet bomb-esque spell that, upon hitting an enemy, shoots a volley of projectiles in a cone behind it
+		[ ] Larpa Carpet
 
 
 

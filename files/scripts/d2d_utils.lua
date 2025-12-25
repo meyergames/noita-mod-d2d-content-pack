@@ -38,6 +38,6 @@ function GamePrintDelayed( message, delay )
         execute_every_n_frame = delay,
         execute_times = 1,
         remove_after_executed = true,
-    })
+    } )
     set_internal_string( print_entity_id, "d2d_delayed_print_msg", message )
 end

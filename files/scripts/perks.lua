@@ -976,9 +976,7 @@ end
 -- add perks
 if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_perks )do
-		if HasSettingFlag( v.id .. "_disabled" ) then
-			-- GamePrint( "Perk not added: " .. v.id )
-		else
+		if not HasSettingFlag( v.id .. "_disabled" ) then
 			table.insert( perk_list, v )
 		end
 	end
