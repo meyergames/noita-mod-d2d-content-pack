@@ -16,10 +16,10 @@ function determine_blink_dmg_mtp()
     	end
     end
 
-    -- if the spell is cast outside of the Staff of Time, check the player's highest time trial completion tier
-    if HasFlagPersistent( "d2d_time_trial_gold" ) then
+    -- if the spell is cast outside of the Staff of Time, check the player's fastest Time Trial completion this run
+    if GameHasFlagRun( "d2d_time_trial_gold_this_run" ) then
     	return 0.02
-    elseif HasFlagPersistent( "d2d_time_trial_silver" ) then
+    elseif GameHasFlagRun( "d2d_time_trial_silver_this_run" ) then
     	return 0.05
     else
     	return 0.10
@@ -40,4 +40,24 @@ function GamePrintDelayed( message, delay )
         remove_after_executed = true,
     } )
     set_internal_string( print_entity_id, "d2d_delayed_print_msg", message )
+end
+
+function try_trigger_short_circuit( chance )
+    local rand = Random( 0, 100 )
+    if rand <= chance then
+        GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+
+        local rand2 = Random( 0, 8 )
+        if( rand2 < 1 ) then
+            EntityInflictDamage(entity_id, 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
+        elseif( rand2 < 3 ) then
+            add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
+        elseif( rand2 < 5 ) then
+            add_projectile("mods/D2DContentPack/files/entities/projectiles/overclock.xml")
+        else
+            add_projectile("data/entities/projectiles/deck/fizzle.xml")
+        end
+        return true
+    end
+    return false
 end

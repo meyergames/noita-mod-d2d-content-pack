@@ -101,7 +101,8 @@ d2d_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
-        spawn_requires_flag	= "d2d_time_trial_bronze",
+		not_in_default_perk_pool = true,
+        -- spawn_requires_flag	= "d2d_time_trial_bronze",
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if ( pickup_count <= 1 ) then
             	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_warp_rush.xml" )
@@ -110,6 +111,12 @@ d2d_perks = {
 				multiply_move_speed( entity_who_picked, "d2d_warp_rush", 1.0 )
         	end
 		end,
+		func_remove = function( entity_who_picked )
+			local effect_id = get_child_with_name( entity_who_picked, "effect_warp_rush.xml" )
+			if effect_id and effect_id ~= 0 then
+				EntityKill( effect_id )
+			end
+		end
 	},
 
 	-- {
@@ -906,8 +913,8 @@ d2d_perk_reworks = {
 
             dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
             if not HasFlagPersistent( "d2d_update_msg_displayed_all_seeing_eye_rework" ) then
-	            GamePrintDelayed( "[D2D] Prefer the original All-Seeing Eye perk?", 600 )
-	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod settings.", 720 )
+	            GamePrintDelayed( "[D2D] Prefer the original All-Seeing Eye perk?", 240 )
+	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod's settings.", 360 )
 	            AddFlagPersistent( "d2d_update_msg_displayed_all_seeing_eye_rework" )
 	        end
         end,
@@ -933,7 +940,7 @@ d2d_perk_reworks = {
             dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
             if not HasFlagPersistent( "d2d_update_msg_displayed_unlimited_spells_rework" ) then
 	            GamePrintDelayed( "[D2D] This perk replaces the original Unlimited Spells perk.", 180 )
-	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod settings.", 300 )
+	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod's settings.", 300 )
 	            AddFlagPersistent( "d2d_update_msg_displayed_unlimited_spells_rework" )
 	        end
         end,

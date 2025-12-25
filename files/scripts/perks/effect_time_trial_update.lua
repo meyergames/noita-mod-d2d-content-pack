@@ -17,12 +17,15 @@ function on_time_trial_win()
         chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t3.xml"
 
         AddFlagPersistent( "d2d_time_trial_bronze" )
+        GameAddFlagRun( "d2d_time_trial_bronze_this_run" )
     elseif time_trial_duration <= 30 then
         GamePrintImportant( "The gods are in awe", "" )
         chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t2.xml"
 
         AddFlagPersistent( "d2d_time_trial_bronze" )
         AddFlagPersistent( "d2d_time_trial_silver" )
+        GameAddFlagRun( "d2d_time_trial_bronze_this_run" )
+        GameAddFlagRun( "d2d_time_trial_silver_this_run" )
     else
         GamePrintImportant( "The gods admire your speed", "" )
         chest = "mods/D2DContentPack/files/entities/items/pickup/chest_time_trial_t1.xml"
@@ -30,6 +33,9 @@ function on_time_trial_win()
         AddFlagPersistent( "d2d_time_trial_bronze" )
         AddFlagPersistent( "d2d_time_trial_silver" )
         AddFlagPersistent( "d2d_time_trial_gold" )
+        GameAddFlagRun( "d2d_time_trial_bronze_this_run" )
+        GameAddFlagRun( "d2d_time_trial_silver_this_run" )
+        GameAddFlagRun( "d2d_time_trial_gold_this_run" )
     end
 
     local spx = x
