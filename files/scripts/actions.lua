@@ -213,32 +213,6 @@ d2d_actions = {
 	                        end,
     },
 
-	{
-		id                  = "D2D_RECYCLE",
-		name 		        = "$spell_d2d_recycle_name",
-		description         = "$spell_d2d_recycle_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/recycle.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0,1,2,3,4,5",
-		spawn_probability   = "0.5,1,0.8,0.6,0.4,0.2",
-		price               = 200,
-		mana                = 20,
-		action 		        = function()
-								draw_actions( 1, true )
-
-								for i,v in ipairs( hand ) do
-									local spell_data = hand[i]
-									if spell_data.uses_remaining > 1 then
-										if not spell_data.never_unlimited and Random( 0, 4 ) == 4 then
-											spell_data.uses_remaining = spell_data.uses_remaining + 1
-										elseif Random( 0, 10 ) == 10 then
-											spell_data.uses_remaining = spell_data.uses_remaining + 1
-										end
-									end
-								end
-		                    end,
-	},
-
     {
 	    id                  = "D2D_MANA_REFILL",
 	    name 		        = "$spell_d2d_mana_refill_name",
@@ -347,6 +321,105 @@ d2d_actions = {
 			draw_actions( 1, true )
 		end,
 	},
+
+	{
+		id                  = "D2D_SHOCKWAVE",
+		name 		        = "$spell_d2d_shockwave_name",
+		description         = "$spell_d2d_shockwave_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/shockwave.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "0.5,0.5,1,1",
+		price               = 220,
+		mana                = 30,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 40
+			                    if reflecting then return end
+
+			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/shockwave_modifier.xml,"
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	-- {
+	-- 	id                  = "D2D_BULK_MANA_TO_DAMAGE",
+	-- 	name 		        = "Bulk Mana To Damage",
+	-- 	description         = "Adds +1 damage for each second it takes the wand to recharge to full mana",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
+	-- 	type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "0,1,2,3",
+	-- 	spawn_probability   = "0.5,0.5,1,1",
+	-- 	price               = 220,
+	-- 	mana                = 20,
+	-- 	action 		        = function()
+	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 5
+
+	-- 		                    -- for the tooltip
+	-- 		                    c.damage_projectile_add = c.damage_projectile_add + 0.04
+	-- 		                    if reflecting then return end
+	-- 		                    c.damage_projectile_add = c.damage_projectile_add - 0.04
+
+	-- 							local EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
+	-- 							local wand = EZWand.GetHeldWand()
+	-- 							local time_until_full_mana = wand.manaMax / wand.manaChargeSpeed
+	-- 							local mtp = 1 - ( 1.0 / wand.manaMax ) * wand.mana
+	-- 		                    c.damage_projectile_add = c.damage_projectile_add + ( time_until_full_mana * 0.04 * mtp )
+
+	-- 		                    draw_actions( 1, true )
+	-- 	                    end,
+	-- },
+
+	-- {
+	-- 	id                  = "D2D_OPENING_SHOT",
+	-- 	name 		        = "Opening Shot",
+	-- 	description         = "Makes a projectile deal more damage when the enemy has full health",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/opening_shot.png",
+	-- 	type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "0,1,2,3",
+	-- 	spawn_probability   = "0.5,0.5,1,1",
+	-- 	price               = 220,
+	-- 	mana                = 3,
+	-- 	action 		        = function()
+	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 5
+
+	-- 		                    -- for the tooltip
+	-- 		                    c.damage_projectile_add = c.damage_projectile_add + 0.8
+	-- 		                    if reflecting then return end
+	-- 		                    c.damage_projectile_add = c.damage_projectile_add - 0.8
+
+	-- 		                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/opening_shot.xml,"
+	-- 		                    draw_actions( 1, true )
+	-- 	                    end,
+	-- },
+
+	-- {
+	-- 	id                  = "D2D_HEALTHY_SHOT",
+	-- 	name 		        = "Healthy Shot (idk)",
+	-- 	description         = "Makes a projectile deal more damage when you have full health",
+	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/opening_shot.png",
+	-- 	type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "0,1,2,3",
+	-- 	spawn_probability   = "0.5,0.5,1,1",
+	-- 	price               = 220,
+	-- 	mana                = 2,
+	-- 	action 		        = function()
+	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 5
+
+	-- 		                    -- for the tooltip
+	-- 		                    c.damage_projectile_add = c.damage_projectile_add + 0.4
+	-- 		                    if reflecting then return end
+	-- 		                    c.damage_projectile_add = c.damage_projectile_add - 0.4
+
+	-- 							local dmg_comp = EntityGetFirstComponent( GetUpdatedEntityID(), "DamageModelComponent" )
+	-- 							local hp = ComponentGetValue2( dmg_comp, "hp" )
+	-- 							local max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
+	-- 							if hp > max_hp - 0.04 then
+	-- 								c.damage_projectile_add = c.damage_projectile_add + 0.4
+	-- 							end
+
+	-- 		                    draw_actions( 1, true )
+	-- 	                    end,
+	-- },
 
     {
 	    id                  = "D2D_SNIPE_SHOT",
@@ -483,26 +556,30 @@ d2d_actions = {
         inject_after        = { "GRENADE_TIER_3" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/unstable_nucleus.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "1,2,3,4,5,6,10",
-		spawn_probability   = "0.1,0.25,0.5,0.75,1,1,0.75",
+		-- spawn_level         = "1,2,3,4,5,6,10",
+		-- spawn_probability   = "0.1,0.25,0.5,0.75,1,1,0.75",
+		spawn_level         = "0",
+		spawn_probability   = "0",
 	    price               = 480,
 	    mana                = 100,
 	    max_uses			= 3,
 	    custom_uses_logic	= true,
 	    action              = function()
-                                c.fire_rate_wait    = c.fire_rate_wait + 160
-                                if reflecting then return end
-                                c.fire_rate_wait	= c.fire_rate_wait - 160
+								GamePrint( "[D2D] The 'Unstable Nucleus' spell is currently under maintenance; please come back later." )
 
-                                dofile_once( "data/scripts/lib/utilities.lua" )
-                                local proj_id = get_internal_int( get_player(), "unstable_nucleus_id" )
-                                if proj_id ~= nil and proj_id ~= -1 then
-                                	-- shoot charging "projectile"
-                                	draw_actions( 1, true )
-                                	mana = mana + 100
-                                else
-                                	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
-                                end
+                                -- c.fire_rate_wait    = c.fire_rate_wait + 160
+                                -- if reflecting then return end
+                                -- c.fire_rate_wait	= c.fire_rate_wait - 160
+
+                                -- dofile_once( "data/scripts/lib/utilities.lua" )
+                                -- local proj_id = get_internal_int( get_player(), "unstable_nucleus_id" )
+                                -- if proj_id ~= nil and proj_id ~= -1 then
+                                -- 	-- shoot charging "projectile"
+                                -- 	draw_actions( 1, true )
+                                -- 	mana = mana + 100
+                                -- else
+                                -- 	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
+                                -- end
 	                        end,
     },
 
@@ -679,25 +756,6 @@ d2d_actions = {
 			                    c.screenshake = c.screenshake + 1.25
 	                        end,
     },
-
-	{
-		id                  = "D2D_SHOCKWAVE",
-		name 		        = "$spell_d2d_shockwave_name",
-		description         = "$spell_d2d_shockwave_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/shockwave.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "0.5,0.5,1,1",
-		price               = 220,
-		mana                = 30,
-		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 40
-			                    if reflecting then return end
-
-			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/shockwave_modifier.xml,"
-			                    draw_actions( 1, true )
-		                    end,
-	},
 
 	{
 		id                  = "D2D_BOLT_CATCHER",
@@ -897,63 +955,6 @@ d2d_actions = {
 	                        end,
     },
 
-    -- {
-	--     id                  = "D2D_CHARMING_WHISTLE",
-	--     name 		        = "$spell_d2d_charming_whistle_name",
-	--     description         = "$spell_d2d_charming_whistle_desc",
-	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/charming_whistle.png",
-	--     type 		        = ACTION_TYPE_UTILITY,
-	-- 	spawn_level         = "0,1,2,3",
-	-- 	spawn_probability   = "0.3,0.4,0.5,0.6",
-	--     price               = 180,
-	--     mana                = 50,
-	--     -- max_uses			= 20,
-	--     action              = function()
-	--  							if reflecting then return end
-	--  							dofile_once( "data/scripts/lib/utilities.lua" )
-
-    --                             local x, y = EntityGetTransform( GetUpdatedEntityID() )
-	--  							local nearby_targets = EntityGetInRadiusWithTag( x, y, 300, "homing_target" )
-	--  							local someone_teleported = false
-	--  							local berserk_triggered = false
-	--  							for i,target_id in ipairs( nearby_targets ) do
-	--  								if GameGetGameEffect( target_id, "CHARM" ) ~= 0 then
-	-- 	 								local old_x, old_y = EntityGetTransform( target_id )
-	-- 									EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
-	-- 	 								EntitySetTransform( target_id, x, y )
-	-- 	 								someone_teleported = true
-
-	-- 	 								-- inflict damage equal to 10% of max hp
-	-- 									local t_dcomp = EntityGetFirstComponentIncludingDisabled( target_id, "DamageModelComponent" )
-	-- 									local t_hp = ComponentGetValue2( t_dcomp, "hp" )
-	-- 									local t_max_hp = ComponentGetValue2( t_dcomp, "max_hp" )
-	-- 									local tx, ty = EntityGetTransform( target_id )
-	-- 		 							EntityInflictDamage( target_id, t_max_hp * 0.1, "DAMAGE_CURSE", "experimental teleportation magic", "NONE", 0, 0, target_id, tx, ty, 0)
-
-	-- 	 								-- 5% chance to make the enemy turn berserk
-	-- 	 								if Random( 1, 20 ) == 1 then
-    --         								GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/on_fire/create", x, y )
-	-- 										EntityKill( get_child_with_name( target_id, "effect_charm.xml" ) )
-	-- 										EntityKill( get_child_with_name( target_id, "effect_charmed_short_d2d.xml" ) )
-	-- 										LoadGameEffectEntityTo( target_id, "data/entities/misc/effect_berserk.xml" )
-
-	-- 										berserk_triggered = true
-	-- 		 							end
-	-- 	 							end
-	--  							end
-
-	--  							if someone_teleported then
-	--     							GamePlaySound( "data/audio/Desktop/player.bank", "player/damage/projectile", x, y )
-	--     							GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/teleport/destroy", x, y )
-	--     						end
-
-    -- 							if berserk_triggered then
-    -- 								GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/on_fire/create", x, y )
-    -- 							else
-    -- 								GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/charm/create", x, y )
-    -- 							end
-	--                         end,
-    -- },
 
     {
 	    id                  = "D2D_SPRAY_AND_PRAY",
@@ -968,12 +969,6 @@ d2d_actions = {
 	    mana                = 1,
 	    action              = function()
 								c.spread_degrees = c.spread_degrees + 3.0
-                                -- c.fire_rate_wait    = c.fire_rate_wait * 0.25 -- so it shows in the UI
-                                -- current_reload_time = current_reload_time * 0.5 -- so it shows in the UI
-                                -- if reflecting then return end
-                                -- c.fire_rate_wait    = c.fire_rate_wait + 15
-                                -- current_reload_time = current_reload_time + 20
-
 			                    draw_actions( 1, true )
 	                        end,
     },
@@ -1025,7 +1020,7 @@ d2d_actions = {
 		price               = 280,
 		mana                = 0,
 		action 		        = function()
-								GamePrint( "The 'Mana Lock' spell is currently out of order; please come back later.")
+								GamePrint( "[D2D] The 'Mana Lock' spell is currently out of order; please come back later.")
 								-- disable Add Mana etc
 								-- for i,v in ipairs( deck ) do
 								-- 	local spell_data = deck[i]
@@ -1081,6 +1076,84 @@ d2d_actions = {
     --         					mana = mana + 20
 	--                         end,
     -- },
+
+	{
+		id                  = "D2D_RECYCLE",
+		name 		        = "$spell_d2d_recycle_name",
+		description         = "$spell_d2d_recycle_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/recycle.png",
+		type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0,1,2,3,4,5",
+		spawn_probability   = "0.5,1,0.8,0.6,0.4,0.2",
+		price               = 200,
+		mana                = 20,
+		action 		        = function()
+								if reflecting then return end
+
+								local next_card = deck[1]
+								if next_card then
+
+									-- prevent the spell from gaining more uses than it had
+									local next_card_uses_left = deck[1].uses_remaining
+									draw_actions( 1, true )
+
+									for i,v in ipairs( hand ) do
+										local spell_data = hand[i]
+										if spell_data.uses_remaining > 0 then
+											if Random( 1, 4 ) == 4 then
+												spell_data.uses_remaining = math.min( spell_data.uses_remaining + 1, next_card_uses_left + 1 )
+											end
+										end
+									end
+								end
+		                    end,
+	},
+
+	{
+		id                  = "D2D_SECOND_WIND",
+		name 		        = "$spell_d2d_second_wind_name",
+		description         = "$spell_d2d_second_wind_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/second_wind.png",
+		type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0,1,2,3,4",
+		spawn_probability   = "0.3,0.5,0.4,0.3,0.2",
+		price               = 200,
+		mana                = 0,
+		action 		        = function()
+								draw_actions( 1, true )
+
+								if reflecting then return end
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
+								if #hand >= 2 then
+									local spell_data = nil
+									for i,card in ipairs( hand ) do
+										local _data = get_actions_lua_data( card.id )
+										if _data.max_uses and _data.max_uses > -1 then
+											spell_data = card
+											break
+										end
+									end
+
+									-- if the next spell is limited-use, refill it
+									if spell_data and spell_data.uses_remaining == 1 then
+										local action_lua_data = get_actions_lua_data( spell_data.id )
+
+										local x, y = EntityGetTransform( GetUpdatedEntityID() )
+										spell_data.uses_remaining = action_lua_data.max_uses + 1
+
+										-- ...then destroy this spell as a sacrifice
+										local EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
+										EZWand.GetHeldWand():RemoveSpells( "D2D_SECOND_WIND" )
+
+										EntityLoad("mods/D2DContentPack/files/particles/fade_second_wind.xml", x, y )
+										GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+										GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/spell_refresh/create", x, y )
+										GamePrint( "\"Second Wind\" was sacrificed to refill \"" .. GameTextGetTranslatedOrNot( action_lua_data.name ) .. "\"" )
+									end
+								end
+		                    end,
+	},
 
 	{
 		id                  = "D2D_MANA_SPLIT",
