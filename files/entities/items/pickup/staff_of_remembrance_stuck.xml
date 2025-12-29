@@ -1,0 +1,99 @@
+<Entity tags="drillable,hittable,teleportable_NOT,item_pickup">
+	<VelocityComponent
+		gravity_y="100.0"
+	></VelocityComponent>
+
+	<SimplePhysicsComponent>
+	</SimplePhysicsComponent>
+	
+	<UIInfoComponent
+		name="$item_d2d_staff_of_remembrance"
+		>
+	</UIInfoComponent>
+
+	<!-- <HitboxComponent 
+		_tags="enabled_in_world"
+		aabb_min_x="-14" 
+		aabb_max_x="14" 
+		aabb_min_y="-14" 
+		aabb_max_y="14" 
+		is_enemy="0" 
+		is_item="1" 
+		is_player="0" >
+	</HitboxComponent> -->
+
+	<ItemComponent
+		item_name="$item_d2d_staff_of_remembrance"
+		custom_pickup_string="$ix_d2d_pull_staff"
+		play_spinning_animation="0"
+		stats_count_as_item_pick_up="0"
+    	play_pick_sound="0"
+		auto_pickup="0" >
+	</ItemComponent>
+
+	<LuaComponent 
+		script_item_picked_up="mods/D2DContentPack/files/scripts/items/staff_of_remembrance_spawn.lua"
+      	execute_every_n_frame="-1"
+	></LuaComponent>
+
+	<LightComponent 
+		_tags="enabled_in_world"
+		_enabled="1"
+		r="255"
+		g="255"
+		b="255"
+		radius="64"
+		fade_out_time="0.75" >
+	</LightComponent>
+
+	<SpriteComponent 
+		_tags="enabled_in_world,character" 
+		alpha="1" 
+		image_file="mods/D2DContentPack/files/gfx/items_gfx/staff_of_remembrance_stuck.xml"
+		next_rect_animation=""
+		rect_animation="" 
+		offset_x="14"
+		offset_y="22"
+		z_index="20" >
+	</SpriteComponent>
+  
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_white"
+		gravity.y="0.0"
+		lifetime_min="1"
+		lifetime_max="3"
+		x_vel_min="-10"
+		x_vel_max="10"
+		y_vel_min="-20"
+		y_vel_max="5"
+		count_min="4"
+		count_max="12"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="12"
+		emit_cosmetic_particles="1"
+		area_circle_radius.max="11"
+		render_back="1"
+		is_emitting="1">
+	</ParticleEmitterComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/projectiles.bank"
+		event_name="player_projectiles/epilogue/wall/movement_loop"
+		auto_play_if_enabled="1"
+	></AudioLoopComponent>
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/items/staff_of_remembrance_lower_volume.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1">
+	</LuaComponent>
+	<!-- event_name="player_projectiles/epilogue/wall/movement_loop" FOR CURSED CHEST -->
+
+</Entity>

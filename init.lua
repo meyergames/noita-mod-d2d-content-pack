@@ -127,7 +127,9 @@ function OnPlayerSpawned( player )
     -- local x, y = EntityGetTransform( get_player() )
     -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/spell_gem.xml", x + 20, y + 40 )
 
-    dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_remembrance_stuck.xml", 230, -109 )
+
+    -- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
     -- GamePrintDelayed( "test 1", 240 )
     -- GamePrintDelayed( "test 2", 480 )
     -- GamePrintDelayed( "test 3", 540 )

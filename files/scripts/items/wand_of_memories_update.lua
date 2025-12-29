@@ -1,12 +1,13 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 
+local owner = EntityGetRootEntity( GetUpdatedEntityID() )
 local player = get_player()
+if owner ~= player then return end
+
 local wand_to_save
 
 local children = EntityGetAllChildren( player )
-if not children then return end
-
 for k=1,#children do
 	child = children[k]
     if EntityGetName( child ) == "inventory_quick" then
@@ -32,10 +33,6 @@ if wand_to_save then
 	local spells, always_casts = wand_to_save:GetSpells()
 
 	local csv = ""
-	-- for i,spell in ipairs( always_casts ) do
-	-- 	csv = csv .. spell.action_id .. ","
-	-- end
-	-- csv = csv .. "\n"
 	for i,spell in ipairs( spells ) do
 		csv = csv .. spell.action_id .. ","
 	end

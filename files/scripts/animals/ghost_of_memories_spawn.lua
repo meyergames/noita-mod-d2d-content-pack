@@ -17,6 +17,10 @@ if( itempickup ) then
 	GamePickUpInventoryItem( entity_ghost, entity_pick_up_this_item, false )
 end
 
+-- make it pretty
+EntityLoad( "mods/D2DContentPack/files/particles/image_emitters/staff_of_remembrance_guardian_spawn.xml", pos_x, pos_y )
+GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/rune/create", pos_x, pos_y )
+
 -- check that we hold the item
 local items = GameGetAllInventoryItems( entity_ghost )
 local has_item = false

@@ -1,7 +1,5 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 
-local mod_
-
 local old_spawn_hp = spawn_hp
 function spawn_hp( x, y )
 	old_spawn_hp( x, y )

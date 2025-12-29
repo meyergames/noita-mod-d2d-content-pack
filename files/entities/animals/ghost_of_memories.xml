@@ -2,7 +2,7 @@
 	<Base file="data/entities/base_apparition.xml">
 		<DamageModelComponent
 			hp="10"
-			max_hp="10"
+			max_hp="50"
 		></DamageModelComponent>
 		
 		<CameraBoundComponent
@@ -16,6 +16,11 @@
 		_enabled="1"
 		remove_after_executed="1"
 		script_source_file="mods/D2DContentPack/files/scripts/animals/ghost_of_memories_spawn.lua" >
+	</LuaComponent>
+
+	<LuaComponent
+		script_kick="mods/D2DContentPack/files/scripts/animals/ghost_of_memories_on_kicked.lua"
+		execute_every_n_frame="-1">
 	</LuaComponent>
 
     <MusicEnergyAffectorComponent

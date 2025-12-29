@@ -2,6 +2,10 @@ dofile_once( "data/scripts/lib/utilities.lua" )
 dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
 local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 
+function exists( id )
+    return id and id ~= 0
+end
+
 function determine_blink_dmg_mtp()
 	-- first check the staff
     local wand = EZWand.GetHeldWand()
@@ -60,4 +64,53 @@ function try_trigger_short_circuit( chance )
         return true
     end
     return false
+end
+
+function get_actions_lua_data( action_id )
+    dofile_once( "mods/D2DContentPack/files/scripts/actions.lua" )
+    for i,action in ipairs( actions ) do
+        if action.id == action_id then
+            return action
+        end
+    end
+    return nil
+end
+
+function math_clamp( value, low, high )
+    return math.min( math.max( value, low ), high )
+end
+
+function multiply_proj_dmg( proj_id, mtp )
+    local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
+    if proj_comp then
+        local old_dmg = ComponentGetValue2( proj_comp, "damage" )
+        ComponentSetValue2( proj_comp, "damage", old_dmg * mtp )
+
+        local old_expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
+        if exists( old_expl_dmg ) then
+            ComponentSetValue2( proj_comp, "config_explosion", "damage", old_expl_dmg * mtp )
+        end
+
+        -- TODO: do this for the other damage types as well
+        local old_slice_dmg = ComponentObjectGetValue2( proj_comp, "damage_by_type", "slice" )
+        if exists( old_slice_dmg ) then
+            ComponentObjectSetValue2( proj_comp, "damage_by_type", "slice", old_slice_dmg * mtp )
+        end
+
+        -- local damage_by_types = ComponentObjectGetMembers( proj_comp, "damage_by_type" )
+        -- if exists( damage_by_types ) then
+        --     local damage_by_types_fixed = {}
+        --     for type,_ in pairs( damage_by_types ) do
+        --         damage_by_types_fixed[type] = ComponentObjectGetValue2( proj_id, "damage_by_type", type )
+        --         GamePrint( "type count: " .. #damage_by_types_fixed )
+        --     end
+        --     for type,old_dmg in pairs( damage_by_types_fixed ) do
+        --         GamePrint( "type: " .. type )
+        --         if exists( old_dmg ) then
+        --             GamePrint( "old_dmg: " .. old_dmg )
+        --             ComponentObjectSetValue2( projectile, "damage_by_type", type, old_dmg * 2 )
+        --         end
+        --     end
+        -- end
+    end
 end
