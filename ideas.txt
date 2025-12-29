@@ -393,8 +393,35 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] carpet bomb-esque spell that, upon hitting an enemy, shoots a volley of projectiles in a cone behind it
 		[ ] Larpa Carpet
 
+[ ] giga drain changes
+		[ ] new vfx/sfx on no enemy hit (replacing chainsaw effect)
+		[ ] halve recoil
+		[ ] ragdoll_fx NORMAL when it hits
+		[ ] improve consistency with triggering damage and bubbles
 
+[ ] bolt catcher
+		[ ] return same projectile to enemy
+		[ ] increase heal OR remove limited uses to balance enemies more easily dying to their own projectiles
 
+[ ] scatter shot: modifier that causes a projectile to deal 0-50%(?) damage, but immediately shoot a copy at every nearby enemy 									(with the player as mWhoShot). the initial shot should have its explosion removed (e.g. magic missile).
+									^ how does Delayed Cast handle casting a full hand, rather than just the naked projectile?
+
+[ ] test glass shard and infatuating arrow larpa interactions
+
+[ ] greek letter nerf attempt
+		[ ] idea #1: disable casting at 0 uses, but make spells only lose a charge every 10 uses (e.g. black hole: 3 --> 30 uses)
+								 require defeating a late-game boss (harder than Ylialkemisti) to gain a perk that re-enables Greek letters to cast spells with 0 uses.
+		[ ] idea #2: remove Greek letter drops from Ylialkemisti. instead make it drop a new spell:
+								 [ ] other-type spell with 100 uses. if the next spell has limited uses, this spell loses its own uses to spare the affected spell's. consume more uses when used for spells with less uses:
+								 -1 for spells with 20+ charges
+								 -2 for spells with 10+ charges
+								 -3 for spells with 5+ charges
+								 -4 for spells with 3+ charges
+								 -5 for spells with 1+ charges
+
+[ ] portal in each Holy Mountain that allows you to teleport to the previous one, for a cost that scales with the HM tier
+
+[ ] option to disable the mana too low sfx while rapidfiring?
 
 
 

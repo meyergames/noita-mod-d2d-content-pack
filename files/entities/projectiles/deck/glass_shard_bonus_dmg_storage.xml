@@ -1,0 +1,15 @@
+<Entity tags="d2d_glass_shard_bonus_dmg_storage">
+	<LifetimeComponent
+		lifetime="6"
+	></LifetimeComponent>
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/projectiles/glass_shard_transfer_stored_dmg.lua"
+		execute_every_n_frame="1"
+		remove_after_executed="1"
+	></LuaComponent>
+
+	<InheritTransformComponent
+		use_root_parent="1"
+	></InheritTransformComponent>
+</Entity>

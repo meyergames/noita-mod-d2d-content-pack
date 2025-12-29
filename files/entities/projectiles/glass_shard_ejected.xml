@@ -1,5 +1,5 @@
 
-<Entity name="$projectile_default" tags="projectile_player" >
+<Entity name="$projectile_default" tags="projectile_player,d2d_glass_shard" >
 
   <Base file="data/entities/base_projectile.xml" >
     <VelocityComponent
@@ -69,6 +69,18 @@
       >
     </config_explosion>
   </ProjectileComponent>
+
+  <LuaComponent
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/glass_shard_nullify_and_cache_bonus_dmg.lua"
+    execute_every_n_frame="1"
+    remove_after_executed="1"
+  ></LuaComponent>
+
+  <LuaComponent
+    script_source_file="mods/D2DContentPack/files/scripts/projectiles/glass_shard_create_bonus_dmg_storage.lua"
+    execute_on_removed="1"
+    execute_every_n_frame="-1"
+  ></LuaComponent>
 
   <HitEffectComponent 
       effect_hit="LOAD_CHILD_ENTITY"

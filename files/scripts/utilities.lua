@@ -310,6 +310,26 @@ function raise_internal_int( entity_id, variable_name, delta )
 	end
 end
 
+-- custom variation that makes a variable if it doesn't exist yet
+function raise_internal_float( entity_id, variable_name, delta )
+	local variable_found = false
+	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	if ( components ~= nil ) then
+		for key,comp_id in pairs(components) do 
+			local var_name = ComponentGetValue2( comp_id, "name" )
+			local var_value = ComponentGetValue2( comp_id, "value_float" )
+			if( var_name == variable_name ) then
+				ComponentSetValue2( comp_id, "value_float", var_value + delta )
+				variable_found = true
+			end
+		end
+	end
+
+	if not variable_found then
+		addNewInternalVariable( entity_id, variable_name, "value_float", delta )
+	end
+end
+
 -- function to add new internal variables to an entity
 -- entity_id is the id of the entity that will receive a new internal variable
 -- variable_type is the type of variable being added, can be value_int, value_string or value_float

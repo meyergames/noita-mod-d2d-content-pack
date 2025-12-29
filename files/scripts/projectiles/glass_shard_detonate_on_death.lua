@@ -15,10 +15,12 @@ function death( damage_type_bit_field, damage_message, entity_thats_responsible,
 
 		-- shoot shards around
 		for i = 1, stacks do
-		    SetRandomSeed( x, y+i )
-		    local rdir_x, rdir_y = vec_rotate( 0, 1, Randomf( -math.pi, math.pi ) )
-		    local proj_id = EntityLoad( "mods/D2DContentPack/files/entities/projectiles/glass_shard_ejected.xml", x, y )
-			GameShootProjectile( nil, x, y, x+rdir_x, y+rdir_y, proj_id )
+			if Random( 1, 4 ) ~= 1 then
+		    	SetRandomSeed( x, y+i )
+			    local rdir_x, rdir_y = vec_rotate( 0, 1, Randomf( -math.pi, math.pi ) )
+			    local proj_id = EntityLoad( "mods/D2DContentPack/files/entities/projectiles/glass_shard_ejected.xml", x, y )
+				GameShootProjectile( nil, x, y, x+rdir_x, y+rdir_y, proj_id )
+			end
 			-- GameShootProjectile( owner, x, y, x+rdir_x, y+rdir_y, EntityLoad( "data/entities/projectiles/deck/light_bullet.xml", x, y ) )
 			-- TODO: make the shooter the source of the projectile, somehow?
 		end
