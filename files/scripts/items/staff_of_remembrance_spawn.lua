@@ -4,9 +4,15 @@ local entity_id    = GetUpdatedEntityID()
 local pos_x, pos_y = EntityGetTransform( entity_id )
 
 function item_pickup( entity_item, entity_who_picked, name )
+	local ghost = EntityLoad( "mods/D2DContentPack/files/entities/animals/ghost_of_memories.xml", pos_x, pos_y )
+	
+	local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
-
-	EntityLoad( "mods/D2DContentPack/files/entities/animals/ghost_of_memories.xml", pos_x, pos_y )
+	local shockwave = EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/shockwave.xml", pos_x, pos_y - 8 )
+	local proj_comp = EntityGetFirstComponent( shockwave, "ProjectileComponent" )
+	if proj_comp then
+		ComponentObjectSetValue2( proj_comp, "config_explosion", "dont_damage_this", ghost )
+	end
 
 
 	-- local p_dmg_comp = EntityGetFirstComponent( entity_who_picked, "DamageModelComponent" )

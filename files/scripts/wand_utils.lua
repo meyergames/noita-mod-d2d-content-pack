@@ -446,7 +446,7 @@ function init_wand_of_memories()
     wand.castDelay = 3
     wand.rechargeTime = 20
     wand.manaMax = 255
-    wand.manaChargeSpeed = 159
+    wand.manaChargeSpeed = 187
     wand.capacity = 5
     wand.spread = 0
 
@@ -465,7 +465,7 @@ function init_wand_of_memories()
     	-- define the wand's initial spells
     	-- wand:AddSpells( "I_SHAPE", "TELEPORT_PROJECTILE_SHORT", "D2D_GHOST_TRIGGER", "CIRCLE_WATER" )
     	-- wand:AddSpells( "I_SHAPE", "TELEPORT_PROJECTILE_SHORT", "LIGHTNING" )
-    	wand:AddSpells( "LARPA_DEATH", "DAMAGE", "LIGHT", "GLOWING_BOLT" )
+    	wand:AddSpells( "LARPA_DEATH", "LIGHT", "GLOWING_BOLT" )
     end
 
     wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/remembrance.png", 10, 4, 15, 0 )

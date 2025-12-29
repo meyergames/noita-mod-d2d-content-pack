@@ -536,14 +536,14 @@ d2d_actions = {
         inject_after        = { "CHAINSAW" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/giga_drain.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4,6", -- spawning it in The Vault does not make sense
-		spawn_probability   = "0.5,0.8,1,1.1,1,0.5",
+		spawn_level         = "0,1,2,3,4", -- spawning it in The Vault does not make sense
+		spawn_probability   = "0.5,0.8,1,1.1,1",
 	    price               = 150,
 	    mana                = 60,
 	    action              = function()
 		                        c.fire_rate_wait = current_reload_time + 8
 		                        current_reload_time = current_reload_time + 20
-								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 100
+								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 50
 
                                 add_projectile( "mods/D2DContentPack/files/entities/projectiles/giga_drain_bullet.xml" )
 	                        end,
@@ -955,6 +955,56 @@ d2d_actions = {
 	                        end,
     },
 
+    -- {
+	--     id                  = "D2D_COOKIE",
+	--     name 		        = "Cookie",
+	--     description         = "Scrumptious! Restores 10% of your missing health (max. 20)",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/cookie.png",
+	--     type 		        = ACTION_TYPE_UTILITY,
+	-- 	spawn_level         = "0,1,2,3",
+	-- 	spawn_probability   = "1,0.8,0.6,0.4",
+	--     price               = 250,
+	--     mana                = 20,
+	--     max_uses			= 5,
+	--     never_unlimited		= true,
+	--     action              = function()
+	-- 							c.fire_rate_wait = c.fire_rate_wait + 60
+
+    --                             if reflecting then return end
+    --                             dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
+	-- 							-- heal the player
+	-- 							local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
+	-- 							local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+	-- 							local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
+	-- 							ComponentSetValue2( p_dcomp, "hp", p_hp + math.min( ( p_max_hp - p_hp ) * 0.1, 0.8 ) )
+
+	-- 							-- play sound effect
+	-- 							local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	-- 							GamePlaySound( "data/audio/Desktop/animals.bank", "animals/generic/attack_bite", x, y )
+	-- 							GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+
+	-- 							-- gfx effect
+	-- 							local entity_fx = EntityLoad( "data/entities/particles/heal_effect.xml", x, y )
+	-- 							EntityAddChild( GetUpdatedEntityID(), entity_fx )
+
+	-- 							-- fill the player's stomach a bit
+	-- 							local ing_comp = EntityGetFirstComponent( GetUpdatedEntityID(), "IngestionComponent" )
+	-- 							if exists( ing_comp ) then
+	-- 								local old_size = ComponentGetValue2( ing_comp, "ingestion_size" )
+	-- 								ComponentSetValue2( ing_comp, "ingestion_size", old_size + 375 )
+	-- 							end
+
+	-- 							-- if there are no charges left, destroy the first copy of Cookie in hand
+	-- 							for i,card in ipairs( hand ) do
+	-- 								if card.id == "D2D_COOKIE" and card.uses_remaining == 1 then
+	-- 									local EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
+	-- 									EZWand.GetHeldWand():RemoveSpells( "D2D_COOKIE" )
+	-- 									break
+	-- 								end
+	-- 							end
+	--                         end,
+    -- },
 
     {
 	    id                  = "D2D_SPRAY_AND_PRAY",

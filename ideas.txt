@@ -399,8 +399,8 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 		[ ] ragdoll_fx NORMAL when it hits
 		[ ] improve consistency with triggering damage and bubbles
 
-[ ] bolt catcher
-		[ ] return same projectile to enemy
+[>] bolt catcher
+		[x] return same projectile to enemy
 		[ ] increase heal OR remove limited uses to balance enemies more easily dying to their own projectiles
 
 [ ] scatter shot: modifier that causes a projectile to deal 0-50%(?) damage, but immediately shoot a copy at every nearby enemy 									(with the player as mWhoShot). the initial shot should have its explosion removed (e.g. magic missile).
