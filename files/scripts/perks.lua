@@ -16,7 +16,10 @@ d2d_perks = {
 			-- TODO: check for heart_fullhp_temple.xml instead of temple_statue_01.xml,
 			-- to make it work for the Laboratory on the main path.
 			local x, y = EntityGetTransform( entity_perk_item )
-			if y < 9250 then
+
+			local biome_name = BiomeMapGetName( x, y )
+			local is_in_valid_biome = string.find( biome_name, "holy" ) or string.find( biome_name, "EMPTY" )
+			if y < 9250 and is_in_valid_biome then
 	            LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_time_trial.xml" )
 	        else
 				-- briefly set perk destroy chance to 0, so other perks remain
@@ -33,7 +36,7 @@ d2d_perks = {
 				} )
 				
 				perk_spawn_random( x, y, false )
-	        	GamePrintImportant( "This perk has been rerolled", "There's no valid finish line for Time Trial below this temple." )
+	        	GamePrintImportant( "This perk has been rerolled", "Time Trial only works when picked up from a Holy Mountain." )
 	        end
 		end,
 	},
@@ -233,6 +236,45 @@ d2d_perks = {
 				execute_every_n_frame="15",
 			} )
         end,
+	},
+
+	{
+		id = "D2D_GLASS_FIST",
+		ui_name = "$perk_d2d_glass_fist_name",
+		ui_description = "$perk_d2d_glass_fist_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_fist_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_fist.png",
+		stackable = STACKABLE_YES,
+		-- max_in_perk_pool = 3,
+		-- stackable_maximum = 3,
+		one_off_effect = false,
+		usable_by_enemies = true,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+        	set_internal_bool( entity_who_picked, "d2d_glass_fist_boost_enabled", true )
+			local ui_icon_id = get_child_with_name( entity_who_picked, "glass_fist_overhead_icon.xml" )
+			if not ui_icon_id then
+            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/status_effects/glass_fist_overhead_icon.xml" )
+			end
+
+			if get_perk_pickup_count( "D2D_GLASS_FIST" ) == 1 then
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{
+					_tags="perk_component,d2d_perk_glass_fist",
+					script_shot="mods/D2DContentPack/files/scripts/perks/effect_glass_fist_on_shot.lua",
+					execute_every_n_frame="-1",
+				} )
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{
+					_tags="perk_component,d2d_perk_glass_fist",
+					script_damage_received="mods/D2DContentPack/files/scripts/perks/effect_glass_fist_on_damage_received.lua",
+					execute_every_n_frame="-1",
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	remove_lua( entity_who_picked, "d2d_perk_glass_fist" )
+        end
 	},
 
 	{
@@ -626,21 +668,6 @@ if ModIsEnabled( "Apotheosis" ) then
 				-- okay maybe a little function
 	        end,
 		},
-
-		{
-			id = "D2D_CAT_RADAR",
-			ui_name = "$perk_d2d_cat_radar_name",
-			ui_description = "$perk_d2d_cat_radar_desc",
-			ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/cat_radar_016.png",
-			perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/cat_radar.png",
-			stackable = STACKABLE_NO,
-			one_off_effect = false,
-			usable_by_enemies = false,
-			not_in_default_perk_pool = true,
-			func = function( entity_perk_item, entity_who_picked, item_name )
-				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_cat_radar.xml" )
-	        end,
-		}
 	}
 end
 
@@ -733,6 +760,10 @@ d2d_curses = {
 	        end
         end,
 	},
+
+	-- TODO: Curse that somehow counters infinite healing (maybe lose max hp when you are healed above max?)
+
+
 
 	-- {
 	-- 	id = "D2D_CURSE_LONELINESS",

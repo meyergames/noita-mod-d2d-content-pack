@@ -1,0 +1,19 @@
+<Entity tags="perk_entity,d2d_perk_glass_fist">
+
+    <InheritTransformComponent />
+
+    <GameEffectComponent
+        effect="CUSTOM"
+        custom_effect_id="D2D_GLASS_HEART"
+    ></GameEffectComponent>
+
+    <UIIconComponent
+        icon_sprite_file="mods/D2DContentPack/files/gfx/ui_gfx/status_effects/glass_fist_overhead.png"
+        name="Glass Fist Boost"
+        description="Your damage is greatly increased - until you take damage."
+        display_in_hud="true"
+        display_above_head="true"
+        is_perk="false"
+    ></UIIconComponent>
+
+</Entity>

@@ -7,11 +7,6 @@
         custom_effect_id="D2D_GLASS_HEART"
     ></GameEffectComponent>
 
-    <!-- <LuaComponent
-        script_damage_received="mods/D2DContentPack/files/scripts/perks/effect_balloon_heart_on_damage_received.lua"
-        execute_every_n_frame="-1"
-    ></LuaComponent> this doesn't work; the script must be on the player directly -->
-
     <UIIconComponent
         icon_sprite_file="mods/D2DContentPack/files/gfx/ui_gfx/status_effects/glass_heart_overhead.png"
         name="Glass Heart"
