@@ -1,0 +1,25 @@
+<Entity >
+
+	<InheritTransformComponent>
+    </InheritTransformComponent>
+	
+	<VariableStorageComponent
+		_tags="effect_curse_wither_type"
+		value_string="healing"
+		>
+	</VariableStorageComponent>
+
+	<LuaComponent
+		execute_on_added="0"
+		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_curse_heal_block_immunity_end.lua"
+		execute_every_n_frame="5"
+		>
+	</LuaComponent>
+
+    <GameEffectComponent
+    	effect="NONE"
+    	frames="8"
+    >
+	</GameEffectComponent >
+
+</Entity>

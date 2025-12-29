@@ -1,6 +1,6 @@
 ,en,ru,pt-br,es-es,de,fr-fr,it,pl,zh-cn,jp,ko,,NOTES – use \n for newline,max length
 perk_d2d_time_trial_name,Time Trial,,,,,,,,,,,,,
-perk_d2d_time_trial_desc,Reach the next unvisited Holy Mountain within 60 seconds to be greatly rewarded.\nObtain a random Curse if you lose.,,,,,,,,,,,,,
+perk_d2d_time_trial_desc,Reach the next unvisited Holy Mountain within 60 seconds for a special reward.\nObtain a random Curse if you lose.,,,,,,,,,,,,,
 perk_d2d_master_of_explosions_name,Master Of Bombs,,,,,,,,,,,,,
 perk_d2d_master_of_explosions_desc,Become infused with the power of explosions.\nOnly works if you are NOT immune to explosions.,,,,,,,,,,,,,
 perk_d2d_master_of_lightning_name,Master Of Lightning,,,,,,,,,,,,,
@@ -199,3 +199,7 @@ spell_d2d_second_wind_desc,"When the next spell runs out of uses, this spell is 
 perk_d2d_glass_fist_name,Glass Fist,,,,,,,,,,,,,
 perk_d2d_glass_fist_desc,"After picking up a temple heart, deal double damage until you lose health.",,,,,,,,,,,,,
 ix_d2d_pull_staff,Press $0 to pull out...?,,,,,,,,,,,,,
+perk_d2d_curse_heal_block_name,Heal Block,,,,,,,,,,,,,
+perk_d2d_curse_heal_block_desc,"Upon taking enemy damage, you cannot heal for 5 seconds.",,,,,,,,,,,,,
+status_d2d_heal_block_name,Heal Block,,,,,,,,,,,,,
+status_d2d_heal_block_desc,You cannot heal.,,,,,,,,,,,,,

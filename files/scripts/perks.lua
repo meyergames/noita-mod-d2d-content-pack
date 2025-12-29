@@ -900,6 +900,37 @@ d2d_curses = {
         end,
 	},
 
+	{
+		id = "D2D_CURSE_HEAL_BLOCK",
+		ui_name = "$perk_d2d_curse_heal_block_name",
+		ui_description = "$perk_d2d_curse_heal_block_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/heal_block_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/heal_block.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if reflecting then return end
+			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+
+			-- LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_heal_block.xml" )
+			if pickup_count <= 1 then
+				EntityAddComponent2( entity_who_picked, "LuaComponent", 
+				{
+					_tags = "perk_component,d2d_curse_heal_block",
+					script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_curse_heal_block_on_damage.lua",
+					execute_every_n_frame = -1,
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	remove_lua( entity_who_picked, "d2d_curse_heal_block" )
+        end
+	},
+
 	-- fall damage
 
 	-- {
