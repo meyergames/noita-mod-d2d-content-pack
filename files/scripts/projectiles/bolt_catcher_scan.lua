@@ -12,6 +12,7 @@ for _,proj_id in pairs( EntityGetInRadiusWithTag( x, y, 20, "projectile" ) ) do
 
 	-- only heal the player if the projectile isn't theirs
 	if proj_source ~= get_player() then
+
 		-- determine heal ratio based on the projectile's velocity
 		local proj_velocity = ComponentGetValue2( proj_comp, "speed_min" ) -- default value, just in case
 	    local vcomp = EntityGetFirstComponentIncludingDisabled( proj_id, "VelocityComponent" )
@@ -27,6 +28,10 @@ for _,proj_id in pairs( EntityGetInRadiusWithTag( x, y, 20, "projectile" ) ) do
 	    ComponentSetValue( p_dcomp, "hp", math.min( p_hp + ( proj_dmg * heal_ratio ), p_max_hp ) )
 	    GamePlaySound( "data/audio/Desktop/projectiles.bank", "projectiles/glowing_laser/destroy", proj_x, proj_y )
 		EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/bolt_catcher_heal.xml", proj_x, proj_y )
+
+		-- return the projectile to caster
+		local sx, sy = EntityGetTransform( proj_source )
+    	GameShootProjectile( get_player(), x, y, sx, sy, proj_id )
 	end
 
     -- "disable" the projectile's explosion
@@ -35,6 +40,6 @@ for _,proj_id in pairs( EntityGetInRadiusWithTag( x, y, 20, "projectile" ) ) do
     ComponentObjectSetValue2( proj_comp, "config_explosion", "damage", 0 )
     ComponentObjectSetValue2( proj_comp, "config_explosion", "damage_mortals", 0 )
 
-    -- destroy the projectile
-	EntityKill( proj_id )
+    -- return the projectile
+	-- EntityKill( proj_id )
 end
