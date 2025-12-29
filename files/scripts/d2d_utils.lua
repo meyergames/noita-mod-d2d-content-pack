@@ -92,9 +92,12 @@ function multiply_proj_dmg( proj_id, mtp )
         end
 
         -- TODO: do this for the other damage types as well
-        local old_slice_dmg = ComponentObjectGetValue2( proj_comp, "damage_by_type", "slice" )
-        if exists( old_slice_dmg ) then
-            ComponentObjectSetValue2( proj_comp, "damage_by_type", "slice", old_slice_dmg * mtp )
+        local damage_types = { "melee", "projectile", "explosion", "electricity", "fire", "drill", "slice", "ice", "healing", "physics_hit", "radioactive", "poison", "curse", "holy" }
+        for i,dmg_type in ipairs( damage_types ) do
+            local old_dmg = ComponentObjectGetValue2( proj_comp, "damage_by_type", dmg_type )
+            if exists( old_dmg ) then
+                ComponentObjectSetValue2( proj_comp, "damage_by_type", dmg_type, old_dmg * mtp )
+            end 
         end
 
         -- local damage_by_types = ComponentObjectGetMembers( proj_comp, "damage_by_type" )
