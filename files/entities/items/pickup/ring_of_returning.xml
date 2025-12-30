@@ -1,0 +1,169 @@
+<Entity name="unknown" tags="item_physics,spell_gem" >
+
+  <!-- physical presence -->
+  <UIInfoComponent
+    _tags="enabled_in_world"
+    name="$item_d2d_ring_of_returning_name">
+  </UIInfoComponent>
+  
+  <PhysicsBodyComponent 
+    _tags="enabled_in_world"
+    uid="1" 
+    allow_sleep="1" 
+    angular_damping="0" 
+    fixed_rotation="0" 
+    is_bullet="1" 
+    linear_damping="0"
+    auto_clean="0"
+    on_death_leave_physics_body="0"
+    hax_fix_going_through_ground="1"
+  ></PhysicsBodyComponent>
+  
+  <PhysicsImageShapeComponent 
+    body_id="1"
+    centered="1"
+    image_file="mods/D2DContentPack/files/gfx/items_gfx/world/ring_of_returning.png"
+    material="gold_box2d"
+  ></PhysicsImageShapeComponent>
+  
+  <PhysicsThrowableComponent
+    max_throw_speed="180"
+    throw_force_coeff="1.5"
+  ></PhysicsThrowableComponent>
+
+  <ProjectileComponent
+    _tags="enabled_in_world"
+    lifetime="-1"
+    penetrate_entities="1"
+  ></ProjectileComponent>
+
+  <VelocityComponent
+    _tags="enabled_in_world"
+  ></VelocityComponent>
+
+  <DamageModelComponent 
+    _tags="enabled_in_world"
+    air_needed="0" 
+    blood_material="" 
+    drop_items_on_death="0" 
+    falling_damages="0" 
+    fire_damage_amount="0.2" 
+    fire_probability_of_ignition="0"
+    critical_damage_resistance="1"
+    hp="0.5"
+    is_on_fire="0" 
+    materials_create_messages="0" 
+    materials_damage="1" 
+    materials_that_damage="lava"
+    materials_how_much_damage="0.001"
+    ragdoll_filenames_file=""
+    ragdoll_material=""
+  ></DamageModelComponent>
+
+  <ExplodeOnDamageComponent
+    _tags="enabled_in_world"
+    explode_on_death_percent="1"
+    explode_on_damage_percent="0"
+    physics_body_destruction_required="0.51"
+    physics_body_modified_death_probability="1" >
+    <config_explosion
+      never_cache="0"
+      damage="0"
+      camera_shake="10" 
+      explosion_radius="3" 
+      explosion_sprite="" 
+      explosion_sprite_lifetime="10" 
+      hole_destroy_liquid="0" 
+      hole_enabled="0" 
+      ray_energy="100000"
+      particle_effect="0" 
+      damage_mortals="1" 
+      physics_explosion_power.max="5" 
+      shake_vegetation="1" 
+      sparks_count_min="10" 
+      sparks_count_max="20" 
+      sparks_enabled="1" 
+    spark_material="glass"
+      stains_enabled="1" 
+      stains_radius="0" >
+    </config_explosion>
+  </ExplodeOnDamageComponent>
+
+  <PhysicsBodyCollisionDamageComponent 
+    _tags="enabled_in_world" 
+    speed_threshold="120.0"
+  ></PhysicsBodyCollisionDamageComponent>
+
+  
+  <!-- item -->
+
+  <ItemComponent
+    _tags="enabled_in_world"
+    item_name="$item_d2d_ring_of_returning_name"
+    always_use_item_name_in_ui="true"
+    max_child_items="0"
+    is_pickable="1"
+    is_equipable_forced="1"
+    ui_sprite="mods/D2DContentPack/files/gfx/ui_gfx/items/ring_of_returning.png"
+    ui_description="$item_d2d_ring_of_returning_desc"
+    preferred_inventory="QUICK">
+  </ItemComponent>
+
+  <HitboxComponent 
+    _tags="enabled_in_world"
+    aabb_min_x="-3" 
+    aabb_max_x="3" 
+    aabb_min_y="-5" 
+    aabb_max_y="0" >
+  </HitboxComponent>
+  
+  <LuaComponent
+    _tags="enabled_in_world"
+    script_death="mods/D2DContentPack/files/scripts/items/ring_of_returning_create_portal.lua" >
+  </LuaComponent>
+
+  <!-- particle glitter -->
+  <SpriteParticleEmitterComponent
+    _tags="enabled_in_world"
+    sprite_file="data/particles/shine_08.xml"
+    lifetime="0.2"
+    randomize_lifetime.min="0.1"
+    randomize_lifetime.max="0.8"
+    emission_interval_min_frames="50"
+    emission_interval_max_frames="250"
+    count_min="1"
+    count_max="1"
+    additive="1"
+    emissive="0"
+    scale.x="1.0"
+    scale.y="1.0"
+    sprite_random_rotation="1"
+    randomize_scale.min_x="-0.1" 
+    randomize_scale.max_x="0.1" 
+    randomize_scale.min_y="-0.1" 
+    randomize_scale.max_y="0.1" 
+    randomize_position.min_y="-3" 
+    randomize_position.max_y="3"
+    randomize_position.min_x="-3"  
+    randomize_position.max_x="3"
+    velocity_slowdown="6"
+    randomize_animation_speed_coeff.min="0.667"  
+    randomize_animation_speed_coeff.max="1.0" 
+    >
+  </SpriteParticleEmitterComponent>
+
+  <AbilityComponent
+    ui_name="$item_d2d_ring_of_returning_name"
+    entity_file="mods/D2DContentPack/files/entities/misc/portal_ring_of_returning.xml"
+    throw_as_item="1"
+  ><gun_config
+    deck_capacity="0"
+  ></gun_config>
+  </AbilityComponent>
+
+  <!-- <Entity>
+    <Base file="mods/D2DContentPack/files/entities/misc/ally_protection_shield.xml">
+    </Base>
+  </Entity> -->
+
+</Entity>

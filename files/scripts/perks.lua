@@ -1,6 +1,23 @@
 d2d_perks = {
 
 	{
+		id = "D2D_RING_OF_RETURNING",
+		ui_name = "$perk_d2d_ring_of_returning_name",
+		ui_description = "$perk_d2d_ring_of_returning_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ring_of_returning_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ring_of_returning.png",
+		stackable = STACKABLE_YES,
+		-- max_in_perk_pool = 3,
+		-- stackable_maximum = 3,
+		one_off_effect = true,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			local px, py = EntityGetTransform( entity_who_picked )
+    		EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/ring_of_returning.xml", px, py )
+        end,
+	},
+
+	{
 		id = "D2D_TIME_TRIAL",
 		ui_name = "$perk_d2d_time_trial_name",
 		ui_description = "$perk_d2d_time_trial_desc",
@@ -39,6 +56,33 @@ d2d_perks = {
 	        	GamePrintImportant( "This perk has been rerolled", "Time Trial only works when picked up from a Holy Mountain." )
 	        end
 		end,
+	},
+
+	{
+		id = "D2D_WARP_RUSH",
+		ui_name = "$perk_d2d_warp_rush_name",
+		ui_description = "$perk_d2d_warp_rush_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/warp_rush_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/warp_rush.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+        -- spawn_requires_flag	= "d2d_time_trial_bronze",
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if ( pickup_count <= 1 ) then
+            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_warp_rush.xml" )
+
+            	dofile_once( "data/scripts/lib/utilities.lua" )
+				multiply_move_speed( entity_who_picked, "d2d_warp_rush", 1.0 )
+        	end
+		end,
+		func_remove = function( entity_who_picked )
+			local effect_id = get_child_with_name( entity_who_picked, "effect_warp_rush.xml" )
+			if effect_id and effect_id ~= 0 then
+				EntityKill( effect_id )
+			end
+		end
 	},
 
 	{
@@ -96,45 +140,43 @@ d2d_perks = {
 	},
 
 	{
-		id = "D2D_WARP_RUSH",
-		ui_name = "$perk_d2d_warp_rush_name",
-		ui_description = "$perk_d2d_warp_rush_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/warp_rush_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/warp_rush.png",
+		id = "D2D_GLASS_FIST",
+		ui_name = "$perk_d2d_glass_fist_name",
+		ui_description = "$perk_d2d_glass_fist_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_fist_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_fist.png",
 		stackable = STACKABLE_YES,
+		-- max_in_perk_pool = 3,
+		-- stackable_maximum = 3,
 		one_off_effect = false,
-		usable_by_enemies = false,
+		usable_by_enemies = true,
 		not_in_default_perk_pool = true,
-        -- spawn_requires_flag	= "d2d_time_trial_bronze",
-		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
-			if ( pickup_count <= 1 ) then
-            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_warp_rush.xml" )
-
-            	dofile_once( "data/scripts/lib/utilities.lua" )
-				multiply_move_speed( entity_who_picked, "d2d_warp_rush", 1.0 )
-        	end
-		end,
-		func_remove = function( entity_who_picked )
-			local effect_id = get_child_with_name( entity_who_picked, "effect_warp_rush.xml" )
-			if effect_id and effect_id ~= 0 then
-				EntityKill( effect_id )
+		func = function( entity_perk_item, entity_who_picked, item_name )
+        	set_internal_bool( entity_who_picked, "d2d_glass_fist_boost_enabled", true )
+			local ui_icon_id = get_child_with_name( entity_who_picked, "glass_fist_overhead_icon.xml" )
+			if not ui_icon_id then
+            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/status_effects/glass_fist_overhead_icon.xml" )
 			end
-		end
-	},
 
-	-- {
-	-- 	id = "D2D_RING_OF_LIFE",
-	-- 	ui_name = "$perk_d2d_ring_of_life_name",
-	-- 	ui_description = "$perk_d2d_ring_of_life_desc",
-	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ring_of_life_016.png",
-	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ring_of_life.png",
-	-- 	stackable = STACKABLE_NO,
-	-- 	one_off_effect = true,
-	-- 	usable_by_enemies = false,
-	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
-    --         LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_ring_of_life.xml" )
-    --     end,
-	-- },
+			if get_perk_pickup_count( "D2D_GLASS_FIST" ) == 1 then
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{
+					_tags="perk_component,d2d_perk_glass_fist",
+					script_shot="mods/D2DContentPack/files/scripts/perks/effect_glass_fist_on_shot.lua",
+					execute_every_n_frame="-1",
+				} )
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{
+					_tags="perk_component,d2d_perk_glass_fist",
+					script_damage_received="mods/D2DContentPack/files/scripts/perks/effect_glass_fist_on_damage_received.lua",
+					execute_every_n_frame="-1",
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	remove_lua( entity_who_picked, "d2d_perk_glass_fist" )
+        end
+	},
 
 	{
 		id = "D2D_EVOLVING_WANDS",
@@ -236,45 +278,6 @@ d2d_perks = {
 				execute_every_n_frame="15",
 			} )
         end,
-	},
-
-	{
-		id = "D2D_GLASS_FIST",
-		ui_name = "$perk_d2d_glass_fist_name",
-		ui_description = "$perk_d2d_glass_fist_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_fist_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/glass_fist.png",
-		stackable = STACKABLE_YES,
-		-- max_in_perk_pool = 3,
-		-- stackable_maximum = 3,
-		one_off_effect = false,
-		usable_by_enemies = true,
-		not_in_default_perk_pool = true,
-		func = function( entity_perk_item, entity_who_picked, item_name )
-        	set_internal_bool( entity_who_picked, "d2d_glass_fist_boost_enabled", true )
-			local ui_icon_id = get_child_with_name( entity_who_picked, "glass_fist_overhead_icon.xml" )
-			if not ui_icon_id then
-            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/status_effects/glass_fist_overhead_icon.xml" )
-			end
-
-			if get_perk_pickup_count( "D2D_GLASS_FIST" ) == 1 then
-				EntityAddComponent( entity_who_picked, "LuaComponent", 
-				{
-					_tags="perk_component,d2d_perk_glass_fist",
-					script_shot="mods/D2DContentPack/files/scripts/perks/effect_glass_fist_on_shot.lua",
-					execute_every_n_frame="-1",
-				} )
-				EntityAddComponent( entity_who_picked, "LuaComponent", 
-				{
-					_tags="perk_component,d2d_perk_glass_fist",
-					script_damage_received="mods/D2DContentPack/files/scripts/perks/effect_glass_fist_on_damage_received.lua",
-					execute_every_n_frame="-1",
-				} )
-			end
-        end,
-        func_remove = function( entity_who_picked )
-        	remove_lua( entity_who_picked, "d2d_perk_glass_fist" )
-        end
 	},
 
 	{

@@ -4,5 +4,6 @@ local proj_id = GetUpdatedEntityID()
 
 local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
 if proj_comp then
+	ComponentSetValue2( proj_comp, "on_collision_die", true )
 	ComponentSetValue2( proj_comp, "penetrate_entities", false )
 end

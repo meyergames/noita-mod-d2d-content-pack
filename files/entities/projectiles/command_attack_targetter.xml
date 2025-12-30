@@ -31,7 +31,6 @@
 		on_collision_die="1"
 		lifetime="100" 
 		knockback_force="1.0"
-		muzzle_flash_file="data/entities/particles/muzzle_flashes/apotheosis/muzzle_flash_magic_launcher_red.xml"
 		shoot_light_flash_r="235"
 		shoot_light_flash_g="70"
 		shoot_light_flash_b="70"
