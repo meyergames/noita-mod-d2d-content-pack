@@ -409,22 +409,26 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] test glass shard and infatuating arrow larpa interactions
 
 [ ] greek letter nerf attempt
-		[ ] idea #1: disable casting at 0 uses, but make spells only lose a charge every 10 uses (e.g. black hole: 3 --> 30 uses)
-								 require defeating a late-game boss (harder than Ylialkemisti) to gain a perk that re-enables Greek letters to cast spells with 0 uses.
-		[ ] idea #2: remove Greek letter drops from Ylialkemisti. instead make it drop a new spell:
+		[~] idea #1: disable casting at 0 uses, but make spells only lose a charge every 10 uses (e.g. black hole: 3 --> 30 uses)
+								 require defeating a late-game boss (harder than Ylialkemisti) to gain a perk that re-enables Greek letters to cast spells with 0 uses. <-- added in the form of Recycle+
+		[-] idea #2: remove Greek letter drops from Ylialkemisti. instead make it drop a new spell:
 								 [ ] other-type spell with 100 uses. if the next spell has limited uses, this spell loses its own uses to spare the affected spell's. consume more uses when used for spells with less uses:
 								 -1 for spells with 20+ charges
 								 -2 for spells with 10+ charges
 								 -3 for spells with 5+ charges
 								 -4 for spells with 3+ charges
 								 -5 for spells with 1+ charges
+								 		^ too convoluted; Second Wind will do the trick (for now)
 
 [ ] portal in each Holy Mountain that allows you to teleport to the previous one, for a cost that scales with the HM tier
+		[ ] could be placed above the perk altar
+		[ ] one-off perk that spawns a singular portal to the previous HM?
 
 [ ] option to disable the mana too low sfx while rapidfiring?
 
 [ ] shedinja-like enemy that has 1 hp and resistances against everything except one random damage_type weakness
 
+[ ] glass shard splinters not shooting when the damage kills an enemy might be due to the corpse blocking the projectiles
 
 
 

@@ -1190,6 +1190,8 @@ d2d_actions = {
 		spawn_probability   = "0.3,0.5,0.4,0.3,0.2",
 		price               = 200,
 		mana                = 0,
+		-- max_uses			= 1,
+		-- custom_uses_logic	= true,
 		action 		        = function()
 								draw_actions( 1, true )
 
@@ -1197,21 +1199,21 @@ d2d_actions = {
 								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 								if #hand >= 2 then
-									local spell_data = nil
+									local next_limited_use_spell = nil
 									for i,card in ipairs( hand ) do
 										local _data = get_actions_lua_data( card.id )
 										if _data.max_uses and _data.max_uses > -1 then
-											spell_data = card
+											next_limited_use_spell = card
 											break
 										end
 									end
 
 									-- if the next spell is limited-use, refill it
-									if spell_data and spell_data.uses_remaining == 1 then
-										local action_lua_data = get_actions_lua_data( spell_data.id )
+									if next_limited_use_spell and next_limited_use_spell.uses_remaining == 1 then
+										local action_lua_data = get_actions_lua_data( next_limited_use_spell.id )
 
 										local x, y = EntityGetTransform( GetUpdatedEntityID() )
-										spell_data.uses_remaining = action_lua_data.max_uses + 1
+										next_limited_use_spell.uses_remaining = action_lua_data.max_uses + 1
 
 										-- ...then destroy this spell as a sacrifice
 										local EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
