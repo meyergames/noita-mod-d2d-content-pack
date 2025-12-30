@@ -423,6 +423,10 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] option to disable the mana too low sfx while rapidfiring?
 
+[ ] shedinja-like enemy that has 1 hp and resistances against everything except one random damage_type weakness
+
+
+
 
 
 CROSS-MOD IDEAS

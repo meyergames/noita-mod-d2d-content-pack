@@ -8,7 +8,7 @@ local biome_name = BiomeMapGetName( px, py )
 
 function try_trigger_recent_update_message()
     if GameHasFlagRun( "d2d_poi_recent_update_message_displayed" ) then return end
-    if not is_within_bounds( entity_id, -165, 115, 6400, 6600 ) then return end
+    if not is_within_bounds( entity_id, 40, 400, 6640, 6800 ) then return end
 
     GameAddFlagRun( "d2d_poi_recent_update_message_displayed" )
 
@@ -60,6 +60,16 @@ function try_spawn_ancient_lurker()
     GameAddFlagRun( "d2d_poi_spawned_ancient_lurker" )
 end
 
+function try_spawn_staff_of_finality()
+    if GameHasFlagRun( "d2d_poi_spawned_staff_of_finality" ) then return end
+    if not is_within_bounds( entity_id, 6800, 7900, -5400, -4500 ) then return end
+
+    EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 7380, -5080 )
+    GameAddFlagRun( "d2d_poi_spawned_staff_of_finality" )
+end
+
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
+try_spawn_staff_of_finality()

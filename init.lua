@@ -25,6 +25,7 @@ end
 
 function OnModPostInit()
     ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/D2DContentPack/files/scripts/perks.lua")
+    -- ModLuaFileAppend("data/scripts/gun/procedural/starting_wand.lua", "mods/D2DContentPack/files/scripts/items/wands/starting_wand_append.lua")
 end
 
 function OnPlayerSpawned( player )
@@ -127,7 +128,8 @@ function OnPlayerSpawned( player )
     -- local x, y = EntityGetTransform( get_player() )
     -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/spell_gem.xml", x + 20, y + 40 )
 
-    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_remembrance_stuck.xml", 230, -109 )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 230, -109 )
+    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_remembrance_stuck.xml", 180, -109 )
 
     -- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
     -- GamePrintDelayed( "test 1", 240 )

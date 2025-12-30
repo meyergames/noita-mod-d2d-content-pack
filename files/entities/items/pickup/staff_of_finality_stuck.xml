@@ -7,8 +7,7 @@
 	</SimplePhysicsComponent>
 	
 	<UIInfoComponent
-		name="$item_d2d_staff_of_remembrance"
-		>
+		name="$item_d2d_staff_of_finality">
 	</UIInfoComponent>
 
 	<InteractableComponent
@@ -16,7 +15,7 @@
 	</InteractableComponent>
 
 	<LuaComponent 
-		script_interacting="mods/D2DContentPack/files/scripts/items/wands/staff_spawn_remembrance.lua"
+		script_interacting="mods/D2DContentPack/files/scripts/items/wands/staff_spawn_finality.lua"
       	execute_every_n_frame="-1"
 	></LuaComponent>
 
@@ -33,7 +32,7 @@
 	<SpriteComponent 
 		_tags="enabled_in_world,character" 
 		alpha="1" 
-		image_file="mods/D2DContentPack/files/gfx/items_gfx/staff_of_remembrance_stuck.xml"
+		image_file="mods/D2DContentPack/files/gfx/items_gfx/staff_of_finality_stuck.xml"
 		next_rect_animation=""
 		rect_animation="" 
 		offset_x="14"

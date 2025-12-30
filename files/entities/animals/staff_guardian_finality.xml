@@ -15,11 +15,16 @@
 	<LuaComponent 
 		_enabled="1"
 		remove_after_executed="1"
-		script_source_file="mods/D2DContentPack/files/scripts/animals/ghost_of_memories_spawn.lua" >
+		script_source_file="mods/D2DContentPack/files/scripts/animals/staff_guardian_spawn_finality.lua" >
 	</LuaComponent>
 
 	<LuaComponent
-		script_kick="mods/D2DContentPack/files/scripts/animals/ghost_of_memories_on_kicked.lua"
+		script_kick="mods/D2DContentPack/files/scripts/animals/staff_guardian_on_kicked.lua"
+		execute_every_n_frame="-1">
+	</LuaComponent>
+	
+	<LuaComponent 
+		script_death="mods/D2DContentPack/files/scripts/animals/staff_guardian_unlock_recycle_plus.lua"
 		execute_every_n_frame="-1">
 	</LuaComponent>
 

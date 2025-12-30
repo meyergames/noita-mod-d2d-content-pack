@@ -1,0 +1,7 @@
+<Entity>
+	<LuaComponent
+    	script_source_file="mods/D2DContentPack/files/scripts/projectiles/missing_mana_to_dmg.lua"
+    	execute_every_n_frame="1"
+    	remove_after_executed="-1">
+    </LuaComponent>
+</Entity>

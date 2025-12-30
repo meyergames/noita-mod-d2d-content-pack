@@ -305,6 +305,24 @@ d2d_actions = {
 	},
 
 	{
+		id                  = "D2D_MISSING_MANA_TO_DMG",
+		name 		        = "$spell_d2d_damage_missing_mana_name",
+		description         = "$spell_d2d_damage_missing_mana_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "0.4,0.6,8,1",
+		price               = 220,
+		mana                = 50,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 25
+			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
+
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	{
 		id          		= "D2D_PROJECTILE_MORPH",
 		name 				= "$spell_d2d_projectile_morph_name",
 		description 		= "$spell_d2d_projectile_morph_desc",
@@ -340,34 +358,6 @@ d2d_actions = {
 			                    draw_actions( 1, true )
 		                    end,
 	},
-
-	-- {
-	-- 	id                  = "D2D_BULK_MANA_TO_DAMAGE",
-	-- 	name 		        = "Bulk Mana To Damage",
-	-- 	description         = "Adds +1 damage for each second it takes the wand to recharge to full mana",
-	-- 	sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
-	-- 	type 		        = ACTION_TYPE_MODIFIER,
-	-- 	spawn_level         = "0,1,2,3",
-	-- 	spawn_probability   = "0.5,0.5,1,1",
-	-- 	price               = 220,
-	-- 	mana                = 20,
-	-- 	action 		        = function()
-	-- 		                    c.fire_rate_wait = c.fire_rate_wait + 5
-
-	-- 		                    -- for the tooltip
-	-- 		                    c.damage_projectile_add = c.damage_projectile_add + 0.04
-	-- 		                    if reflecting then return end
-	-- 		                    c.damage_projectile_add = c.damage_projectile_add - 0.04
-
-	-- 							local EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
-	-- 							local wand = EZWand.GetHeldWand()
-	-- 							local time_until_full_mana = wand.manaMax / wand.manaChargeSpeed
-	-- 							local mtp = 1 - ( 1.0 / wand.manaMax ) * wand.mana
-	-- 		                    c.damage_projectile_add = c.damage_projectile_add + ( time_until_full_mana * 0.04 * mtp )
-
-	-- 		                    draw_actions( 1, true )
-	-- 	                    end,
-	-- },
 
 	-- {
 	-- 	id                  = "D2D_OPENING_SHOT",
@@ -1141,19 +1131,50 @@ d2d_actions = {
 								if reflecting then return end
 
 								local next_card = deck[1]
-								if next_card then
+								if next_card and next_card.uses_remaining > 0 then
 
 									-- prevent the spell from gaining more uses than it had
-									local next_card_uses_left = deck[1].uses_remaining
+									local next_card_init_uses = next_card.uses_remaining
+
+									-- draw the spell
 									draw_actions( 1, true )
 
-									for i,v in ipairs( hand ) do
-										local spell_data = hand[i]
-										if spell_data.uses_remaining > 0 then
-											if Random( 1, 4 ) == 4 then
-												spell_data.uses_remaining = math.min( spell_data.uses_remaining + 1, next_card_uses_left + 1 )
-											end
-										end
+									-- 1/4 chance to save a charge
+									if Random( 1, 4 ) == 4 then
+										next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
+									end
+								end
+		                    end,
+	},
+
+	{
+		id                  = "D2D_RECYCLE_PLUS",
+		name 		        = "$spell_d2d_recycle_plus_name",
+		description         = "$spell_d2d_recycle_plus_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/recycle_plus.png",
+		type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "5,6,10",
+		spawn_probability   = "0.2,0.3,1",
+		spawn_requires_flag	= "d2d_staff_guardian_finality_defeated",
+		price               = 400,
+		mana                = 40,
+		action 		        = function()
+								c.fire_rate_wait = c.fire_rate_wait + 15
+
+								if reflecting then return end
+
+								local next_card = deck[1]
+								if next_card and next_card.uses_remaining > 0 then
+
+									-- prevent the spell from gaining more uses than it had
+									local next_card_init_uses = next_card.uses_remaining
+
+									-- draw the spell
+									draw_actions( 1, true )
+
+									-- 1/4 chance to save a charge
+									if Random( 1, 10 ) ~= 1 then
+										next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
 									end
 								end
 		                    end,

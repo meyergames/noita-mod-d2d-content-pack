@@ -437,7 +437,7 @@ function does_spell_exist( action_id )
     return false
 end
 
-function init_wand_of_memories()
+function init_staff_of_remembrance()
     local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
     wand:SetName( "Staff of Remembrance", true )
@@ -472,4 +472,45 @@ function init_wand_of_memories()
     EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/wand_of_memories.xml" ) )
 
     return wand
+end
+
+function spawn_staff_of_transience( x, y )
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand()
+	wand:SetName( "Staff of Transience", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 5
+	wand.rechargeTime = 20
+	wand.manaMax = 2277 -- (~1.67x regular high mana wands)
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 0
+	wand.capacity = 25
+	wand.spread = 0
+	-- wand:AttachSpells( "D2D_MANA_LOCK" ) -- disabled until this spell is fixed
+	wand:AddSpells( "D2D_MISSING_MANA_TO_DMG" )
+	add_random_cards_to_wand( wand.entity_id, wand_lvl, wand.capacity )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_zs.png", 11, 4, 17, 0 )
+	wand:PlaceAt( x, y )
+end
+
+function init_staff_of_finality( x, y )
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand()
+	wand:SetName( "Staff of Finality", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 36
+	wand.rechargeTime = 216
+	wand.manaMax = 4999
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 1
+	wand.capacity = 25
+	wand.spread = -13.2
+	-- wand:AttachSpells( "D2D_MANA_LOCK" ) -- disabled until this spell is fixed
+	wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
+	wand:AddSpells( "D2D_RECYCLE_PLUS", "ROCKET", "D2D_RECYCLE_PLUS", "ROCKET_TIER_2", "D2D_RECYCLE_PLUS", "ROCKET_TIER_3" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ags.png", 8, 6, 17, 0 )
+
+	return wand
 end
