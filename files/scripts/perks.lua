@@ -457,7 +457,7 @@ d2d_perks = {
         end
 	},
 
-	{
+	-- {
 	-- 	id = "D2D_JUGGERNAUT",
 	-- 	ui_name = "$perk_d2d_juggernaut_name",
 	-- 	ui_description = "$perk_d2d_juggernaut_desc",
