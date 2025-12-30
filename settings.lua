@@ -87,7 +87,7 @@ mod_settings =
                 id = "sometimes_start_with_sniper_bolt",
                 ui_name = "Sometimes start with Sniper Bolt",
                 ui_description = "When enabled, your starting wand may sometimes contain\nthe Sniper Bolt spell.",
-                value_default = true,
+                value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
             {
