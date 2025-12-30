@@ -210,3 +210,7 @@ perk_d2d_ring_of_returning_desc,You gain an artefact that allows you to summon\n
 item_d2d_ring_of_returning_name,Ring of Returning,,,,,,,,,,,,,
 item_d2d_ring_of_returning_desc,Break it to summon a single-use portal to the top of the mountain,,,,,,,,,,,,,
 portal_d2d_previous_temple,Portal to the Mountain Top,,,,,,,,,,,,,
+perk_d2d_juggernaut_name,Juggernaut,,,,,,,,,,,,,
+perk_d2d_juggernaut_desc,"Slowly regain 50% of the damage you take. Deal bonus damage based on remaining health.\nYou cannot heal outside of Holy Mountains.",,,,,,,,,,,,,
+perk_d2d_sensitive_explosives_name,More Explosions!,,,,,,,,,,,,,
+perk_d2d_sensitive_explosives_desc,Explosives are much more sensitive to damage.,,,,,,,,,,,,,

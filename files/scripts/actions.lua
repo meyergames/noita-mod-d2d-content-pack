@@ -555,6 +555,8 @@ d2d_actions = {
 	    max_uses			= 3,
 	    custom_uses_logic	= true,
 	    action              = function()
+	    						if reflecting then return end
+	    						
 								GamePrint( "[D2D] The 'Unstable Nucleus' spell is currently under maintenance; please come back later." )
 
                                 -- c.fire_rate_wait    = c.fire_rate_wait + 160
@@ -1060,6 +1062,7 @@ d2d_actions = {
 		price               = 280,
 		mana                = 0,
 		action 		        = function()
+	    						if reflecting then return end
 								GamePrint( "[D2D] The 'Mana Lock' spell is currently out of order; please come back later.")
 								-- disable Add Mana etc
 								-- for i,v in ipairs( deck ) do

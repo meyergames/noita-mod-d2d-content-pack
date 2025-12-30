@@ -62,6 +62,41 @@ mod_settings =
         ui_name = "Spells",
         ui_description = "",
         settings = {
+            {
+                id = "more_starting_wand_variety",
+                ui_name = "More starting wand variety",
+                ui_description = "When enabled, your starting wand may contain a wider\nvariety of the base game's projectile spells.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "dynamite_as_default_bomb",
+                ui_name = "Start with dynamite more often",
+                ui_description = "When enabled, your starting bomb wand has a higher chance\nto contain dynamite.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "sometimes_start_with_glass_shard",
+                ui_name = "Sometimes start with Glass Shard",
+                ui_description = "When enabled, your starting wand may sometimes contain\nthe Glass Shard spell.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "sometimes_start_with_sniper_bolt",
+                ui_name = "Sometimes start with Sniper Bolt",
+                ui_description = "When enabled, your starting wand may sometimes contain\nthe Sniper Bolt spell.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "sometimes_start_with_banana_bomb",
+                ui_name = "Sometimes start with Banana Bomb",
+                ui_description = "When enabled, your starting bomb wand may sometimes contain\nthe Banana Bomb spell.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
             -- {
             --     id = "afa_compat",
             --     ui_name = "Disable alt fire spells if Alt Fire Anything is enabled",

@@ -430,6 +430,8 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] glass shard splinters not shooting when the damage kills an enemy might be due to the corpse blocking the projectiles
 
+[ ] sticky modifier to attach bombs to ceilings (or does Glue Charge achieve this?)
+
 
 
 

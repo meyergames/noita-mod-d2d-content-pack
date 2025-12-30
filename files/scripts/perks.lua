@@ -434,14 +434,58 @@ d2d_perks = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			EntityAddComponent( entity_who_picked, "LuaComponent", 
-			{ 
-				script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_damage_incoming.lua",
-				execute_every_n_frame = "-1",
-			} )
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if pickup_count <= 1 then
+				EntityAddComponent( entity_who_picked, "LuaComponent",
+				{ 
+					_tags="perk_component,d2d_perk_borrowed_time",
+					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_damage_incoming.lua",
+					execute_every_n_frame = "-1",
+				} )
+			end
+
+			-- REWORK IN PROGRESS
+			-- EntityAddComponent( entity_who_picked, "LuaComponent", 
+			-- { 
+			-- 	script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage_incoming.lua",
+			-- 	execute_every_n_frame = "-1",
+			-- } )
         end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	remove_lua( entity_who_picked, "d2d_perk_borrowed_time" )
+        end
 	},
+
+	{
+	-- 	id = "D2D_JUGGERNAUT",
+	-- 	ui_name = "$perk_d2d_juggernaut_name",
+	-- 	ui_description = "$perk_d2d_juggernaut_desc",
+	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/juggernaut_016.png",
+	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/juggernaut.png",
+	-- 	stackable = STACKABLE_NO,
+	-- 	one_off_effect = false,
+	-- 	usable_by_enemies = false,
+	-- 	not_in_default_perk_pool = true,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+	-- 		-- WORK IN PROGRESS
+	-- 		if reflecting then return end
+
+	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_heal_block.xml" )
+	-- 		if pickup_count <= 1 then
+	-- 			EntityAddComponent2( entity_who_picked, "LuaComponent", 
+	-- 			{
+	-- 				_tags = "perk_component,d2d_perk_juggernaut",
+	-- 				script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_juggernaut_on_damage_incoming.lua",
+	-- 				execute_every_n_frame = -1,
+	-- 			} )
+	-- 		end
+    --     end,
+    --     func_remove = function( entity_who_picked )
+    --     	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+    --     	remove_lua( entity_who_picked, "d2d_perk_juggernaut" )
+    --     end
+	-- },
 
 	{
 		id = "D2D_BLESSINGS_AND_CURSE",
