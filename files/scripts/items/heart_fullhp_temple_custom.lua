@@ -21,7 +21,7 @@ local function handle_glass_heart( entity_item, entity_who_picked )
             perk_spawn( x, y - 8, "D2D_GLASS_FIST", true )
 
             -- remove the effect's UI entity and all associated Lua scripts
-            local ui_icon_id = get_child_with_name( entity_who_picked, "effect_glass_heart.xml" )
+            local ui_icon_id = get_child_with_tag( entity_who_picked, "d2d_effect_glass_heart" )
             if ui_icon_id then
                 EntityKill( ui_icon_id )
             end

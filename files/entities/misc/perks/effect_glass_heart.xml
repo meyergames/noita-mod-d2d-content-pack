@@ -1,4 +1,4 @@
-<Entity tags="perk_entity">
+<Entity tags="perk_entity,d2d_effect_glass_heart">
 
     <InheritTransformComponent />
 
