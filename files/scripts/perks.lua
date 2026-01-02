@@ -1079,6 +1079,19 @@ function RemoveSettingFlag(name)
     ModSettingRemove(name)
 end
 
+local function remove_perk(perk_name)
+    local key_to_perk = nil
+    for key, perk in pairs(perk_list) do
+        if (perk.id == perk_name) then
+            key_to_perk = key
+        end
+    end
+
+    if (key_to_perk ~= nil) then
+        table.remove(perk_list, key_to_perk)
+    end
+end
+
 -- add reworks 
 if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_perk_reworks )do
@@ -1120,17 +1133,4 @@ if ( perk_list ~= nil ) then
 			table.insert( perk_list, v )
 		end
 	end
-end
-
-local function remove_perk(perk_name)
-    local key_to_perk = nil
-    for key, perk in pairs(perk_list) do
-        if (perk.id == perk_name) then
-            key_to_perk = key
-        end
-    end
-
-    if (key_to_perk ~= nil) then
-        table.remove(perk_list, key_to_perk)
-    end
 end
