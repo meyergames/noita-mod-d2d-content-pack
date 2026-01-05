@@ -1,4 +1,4 @@
-<Entity name="d2d_heal_block_effect" tags="d2d_heal_block_effect">
+<Entity name="d2d_heal_block_effect" tags="d2d_curse_perk,d2d_heal_block_effect">
 	<InheritTransformComponent>
     </InheritTransformComponent>
 	

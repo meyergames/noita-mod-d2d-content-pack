@@ -1,0 +1,8 @@
+<Entity tags="perk_entity,d2d_tinker_with_wands_more">
+
+    <LuaComponent
+    	script_source_file="mods/D2DContentPack/files/scripts/perks/effect_tinker_with_wands_more_update.lua"
+        execute_every_n_frame="30"
+    ></LuaComponent>
+
+</Entity>

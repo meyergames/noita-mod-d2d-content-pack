@@ -1057,6 +1057,34 @@ d2d_perk_reworks = {
             remove_lua( entity_who_picked, "d2d_spell_gems" )
         end,
 	},
+
+	{
+		id = "D2D_TINKER_WITH_WANDS_MORE",
+		id_vanilla = "EDIT_WANDS_EVERYWHERE",
+		ui_name_vanilla = "Tinker With Wands Everywhere",
+		ui_name = "$perk_d2d_tinker_rework_name",
+		ui_description = "$perk_d2d_tinker_rework_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/tinker_with_wands_more_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/tinker_with_wands_more.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+        	if pickup_count > 1 then return end
+
+            EntityAddChild( entity_who_picked, EntityLoad( "mods/D2DContentPack/files/entities/misc/perks/effect_tinker_with_wands_more.xml" ) )
+
+            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+            if not HasFlagPersistent( "d2d_update_msg_displayed_tinker_with_wands_everywhere_rework" ) then
+	            GamePrintDelayed( "[D2D] This perk replaces the original Tinker With Wands Everywhere perk.", 180 )
+	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod's settings.", 300 )
+	            AddFlagPersistent( "d2d_update_msg_displayed_tinker_with_wands_everywhere_rework" )
+	        end
+        end,
+        func_remove = function( entity_who_picked )
+            remove_lua( entity_who_picked, "d2d_tinker_with_wands_more" )
+        end,
+	},
 }
 
 
