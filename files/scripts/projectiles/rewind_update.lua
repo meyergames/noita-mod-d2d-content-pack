@@ -56,7 +56,7 @@ elseif is_fly_pressed and frames_in_air == 1 and is_slotted_in_wand() then
     if marker_id ~= nil and marker_id ~= -1 then
         EntitySetTransform( marker_id, x, y )
     else
-        marker_id = shoot_projectile( owner, "mods/D2DContentPack/files/entities/projectiles/deck/rewind_marker.xml", x, y, 0, 0 )
+        marker_id = EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/rewind_marker.xml", x, y )
         set_internal_int( owner, "rewind_marker_id", marker_id )
     end
 end
