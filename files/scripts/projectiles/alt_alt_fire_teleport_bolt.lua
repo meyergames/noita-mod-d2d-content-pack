@@ -15,7 +15,7 @@ local aim_x, aim_y = ComponentGetValue2(controlscomp, "mAimingVectorNormalized")
 local manacost = 20
 
 if GameGetFrameNum() >= cooldown_frame then
-    if InputIsMouseButtonDown( 3 ) then -- is the right mouse button pressed?
+    if InputIsMouseButtonDown( 3 ) then -- is the middle mouse button pressed?
         local mana = wand.mana
         if (mana > manacost) then
             

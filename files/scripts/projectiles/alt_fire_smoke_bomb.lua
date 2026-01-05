@@ -22,7 +22,7 @@ end
 local is_always_cast = ComponentGetValue2( icomp,"permanently_attached" )
 
 if GameGetFrameNum() >= cooldown_frame then
-    if InputIsMouseButtonDown( 2 ) then -- is the right mouse button pressed?
+    if InputIsMouseButtonDown( 2 ) and not GameIsInventoryOpen() then -- is the right mouse button pressed?
         local mana = wand.mana
         if ( mana > manacost and ( uses_remaining ~= 0 or is_always_cast ) ) then
             
