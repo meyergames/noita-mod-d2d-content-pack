@@ -8,10 +8,10 @@ if ( #targets > 0 ) then
     for i,target_id in ipairs(targets) do
         local target_x, target_y = EntityGetTransform( target_id )
         local target_is_far_away = distance_between( entity_id, target_id ) > 300
-        local effect_id = getInternalVariableValue( target_id, "feline_affection_tried_to_spawn_cat", "value_int" )
+        local already_tried = get_internal_bool( target_id, "feline_affection_tried_to_spawn_cat" )
 
-        if target_is_far_away and effect_id == nil then
-            addNewInternalVariable( target_id, "feline_affection_tried_to_spawn_cat", "value_int", 1 )
+        if target_is_far_away and not already_tried then
+            set_internal_bool( target_id, "feline_affection_tried_to_spawn_cat", true )
             if Random( 0, math.max( 30 - ( 5 * get_perk_pickup_count( "D2D_FELINE_AFFECTION" ) ), 5 ) ) == 0 then
                 local cat_id = spawn_random_cat( target_x, target_y )
                 EntityAddTag( cat_id, "cat" )

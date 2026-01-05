@@ -1289,7 +1289,7 @@ if ( ModIsEnabled("Apotheosis") ) then
 									c.damage_projectile_add = c.damage_projectile_add - 0.04 -- reset
 
 									dofile_once( "data/scripts/lib/utilities.lua" )
-						            local cats_petted = get_internal_int( get_player(), "cats_petted", 1 )
+						            local cats_petted = get_internal_int( GetUpdatedEntityID(), "cats_petted", 1 )
 						            c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * cats_petted )
 		                        end,
 	    },
