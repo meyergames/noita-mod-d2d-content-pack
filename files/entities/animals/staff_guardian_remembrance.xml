@@ -34,6 +34,18 @@
 		auto_play="1">
 	</AudioLoopComponent>
 	
+	<AreaDamageComponent
+		aabb_min.x="-10" 
+		aabb_min.y="-10" 
+		aabb_max.x="10" 
+		aabb_max.y="10" 
+		damage_per_frame="0.1"
+		update_every_n_frame="6"
+		entities_with_tag="player_unit"
+		damage_type="DAMAGE_CURSE"
+		>
+	</AreaDamageComponent>
+	
 	<Entity>
 		<InheritTransformComponent />
 		
