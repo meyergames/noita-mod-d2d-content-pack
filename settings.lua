@@ -454,8 +454,8 @@ function ModSettingsGui( gui, in_main_menu )
             GuiLayoutEnd(gui)
         end
     else
-        -- GuiText( gui, 0, 0, "Due to a Noita limitation, \noptions are only available in-game." )
-        GuiText( gui, 0, 0, "Individual spells and perks \ncan be enabled/disabled in-game." )
+        GuiColorSetForNextWidget( gui, 1, 0, 0, 1 )
+        GuiText( gui, 0, 0, "Individual spells and perks can only be enabled/disabled in-game." )
     end
     for i = 1, 5 do
         GuiText( gui, 0, 0, "" )

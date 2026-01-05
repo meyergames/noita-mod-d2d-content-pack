@@ -15,5 +15,8 @@ if dmg_comp then
 		local offset_x = Random( -4, 4 )
 		local offset_y = Random( -4, 4 )
 		EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/spell_gem.xml", x + offset_x, y + offset_y )
+
+		-- reset rnd
+		rnd = Random( 1, 100 )
 	end
 end

@@ -32,6 +32,11 @@ function OnPlayerSpawned( player )
     if GameHasFlagRun( "d2d_content_pack_init_happened" ) then return end
     GameAddFlagRun( "d2d_content_pack_init_happened" )
 
+    if not HasFlagPersistent( "d2d_force_init_mod_settings" ) then
+        ModSettingSet( "D2D_TINKER_WITH_WANDS_MORE_disabled", true )
+        AddFlagPersistent( "d2d_force_init_mod_settings" )
+    end
+
     dofile_once( "data/scripts/lib/utilities.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
     dofile( "mods/D2DContentPack/files/scripts/actions.lua" )

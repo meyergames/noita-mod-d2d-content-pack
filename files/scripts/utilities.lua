@@ -451,53 +451,6 @@ function get_child_with_tag( parent_id, tag )
 end
 
 
--- This method was originally written by Horscht for the "Removable perks" mod, slightly adjusted to better fit this mod's needs. Thank you Horscht! ---
-function remove_perk( perk_id )
-    dofile_once("data/scripts/perks/perk_list.lua")
-    local player = EntityGetWithTag("player_unit")[1]
-    if not player then return end
-    
-    local perk = get_perk_with_id( perk_list, perk_id )
-    local flag_name = get_perk_picked_flag_name( perk_id )
-    local pickup_count = tonumber( GlobalsGetValue( flag_name .. "_PICKUP_COUNT", "0" ) )
-    pickup_count = pickup_count - 1
-	GlobalsSetValue(flag_name .. "_PICKUP_COUNT", tostring(pickup_count))
-    
-    -- Remove run flags if this is the last perk instance
-    if pickup_count == 0 then
-        GameRemoveFlagRun(flag_name)
---        for i,other_perk_id in ipairs(perk.remove_other_perks or {}) do
---            GameRemoveFlagRun(get_perk_picked_flag_name(other_perk_id))
---        end
-    end
-    local function kill_child_entity_with_game_effect(game_effect)
-        if game_effect then
-            local game_effect_component = GameGetGameEffect(player, game_effect)
-            if game_effect_component then
-                for i, child in ipairs(EntityGetAllChildren(player) or {}) do
-                    for i2, component in ipairs(EntityGetComponentIncludingDisabled(child, "GameEffectComponent") or {}) do
-                        if component == game_effect_component then
-                            EntityKill(child)
-                            return
-                        end
-                    end
-                end
-            end
-        end
-    end
-    kill_child_entity_with_game_effect(perk.game_effect)
-    kill_child_entity_with_game_effect(perk.game_effect2)
-    if perk.particle_effect then
-        kill_child_by_filename(player, ("data/entities/particles/perks/%s.xml"):format(perk.particle_effect))
-    end
-
-    local perk_entities = EntityGetWithTag( "perk_entity" )
-    for i,perk_entity in ipairs(EntityGetWithTag( "perk_entity" ) or {}) do
-        EntityAddComponent2( perk_entity, "LifetimeComponent", { lifetime = 1 } )
-    end
-end
-
-
 
 function multiply_move_speed( entity_id, effect_name, mtp_x, mtp_y )
     local character_platforming_component = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
@@ -910,7 +863,6 @@ function lift_all_curses( entity_id )
 	-- remove all UI icons
     local perk_entities = EntityGetWithTag( "perk_entity" )
     for i,perk_entity in ipairs( perk_entities or {} ) do
-    	GamePrint("checking for id " .. perk_entity)
 
     	local icon_comp = EntityGetFirstComponentIncludingDisabled( perk_entity, "UIIconComponent" )
     	if icon_comp then

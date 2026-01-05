@@ -420,9 +420,9 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 								 -5 for spells with 1+ charges
 								 		^ too convoluted; Second Wind will do the trick (for now)
 
-[ ] portal in each Holy Mountain that allows you to teleport to the previous one, for a cost that scales with the HM tier
-		[ ] could be placed above the perk altar
-		[ ] one-off perk that spawns a singular portal to the previous HM?
+[-] portal in each Holy Mountain that allows you to teleport to the previous one, for a cost that scales with the HM tier
+		[x] could be placed above the perk altar
+		[~] one-off perk that spawns a singular portal to the previous HM? <-- made into the Ring of Returning perk
 
 [ ] option to disable the mana too low sfx while rapidfiring?
 
@@ -431,6 +431,13 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] glass shard splinters not shooting when the damage kills an enemy might be due to the corpse blocking the projectiles
 
 [ ] sticky modifier to attach bombs to ceilings (or does Glue Charge achieve this?)
+
+[ ] passive spell that makes a wand semi-automatic, instead of fully?
+
+[ ] spell that destroys unpicked wands and spawns their spells
+
+[ ] New Enemies has a mob in the coal pits with a chained heart... (Glass Heart?)
+
 
 
 
