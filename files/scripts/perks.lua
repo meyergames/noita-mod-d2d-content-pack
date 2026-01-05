@@ -1109,15 +1109,45 @@ end
 
 local function remove_perk(perk_name)
     local key_to_perk = nil
-    for key, perk in pairs(perk_list) do
-        if (perk.id == perk_name) then
+    for key, perk in pairs( perk_list ) do
+        if perk.id == perk_name then
             key_to_perk = key
         end
     end
 
-    if (key_to_perk ~= nil) then
-        table.remove(perk_list, key_to_perk)
+    if key_to_perk ~= nil then
+        table.remove( perk_list, key_to_perk )
     end
+end
+
+-- local function replace_perk( new )
+-- 	for i = 1, #perk_list do
+-- 		local original = perk_list[i]
+
+-- 		if original.id == new.id_vanilla then
+-- 			original.id = new.id
+-- 			original.ui_name = new.ui_name
+-- 			original.ui_description = new.ui_description
+-- 			original.ui_icon = new.ui_icon
+-- 			original.perk_icon = new.perk_icon
+-- 			original.stackable = new.stackable
+-- 			original.one_off_effect = new.one_off_effect
+-- 			original.usable_by_enemies = new.usable_by_enemies
+-- 			original.not_in_default_perk_pool = new.not_in_default_perk_pool
+-- 			original.func = new.func
+-- 			original.func_remove = new.func_remove
+-- 			break
+-- 		end
+-- 	end
+-- end
+
+local function hide_perk( perk_id )
+	for i = 1, #perk_list do
+		local perk = perk_list[i]
+		if perk.id == perk_id then
+			perk.not_in_default_perk_pool = true
+		end
+	end
 end
 
 -- add reworks 
@@ -1125,7 +1155,8 @@ if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_perk_reworks )do
 		if not HasSettingFlag( v.id .. "_disabled" ) then
 			table.insert( perk_list, v )
-			remove_perk( v.id_vanilla )
+			-- remove_perk( v.id_vanilla )
+			hide_perk( v.id_vanilla )
 		end
 	end
 end
