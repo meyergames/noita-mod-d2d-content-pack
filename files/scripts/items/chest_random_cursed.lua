@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 -------------------------------------------------------------------------------
 
@@ -50,6 +50,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		random_perk_reward( x, y )
 	elseif cursed_chests_opened == max_curse_count + 1 then
 		random_perk_reward_incl_lift_curses( x, y )
+		spawn_staff_of_obliteration( x, y - 20 )
 	else
 		local rnd = Random(1,100)
 		-- maybe spawn gold (10% chance)
@@ -127,7 +128,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 					table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
 				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
 			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_random_staff( x, y )
+					spawn_staff_of_obliteration( x, y )
 				end
 
 			elseif cursed_chests_opened <= 3 then
@@ -138,7 +139,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 					table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
 				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
 			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_random_staff( x, y )
+					spawn_staff_of_obliteration( x, y )
 				end
 
 			elseif cursed_chests_opened <= 4 then
@@ -149,7 +150,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 					table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
 				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
 			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_random_staff( x, y )
+					spawn_staff_of_obliteration( x, y )
 				end
 
 			elseif cursed_chests_opened >= 5 then
@@ -162,7 +163,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 					table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
 				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
 			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_random_staff( x, y )
+					spawn_staff_of_obliteration( x, y )
 				end
 			end
 		end
@@ -211,7 +212,7 @@ function on_open( entity_item )
 
 	SetRandomSeed( rand_x, rand_y )
 	
-	if ( distance_between( get_player(), GetUpdatedEntityID() ) <= 100 ) then
+	if ( distance_between( get_player(), entity_item ) <= 100 ) then
 		apply_random_curse( get_player() )
 
 		local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )

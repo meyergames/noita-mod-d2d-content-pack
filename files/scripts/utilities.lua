@@ -878,6 +878,8 @@ function lift_all_curses( entity_id )
     for i,cursed_chest in ipairs( cursed_chests or {} ) do
     	EntityKill( cursed_chest )
     end
+    
+    GlobalsSetValue( "PLAYER_CURSE_COUNT", "0" )
 end
 
 function set_controls_enabled(enabled)

@@ -137,6 +137,7 @@ function OnPlayerSpawned( player )
     -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_remembrance_stuck.xml", 180, -109 )
 
     -- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+    -- spawn_staff_of_obliteration( 230, -69 )
     -- GamePrintDelayed( "test 1", 240 )
     -- GamePrintDelayed( "test 2", 480 )
     -- GamePrintDelayed( "test 3", 540 )

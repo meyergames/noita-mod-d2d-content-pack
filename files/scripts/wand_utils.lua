@@ -514,3 +514,28 @@ function init_staff_of_finality( x, y )
 
 	return wand
 end
+
+function spawn_staff_of_obliteration( x, y )
+	local staff = init_staff_of_obliteration()
+	staff:PlaceAt( x, y )
+end
+
+function init_staff_of_obliteration()
+    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+    local wand = EZWand()
+	wand:SetName( "Staff of Obliteration", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 12
+	wand.rechargeTime = 20
+	wand.manaMax = 5887
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 192
+	wand.capacity = 5
+	wand.spread = 0
+	wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
+	wand:AddSpells( "D2D_RAMP_UP", "D2D_DEATH_RAY" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_mjav.png", 8, 6, 14, 0 )
+
+	return wand
+end

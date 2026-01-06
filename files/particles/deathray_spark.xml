@@ -1,0 +1,19 @@
+<Entity>
+  <ParticleEmitterComponent 
+		emitted_material_name="spark"
+		gravity.y="0"
+		count_min="3"
+		count_max="5"
+		is_trail="1"
+		trail_gap="1"
+		fade_based_on_lifetime="0"
+		lifetime_min="0.1"
+		lifetime_max="0.1"
+		create_real_particles="0"
+		emit_cosmetic_particles="1"
+		render_on_grid="1"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+</Entity>

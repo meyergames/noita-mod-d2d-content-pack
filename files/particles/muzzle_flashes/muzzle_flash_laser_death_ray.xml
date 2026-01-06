@@ -1,0 +1,16 @@
+<Entity >
+
+  <SpriteComponent 
+    _enabled="1" 
+    alpha="1" 
+    image_file="mods/D2DContentPack/files/particles/muzzle_flashes/muzzle_laser_death_ray_0$[1-7].png"
+    next_rect_animation="muzzle"
+    rect_animation="muzzle"
+	emissive="1"
+    additive="0"
+    kill_entity_after_finished="1"
+	offset_x="5"
+	offset_y="7"
+     >
+  </SpriteComponent>
+</Entity>

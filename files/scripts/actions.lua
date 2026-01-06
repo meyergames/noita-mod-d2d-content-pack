@@ -114,7 +114,7 @@ d2d_actions = {
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "1,1,1,0.9,0.7,0.5,0.3",
 	    price               = 210,
-	    mana                = 3,
+	    mana                = 6,
 	    action              = function()
                                 c.fire_rate_wait    = c.fire_rate_wait - 15 -- so it shows in the UI
                                 current_reload_time = current_reload_time - 20 -- so it shows in the UI
@@ -292,13 +292,13 @@ d2d_actions = {
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
 		price 		= 999,
-		mana 		= -30,
+		mana 		= -15,
 		action 		= function()
 			if reflecting then return end
 
             local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
             if curse_count ~= nil then
-    			mana = mana + ( 30 * ( tonumber( curse_count ) - 1 ) )
+    			mana = mana + ( 15 * ( tonumber( curse_count ) - 1 ) )
 	            draw_actions( 1, true )
 	        end
 		end,
@@ -462,6 +462,29 @@ d2d_actions = {
                                 c.damage_null_all = 1
 			                    c.fire_rate_wait = c.fire_rate_wait - 3
 			                    add_projectile_trigger_hit_world("mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml", 1)
+		                    end,
+	},
+
+	{
+		id                  = "D2D_DEATH_RAY",
+		name 		        = "$spell_d2d_death_ray_name",
+		description         = "$spell_d2d_death_ray_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/death_ray.png",
+		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/death_ray.xml"},
+		type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "5,6,10",
+		spawn_probability   = "0.05,0.1,0.5",
+		price               = 690,
+		mana                = 100,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait - 22
+			                    c.spread_degrees = c.spread_degrees - 12
+								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 10
+
+								c.game_effect_entities = c.game_effect_entities .. "data/entities/misc/effect_disintegrated.xml,"
+								c.extra_entities    = c.extra_entities .. "mods/D2DContentPack/files/particles/deathray_spark.xml,"
+
+			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/death_ray.xml" )
 		                    end,
 	},
 
