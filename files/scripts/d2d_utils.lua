@@ -30,8 +30,19 @@ function determine_blink_dmg_mtp()
     end
 end
 
-function player_take_max_hp_dmg( ratio, can_kill )
-	GamePrint( "<function not implemented>" )
+function EntityInflictMaxHealthDamage( entity_id, ratio, can_kill, death_msg )
+    local x, y = EntityGetTransform( entity_id )
+
+    local p_dcomp = EntityGetFirstComponent( entity_id, "DamageModelComponent" )
+    if not exists( p_dcomp ) then return end
+    local p_mhp = ComponentGetValue2( p_dcomp, "max_hp" )
+
+    if can_kill then
+        EntityInflictDamage( entity_id, p_mhp * ratio, "DAMAGE_CURSE", death_msg or "death", "NONE", 0, 0, entity_id, x, y, 0 )
+    else
+        local p_hp = ComponentGetValue2( p_dcomp, "hp" )
+        EntityInflictDamage( entity_id, math.min( p_mhp * ratio, p_hp - 0.04 ), "DAMAGE_CURSE", death_msg or "death", "NONE", 0, 0, entity_id, x, y, 0 )
+    end
 end
 
 function GamePrintDelayed( message, delay )

@@ -526,16 +526,20 @@ function init_staff_of_obliteration()
 	wand:SetName( "Staff of Obliteration", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
-	wand.castDelay = 12
-	wand.rechargeTime = 20
-	wand.manaMax = 5887
+	-- wand.castDelay = 15
+	-- wand.rechargeTime = 20
+	wand.castDelay = 0
+	wand.rechargeTime = 0
+	wand.manaMax = 999
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = 192
 	wand.capacity = 5
 	wand.spread = 0
-	wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
-	wand:AddSpells( "D2D_RAMP_UP", "D2D_DEATH_RAY" )
-	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_mjav.png", 8, 6, 14, 0 )
+	-- wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
+	wand:AttachSpells( "D2D_DEATH_RAY" )
+	wand:AddSpells( "D2D_CURSES_TO_DAMAGE", "D2D_FIXED_ALTITUDE" )
+	-- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_mjav.png", 8, 6, 14, 0 )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_soa.png", 12, 6, 14, 0 )
 
 	return wand
 end

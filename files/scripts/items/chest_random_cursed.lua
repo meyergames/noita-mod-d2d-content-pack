@@ -51,6 +51,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	elseif cursed_chests_opened == max_curse_count + 1 then
 		random_perk_reward_incl_lift_curses( x, y )
 		spawn_staff_of_obliteration( x, y - 20 )
+		AddFlagPersistent( "d2d_staff_of_obliteration_obtained" )
 	else
 		local rnd = Random(1,100)
 		-- maybe spawn gold (10% chance)
@@ -124,33 +125,36 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 
 				if rnd3 <= 50 then -- 50%
 					table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
-				elseif rnd3 <= 80 then -- 30%
+				else
+				-- elseif rnd3 <= 80 then -- 30%
 					table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
-				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_staff_of_obliteration( x, y )
+				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    	-- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+					-- spawn_staff_of_obliteration( x, y )
 				end
 
 			elseif cursed_chests_opened <= 3 then
 
 				if rnd3 <= 50 then -- 50%
 					table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
-				elseif rnd3 <= 80 then -- 30%
+				else
+				-- elseif rnd3 <= 80 then -- 30%
 					table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
-				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_staff_of_obliteration( x, y )
+				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    	-- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+					-- spawn_staff_of_obliteration( x, y )
 				end
 
 			elseif cursed_chests_opened <= 4 then
 
 				if rnd3 <= 50 then -- 50%
 					table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
-				elseif rnd3 <= 80 then -- 30%
+				else
+				-- elseif rnd3 <= 80 then -- 30%
 					table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_staff_of_obliteration( x, y )
+				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    	-- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+					-- spawn_staff_of_obliteration( x, y )
 				end
 
 			elseif cursed_chests_opened >= 5 then
@@ -159,11 +163,12 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 					table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
 				elseif rnd3 <= 40 then -- 15%
 					table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-				elseif rnd3 <= 80 then -- 40%
+				else
+				-- elseif rnd3 <= 80 then -- 40%
 					table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
-				elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					spawn_staff_of_obliteration( x, y )
+				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
+			    -- 	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+				-- 	spawn_staff_of_obliteration( x, y )
 				end
 			end
 		end

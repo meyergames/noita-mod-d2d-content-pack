@@ -59,6 +59,12 @@
       max_durability_to_destroy="14"
       ray_energy="2000000"
       material_sparks_scale_with_hp="1"
+      light_enabled="1"
+      light_radius_coeff="15"
+      light_r="255"
+      light_g="255"
+      light_b="255"
+      light_fade_time="6"
     ></config_explosion>
   </ProjectileComponent>
 
@@ -66,6 +72,10 @@
     file="data/audio/Desktop/projectiles.bank"
     event_root="player_projectiles/chain_bolt">
   </AudioComponent>
+
+  <LightComponent
+    >
+  </LightComponent>
   
   <!-- <AudioLoopComponent
     file="data/audio/Desktop/misc.bank"
