@@ -289,6 +289,7 @@ d2d_perks = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = true,
+		-- not_in_default_perk_pool = true,
 		-- remove_other_perks = { "PROTECTION_EXPLOSION" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_EXPLOSION" )
@@ -296,11 +297,6 @@ d2d_perks = {
 				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
 			end
 
-            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-            {
-				_tags = "perk_component,d2d_master_of_bombs",
-	            extra_modifier = "d2d_master_of_explosions_boost",
-            } )
 			EntityAddComponent( entity_who_picked, "LuaComponent", 
 			{
 				_tags = "perk_component,d2d_master_of_bombs",
@@ -310,7 +306,6 @@ d2d_perks = {
         end,
 		func_remove = function( entity_who_picked )
 			remove_lua( entity_who_picked, "d2d_master_of_bombs" )
-			remove_shoteffect( entity_who_picked, "d2d_master_of_bombs" )
 		end,
 	},
 
@@ -323,6 +318,7 @@ d2d_perks = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = true,
+		-- not_in_default_perk_pool = true,
 		-- remove_other_perks = { "PROTECTION_ELECTRICITY" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_ELECTRICITY" )
@@ -361,6 +357,7 @@ d2d_perks = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = true,
+		-- not_in_default_perk_pool = true,
 		-- remove_other_perks = { "PROTECTION_FIRE" },
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_FIRE" )
