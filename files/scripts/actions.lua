@@ -144,31 +144,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_QUICK_BURNER", -- discontinued as of 10/12/25, to be removed in a future patch
-	    name 		        = "$spell_d2d_quick_burner_name",
-	    description         = "$spell_d2d_quick_burner_desc",
-        inject_after        = { "D2D_FLURRY", "RECHARGE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/quick_burner.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-		related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml" },
-	    price               = 330,
-	    mana                = 8,
-	    action              = function()
-					            c.damage_projectile_add = c.damage_projectile_add + 0.4
-								c.fire_rate_wait 		= c.fire_rate_wait - 10
-								current_reload_time 	= current_reload_time - 20
-								c.speed_multiplier		= c.speed_multiplier * 2
-								if reflecting then return end
-								c.knockback_force 		= c.knockback_force + 3.0
-
-								c.extra_entities    	= c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml,"
-			                    draw_actions( 1, true )
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_CONTROLLED_REACH",
 	    name 		        = "$spell_d2d_controlled_reach_name",
 	    description         = "$spell_d2d_controlled_reach_desc",
@@ -277,7 +252,7 @@ d2d_actions = {
             local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
             if curse_count ~= nil then
 				c.damage_curse_add 		= c.damage_curse_add + ( 0.2 * tonumber( curse_count ) )
-				c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
+				-- c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
 	            draw_actions( 1, true )
 	        end
 		end,
@@ -292,13 +267,13 @@ d2d_actions = {
 		spawn_level                       = "0",
 		spawn_probability                 = "0",
 		price 		= 999,
-		mana 		= -15,
+		mana 		= -10,
 		action 		= function()
 			if reflecting then return end
 
             local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
             if curse_count ~= nil then
-    			mana = mana + ( 15 * ( tonumber( curse_count ) - 1 ) )
+    			mana = mana + ( 10 * ( tonumber( curse_count ) - 1 ) )
 	            draw_actions( 1, true )
 	        end
 		end,
@@ -317,7 +292,6 @@ d2d_actions = {
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 25
 			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
-
 			                    draw_actions( 1, true )
 		                    end,
 	},
@@ -358,6 +332,23 @@ d2d_actions = {
 			                    draw_actions( 1, true )
 		                    end,
 	},
+
+    -- {
+	--     id                  = "D2D_CONTROLLED_FUSE",
+	--     name 		        = "$spell_d2d_controlled_fuse_name",
+	--     description         = "$spell_d2d_controlled_fuse_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/controlled_fuse.png",
+	--     type 		        = ACTION_TYPE_MODIFIER,
+	-- 	spawn_level         = "0,1,2,3,4,5,6",
+	-- 	spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+	--     price               = 330,
+	--     mana                = 20,
+	--     action              = function()
+	--     						c.fire_rate_wait = c.fire_rate_wait + 60
+	-- 							c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/controlled_fuse.xml,"
+    --                             draw_actions( 1, true )
+	--                         end,
+    -- },
 
 	-- {
 	-- 	id                  = "D2D_OPENING_SHOT",
@@ -466,65 +457,6 @@ d2d_actions = {
 	},
 
 	{
-		id                  = "D2D_DEATH_RAY",
-		name 		        = "$spell_d2d_death_ray_name",
-		description         = "$spell_d2d_death_ray_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/death_ray.png",
-		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/death_ray.xml"},
-		type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "5,6,10",
-		spawn_probability   = "0.05,0.1,0.5",
-		price               = 690,
-		mana                = 100,
-		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait - 22
-			                    c.spread_degrees = c.spread_degrees - 12
-								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 10
-
-								c.game_effect_entities = c.game_effect_entities .. "data/entities/misc/effect_disintegrated.xml,"
-								c.extra_entities    = c.extra_entities .. "mods/D2DContentPack/files/particles/deathray_spark.xml,"
-
-			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/death_ray.xml" )
-		                    end,
-	},
-
-	{
-		id          		= "D2D_CHARMING_ARROW",
-		name 				= "$spell_d2d_charming_arrow_name",
-		description 		= "$spell_d2d_charming_arrow_desc",
-		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/charming_arrow.png",
-		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" },
-		type 				= ACTION_TYPE_PROJECTILE,
-		spawn_level         = "1,2,4,5",
-		spawn_probability	= "0.4,0.5,0.7,0.8",
-		price 				= 270,
-		mana 				= 50,
-		max_uses 			= 3,
-		action 				= function()
-			c.fire_rate_wait = c.fire_rate_wait + 50
-			c.spread_degrees = c.spread_degrees + 12
-
-			if reflecting then return end
-			add_projectile( "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" )
-		end,
-	},
-
-    {
-	    id                  = "D2D_COMMAND_ATTACK",
-	    name 		        = "$spell_d2d_command_attack_name",
-	    description         = "$spell_d2d_command_attack_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/command_attack.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "0.3,0.4,0.5,0.6",
-	    price               = 190,
-	    mana                = 50,
-	    action              = function()
-	 							add_projectile( "mods/D2DContentPack/files/entities/projectiles/command_attack_targetter.xml" )
-	 						end
-    },
-
-	{
 		id                  = "D2D_GLASS_SHARD",
 		name 		        = "$spell_d2d_glass_shard_name",
 		description         = "$spell_d2d_glass_shard_desc",
@@ -562,6 +494,42 @@ d2d_actions = {
 	                        end,
     },
 
+	{
+		id          		= "D2D_CHARMING_ARROW",
+		name 				= "$spell_d2d_charming_arrow_name",
+		description 		= "$spell_d2d_charming_arrow_desc",
+		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/charming_arrow.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" },
+		type 				= ACTION_TYPE_PROJECTILE,
+		spawn_level         = "1,2,4,5",
+		spawn_probability	= "0.4,0.5,0.7,0.8",
+		price 				= 270,
+		mana 				= 50,
+		max_uses 			= 3,
+		action 				= function()
+			c.fire_rate_wait = c.fire_rate_wait + 50
+			c.spread_degrees = c.spread_degrees + 12
+
+			if reflecting then return end
+			add_projectile( "mods/D2DContentPack/files/entities/projectiles/charming_arrow.xml" )
+		end,
+	},
+
+    {
+	    id                  = "D2D_COMMAND_ATTACK",
+	    name 		        = "$spell_d2d_command_attack_name",
+	    description         = "$spell_d2d_command_attack_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/command_attack.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3",
+		spawn_probability   = "0.3,0.4,0.5,0.6",
+	    price               = 190,
+	    mana                = 50,
+	    action              = function()
+	 							add_projectile( "mods/D2DContentPack/files/entities/projectiles/command_attack_targetter.xml" )
+	 						end
+    },
+
     {
 	    id                  = "D2D_UNSTABLE_NUCLEUS",
 	    name 		        = "$spell_d2d_unstable_nucleus_name",
@@ -597,6 +565,34 @@ d2d_actions = {
                                 -- end
 	                        end,
     },
+
+	{
+		id                  = "D2D_DEATH_RAY",
+		name 		        = "$spell_d2d_death_ray_name",
+		description         = "$spell_d2d_death_ray_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/death_ray.png",
+		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/death_ray.xml"},
+		type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "6,10",
+		spawn_probability   = "0.1,0.5",
+		spawn_requires_flag = "d2d_staff_of_obliteration_obtained",
+		price               = 690,
+		mana                = 100,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait - 22
+			                    c.spread_degrees = c.spread_degrees - 12
+								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 10
+
+								c.game_effect_entities = c.game_effect_entities .. "data/entities/misc/effect_disintegrated.xml,"
+								c.extra_entities    = c.extra_entities .. "mods/D2DContentPack/files/particles/deathray_spark.xml,"
+
+			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/death_ray.xml" )
+
+			                    -- if reflecting then return end
+			                    -- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+			                    -- EntityInflictMaxHealthDamage( GetUpdatedEntityID(), 0.001667, true, "ultima ray" )
+		                    end,
+	},
 
     {
 	    id                  = "D2D_CONCRETE_WALL",
@@ -919,32 +915,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_BLINK_TRIGGER",
-	    name 		        = "$spell_d2d_blink_trigger_name",
-	    description         = "$spell_d2d_blink_trigger_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_trigger.png",
-	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "0", -- discontinued
-		spawn_probability   = "0", -- discontinued
-	    price               = 360,
-	    mana                = 85,
-	    max_uses			= 20,
-	    never_unlimited		= true,
-	    action              = function()
-                                c.fire_rate_wait = c.fire_rate_wait + 60
-	    						if reflecting then return end
-
-	                            -- deal 2% max health damage (cannot kill)
-								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-	    						add_projectile_trigger_death( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml", 1 )
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_REWIND",
 	    name 		        = "$spell_d2d_rewind_name",
 	    description         = "$spell_d2d_rewind_desc",
@@ -971,6 +941,65 @@ d2d_actions = {
                                 end
 	                        end,
     },
+
+    -- {
+	--     id                  = "D2D_CARDS_TO_MANA",
+	--     name 		        = "$spell_d2d_cards_to_mana_name",
+	--     description         = "$spell_d2d_cards_to_mana_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/cards_to_mana.png",
+	--     type 		        = ACTION_TYPE_UTILITY,
+	-- 	spawn_level         = "0,1,2,3,4,5,6", -- TELEPORT_PROJECTILE_STATIC
+	-- 	spawn_probability   = "0.6,0.6,0.6,0.6,0.4,0.4,0.4", -- TELEPORT_PROJECTILE_STATIC
+	--     price               = 400,
+	--     mana                = 50,
+	--     action              = function()
+	--     						c.fire_rate_wait = c.fire_rate_wait + 60
+
+	--     						if reflecting then return end
+	--     						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	-- 							local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+
+	-- 							-- fetch the wand and check its initial max mana
+	--     						local wand = EZWand.GetHeldWand()
+	--     						local wand_limit = get_internal_int( wand.entity_id, "d2d_cards_to_mana_limit" )
+	--     						if not exists( wand_limit ) then
+	--     							set_internal_int( wand.entity_id, "d2d_cards_to_mana_limit",
+	--     								wand.manaMax + math.max( wand.manaMax * 0.5, 100 ) )
+	--     						end
+	--     						local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	--     						local total_mana_cost = 0
+
+	--     						local nearby_cards = EntityGetInRadiusWithTag( x, y, 12, "card_action" )
+	--     						for i,card in ipairs( nearby_cards ) do
+	--     							local iacomp = EntityGetFirstComponent( card, "ItemActionComponent" )
+	--     							if exists( iacomp ) then
+	--     								local iccomp = EntityGetFirstComponent( card, "ItemCostComponent" )
+	--     								if not exists( iccomp ) then
+	-- 	    								local spell_id = ComponentGetValue2( iacomp, "action_id" )
+	-- 	    								local data = get_actions_lua_data( spell_id )
+	-- 	    								wand.mana = wand.mana + data.mana -- restore some mana
+
+	-- 	    								local prev_max_mana = wand.manaMax
+	-- 	    								local max_mana_increase = math.max( math.ceil( data.price * 0.05 ), 5 )
+	-- 	    								wand.manaMax = math.min( prev_max_mana + max_mana_increase, wand_limit )
+	-- 	    								if prev_max_mana ~= wand.manaMax then
+	-- 	    									GamePrint( "+" .. ( wand.manaMax - prev_max_mana )
+	-- 	    										.. " max mana from " .. GameTextGetTranslatedOrNot( data.name ) )
+
+	-- 		    								local sx, sy = EntityGetTransform( card )
+	-- 		    								GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/megalaser/create", sx, sy )
+	-- 		    								EntityLoad( "mods/D2DContentPack/files/particles/mana_sparkle_emitter.xml", sx, sy - 8 )
+	-- 	    									EntityKill( card )
+	-- 	    								else
+	-- 	    									GamePrint( "Your wand cannot gain more mana from Cards To Mana" )
+	-- 	    								end
+	-- 	    							else
+	-- 	    								GamePrint( "Spells that have not yet been bought cannot be consumed" )
+	-- 	    							end
+	--     							end
+	--     						end
+	--                         end,
+    -- },
 
     -- {
 	--     id                  = "D2D_COOKIE",
@@ -1106,44 +1135,6 @@ d2d_actions = {
 								draw_actions( 1, true )
 		                    end,
 	},
-
-    {
-	    id                  = "D2D_ALT_ALT_FIRE_TELEPORT_BOLT", -- discontinued as of 24/12/2025, to be removed later
-	    name 		        = "$spell_d2d_alt_alt_fire_teleport_bolt_name",
-	    description         = "$spell_d2d_alt_alt_fire_teleport_bolt_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_alt_fire_teleport_bolt.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-        spawn_level			= "0",
-        spawn_probability	= "0",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_alt_fire_teleport_bolt.xml",
-        price 				= 130,
-        mana 				= 20,
-	    action              = function()
-	    						draw_actions( 1, true )
-            					mana = mana + 20
-	                        end,
-    },
-
-    -- {
-	--     id                  = "D2D_BLINK_MID_FIRE",
-	--     name 		        = "$spell_d2d_blink_name",
-	--     description         = "$spell_d2d_blink_desc",
-	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mid_fire_blink.png",
-	--     type 		        = ACTION_TYPE_PASSIVE,
-    --     subtype     		= { altfire = true },
-	-- 	spawn_level         = "0",
-	-- 	spawn_probability   = "0",
-	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mid_fire_blink.xml",
-	--     price               = 300,
-	--     mana                = 80,
-	--     max_uses			= 10,
-	--     never_unlimited		= true,
-	--     action              = function()	    						
-	--     						draw_actions( 1, true )
-    --         					mana = mana + 20
-	--                         end,
-    -- },
 
 	{
 		id                  = "D2D_RECYCLE",
@@ -1317,26 +1308,6 @@ if ( ModIsEnabled("Apotheosis") ) then
 		                        end,
 	    },
 
-	    {
-		    id                  = "D2D_SUMMON_FAIRIES", -- discontinued as of 10/12/25, to be removed in a future patch
-		    name 		        = "$spell_d2d_summon_fairies_name",
-		    description         = "$spell_d2d_summon_fairies_desc",
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairies.png",
-		    type 		        = ACTION_TYPE_PROJECTILE,
-			spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-			spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-		    price               = 200,
-		    mana                = 15,
-		    max_uses			= 10,
-	    	never_unlimited 	= true,
-		    action              = function()
-		 							if reflecting then return end
-		 							
-	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-	    							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
-		                        end,
-	    },
-
 	    -- {
 		--     id                  = "D2D_FAIRY_WHISTLE",
 		--     name 		        = "$spell_d2d_fairy_whistle_name",
@@ -1417,27 +1388,6 @@ d2d_alt_fire_actions = {
 	    action              = function()
 	    						draw_actions( 1, true )
         						mana = mana + 80
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_SMOKE_BOMB_ALT_FIRE", -- discontinued as of 10/12/25, to be removed
-	    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
-	    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
-        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed
-		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
-	    price               = 230,
-	    mana                = 50,
-	    max_uses			= 10,
-    	custom_uses_logic 	= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-        						mana = mana + 50
 	                        end,
     },
 
