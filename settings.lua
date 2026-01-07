@@ -24,6 +24,13 @@ mod_settings =
         ui_description = "",
         settings = {
             {
+                id = "always_spawn_mod_reworks",
+                ui_name = "Always spawn mod reworks",
+                ui_description = "When enabled, reworks for perks from other mods can spawn\neven if the original mod is not enabled.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
                 id = "spawn_challenge_perk_sometimes",
                 ui_name = "Sometimes spawn a Challenge Perk on new game start",
                 ui_description = "When you start a new game with this setting enabled, there's\na 5% chance for Time Trial or Glass Heart to spawn at the\nmountain entrance.",
@@ -242,7 +249,7 @@ function ModSettingsGui( gui, in_main_menu )
                     GuiTooltip( gui, tooltip_text, "[ Click to disable]   [ Right-click to enable spawn at start ]" )
                 end
             end
-            
+
             GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_square.png", 1, 1.2, 0 )
             if HasSettingFlag( v.id.."_disabled" ) then
                 GuiZSetForNextWidget( gui, -80 )

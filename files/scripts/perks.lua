@@ -1228,7 +1228,7 @@ if ( perk_list ~= nil ) then
 			if not v.source_mod_id then
 				table.insert( perk_list, v )
 				hide_perk( v.id_vanilla )
-			elseif ModIsEnabled( v.source_mod_id ) then
+			elseif ModIsEnabled( v.source_mod_id ) or ModSettingGet( "D2DContentPack.always_spawn_mod_reworks" ) then
 				table.insert( perk_list, v )
 				hide_perk( v.id_vanilla )
 			end
