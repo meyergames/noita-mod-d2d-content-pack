@@ -1,6 +1,7 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local x, y = EntityGetTransform( GetUpdatedEntityID() )
+local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
 
 local wand = EZWand( GetUpdatedEntityID() )
 wand:SetName( "Toolbox", true )
@@ -11,7 +12,7 @@ wand.rechargeTime = 0
 wand.manaMax = 1
 wand.mana = 1
 wand.manaChargeSpeed = 0
-wand.capacity = math.floor( remap( math.abs( y ), 0, 10000, 3, 8 ) )
+wand.capacity = 4 + hm_visits
 wand.spread = 0
 
 -- add duplicates to make some upgrades less common

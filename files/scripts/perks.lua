@@ -1082,6 +1082,80 @@ d2d_perk_reworks = {
             remove_lua( entity_who_picked, "d2d_tinker_with_wands_more" )
         end,
 	},
+
+	{
+		id = "D2D_SUMMON_TOOLBOX",
+		id_vanilla = "EXTRA_MANA",
+		ui_name_vanilla = "Bonus Mana",
+		ui_name = "$perk_d2d_summon_toolbox_name",
+		ui_description = "$perk_d2d_summon_toolbox_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/toolbox_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/toolbox.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = true,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+        	local x, y = EntityGetTransform( entity_who_picked )
+        	EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/toolbox_perk.xml", x, y - 8 )
+        end,
+	},
+
+	{
+		id = "D2D_DUPLICATE_WAND",
+		id_vanilla = "GKBRKN_DUPLICATE_WAND",
+		ui_name_vanilla = "Duplicate Wand",
+		source_mod_id = "gkbrkn_noita",
+		source_mod_name = "Goki's Things",
+		ui_name = "$perk_d2d_duplicate_wand_name",
+		ui_description = "$perk_d2d_duplicate_wand_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/duplicate_wand_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/duplicate_wand.png",
+		stackable = STACKABLE_YES,
+		stackable_is_rare = true,
+		one_off_effect = true,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+        	local x, y = EntityGetTransform( entity_who_picked )
+        	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
+
+        	dofile_once( "mods/D2DContentPack/files/scripts/lib/gkbrkn_utils.lua" )
+        	local original = EZWand.GetHeldWand()
+        	-- if not wand then
+        	-- 	wand = SELECT RANDOM OR FIRST WAND
+        	-- end
+
+        	if original then
+        		if Random( 1, 4 ) == 1 then
+	        		EntityKill( original.entity_id )
+					EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
+	        	else
+	        		local copy = EZWand()
+
+	        		copy.shuffle = original.shuffle
+	        		copy.spellsPerCast = original.spellsPerCast
+	        		copy.castDelay = original.castDelay
+	        		copy.rechargeTime = original.rechargeTime
+	        		copy.manaMax = original.manaMax
+	        		copy.mana = original.mana
+	        		copy.manaChargeSpeed = original.manaChargeSpeed
+	        		copy.capacity = original.capacity
+	        		copy.spread = original.spread
+	        		copy.speedMultiplier = original.speedMultiplier
+
+	        		local spells, always_casts = original:GetSpells()
+	        		for i,spell in ipairs( spells ) do
+	        			copy:AddSpells( spell.action_id )
+	        		end
+	        		for i,always_cast in ipairs( always_casts ) do
+	        			copy:AttachSpells( always_cast.action_id )
+	        		end
+
+    				copy:SetSprite( original:GetSprite() )
+	        		copy:PlaceAt( x, y )
+	        	end
+        	end
+        end,
+	},
 }
 
 
@@ -1151,9 +1225,13 @@ end
 if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_perk_reworks )do
 		if not HasSettingFlag( v.id .. "_disabled" ) then
-			table.insert( perk_list, v )
-			-- remove_perk( v.id_vanilla )
-			hide_perk( v.id_vanilla )
+			if not v.source_mod_id then
+				table.insert( perk_list, v )
+				hide_perk( v.id_vanilla )
+			elseif ModIsEnabled( v.source_mod_id ) then
+				table.insert( perk_list, v )
+				hide_perk( v.id_vanilla )
+			end
 		end
 	end
 end

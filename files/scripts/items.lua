@@ -34,11 +34,6 @@ ctq_items = {
         entity = "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml",
         offset = -2
     },
-    {
-        weight = 2,
-        entity = "mods/D2DContentPack/files/entities/items/pickup/toolbox.xml",
-        offset = -2
-    },
 }
 
 for i, v in ipairs(ctq_items) do
