@@ -108,4 +108,25 @@
     >
   </ParticleEmitterComponent>
 
+  <AudioLoopComponent
+    file="data/audio/Desktop/projectiles.bank"
+    event_name="player_projectiles/epilogue/wall/movement_loop"
+    auto_play_if_enabled="1"
+  ></AudioLoopComponent>
+
+  <LuaComponent
+    script_source_file="mods/D2DContentPack/files/scripts/items/cursed_chest_reduce_volume.lua"
+    execute_every_n_frame="1"
+    remove_after_executed="1">
+  </LuaComponent>
+
+  <MagicConvertMaterialComponent
+        radius="50"
+        is_circle="1"
+        steps_per_frame="300"
+        from_material_tag="solid"
+        to_material="rock_static_cursed"
+        kill_when_finished="0" >
+  </MagicConvertMaterialComponent>
+
 </Entity>

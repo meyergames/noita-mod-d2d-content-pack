@@ -22,5 +22,5 @@ if is_boss then
 end
 
 if cancel_infatuation then
-	EntityKill( get_child_with_name( owner, "effect_charmed_short_d2d.xml" ) )
+	EntityKill( get_child_by_filename( owner, "effect_charmed_short_d2d.xml" ) )
 end

@@ -1,0 +1,8 @@
+<Entity>
+    <GameEffectComponent
+        effect="TELEPORTATION"
+        frames="60"
+		teleportation_probability="1"
+        teleportations_num="1">
+	</GameEffectComponent >
+</Entity>

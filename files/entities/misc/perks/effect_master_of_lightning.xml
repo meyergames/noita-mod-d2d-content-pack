@@ -7,7 +7,6 @@
         custom_effect_id="D2D_MASTER_OF_LIGHTNING"
     ></GameEffectComponent >
 
-    <!--INIT -->
     <LuaComponent
       script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_lightning_on.lua"
       execute_every_n_frame="1"
@@ -19,7 +18,12 @@
       execute_every_n_frame="-1"
     ></LuaComponent>
   
-    <!-- UPDATE -->
+  <!-- <LuaComponent 
+    _enabled="1" 
+    script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_lightning_try_zap.lua" 
+    execute_every_n_frame="15"
+  ></LuaComponent> -->
+
   <LuaComponent 
     _enabled="1" 
     script_source_file="mods/D2DContentPack/files/scripts/perks/effect_master_of_lightning_update.lua" 

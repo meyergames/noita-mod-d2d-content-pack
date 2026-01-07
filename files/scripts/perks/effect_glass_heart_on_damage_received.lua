@@ -13,7 +13,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 		GamePrintImportant( "The Glass Heart shattered" )
 
         -- remove the effect's UI entity and all associated Lua scripts
-        local ui_icon_id = get_child_with_name( owner, "effect_glass_heart.xml" )
+        local ui_icon_id = get_child_by_filename( owner, "effect_glass_heart.xml" )
         if ui_icon_id then
             EntityKill( ui_icon_id )
         end

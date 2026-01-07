@@ -1,23 +1,74 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" )
 
 -------------------------------------------------------------------------------
 
-function random_perk_reward( x, y )
-	if ( not has_perk( "D2D_HUNT_CURSES" ) ) then
-		spawn_random_perk( x - 20, y )
-		spawn_perk( "D2D_HUNT_CURSES", x, y )
-		spawn_random_perk( x + 20, y )
+function random_wand_reward( x, y, cursed_chests_opened )
+	SetRandomSeed( x, y + GameGetFrameNum() )
+
+	local rnd = Random( 1, 100 )
+	local chance_for_t10 = cursed_chests_opened * 1 -- 1% at first, up to 10% after 10 (and 20% after 20)
+	local chance_for_t6 = cursed_chests_opened * 3 -- 3% at first, up to 30% after 10
+	local chance_for_t5 = cursed_chests_opened * 6 -- 6% at first, up to 60% after 10
+	local chance_for_t4 = cursed_chests_opened * 20 -- 20% at first, up to 100% after 5
+	local is_non_shuffle = Random( 1, 20 ) < cursed_chests_opened + 10
+
+	if rnd < chance_for_t10 then
+
+		EntityLoad( "data/entities/items/wand_level_10.xml", x, y )
+
+	elseif rnd < chance_for_t6 then
+
+		if is_non_shuffle then
+			EntityLoad( "data/entities/items/wand_unshuffle_06.xml", x, y )
+		else
+			EntityLoad( "data/entities/items/wand_level_06.xml", x, y )
+		end
+
+	elseif rnd < chance_for_t5 then
+
+		if is_non_shuffle then
+			EntityLoad( "data/entities/items/wand_unshuffle_05.xml", x, y )
+		else
+			EntityLoad( "data/entities/items/wand_level_05.xml", x, y )
+		end
+
+	elseif rnd < chance_for_t4 then
+
+		if is_non_shuffle then
+			EntityLoad( "data/entities/items/wand_unshuffle_04.xml", x, y )
+		else
+			EntityLoad( "data/entities/items/wand_level_04.xml", x, y )
+		end
+
 	else
-		spawn_random_perk( x - 20, y )
-		spawn_random_perk( x, y )
-		spawn_random_perk( x + 20, y )
+
+		if is_non_shuffle then
+			EntityLoad( "data/entities/items/wand_unshuffle_03.xml", x, y )
+		else
+			EntityLoad( "data/entities/items/wand_level_03.xml", x, y )
+		end
+
 	end
 end
 
-function random_perk_reward_incl_lift_curses( x, y )
-	if ( not has_perk( "D2D_LIFT_CURSES" ) ) then
+function random_perk_reward( x, y, cursed_chests_opened )
+	SetRandomSeed( x, y + GameGetFrameNum() )
+
+    local blurses = {}
+	local blurses_already_spawned = GlobalsGetValue( "d2d_blurses_spawned", "" )
+	for k,v in ipairs( d2d_blurses or {} ) do
+		if not has_perk( v.id ) and not string.find( blurses_already_spawned, v.id ) then
+			table.insert( blurses, v.id )
+		end
+	end
+
+	if #blurses > 0 and cursed_chests_opened % 2 == 0 then
+		local random_blurse_id = random_from_array( blurses )
+		spawn_perk( random_blurse_id, x, y )
+		GlobalsSetValue( "d2d_blurses_spawned", blurses_already_spawned .. random_blurse_id .. "," )
+
 		spawn_random_perk( x - 20, y )
-		spawn_perk( "D2D_LIFT_CURSES", x, y )
 		spawn_random_perk( x + 20, y )
 	else
 		spawn_random_perk( x - 20, y )
@@ -27,178 +78,31 @@ function random_perk_reward_incl_lift_curses( x, y )
 end
 
 function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
-	SetRandomSeed( GameGetFrameNum(), x + y + entity_id )
-	
-	local good_item_dropped = true
-	
-	-- using deferred loading of entities, since loading some of them (e.g. potion.xml) will call SetRandomSeed(...)
-	-- if position is not given (in entities table), will load the entity to rand_x, rand_y and then move it to chest position
-	-- reason for this is that then the SetRandomSeed() of those entities will be deterministic 
-	-- but for some reason it cannot be done to random_card.xml, since I'm guessing
-	local entities = {}
-	local count = 1
-
-	-- TODO:
-	-- [ ] LC/AP component potions
-
-	-- give the player the opportunity to lift all curses, once they have them all curses
-    dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" )
     local max_curse_count = #d2d_curses
-
 	local cursed_chests_opened = get_internal_int( get_player(), "d2d_cursed_chests_opened" )
+
 	if cursed_chests_opened == 1 then
-		random_perk_reward( x, y )
+
+		-- on the first chest, spawn the Curse Hunter perk and the "Curses To X" spells
+		spawn_perk( "D2D_HUNT_CURSES", x, y )
+   		CreateItemActionEntity( "D2D_CURSES_TO_DAMAGE", x - 20, y )
+   		CreateItemActionEntity( "D2D_CURSES_TO_MANA", x + 20, y )
+		random_wand_reward( x, y - 20, cursed_chests_opened )
+
 	elseif cursed_chests_opened == max_curse_count + 1 then
-		random_perk_reward_incl_lift_curses( x, y )
+
+		-- on the last chest, spawn the Lift Curses perk and the Staff of Obliteration
+		spawn_perk( "D2D_LIFT_CURSES", x, y )
 		spawn_staff_of_obliteration( x, y - 20 )
 		AddFlagPersistent( "d2d_staff_of_obliteration_obtained" )
+
 	else
-		local rnd = Random(1,100)
-		-- maybe spawn gold (10% chance)
-		if ( rnd <= 10 ) then
-			local rnd2 = Random( 1,100 )
-			if rnd2 <= 99 - cursed_chests_opened then -- higher chance for the big circle if you have more curses
-				table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_128.xml" } )
-			elseif rnd2 <= 100 then -- 1/1,000
-				table.insert( entities, { "mods/D2DContentPack/files/entities/projectiles/deck/circle_gold_256.xml" } )
-			end
-		-- maybe spawn a hammer (5% chance)
-		elseif ( rnd <= 15 ) then
-			table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/hammer.xml" } )
-		-- maybe spawn a heart (15% chance)
-		elseif ( rnd <= 30 ) then
-			local rnd2 = Random( 1, 100 )
-			if ( rnd2 <= 80 ) then -- 12% chance for +50 max hp
-				table.insert( entities, { "data/entities/items/pickup/heart_better.xml" } )
-			elseif ( rnd2 <= 100 ) then -- 3% chance for a full heal
-				table.insert( entities, { "data/entities/items/pickup/heart_fullhp.xml" } )
-			end
-		-- maybe spawn an item (15-5% chance)
-		elseif rnd <= math.max( 45 - cursed_chests_opened, 35 ) then
-			local rnd2 = Random( 1, 100 )
-			if ( rnd2 <= 25 ) then -- 2.5%
-				table.insert( entities, { "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml" } )
-			elseif ( rnd2 <= 35 ) then -- 1%
-				table.insert( entities, { "data/entities/items/pickup/safe_haven.xml" } )
-			elseif ( rnd2 <= 65 ) then -- 3%
-				table.insert( entities, { "data/entities/items/pickup/lightningstone.xml" } )
-			elseif ( rnd2 <= 95 ) then -- 3%
-				table.insert( entities, { "data/entities/items/pickup/brimstone.xml" } )
-			elseif ( rnd2 <= 100 ) then -- 0.5%
-				table.insert( entities, { "data/entities/items/pickup/waterstone.xml" } )
-			end
-		-- maybe spawn a perk (15-25% chance)
-		elseif ( rnd <= 55 ) then
-			random_perk_reward( x, y )
-		-- maybe spawn a bunch of spells, including a guaranteed curse-related spell (15% chance)
-		elseif ( rnd <= 70 ) then
-			local spells = { "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" }
-			local rnd2 = Random( 1, #spells )
-			local spell_to_spawn = spells[rnd2]
-	   		CreateItemActionEntity( spell_to_spawn, x, y )
 
-			local amount = 3
-			local rnd2 = Random(0,100)
-			if (rnd2 <= 50) then -- 5%
-				amount = 3
-			elseif (rnd2 <= 70) then -- 2%
-				amount = amount + 1
-			elseif (rnd2 <= 80) then -- 1%
-				amount = amount + 2
-			elseif (rnd2 <= 90) then -- 1%
-				amount = amount + 3
-			elseif (rnd2 <= 100) then -- 1%
-				amount = amount + 4
-			end
+		-- on most chests, give random perks to choose from, including a Blurse if possible
+		random_perk_reward( x, y, cursed_chests_opened )
+		random_wand_reward( x, y - 20, cursed_chests_opened )
 
-			for i=1,amount do
-				local spx = x + (i - (amount / 2)) * 12
-				local spy = y - 4 + Random(-5,5)
-
-				dofile_once( "data/scripts/items/chest_random.lua" )
-				make_random_card( spx, spy )
-			end
-		-- maybe spawn a wand (30% chance)
-		else
-			local rnd3 = Random( 1, 100 )
-			if cursed_chests_opened <= 2 then
-
-				if rnd3 <= 50 then -- 50%
-					table.insert( entities, { "data/entities/items/wand_unshuffle_04.xml" } )
-				else
-				-- elseif rnd3 <= 80 then -- 30%
-					table.insert( entities, { "data/entities/items/wand_level_04.xml" } )
-				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    	-- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					-- spawn_staff_of_obliteration( x, y )
-				end
-
-			elseif cursed_chests_opened <= 3 then
-
-				if rnd3 <= 50 then -- 50%
-					table.insert( entities, { "data/entities/items/wand_unshuffle_05.xml" } )
-				else
-				-- elseif rnd3 <= 80 then -- 30%
-					table.insert( entities, { "data/entities/items/wand_level_05.xml" } )
-				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    	-- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					-- spawn_staff_of_obliteration( x, y )
-				end
-
-			elseif cursed_chests_opened <= 4 then
-
-				if rnd3 <= 50 then -- 50%
-					table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
-				else
-				-- elseif rnd3 <= 80 then -- 30%
-					table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    	-- dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-					-- spawn_staff_of_obliteration( x, y )
-				end
-
-			elseif cursed_chests_opened >= 5 then
-
-				if rnd3 <= 25 then -- 25%
-					table.insert( entities, { "data/entities/items/wand_unshuffle_06.xml" } )
-				elseif rnd3 <= 40 then -- 15%
-					table.insert( entities, { "data/entities/items/wand_level_06.xml" } )
-				else
-				-- elseif rnd3 <= 80 then -- 40%
-					table.insert( entities, { "data/entities/items/wand_level_10.xml" } )
-				-- elseif rnd3 <= 100 then -- 20% (i.e. 6%)
-			    -- 	dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-				-- 	spawn_staff_of_obliteration( x, y )
-				end
-			end
-		end
 	end
-
-	for i,entity in ipairs(entities) do
-		local eid = 0 
-		if( entity[2] ~= nil and entity[3] ~= nil ) then 
-			eid = EntityLoad( entity[1], entity[2], entity[3] ) 
-		else
-			eid = EntityLoad( entity[1], rand_x, rand_y )
-			EntityApplyTransform( eid, x + Random(-10,10), y - 4 + Random(-5,5)  )
-		end
-
-		local item_comp = EntityGetFirstComponent( eid, "ItemComponent" )
-
-		-- auto_pickup e.g. gold should have a delay in the next_frame_pickable, since they get gobbled up too fast by the player to see
-		if item_comp ~= nil then
-			if( ComponentGetValue2( item_comp, "auto_pickup") ) then
-				ComponentSetValue2( item_comp, "next_frame_pickable", GameGetFrameNum() + 30 )
-			end
-		end
-	end
-
-	return good_item_dropped
-end
-
-function drop_money( entity_item )
-	
-	-- 
 end
 
 function on_open( entity_item )
@@ -240,11 +144,6 @@ end
 
 function item_pickup( entity_item, entity_who_picked, name )
 	GamePrintImportant( "$log_chest", "" )
-	-- GameTriggerMusicCue( "item" )
-
-	--if (remove_entity == false) then
-	--	EntityLoad( "data/entities/misc/chest_random_dummy.xml", x, y )
-	--end
 
 	on_open( entity_item )
 	

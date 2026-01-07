@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 extra_modifiers["d2d_master_of_explosions_boost"] = function()
 	local is_immune_to_explosions = has_game_effect( get_player(), "PROTECTION_EXPLOSION" )
@@ -18,16 +18,15 @@ extra_modifiers["d2d_master_of_lightning_boost"] = function()
         c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
         c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_lightning_try_electrify.xml,"
         
-		c.speed_multiplier = c.speed_multiplier * 2
-		c.fire_rate_wait   = (c.fire_rate_wait / 4) * 3
-	    current_reload_time = (current_reload_time / 4) * 3
+		c.speed_multiplier  = c.speed_multiplier * 2
+		c.fire_rate_wait    = ( c.fire_rate_wait / 10 ) * 9
+	    current_reload_time = ( current_reload_time / 10 ) * 9
     end
 end
 
 extra_modifiers["d2d_master_of_lightning_boost_plus"] = function()
-	c.speed_multiplier = c.speed_multiplier * 1.5
-	c.fire_rate_wait	= (c.fire_rate_wait / 7.5) * 5
-	current_reload_time	= (current_reload_time / 7.5) * 5
+	c.fire_rate_wait	= ( c.fire_rate_wait / 4 ) * 3
+	current_reload_time	= ( current_reload_time / 4 ) * 3
 end
 
 extra_modifiers["d2d_master_of_fire_boost"] = function()
@@ -36,13 +35,6 @@ extra_modifiers["d2d_master_of_fire_boost"] = function()
 	    c.damage_fire_add = c.damage_fire_add + 0.2
 		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
     end
-end
-
-extra_modifiers["d2d_master_of_fire_boost_plus"] = function()
-	-- c.damage_fire_add = c.damage_fire_add + 0.4
-
-	c.fire_rate_wait   = (c.fire_rate_wait / 5) * 4
-    current_reload_time = (current_reload_time / 5) * 4
 end
 
 extra_modifiers["d2d_overheating_wands"] = function()
@@ -57,7 +49,7 @@ extra_modifiers["d2d_overheating_wands"] = function()
 
         local mana = wand.mana
         local max_mana = wand.manaMax
-
+        
     	local not_enough_mana = c.action_mana_drain < mana
 
         local rand = Random( 0, 100 )

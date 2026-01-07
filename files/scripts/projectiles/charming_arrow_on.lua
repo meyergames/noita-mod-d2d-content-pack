@@ -34,7 +34,7 @@ if dcomp then
 	-- multiply base chance by 1.0 when at 100% hp, or by 0.1 when at 0% hp
 	local percent_chance_to_backfire = remap( ( 1.0 / max_hp ) * hp, 1, 0, base_chance, 0 )
 	if Random( 1, 100 ) < percent_chance_to_backfire then
-		-- EntityKill( get_child_with_name( owner, "effect_charmed_short_d2d.xml" ) )
+		-- EntityKill( get_child_by_filename( owner, "effect_charmed_short_d2d.xml" ) )
 		LoadGameEffectEntityTo( owner, "data/entities/misc/effect_berserk.xml" )
 		cancel_infatuation = true
 	end
@@ -53,7 +53,7 @@ if others and #others > 1 then
 
 				-- make half of the infatuated creatures turn berserk when a new creature is infatuated
 				if other % 5 ~= 0 then
-					EntityKill( get_child_with_name( other, "effect_charmed_short_d2d.xml" ) )
+					EntityKill( get_child_by_filename( other, "effect_charmed_short_d2d.xml" ) )
 					LoadGameEffectEntityTo( other, "data/entities/misc/effect_berserk.xml" )
 					-- was_other_charmed = true
 				end
@@ -70,5 +70,5 @@ end
 
 if cancel_infatuation then
 	set_internal_bool( owner, "d2d_charming_arrow_cancel_infatuation", true )
-	-- EntityKill( get_child_with_name( owner, "effect_charmed_short_d2d.xml" ) )
+	-- EntityKill( get_child_by_filename( owner, "effect_charmed_short_d2d.xml" ) )
 end

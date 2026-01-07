@@ -496,7 +496,7 @@ function spawn_glass_staff( x, y )
     wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_glass.png", 6, 4, 18, 0 )
 
     set_internal_int( wand.entity_id, "is_glass", 1 )
-    local existing_effect_id = get_child_with_name( get_player(), "wand_of_glass_on_damage_received" )
+    local existing_effect_id = get_child_by_filename( get_player(), "wand_of_glass_on_damage_received" )
     if not existing_effect_id then
         local comp_id = EntityAddComponent( get_player(), "LuaComponent",
         {

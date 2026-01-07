@@ -35,7 +35,7 @@ local biome_name = BiomeMapGetName( x, y )
 if is_on_ground and not string.find( biome_name, "holy" ) then
     counter = old_val + 1
 else
-	counter = math.max( old_val - 4, 0 )
+	counter = 0
 end
 set_internal_int( owner, "d2d_floor_is_lava_counter", counter )
 

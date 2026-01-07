@@ -68,8 +68,32 @@ function try_spawn_staff_of_finality()
     GameAddFlagRun( "d2d_poi_spawned_staff_of_finality" )
 end
 
+function try_convert_chests_into_cursed()
+    local chests = EntityGetWithTag( "chest" )
+    if exists( chests ) and #chests > 0 then
+        for i,chest in ipairs( chests ) do
+            local was_tried_before = get_internal_bool( chest, "d2d_cursed_chest_convert_attempted" )
+
+            if not was_tried_before and distance_between( get_player(), chest ) > 300 then
+                local chance = 5
+                if has_perk( "D2D_HUNT_CURSES" ) then
+                    chance = 20
+                end
+                if Random( 1, 100 ) < chance then
+                    local x, y = EntityGetTransform( chest )
+                    EntityKill( chest )
+                    EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_random_cursed_d2d.xml", x, y )
+                end
+
+                set_internal_bool( chest, "d2d_cursed_chest_convert_attempted", true )
+            end
+        end
+    end
+end
+
 
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
 try_spawn_staff_of_finality()
+try_convert_chests_into_cursed()

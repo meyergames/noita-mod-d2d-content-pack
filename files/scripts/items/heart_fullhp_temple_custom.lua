@@ -35,7 +35,7 @@ end
 local function handle_glass_fist_boost( entity_item, entity_who_picked )
     if get_perk_pickup_count( "D2D_GLASS_FIST" ) >= 1 then
         set_internal_bool( entity_who_picked, "d2d_glass_fist_boost_enabled", true )
-        local ui_icon_id = get_child_with_name( entity_who_picked, "glass_fist_overhead_icon.xml" )
+        local ui_icon_id = get_child_by_filename( entity_who_picked, "glass_fist_overhead_icon.xml" )
         if not ui_icon_id then
             LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/status_effects/glass_fist_overhead_icon.xml" )
         end

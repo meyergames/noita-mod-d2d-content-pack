@@ -1,0 +1,34 @@
+<Entity>
+	<SpriteParticleEmitterComponent
+		sprite_file="mods/D2DContentPack/files/particles/mana_sparkle.xml"
+		lifetime="0.1"
+		randomize_lifetime.min="0.1"
+		randomize_lifetime.max="0.3"
+		emission_interval_min_frames="5"
+		emission_interval_max_frames="15"
+		count_min="2"
+		count_max="5"
+		additive="1"
+		emissive="1"
+		scale.x="1.0"
+		scale.y="1.0"
+		sprite_random_rotation="1"
+		randomize_scale.min_x="-0.1" 
+		randomize_scale.max_x="0.1" 
+		randomize_scale.min_y="-0.1" 
+		randomize_scale.max_y="0.1" 
+		randomize_position.min_y="-8" 
+		randomize_position.max_y="8"
+		randomize_position.min_x="-8"  
+		randomize_position.max_x="8"
+		velocity_slowdown="2"
+		randomize_animation_speed_coeff.min="0.8"  
+		randomize_animation_speed_coeff.max="1.0"
+		is_emitting="1"
+		>
+	</SpriteParticleEmitterComponent>
+
+	<LifetimeComponent
+		lifetime="60">
+	</LifetimeComponent>
+</Entity>

@@ -15,7 +15,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 		GamePrint( "Glass Fist's damage boost has ended" )
 
         -- remove the effect's UI entity
-        local ui_icon_id = get_child_with_name( owner, "glass_fist_overhead_icon.xml" )
+        local ui_icon_id = get_child_by_filename( owner, "glass_fist_overhead_icon.xml" )
         if ui_icon_id then
             EntityKill( ui_icon_id )
         end

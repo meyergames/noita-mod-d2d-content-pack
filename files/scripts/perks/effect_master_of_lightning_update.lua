@@ -10,7 +10,7 @@ local electrocuted_effect_count = GameGetGameEffectCount( owner, "ELECTROCUTION"
 
 local extra_boost_timer = getInternalVariableValue( owner, "master_of_lightning_extra_boost_timer", "value_int" )
 if( not is_immune_to_electricity and electrocuted_effect_count > 0 ) then
-    setInternalVariableValue( owner, "master_of_lightning_extra_boost_timer", "value_int", extra_boost_timer + 2 )
+    setInternalVariableValue( owner, "master_of_lightning_extra_boost_timer", "value_int", extra_boost_timer + 3 )
 end
 
 if ( electrocuted_effect_count > 0 ) then return end -- don't execute the rest of this script if the player is executed

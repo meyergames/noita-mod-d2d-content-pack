@@ -424,7 +424,7 @@ function remove_shoteffect( entity_id, tag )
 	end
 end
 
-function get_child_with_name( parent_id, name )
+function get_child_by_filename( parent_id, name )
     local children = EntityGetAllChildren( parent_id )
     if children then
 	    for i,child in ipairs( children ) do

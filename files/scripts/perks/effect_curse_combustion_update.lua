@@ -18,6 +18,6 @@ if ( p_hp < p_max_hp * 0.2 ) then return end
 
 local rnd = Random( 1, 60 )
 if ( rnd == 1 ) then
-    shoot_projectile( owner, "mods/D2DContentPack/files/entities/projectiles/deck/nolla_firebomb.xml", x, y, 0, 0 )
+    LoadGameEffectEntityTo( owner, "data/entities/misc/effect_on_fire.xml" )
     setInternalVariableValue( owner, "combustion_cooldown_time", "value_int", 60 )
 end

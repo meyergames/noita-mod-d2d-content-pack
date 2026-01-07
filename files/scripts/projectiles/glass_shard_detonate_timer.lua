@@ -17,6 +17,21 @@ if timer then
 		set_internal_float( owner, "d2d_glass_shard_bonus_dmg", 0 )
 
 		local dmg = ( stacks * 0.28 ) + postponed_dmg
+
+		-- hardcoded because yeah who cares
+		if has_perk( "D2D_JUGGERNAUT" ) then
+			local dmgcomp = EntityGetFirstComponent( get_player(), "DamageModelComponent" )
+			if exists( dmgcomp ) then
+				local hp = ComponentGetValue2( dmgcomp, "hp" )
+				local max_hp = ComponentGetValue2( dmgcomp, "max_hp" )
+				local ratio = hp / max_hp
+
+				-- apply a multiplier of 1.0-2.0, based on how much health the player has left
+				dmg = dmg * ( 1.0 + ratio )
+			end
+		end
+
+		-- apply stored damage
 	    EntityInflictDamage( owner, dmg, "DAMAGE_SLICE", "glass shards", "NORMAL", 0, 0, owner, x, y, 0)
 	    if dmg >= 1.2 and dmg < 4 then
 			GamePlaySound( "data/audio/Desktop/materials.bank", "collision/glass_potion/destroy", x, y )

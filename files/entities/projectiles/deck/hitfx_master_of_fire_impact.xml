@@ -1,14 +1,6 @@
 <Entity>
-    
    <HitEffectComponent 
-      effect_hit="LOAD_UNIQUE_CHILD_ENTITY"
-      value_string="mods/D2DContentPack/files/entities/projectiles/deck/nolla_firebomb.xml" >
+      effect_hit="LOAD_UNIQUE_GAME_EFFECT"
+      value_string="data/entities/misc/effect_on_fire.xml">
    </HitEffectComponent >
-    
-   <!--<HitEffectComponent 
-      condition_effect="ON_FIRE"
-      effect_hit="LOAD_UNIQUE_CHILD_ENTITY"
-      value_string="data/entities/misc/hitfx_explode_explosion.xml" >
-   </HitEffectComponent >-->
-
 </Entity>

@@ -78,7 +78,7 @@ d2d_perks = {
         	end
 		end,
 		func_remove = function( entity_who_picked )
-			local effect_id = get_child_with_name( entity_who_picked, "effect_warp_rush.xml" )
+			local effect_id = get_child_by_filename( entity_who_picked, "effect_warp_rush.xml" )
 			if effect_id and effect_id ~= 0 then
 				EntityKill( effect_id )
 			end
@@ -125,14 +125,14 @@ d2d_perks = {
 		    end
 
 			-- add a UI component, if it doesn't exist already
-			local ui_icon_id = get_child_with_name( entity_who_picked, "effect_glass_heart.xml" )
+			local ui_icon_id = get_child_by_filename( entity_who_picked, "effect_glass_heart.xml" )
 			if not ui_icon_id then
             	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_glass_heart.xml" )
 			end
 		end,
 		func_remove = function( entity_who_picked )
 			remove_lua( entity_who_picked, "d2d_glass_heart" )
-	        local ui_icon_id = get_child_with_name( entity_who_picked, "effect_glass_heart.xml" )
+	        local ui_icon_id = get_child_by_filename( entity_who_picked, "effect_glass_heart.xml" )
 	        if ui_icon_id then
 	            EntityKill( ui_icon_id )
 	        end
@@ -153,7 +153,7 @@ d2d_perks = {
 		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
         	set_internal_bool( entity_who_picked, "d2d_glass_fist_boost_enabled", true )
-			local ui_icon_id = get_child_with_name( entity_who_picked, "glass_fist_overhead_icon.xml" )
+			local ui_icon_id = get_child_by_filename( entity_who_picked, "glass_fist_overhead_icon.xml" )
 			if not ui_icon_id then
             	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/status_effects/glass_fist_overhead_icon.xml" )
 			end
@@ -280,120 +280,6 @@ d2d_perks = {
         end,
 	},
 
-	{
-		id = "D2D_MASTER_OF_EXPLOSIONS",
-		ui_name = "$perk_d2d_master_of_explosions_name",
-		ui_description = "$perk_d2d_master_of_explosions_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_explosions_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_explosions.png",
-		stackable = STACKABLE_NO,
-		one_off_effect = false,
-		usable_by_enemies = true,
-		-- not_in_default_perk_pool = true,
-		-- remove_other_perks = { "PROTECTION_EXPLOSION" },
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_EXPLOSION" )
-			if immunity_effect_id ~= nil then
-				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
-			end
-
-			EntityAddComponent( entity_who_picked, "LuaComponent", 
-			{
-				_tags = "perk_component,d2d_master_of_bombs",
-				script_shot = "mods/D2DContentPack/files/scripts/perks/effect_master_of_explosions_shot.lua",
-				execute_every_n_frame = "-1",
-			} )
-        end,
-		func_remove = function( entity_who_picked )
-			remove_lua( entity_who_picked, "d2d_master_of_bombs" )
-		end,
-	},
-
-	{
-		id = "D2D_MASTER_OF_LIGHTNING",
-		ui_name = "$perk_d2d_master_of_lightning_name",
-		ui_description = "$perk_d2d_master_of_lightning_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_lightning_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_lightning.png",
-		stackable = STACKABLE_NO,
-		one_off_effect = false,
-		usable_by_enemies = true,
-		-- not_in_default_perk_pool = true,
-		-- remove_other_perks = { "PROTECTION_ELECTRICITY" },
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_ELECTRICITY" )
-			if immunity_effect_id ~= nil then
-				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
-			end
-
-           	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_lightning.xml" )
-            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-            {
-				_tags = "perk_component,d2d_master_of_lightning",
-	            extra_modifier = "d2d_master_of_lightning_boost",
-            } )
-        end,
-		func_remove = function( entity_who_picked )
-			remove_lua( entity_who_picked, "d2d_master_of_lightning" )
-			remove_shoteffect( entity_who_picked, "d2d_master_of_lightning" )
-		end,
-        -- effects:
-        -- > x1.33 fire rate and reload speed
-        -- > x2.0 projectile speed
-        -- > all projectiles deal +5 electric damage and electrocute enemies
-        -- after the player was electrocuted, they gain a short (scaling with electrocution time) burst of...
-        -- > x2.0 move speed
-        -- > x1.5 fire rate and reload speed (from x1.33)
-        -- > increased mana charge speed
-        -- > endless flight
-	},
-
-	{
-		id = "D2D_MASTER_OF_FIRE",
-		ui_name = "$perk_d2d_master_of_fire_name",
-		ui_description = "$perk_d2d_master_of_fire_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_fire_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_fire.png",
-		stackable = STACKABLE_NO,
-		one_off_effect = false,
-		usable_by_enemies = true,
-		-- not_in_default_perk_pool = true,
-		-- remove_other_perks = { "PROTECTION_FIRE" },
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_FIRE" )
-			if immunity_effect_id ~= nil then
-				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
-			end
-
-            LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_fire.xml" )
-            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-            { 
-				_tags="perk_component,d2d_master_of_fire",
-	            extra_modifier = "d2d_master_of_fire_boost",
-            } )
-			EntityAddComponent( entity_who_picked, "LuaComponent", 
-			{ 
-				_tags="perk_component,d2d_master_of_fire",
-				script_shot = "mods/D2DContentPack/files/scripts/perks/effect_master_of_fire_increased_damage.lua",
-				execute_every_n_frame = "-1",
-			} )	
-        end,
-		func_remove = function( entity_who_picked )
-			remove_lua( entity_who_picked, "d2d_master_of_fire" )
-			remove_shoteffect( entity_who_picked, "d2d_master_of_fire" )
-		end,
-        -- effects:
-        -- > all projectiles deal +5 fire damage and ignite enemies
-        -- > everyone takes more damage from fire
-        -- > you take less damage from fire when low on health
-        -- additionally, while the player is on fire...
-        -- > x1.5 move speed (from x1.15)
-        -- > slightly increased fire rate
-        -- > deal x2.5 fire damage, x1.5 other damage
-        -- > endless flight
-        -- > burning damage taken spreads to enemies
-	},
-
 	-- {
 	-- 	id = "D2D_PANIC_BUTTON",
 	-- 	ui_name = "Panic Button",
@@ -453,36 +339,6 @@ d2d_perks = {
         	remove_lua( entity_who_picked, "d2d_perk_borrowed_time" )
         end
 	},
-
-	-- {
-	-- 	id = "D2D_JUGGERNAUT",
-	-- 	ui_name = "$perk_d2d_juggernaut_name",
-	-- 	ui_description = "$perk_d2d_juggernaut_desc",
-	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/juggernaut_016.png",
-	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/juggernaut.png",
-	-- 	stackable = STACKABLE_NO,
-	-- 	one_off_effect = false,
-	-- 	usable_by_enemies = false,
-	-- 	not_in_default_perk_pool = true,
-	-- 	func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
-	-- 		-- WORK IN PROGRESS
-	-- 		if reflecting then return end
-
-	-- 		-- LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_heal_block.xml" )
-	-- 		if pickup_count <= 1 then
-	-- 			EntityAddComponent2( entity_who_picked, "LuaComponent", 
-	-- 			{
-	-- 				_tags = "perk_component,d2d_perk_juggernaut",
-	-- 				script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_juggernaut_on_damage_incoming.lua",
-	-- 				execute_every_n_frame = -1,
-	-- 			} )
-	-- 		end
-    --     end,
-    --     func_remove = function( entity_who_picked )
-    --     	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-    --     	remove_lua( entity_who_picked, "d2d_perk_juggernaut" )
-    --     end
-	-- },
 
 	{
 		id = "D2D_BLESSINGS_AND_CURSE",
@@ -737,6 +593,153 @@ end
 
 
 
+d2d_blurses = {
+	{
+		id = "D2D_MASTER_OF_EXPLOSIONS",
+		ui_name = "$perk_d2d_master_of_explosions_name",
+		ui_description = "$perk_d2d_master_of_explosions_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_explosions_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_explosions.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = true,
+		not_in_default_perk_pool = true,
+		-- remove_other_perks = { "PROTECTION_EXPLOSION" },
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_EXPLOSION" )
+			if immunity_effect_id ~= nil then
+				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
+			end
+
+			EntityAddComponent( entity_who_picked, "LuaComponent", 
+			{
+				_tags = "perk_component,d2d_master_of_bombs",
+				script_shot = "mods/D2DContentPack/files/scripts/perks/effect_master_of_explosions_shot.lua",
+				execute_every_n_frame = "-1",
+			} )
+        end,
+		func_remove = function( entity_who_picked )
+			remove_lua( entity_who_picked, "d2d_master_of_bombs" )
+		end,
+	},
+
+	{
+		id = "D2D_MASTER_OF_LIGHTNING",
+		ui_name = "$perk_d2d_master_of_lightning_name",
+		ui_description = "$perk_d2d_master_of_lightning_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_lightning_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_lightning.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = true,
+		not_in_default_perk_pool = true,
+		-- remove_other_perks = { "PROTECTION_ELECTRICITY" },
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_ELECTRICITY" )
+			if immunity_effect_id ~= nil then
+				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
+			end
+
+           	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_lightning.xml" )
+            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
+            {
+				_tags = "perk_component,d2d_master_of_lightning",
+	            extra_modifier = "d2d_master_of_lightning_boost",
+            } )
+        end,
+		func_remove = function( entity_who_picked )
+			remove_lua( entity_who_picked, "d2d_master_of_lightning" )
+			remove_shoteffect( entity_who_picked, "d2d_master_of_lightning" )
+		end,
+        -- effects:
+        -- > x1.33 fire rate and reload speed
+        -- > x2.0 projectile speed
+        -- > all projectiles deal +5 electric damage and electrocute enemies
+        -- after the player was electrocuted, they gain a short (scaling with electrocution time) burst of...
+        -- > x2.0 move speed
+        -- > x1.5 fire rate and reload speed (from x1.33)
+        -- > increased mana charge speed
+        -- > endless flight
+	},
+
+	{
+		id = "D2D_MASTER_OF_FIRE",
+		ui_name = "$perk_d2d_master_of_fire_name",
+		ui_description = "$perk_d2d_master_of_fire_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_fire_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/master_of_fire.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = true,
+		not_in_default_perk_pool = true,
+		-- remove_other_perks = { "PROTECTION_FIRE" },
+		func = function( entity_perk_item, entity_who_picked, item_name )
+			local immunity_effect_id = GameGetGameEffect( entity_who_picked, "PROTECTION_FIRE" )
+			if immunity_effect_id ~= nil then
+				EntityRemoveComponent( entity_who_picked, immunity_effect_id )
+			end
+
+            LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_master_of_fire.xml" )
+            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
+            { 
+				_tags="perk_component,d2d_master_of_fire",
+	            extra_modifier = "d2d_master_of_fire_boost",
+            } )
+            -- the damage increase below is only applied while on fire
+			EntityAddComponent( entity_who_picked, "LuaComponent", 
+			{ 
+				_tags="perk_component,d2d_master_of_fire",
+				script_shot = "mods/D2DContentPack/files/scripts/perks/effect_master_of_fire_increased_damage.lua",
+				execute_every_n_frame = "-1",
+			} )
+        end,
+		func_remove = function( entity_who_picked )
+			remove_lua( entity_who_picked, "d2d_master_of_fire" )
+			remove_shoteffect( entity_who_picked, "d2d_master_of_fire" )
+		end,
+        -- effects:
+        -- > all projectiles deal +5 fire damage and always ignite enemies
+        -- > enemies take more damage from fire
+        -- > fire spreads violently
+        -- > fire heals you below 10% hp
+        -- additionally, while the player is on fire...
+        -- > x1.5 move speed (from x1.15)
+        -- > slightly increased fire rate
+        -- > deal x2.5 fire damage, x1.5 other damage
+        -- > endless flight
+	},
+
+	{
+		id = "D2D_JUGGERNAUT",
+		ui_name = "$perk_d2d_juggernaut_name",
+		ui_description = "$perk_d2d_juggernaut_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/juggernaut_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/juggernaut.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if pickup_count <= 1 then
+				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_juggernaut_d2d.xml" )
+				EntityAddComponent( entity_who_picked, "LuaComponent",
+				{
+					_tags="perk_component,d2d_perk_juggernaut",
+					script_shot="mods/D2DContentPack/files/scripts/perks/effect_juggernaut_on_shot.lua",
+					execute_every_n_frame="-1",
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	EntityKill( get_child_by_filename( entity_who_picked, "effect_juggernaut_d2d.xml" ) )
+        	remove_lua( entity_who_picked, "d2d_perk_juggernaut" )
+        end
+	},
+}
+
+
+
 
 
 d2d_curses = {
@@ -907,7 +910,7 @@ d2d_curses = {
 	},
 
 	{
-		id = "D2D_LEVITATION_CRAMPS",
+		id = "D2D_CURSE_LEVITATION_CRAMPS",
 		ui_name = "$perk_d2d_curse_levitation_cramps_name",
 		ui_description = "$perk_d2d_curse_levitation_cramps_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/levitation_cramps_016.png",
@@ -1085,8 +1088,8 @@ d2d_perk_reworks = {
 
 	{
 		id = "D2D_SUMMON_TOOLBOX",
-		id_vanilla = "EXTRA_MANA",
-		ui_name_vanilla = "Bonus Mana",
+		id_vanilla = "EXTRA_MANA,GKBRKN_UPGRADE_WAND",
+		ui_name_vanilla = "High Mana, Low Capacity",
 		ui_name = "$perk_d2d_summon_toolbox_name",
 		ui_description = "$perk_d2d_summon_toolbox_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/toolbox_016.png",
@@ -1227,7 +1230,13 @@ if ( perk_list ~= nil ) then
 		if not HasSettingFlag( v.id .. "_disabled" ) then
 			if not v.source_mod_id then
 				table.insert( perk_list, v )
-				hide_perk( v.id_vanilla )
+
+				dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+				local perks_to_hide = split_string( v.id_vanilla, ',' )
+				for i,perk_id in ipairs( perks_to_hide ) do
+					hide_perk( perk_id )
+				end
+
 			elseif ModIsEnabled( v.source_mod_id ) or ModSettingGet( "D2DContentPack.always_spawn_mod_reworks" ) then
 				table.insert( perk_list, v )
 				hide_perk( v.id_vanilla )
@@ -1254,6 +1263,17 @@ if ModIsEnabled( "Apotheosis" ) then
 			else
 				table.insert( perk_list, v )
 			end
+		end
+	end
+end
+
+-- add blurses 
+if ( perk_list ~= nil ) then
+	for k, v in pairs( d2d_blurses )do
+		if HasSettingFlag( v.id .. "_disabled" ) then
+			-- GamePrint( "Perk not added: " .. v.id )
+		else
+			table.insert( perk_list, v )
 		end
 	end
 end
