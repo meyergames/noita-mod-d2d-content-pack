@@ -1651,3 +1651,61 @@ end
 --         end
 --     end
 -- end
+
+if actions ~= nil and ModSettingGet( "D2DContentPack.nerf_greek_spells" ) then
+	local actions_to_edit = {
+	    ["ALPHA"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["GAMMA"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["TAU"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["OMEGA"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["MU"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["PHI"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["SIGMA"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["APOTHEOSIS_CHI"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["APOTHEOSIS_KAPPA"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+	}
+
+	for i=1,#actions do -- fast as fuck boi
+        if actions_to_edit[actions[i].id] then
+            for key, value in pairs(actions_to_edit[actions[i].id]) do
+                actions[i][key] = value
+            end
+            actions[i]['d2d_reworked'] = true
+        end
+    end
+end

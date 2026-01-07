@@ -104,6 +104,13 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
+            {
+                id = "nerf_greek_spells",
+                ui_name = "Make Greek spells limited-use",
+                ui_description = "For when the Greek letter spells make the game too easy for you.\nYou'll have to get creative if you want unlimited spells...",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
             -- {
             --     id = "afa_compat",
             --     ui_name = "Disable alt fire spells if Alt Fire Anything is enabled",
