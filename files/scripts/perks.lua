@@ -25,6 +25,7 @@ d2d_perks = {
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/time_trial.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = true,
+		is_challenge = true,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			-- only give the perk when the player has yet to enter The Vault,
@@ -66,6 +67,7 @@ d2d_perks = {
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/warp_rush.png",
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
+		is_challenge = true,
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
         -- spawn_requires_flag	= "d2d_time_trial_bronze",

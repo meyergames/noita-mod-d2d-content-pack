@@ -688,7 +688,7 @@ function spawn_random_perk( x, y, dont_remove_others )
 
     local perk_ids_to_consider = {}
 	for k,v in pairs( perk_list ) do
-		if ( not v.not_in_default_perk_pool ) then
+		if not v.not_in_default_perk_pool and not v.is_challenge then
 			table.insert( perk_ids_to_consider, v.id )
 		end
 	end
