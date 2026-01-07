@@ -50,7 +50,7 @@
 
 		<SpriteComponent
 			_tags="lurker_data"
-			image_file="mods/D2DContentPack/files/gfx/enemies_gfx/ancient_lurker_2.xml"
+			image_file="mods/D2DContentPack/files/gfx/enemies_gfx/ancient_lurker.xml"
 			offset_x="0"
 			offset_y="0"
 			alpha="1"

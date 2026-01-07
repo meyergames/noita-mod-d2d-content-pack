@@ -77,7 +77,7 @@
 	</SpriteComponent>
 	
 	<SpriteParticleEmitterComponent
-		sprite_file="data/particles/lurkershot.xml"
+		sprite_file="mods/D2DContentPack/files/gfx/projectiles_gfx/enemy/ancient_lurker_shot.xml"
 		delay="0"
 		lifetime="0"
 		color.r="1" color.g="1" color.b="1" color.a="1"
