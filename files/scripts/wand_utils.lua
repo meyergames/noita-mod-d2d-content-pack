@@ -1,4 +1,5 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
+EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
 
 function add_random_cards_to_wand( entity_id, level, deck_capacity )
 
@@ -119,7 +120,6 @@ function add_random_cards_to_wand( entity_id, level, deck_capacity )
 end
 
 function spawn_random_staff( x, y, force_rng )
-	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 	local wand = EZWand()
 
 	local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
@@ -253,7 +253,6 @@ function spawn_random_staff( x, y, force_rng )
 end
 
 function Test_SpawnCommunityModWand()
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
     local x, y = EntityGetTransform( get_player() )
 
@@ -293,8 +292,6 @@ function Test_SpawnCommunityModWand()
 end
 
 function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
-	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-
 	-- get the wand's base name (i.e. without upgrade suffix)
 	local base_wand_name, show_in_ui = wand:GetName()
 	local wand_version = 1
@@ -362,8 +359,121 @@ function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
 	-- GamePlaySound( "mods/D2DContentPack/lib/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit", x, y )
 end
 
+function wand_upgrade_shuffle( wand )
+	local old_value = wand.capacity
+
+	if wand.shuffle then
+		wand.shuffle = false
+		GamePrint( "Your wand became non-shuffle!" )
+		return true
+	end
+
+	GamePrint( "Your wand is already non-shuffle!" )
+	return false
+end
+
+function wand_upgrade_capacity( wand, increase, limit )
+	local old_value = wand.capacity
+
+	if wand.capacity < limit then
+		wand.capacity = math.min( old_value + increase, limit )
+		GamePrint( "Your wand's capacity was increased! (" .. old_value .. " > " .. wand.capacity .. ")" )
+		return true
+	end
+
+	GamePrint( "Your wand cannot hold another spell slot!" )
+	return false
+end
+
+function wand_upgrade_cast_delay( wand, percent, min_increase, limit )
+	local old_value = wand.castDelay
+
+	if wand.castDelay > limit then
+		wand.castDelay = math.max( old_value - math.max( old_value * percent, min_increase ), limit )
+		GamePrint( "Your wand's cast delay was increased! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. ")" )
+		return true
+	end
+
+	GamePrint( "Your wand's cast delay cannot be reduced further!" )
+	return false
+end
+
+function wand_upgrade_recharge_time( wand, percent, min_increase, limit )
+	local old_value = wand.rechargeTime
+
+	if wand.rechargeTime > limit then
+		wand.rechargeTime = math.max( old_value - math.max( old_value * percent, min_increase ), limit )
+		GamePrint("Your wand's cast delay was increased! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.rechargeTime / 60 ) .. ")" )
+		return true
+	end
+
+	GamePrint( "Your wand's recharge time cannot be reduced further!" )
+	return false
+end
+
+function wand_upgrade_max_mana( wand, percent, min_increase, limit )
+	local old_value = wand.manaMax
+
+	if wand.manaMax < limit then
+		wand.manaMax = math.min( old_value + math.max( old_value * percent, min_increase ), limit )
+		GamePrint( "Your wand's max mana was increased! (" .. string.format( "%.0f", old_value ) .. " > " .. string.format( "%.0f", wand.manaMax ) .. ")" )
+		return true
+	end
+
+	GamePrint( "Your wand's max mana cannot be increased further!" )
+	return false
+end
+
+function wand_upgrade_mana_charge_speed( wand, percent, min_increase, limit )
+	local old_value = wand.manaChargeSpeed
+
+	if wand.manaChargeSpeed < limit then
+		wand.manaChargeSpeed = math.min( old_value + math.max( old_value * percent, min_increase ), limit )
+		GamePrint("Your wand's mana charge speed was increased! (" .. string.format( "%.0f", old_value ) .. " > " .. string.format( "%.0f",wand.manaChargeSpeed ) .. ")" )
+		return true
+	end
+
+	GamePrint( "Your wand's mana charge speed cannot be increased further!" )
+	return false
+end
+
+function wand_reset_spells_per_cast( wand )
+	local old_value = wand.spellsPerCast
+
+	if wand.spellsPerCast > 1 then
+		wand.spellsPerCast = 1
+		GamePrint( "Your wand's spells-per-cast was set to 1!" )
+		return true
+	end
+
+	GamePrint( "Your wand's spells-per-cast is already 1!" )
+	return false
+end
+
+function wand_remove_random_always_cast( wand )
+	local spells, always_casts = wand:GetSpells()
+	print( "always casts: " .. #always_casts )
+	if #always_casts >= 1 then
+		local spell_to_demote = random_from_array( always_casts )
+		local spell_name = GameTextGetTranslatedOrNot( get_actions_lua_data( spell_to_demote.action_id ).name )
+		GamePrint( "Your wand's always-cast '" .. spell_name .. "' was ejected!" )
+
+		if Random( 1, 2 ) == 2 then
+			local x, y = EntityGetTransform( wand.entity_id )
+			CreateItemActionEntity( spell_to_demote.action_id, x, y )
+		else
+			GamePrint( "It was destroyed in the process..." )
+		end
+
+		EntityKill( spell_to_demote.entity_id )
+		return true
+	end
+
+	GamePrint( "Your wand has no always-cast spells!" )
+	return false
+end
+
 function spawn_glass_staff( x, y )
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
     local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
     local wand_lvl = hm_visits
@@ -405,7 +515,6 @@ function spawn_ancient_staff( x, y )
 end
 
 function init_ancient_staff( recharge_time )
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
     wand:SetName( "Staff of Ancients", true )
     wand.shuffle = false
@@ -438,7 +547,6 @@ function does_spell_exist( action_id )
 end
 
 function init_staff_of_remembrance()
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
     wand:SetName( "Staff of Remembrance", true )
     wand.shuffle = false
@@ -475,7 +583,6 @@ function init_staff_of_remembrance()
 end
 
 function spawn_staff_of_transience( x, y )
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
 	wand:SetName( "Staff of Transience", true )
 	wand.shuffle = false
@@ -495,7 +602,6 @@ function spawn_staff_of_transience( x, y )
 end
 
 function init_staff_of_finality( x, y )
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
 	wand:SetName( "Staff of Finality", true )
 	wand.shuffle = false
@@ -521,7 +627,6 @@ function spawn_staff_of_obliteration( x, y )
 end
 
 function init_staff_of_obliteration()
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
     local wand = EZWand()
 	wand:SetName( "Staff of Obliteration", true )
 	wand.shuffle = false

@@ -428,15 +428,18 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] shedinja-like enemy that has 1 hp and resistances against everything except one random damage_type weakness
 
-[ ] glass shard splinters not shooting when the damage kills an enemy might be due to the corpse blocking the projectiles
+[y] glass shard splinters not shooting when the damage kills an enemy might be due to the corpse blocking the projectiles
 
-[ ] sticky modifier to attach bombs to ceilings (or does Glue Charge achieve this?)
+[ ] sticky modifier to attach bombs to ceilings (or does Glue Charge achieve this? <-- nope it doesn't)
 
 [ ] passive spell that makes a wand semi-automatic, instead of fully?
 
 [ ] spell that destroys unpicked wands and spawns their spells
 
 [ ] New Enemies has a mob in the coal pits with a chained heart... (Glass Heart?)
+
+[ ] make Mid Fire Blink controller-compatible
+
 
 
 

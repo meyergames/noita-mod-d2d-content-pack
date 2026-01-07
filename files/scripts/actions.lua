@@ -152,6 +152,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
 		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
+        spawn_requires_flag	= "D2D_DISCONTINUED",
 		related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml" },
 	    price               = 330,
 	    mana                = 8,
@@ -259,16 +260,16 @@ d2d_actions = {
     -- },
     
 	{
-		id          = "D2D_CURSES_TO_DAMAGE",
-		name 		= "$spell_d2d_curses_to_damage_name",
-		description = "$spell_d2d_curses_to_damage_desc",
-		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_damage.png",
-		type 		= ACTION_TYPE_MODIFIER,
-		spawn_level                       = "0",
-		spawn_probability                 = "0",
-		price 		= 999,
-		mana 		= 5,
-		action 		= function()
+		id          		= "D2D_CURSES_TO_DAMAGE",
+		name 				= "$spell_d2d_curses_to_damage_name",
+		description 		= "$spell_d2d_curses_to_damage_desc",
+		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_damage.png",
+		type 				= ACTION_TYPE_MODIFIER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		price 				= 999,
+		mana 				= 5,
+		action 				= function()
 			c.fire_rate_wait		= c.fire_rate_wait + 5
 			c.damage_curse_add 		= c.damage_curse_add + 0.2 -- for the tooltip
 			if reflecting then return end
@@ -902,11 +903,8 @@ d2d_actions = {
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_mid_fire.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
         subtype     		= { altfire = true },
-		-- spawn_level         = "2,3,4,5,6,10",
-		-- spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
-		spawn_level         = "0",
-		spawn_probability   = "0",
-        spawn_requires_flag	= "this_should_never_spawn",
+		spawn_level         = "0", -- should only spawn on the Staff of Time
+		spawn_probability   = "0", -- should only spawn on the Staff of Time
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire.xml",
         price 				= 300,
         mana 				= 80,
@@ -926,6 +924,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_UTILITY,
 		spawn_level         = "0", -- discontinued
 		spawn_probability   = "0", -- discontinued
+        spawn_requires_flag	= "D2D_DISCONTINUED",
 	    price               = 360,
 	    mana                = 85,
 	    max_uses			= 20,
@@ -1116,6 +1115,7 @@ d2d_actions = {
         subtype     		= { altfire = true },
         spawn_level			= "0",
         spawn_probability	= "0",
+        spawn_requires_flag	= "D2D_DISCONTINUED",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_alt_fire_teleport_bolt.xml",
         price 				= 130,
         mana 				= 20,
@@ -1278,6 +1278,132 @@ d2d_actions = {
 								end
 		                    end,
 	},
+
+    {
+	    id                  = "D2D_UPGRADE_CAPACITY",
+	    name 		        = "$spell_d2d_upgrade_capacity_name",
+	    description         = "$spell_d2d_upgrade_capacity_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_capacity.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_capacity.xml",
+	    price               = 190,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    {
+	    id                  = "D2D_UPGRADE_FIRE_RATE",
+	    name 		        = "$spell_d2d_upgrade_fire_rate_name",
+	    description         = "$spell_d2d_upgrade_fire_rate_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_fire_rate.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_fire_rate.xml",
+	    price               = 190,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    {
+	    id                  = "D2D_UPGRADE_MAX_MANA",
+	    name 		        = "$spell_d2d_upgrade_max_mana_name",
+	    description         = "$spell_d2d_upgrade_max_mana_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_max_mana.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_max_mana.xml",
+	    price               = 190,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    {
+	    id                  = "D2D_UPGRADE_MANA_CHARGE_SPEED",
+	    name 		        = "$spell_d2d_upgrade_mana_charge_speed_name",
+	    description         = "$spell_d2d_upgrade_mana_charge_speed_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_mana_charge_speed.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_mana_charge_speed.xml",
+	    price               = 190,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    {
+	    id                  = "D2D_UPGRADE_SHUFFLE",
+	    name 		        = "$spell_d2d_upgrade_shuffle_name",
+	    description         = "$spell_d2d_upgrade_shuffle_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_shuffle.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_shuffle.xml",
+	    price               = 490,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    {
+	    id                  = "D2D_UPGRADE_REMOVE_ALWAYS_CAST",
+	    name 		        = "$spell_d2d_upgrade_remove_always_cast_name",
+	    description         = "$spell_d2d_upgrade_remove_always_cast_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_remove_always_cast.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_remove_always_cast.xml",
+	    price               = 490,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    -- {
+	--     id                  = "D2D_UPGRADE_RESET_SPELLS_PER_CAST",
+	--     name 		        = "$spell_d2d_upgrade_reset_spells_per_cast_name",
+	--     description         = "$spell_d2d_upgrade_reset_spells_per_cast_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_reset_spells_per_cast.png",
+	--     type 		        = ACTION_TYPE_OTHER,
+	-- 	spawn_level         = "0",
+	-- 	spawn_probability   = "0",
+	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_reset_spells_per_cast.xml",
+	--     price               = 490,
+	--     mana                = 0,
+	--     max_uses			= 1,
+	--     custom_uses_logic	= true,
+	--     action              = function()
+	--     						-- do nothing here
+	--                         end,	
+    -- },
 }
 
 if actions ~= nil then
@@ -1325,6 +1451,7 @@ if ( ModIsEnabled("Apotheosis") ) then
 		    type 		        = ACTION_TYPE_PROJECTILE,
 			spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
 			spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
+        	spawn_requires_flag	= "D2D_DISCONTINUED",
 		    price               = 200,
 		    mana                = 15,
 		    max_uses			= 10,
@@ -1430,6 +1557,7 @@ d2d_alt_fire_actions = {
         subtype     		= { altfire = true },
 		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed
 		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed
+        spawn_requires_flag	= "D2D_DISCONTINUED",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
 	    price               = 230,
 	    mana                = 50,
