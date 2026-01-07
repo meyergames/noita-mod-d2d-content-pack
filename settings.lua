@@ -228,16 +228,21 @@ function ModSettingsGui( gui, in_main_menu )
                 end
             end
 
+            local original_source = "the base game"
+            if v.source_mod_name then
+                original_source = v.source_mod_name
+            end
+            local tooltip_text = GameTextGetTranslatedOrNot(v.ui_description) .. "\n" .. "(Replaces '" .. v.ui_name_vanilla .. "' from " .. original_source .. ")"
             if HasSettingFlag( v.id.."_disabled" ) then
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
+                GuiTooltip( gui, tooltip_text, "[ Click to enable ]" );
             else
                 if HasSettingFlag( v.id.."_spawn_at_start" ) then
-                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable]   [ Right-click to disable spawn at start]" )
+                    GuiTooltip( gui, tooltip_text, "[ Click to disable]   [ Right-click to disable spawn at start]" )
                 else
-                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable]   [ Right-click to enable spawn at start ]" )
+                    GuiTooltip( gui, tooltip_text, "[ Click to disable]   [ Right-click to enable spawn at start ]" )
                 end
             end
-
+            
             GuiImage( gui, new_id(), -20.2, -1.2, "mods/D2DContentPack/files/gfx/ui_gfx/settings_content_square.png", 1, 1.2, 0 )
             if HasSettingFlag( v.id.."_disabled" ) then
                 GuiZSetForNextWidget( gui, -80 )
@@ -246,12 +251,12 @@ function ModSettingsGui( gui, in_main_menu )
             end
 
             if HasSettingFlag( v.id.."_disabled" ) then
-                GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to enable ]" );
+                GuiTooltip( gui, tooltip_text, "[ Click to enable ]" );
             else
                 if HasSettingFlag( v.id.."_spawn_at_start" ) then
-                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to disable spawn at start]" )
+                    GuiTooltip( gui, tooltip_text, "[ Click to disable ]   [ Right-click to disable spawn at start]" )
                 else
-                    GuiTooltip( gui, GameTextGetTranslatedOrNot(v.ui_description), "[ Click to disable ]   [ Right-click to enable spawn at start ]" )
+                    GuiTooltip( gui, tooltip_text, "[ Click to disable ]   [ Right-click to enable spawn at start ]" )
                 end
             end
 
@@ -260,14 +265,17 @@ function ModSettingsGui( gui, in_main_menu )
             else
                 GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
             end
-            local new_ui_name = GameTextGetTranslatedOrNot( v.ui_name )
-            local vanilla_ui_name = GameTextGetTranslatedOrNot( v.ui_name_vanilla )
 
-            local name_to_show = vanilla_ui_name
-            if new_ui_name ~= vanilla_ui_name then
-                name_to_show = vanilla_ui_name .. " -> " .. new_ui_name
-            end
-            GuiText( gui, 0, 3, name_to_show )
+            -- local new_ui_name = GameTextGetTranslatedOrNot( v.ui_name )
+            -- local vanilla_ui_name = GameTextGetTranslatedOrNot( v.ui_name_vanilla )
+            -- local name_to_show = vanilla_ui_name
+            -- if new_ui_name ~= vanilla_ui_name then
+            --     name_to_show = vanilla_ui_name .. " -> " .. new_ui_name
+            -- end
+            -- if v.source_mod_name then
+            --     name_to_show = new_ui_name .. " (from mod: " .. v.source_mod_name .. ")"
+            -- end
+            GuiText( gui, 0, 3, GameTextGetTranslatedOrNot( v.ui_name ) )
             GuiLayoutEnd(gui)
         end
 
