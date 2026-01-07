@@ -63,7 +63,7 @@ function random_perk_reward( x, y, cursed_chests_opened )
 		end
 	end
 
-	if #blurses > 0 and cursed_chests_opened % 2 == 0 then
+	if #blurses > 0 and cursed_chests_opened % 2 == 1 then
 		local random_blurse_id = random_from_array( blurses )
 		spawn_perk( random_blurse_id, x, y )
 		GlobalsSetValue( "d2d_blurses_spawned", blurses_already_spawned .. random_blurse_id .. "," )

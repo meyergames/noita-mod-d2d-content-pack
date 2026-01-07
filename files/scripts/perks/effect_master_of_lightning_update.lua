@@ -26,6 +26,9 @@ if ( extra_boost_timer > 0 ) then
         -- move speed is doubled
         multiply_move_speed( owner, "master_of_lightning", 2.0 )
 
+        -- levitation becomes infinite
+        ComponentSetValue2( cdatacomp, "flying_needs_recharge", false )
+
         -- mana recharges 4x as fast (i.e. +300%)
         setInternalVariableValue( owner, "master_of_lightning_mana_charge_speed_mtp", "value_int", 300 )
         
@@ -44,6 +47,10 @@ elseif ( is_effect_active == 1 ) then -- i.e. if extra_boost_timer is 0 and the 
     setInternalVariableValue( owner, "master_of_lightning_is_effect_active", "value_int", 0 )
     setInternalVariableValue( owner, "master_of_lightning_mana_charge_speed_mtp", "value_int", 0 )
     reset_move_speed( owner, "master_of_lightning" )
+
+    -- levitation is no longer infinite
+    ComponentSetValue2( cdatacomp, "flying_needs_recharge", true )
+    ComponentSetValue2( cdatacomp, "fly_time_max", 3 )
 
 end
 
