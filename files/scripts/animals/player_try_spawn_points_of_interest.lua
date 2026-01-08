@@ -91,9 +91,58 @@ function try_convert_chests_into_cursed()
     end
 end
 
+function try_show_staff_of_loyalty_hints()
+    if GameHasFlagRun( "d2d_poi_staff_of_loyalty_hint_3" ) then return end
+    local held_wand = EZWand.GetHeldWand()
+    if not exists( held_wand ) or not EntityHasTag( held_wand.entity_id, "d2d_starting_wand" ) then return end
+
+    if not GameHasFlagRun( "d2d_poi_staff_of_loyalty_hint_3" ) then
+        if is_within_bounds( entity_id, 1100, 1600, 5750, 6250 ) then
+            GamePrint( "Your wand is starting to burn your fingers!" )
+            GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/on_fire/create", px, py )
+            GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/frozen/create", px, py )
+            GameAddFlagRun( "d2d_poi_staff_of_loyalty_hint_3" )
+            return
+        end
+        
+        if not GameHasFlagRun( "d2d_poi_staff_of_loyalty_hint_2" ) then
+            if is_within_bounds( entity_id, 600, 1600, 5600, 6250 ) then
+                GamePrint( "Your wand is starting to glow hot..." )
+                GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/on_fire/create", px, py )
+                GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/frozen/create", px, py )
+                GameAddFlagRun( "d2d_poi_staff_of_loyalty_hint_2" )
+                return
+            end
+            
+            if not GameHasFlagRun( "d2d_poi_staff_of_loyalty_hint_1" ) then
+                if is_within_bounds( entity_id, -100, 1600, 5250, 6250 ) then
+                    GamePrint( "Your wand feels warm to the touch..." )
+                    GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/on_fire/create", px, py )
+                    GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/frozen/create", px, py )
+                    GameAddFlagRun( "d2d_poi_staff_of_loyalty_hint_1" )
+                    return
+                end
+            end
+        end
+    end
+end
+
+function try_upgrade_staff_of_loyalty()
+    if GameHasFlagRun( "d2d_poi_upgraded_staff_of_loyalty" ) then return end
+    if not is_within_bounds( entity_id, 1750, 2680, 13050, 13275 ) then return end
+
+    local held_wand = EZWand.GetHeldWand()
+    if exists( held_wand ) and EntityHasTag( held_wand.entity_id, "d2d_staff_of_loyalty" ) then
+        upgrade_staff_of_loyalty( held_wand )
+        GameAddFlagRun( "d2d_poi_upgraded_staff_of_loyalty" )
+    end
+end
+
 
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
 try_spawn_staff_of_finality()
 try_convert_chests_into_cursed()
+try_show_staff_of_loyalty_hints()
+try_upgrade_staff_of_loyalty()

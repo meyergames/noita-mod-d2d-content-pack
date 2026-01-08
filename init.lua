@@ -9,6 +9,7 @@ ModLuaFileAppend("data/scripts/item_spawnlists.lua", "mods/D2DContentPack/files/
 ModMaterialsFileAdd("mods/D2DContentPack/files/materials/materials.xml")
 
 ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural.lua", "mods/D2DContentPack/files/scripts/gun_procedural.lua")
+ModLuaFileAppend("data/scripts/buildings/forge_item_convert.lua", "mods/D2DContentPack/files/scripts/buildings/forge_item_convert.lua")
 ModLuaFileAppend("data/scripts/biomes/temple_altar.lua", "mods/D2DContentPack/files/scripts/biomes/temple_altar.lua")
 ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/D2DContentPack/files/scripts/items/heart_fullhp_temple_custom.lua")
 ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/D2DContentPack/files/scripts/items/orb_pickup_custom.lua")
@@ -136,7 +137,7 @@ function OnPlayerSpawned( player )
     -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_remembrance_stuck.xml", 180, -109 )
 
     -- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-    -- spawn_staff_of_obliteration( 230, -69 )
+    -- spawn_staff_of_loyalty_t1( 230, -79 )
     -- GamePrintDelayed( "test 1", 240 )
     -- GamePrintDelayed( "test 2", 480 )
     -- GamePrintDelayed( "test 3", 540 )

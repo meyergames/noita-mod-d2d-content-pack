@@ -477,3 +477,79 @@ function init_staff_of_obliteration()
 
 	return wand
 end
+
+function spawn_staff_of_loyalty( x, y )
+	local staff = init_staff_of_loyalty()
+	staff:PlaceAt( x, y )
+end
+
+function init_staff_of_loyalty()
+	local wand = EZWand()
+
+	wand:SetName( "Staff of Loyalty", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = Random( 6, 9 )
+	wand.rechargeTime = Random( 15, 20 )
+	wand.manaMax = Random( 470, 520 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 145, 160 )
+	wand.capacity = 12
+	wand.spread = 0
+
+	wand:AttachSpells( "D2D_ANIMATE_WAND_MID_FIRE" )
+	wand:AddSpells( "D2D_COMPACT_SHOT", "LIGHT_BULLET", "LIGHT_BULLET" )
+	wand:AddSpells( "D2D_COMPACT_SHOT", "LIGHT_BULLET", "LIGHT_BULLET" )
+	wand:AddSpells( "D2D_COMPACT_SHOT", "LIGHT_BULLET", "LIGHT_BULLET" )
+	for i = 1, ( wand.capacity - 9 ) do
+		wand:AddSpells( "LIGHT_BULLET" )
+	end
+
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_loyalty_t1.png", 8, 4, 17, 0 )
+	EntityAddTag( wand.entity_id, "d2d_staff_of_loyalty" )
+    EntityAddComponent2( wand.entity_id, "LuaComponent", {
+    	script_item_picked_up = "mods/D2DContentPack/files/scripts/items/wands/staff_of_loyalty_on_pickup.lua",
+		execute_every_n_frame = -1,
+    })
+
+	return wand
+end
+
+function upgrade_staff_of_loyalty( original )
+	local wand = EZWand()
+
+	wand:SetName( "Staff of Loyalty", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = Random( 3, 6 )
+	wand.rechargeTime = Random( 10, 15 )
+	wand.manaMax = Random( 940, 1040 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 290, 320 )
+	wand.capacity = 25
+	wand.spread = 0
+	local spells, always_casts = original:GetSpells()
+	for i,always_cast in ipairs( always_casts ) do
+		wand:AttachSpells( always_cast.action_id )
+	end
+	for i,spell in ipairs( spells ) do
+		wand:AddSpells( spell.action_id )
+	end
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_loyalty_t2.png", 10, 4, 18, 0 )
+	EntityAddTag( wand.entity_id, "d2d_staff_of_loyalty" )
+    EntityAddComponent2( wand.entity_id, "LuaComponent", {
+    	script_item_picked_up = "mods/D2DContentPack/files/scripts/items/wands/staff_of_loyalty_on_pickup.lua",
+		execute_every_n_frame = -1,
+    })
+
+    -- place the wand
+	local x, y = EntityGetTransform( original.entity_id )
+	wand:PlaceAt( x, y )
+
+	-- make it pop
+	GamePrintImportant( "Your loyalty has borne fruit" )
+	EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
+
+	-- destroy the original
+	EntityKill( original.entity_id )
+end

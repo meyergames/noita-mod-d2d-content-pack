@@ -1170,6 +1170,9 @@ d2d_actions = {
 									-- 1/4 chance to save a charge
 									if Random( 1, 4 ) == 4 then
 										next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
+
+										local x, y = EntityGetTransform( GetUpdatedEntityID() )
+										GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 									end
 								end
 		                    end,
@@ -1385,6 +1388,28 @@ d2d_actions = {
 	    action              = function()
 	    						-- do nothing here
 	                        end,	
+    },
+
+    {
+	    id                  = "D2D_ANIMATE_WAND_MID_FIRE",
+	    name 		        = "$spell_d2d_animate_wand_mid_fire_name",
+	    description         = "$spell_d2d_animate_wand_mid_fire_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/animate_wand_mid_fire.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0", -- should only spawn on the Staff of Loyalty
+		spawn_probability   = "0", -- should only spawn on the Staff of Loyalty
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_animate_wand_mid_fire.xml",
+        price 				= 500,
+        mana 				= 100,
+	    action              = function()
+	    						current_reload_time = current_reload_time + ( 3600 * 5 )
+	    						if reflecting then return end
+	    						current_reload_time = current_reload_time - ( 3600 * 5 )
+
+	    						draw_actions( 1, true )
+            					mana = mana + 100
+	                        end,
     },
 
     -- {

@@ -110,21 +110,40 @@ function multiply_proj_dmg( proj_id, mtp )
                 ComponentObjectSetValue2( proj_comp, "damage_by_type", dmg_type, old_dmg * mtp )
             end 
         end
+    end
+end
 
-        -- local damage_by_types = ComponentObjectGetMembers( proj_comp, "damage_by_type" )
-        -- if exists( damage_by_types ) then
-        --     local damage_by_types_fixed = {}
-        --     for type,_ in pairs( damage_by_types ) do
-        --         damage_by_types_fixed[type] = ComponentObjectGetValue2( proj_id, "damage_by_type", type )
-        --         GamePrint( "type count: " .. #damage_by_types_fixed )
-        --     end
-        --     for type,old_dmg in pairs( damage_by_types_fixed ) do
-        --         GamePrint( "type: " .. type )
-        --         if exists( old_dmg ) then
-        --             GamePrint( "old_dmg: " .. old_dmg )
-        --             ComponentObjectSetValue2( projectile, "damage_by_type", type, old_dmg * 2 )
-        --         end
-        --     end
-        -- end
+function multiply_proj_speed( proj_id, mtp )
+    local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
+    if proj_comp then
+        local old_value = ComponentGetValue2( proj_comp, "speed_min" )
+        ComponentSetValue2( proj_comp, "speed_min", old_value * mtp )
+
+        old_value = ComponentGetValue2( proj_comp, "speed_max" )
+        ComponentSetValue2( proj_comp, "speed_max", old_value * mtp )
+    end
+    local velo_comp = EntityGetFirstComponent( proj_id, "VelocityComponent" )
+    if velo_comp then
+        local old_value = ComponentGetValue2( velo_comp, "air_friction" )
+        ComponentSetValue2( velo_comp, "air_friction", old_value * ( 1.0 / mtp ) )
+
+        local old_value = ComponentGetValue2( velo_comp, "mVelocity" )
+        ComponentSetValue2( velo_comp, "mVelocity", old_value * mtp )
+    end
+end
+
+function EntityLoadAtWandTip( player_entity_id, wand_entity_id )
+    if not exists( player_entity_id ) or not exists( wand_entity_id ) then return end
+
+    local ctrl_comp = EntityGetFirstComponent( player_entity_id, "ControlsComponent" )
+    local hs_comp = EntityGetFirstComponentIncludingDisabled( wand_entity_id, "HotspotComponent" )
+    if exists( ctrl_comp ) and exists( hs_comp ) then
+        local aim_x, aim_y = ComponentGetValue2( ctrl_comp, "mAimingVectorNormalized" )
+        local offset_mag = get_magnitude( ComponentGetValue2( hs_comp, "offset" ) )
+
+        local wx, wy = EntityGetTransform( wand_entity_id )
+        local tx = wx + ( offset_mag * aim_x )
+        local ty = wy + ( offset_mag * aim_y )
+        EntityLoad( "mods/D2DContentPack/files/particles/muzzle_flashes/muzzle_flash_laser_death_ray.xml", tx, ty )
     end
 end

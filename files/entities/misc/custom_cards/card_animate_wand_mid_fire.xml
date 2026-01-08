@@ -2,13 +2,12 @@
 	
 	<Base file="data/entities/base_custom_card.xml" > 
 		<SpriteComponent 
-			image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/mid_fire_blink.png"
-			>
+			image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/animate_wand_mid_fire.png">
 		</SpriteComponent>
 		
 		<ItemActionComponent 
 			_tags="enabled_in_world"
-			action_id="D2D_ALT_ALT_FIRE_TELEPORT_BOLT" >
+			action_id="D2D_ANIMATE_WAND_MID_FIRE" >
 		</ItemActionComponent>
 	</Base>
 
@@ -16,9 +15,9 @@
 		_tags="enabled_in_world,enabled_in_hand" >
 	</InheritTransformComponent>
 
-	<LuaComponent 
+	<LuaComponent
 		_tags="enabled_in_hand"
-        script_source_file="mods/D2DContentPack/files/scripts/projectiles/mid_fire_blink.lua"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/animate_wand_mid_fire.lua"
 		execute_every_n_frame="1" >
 	</LuaComponent>
 

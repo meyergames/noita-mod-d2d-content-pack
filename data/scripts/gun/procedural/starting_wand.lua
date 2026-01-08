@@ -95,3 +95,6 @@ for i=1,action_count do
 	--AddGunActionPermanent( entity_id, gun_action )
 	AddGunAction( entity_id, gun_action )
 end
+
+EntityAddTag( entity_id, "d2d_starting_wand" )
+EntityAddTag( entity_id, "forgeable" )

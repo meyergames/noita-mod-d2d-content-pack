@@ -1,0 +1,26 @@
+<Entity tags="mortal,hittable,homing_target,wand_ghost" name="$animal_wand_ghost">
+
+	<Base file="data/entities/base_wand_ghost.xml" >
+		<DamageModelComponent
+            hp="4">
+        </DamageModelComponent>
+
+		<GenomeDataComponent
+			herd_id="player"
+			food_chain_rank="7"
+			is_predator="1" >
+		</GenomeDataComponent>
+	</Base>
+	
+	<AudioLoopComponent
+		file="data/audio/Desktop/animals.bank"
+		event_name="animals/ghost/movement_loop"
+		set_speed_parameter="1"
+		auto_play="1">
+	</AudioLoopComponent>
+	
+	<VariableStorageComponent
+		_tags="no_gold_drop">
+	</VariableStorageComponent>
+
+</Entity>
