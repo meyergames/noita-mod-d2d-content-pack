@@ -8,6 +8,7 @@ IDEAS
 WE POST NEW IDEAS AT THE TOP NOW
 
 
+[ ] make mid-fire spells controller compatible! (important)
 
 [ ] "soulslike" (cursed) perk that respawns you as a ghost, at a gravestone near the mountain entrance (of the same PW?)
 		- the place where you died will contain your Soul, along with all wands, perks and spells you had.

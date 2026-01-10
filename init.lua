@@ -36,6 +36,9 @@ function OnPlayerSpawned( player )
         ModSettingSet( "D2D_TINKER_WITH_WANDS_MORE_disabled", true )
         AddFlagPersistent( "d2d_force_init_mod_settings" )
     end
+    if ModIsEnabled( "new_enemies" ) then
+        ModSettingSet( "D2DContentPack.spawn_ancient_lurker_manually", true )
+    end
 
     dofile_once( "data/scripts/lib/utilities.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )

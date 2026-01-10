@@ -127,6 +127,20 @@ mod_settings =
         },
     },
     {
+        category_id = "enemy_settings",
+        ui_name = "Enemies",
+        ui_description = "",
+        settings = {
+            {
+                id = "spawn_ancient_lurker_manually",
+                ui_name = "Spawn Ancient Lurker manually",
+                ui_description = "When enabled, the Ancient Lurker will appear only after\npicking up a specific nearby circular object.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_RUNTIME,
+            },
+        },
+    },
+    {
         category_id = "content_toggles",
         ui_name = "Toggle individual reworks, spells and perks",
         ui_description = "",

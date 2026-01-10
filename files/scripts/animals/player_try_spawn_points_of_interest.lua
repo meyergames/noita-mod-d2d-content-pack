@@ -56,8 +56,23 @@ function try_spawn_ancient_lurker()
     if GameHasFlagRun( "d2d_poi_spawned_ancient_lurker" ) then return end
     if not is_within_bounds( entity_id, -4250, -3500, 9600, 10300 ) then return end
 
-    EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_lurker.xml", -3840, 9850 )
-    GameAddFlagRun( "d2d_poi_spawned_ancient_lurker" )
+    if ModSettingGet( "D2DContentPack.spawn_ancient_lurker_manually" ) then
+        if is_within_bounds( entity_id, -3900, -3750, 10000, 10150 ) then
+            local nearby_hittables = EntityGetInRadiusWithTag( px, py, 200, "hittable" )
+            for i,hittable_id in ipairs( nearby_hittables or {} ) do
+                if exists( EntityGetFirstComponentIncludingDisabled( hittable_id, "OrbComponent" ) ) then
+                    EntityAddComponent2( hittable_id, "LuaComponent", {
+                        script_item_picked_up = "mods/D2DContentPack/files/scripts/animals/ancient_lurker_spawn.lua",
+                        execute_every_n_frame = -1,
+                    })
+                    GameAddFlagRun( "d2d_poi_spawned_ancient_lurker" )
+                end
+            end
+        end
+    else
+        EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_lurker.xml", -3840, 9850 )
+        GameAddFlagRun( "d2d_poi_spawned_ancient_lurker" )
+    end
 end
 
 function try_spawn_staff_of_finality()
