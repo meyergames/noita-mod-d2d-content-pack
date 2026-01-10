@@ -127,11 +127,13 @@ function multiply_proj_speed( proj_id, mtp )
         local old_value = ComponentGetValue2( velo_comp, "air_friction" )
         ComponentSetValue2( velo_comp, "air_friction", old_value * ( 1.0 / mtp ) )
 
-        ComponentSetValue2( velo_comp, "mVelocity", old_value * mtp )
+        local old_x, old_y = ComponentGetValue2( velo_comp, "mVelocity" )
+        ComponentSetValue2( velo_comp, "mVelocity", old_x * mtp, old_y * mtp )
     end
 end
 
-function EntityLoadAtWandTip( player_entity_id, wand_entity_id )
+function EntityLoadAtWandTip( player_entity_id, load_this_entity, wand_id )
+    local wand_entity_id = wand_id or EZWand.GetHeldWand().entity_id
     if not exists( player_entity_id ) or not exists( wand_entity_id ) then return end
 
     local ctrl_comp = EntityGetFirstComponent( player_entity_id, "ControlsComponent" )
@@ -143,6 +145,24 @@ function EntityLoadAtWandTip( player_entity_id, wand_entity_id )
         local wx, wy = EntityGetTransform( wand_entity_id )
         local tx = wx + ( offset_mag * aim_x )
         local ty = wy + ( offset_mag * aim_y )
-        EntityLoad( "mods/D2DContentPack/files/particles/muzzle_flashes/muzzle_flash_laser_death_ray.xml", tx, ty )
+        EntityLoad( load_this_entity, tx, ty )
     end
+end
+
+function held_wand_contains_spell( player_entity_id, action_id )
+    local held_wand = EZWand.GetHeldWand()
+    local spells, always_casts = held_wand:GetSpells()
+    
+    for i,spell in ipairs( spells ) do
+        if spell.action_id == action_id then
+            return true
+        end
+    end
+    for i,always_cast in ipairs( always_casts ) do
+        if always_cast.action_id == action_id then
+            return true
+        end
+    end
+
+    return false
 end
