@@ -7,6 +7,17 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] modifier that checks how many copies there are of a spell, then skips all but the first one. useful for chaining black 
+		holes without worrying about accidentally firing one without modifiers / not on a trigger / etc
+		( it should check the *deck* before draw_actions(), not hand after )
+
+[ ] enemy that completely drains your levitation power on hit
+
+[ ] the healer hiisi's bullet ignores shields, so Giga Drain bubbles probably can too!
+
+[ ] maybe make the skull on Obliteration a bit less saturated still
+
+[ ] make Time Trial and Glass Heart only work in "holy" or "_EMPTY_"
 
 [ ] make mid-fire spells controller compatible! (important)
 
