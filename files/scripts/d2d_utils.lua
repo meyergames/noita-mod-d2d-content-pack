@@ -127,7 +127,6 @@ function multiply_proj_speed( proj_id, mtp )
         local old_value = ComponentGetValue2( velo_comp, "air_friction" )
         ComponentSetValue2( velo_comp, "air_friction", old_value * ( 1.0 / mtp ) )
 
-        local old_value = ComponentGetValue2( velo_comp, "mVelocity" )
         ComponentSetValue2( velo_comp, "mVelocity", old_value * mtp )
     end
 end

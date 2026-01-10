@@ -1,6 +1,37 @@
 IDEAS
 
-[ ] Parry: short-range, medium-cooldown "explosion" that, when timed well, deflects bullets (like Revenge Bullets) with extra speed and damage.
+
+
+
+
+
+WE POST NEW IDEAS AT THE TOP NOW
+
+
+
+[ ] "soulslike" (cursed) perk that respawns you as a ghost, at a gravestone near the mountain entrance (of the same PW?)
+		- the place where you died will contain your Soul, along with all wands, perks and spells you had.
+			- would require special compatibility with the extra inventory mod <- not necessary from the start, perhaps
+		- return to the point where you died (indicated with a radar) within a set time (based on distance) to be revived
+		- the base player sprite changes, and your max health is set to 100. you have no wands, no perks and no spells, so you'll have to make do with what you can find on your way back down
+		- https://steamcommunity.com/sharedfiles/filedetails/?id=2396079746 <-- this mod already does something with losing items
+			on respawn; just store perks and temporarily set max hp to 100, easy peasy(?)
+
+[ ] maybe make Second Wind charge-based after all?
+		- pro: more charges
+		- con: prone to greek letter infinity shenanigans
+
+[ ] Staff of Dedication: Loyalty variation for the starting bomb wand.
+		- effect idea: doubled explosive damage on all spells
+		- default spells idea: ghost trigger + nolla + recycle + bomb
+
+[>] make the Staff of Loyalty return to your hand if you middle-click while it's animated
+		- current status (08/01/26 04:58): wand:PutInPlayersInventory() seems to delete the wand
+		- next attempt: try killing the ghost entity (through CompEx) and see what happens to the wand?
+
+[ ] maybe move the Recycle+ unlock to the Staff of Ancients, and remove the Staff of Finality?
+
+[x] Parry: short-range, medium-cooldown "explosion" that, when timed well, deflects bullets (like Revenge Bullets) with extra speed and damage.
 
 [ ] Give the player "Peace With Gods" if they win a race while the gods were angry? (and the player was infected as a result)
 

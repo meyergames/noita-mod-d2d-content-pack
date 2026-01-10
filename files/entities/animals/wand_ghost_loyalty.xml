@@ -11,6 +11,20 @@
 			is_predator="1" >
 		</GenomeDataComponent>
 	</Base>
+
+	<!-- <UIInfoComponent
+		name="$item_d2d_staff_of_loyalty">
+	</UIInfoComponent>
+
+	<InteractableComponent
+		ui_text="$item_d2d_staff_of_loyalty_recall"
+		radius="15">
+	</InteractableComponent>
+
+	<LuaComponent 
+		script_interacting="mods/D2DContentPack/files/scripts/items/wands/staff_of_loyalty_recall.lua"
+      	execute_every_n_frame="-1"
+	></LuaComponent> -->
 	
 	<AudioLoopComponent
 		file="data/audio/Desktop/animals.bank"

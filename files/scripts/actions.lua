@@ -360,6 +360,22 @@ d2d_actions = {
 		                    end,
 	},
 
+	{
+		id                  = "D2D_SPARK_BOLT_ENHANCER",
+		name 		        = "$spell_d2d_spark_bolt_enhancer_name",
+		description         = "$spell_d2d_spark_bolt_enhancer_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/spark_bolt_enhancer.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0", -- only appears on the Staff of Loyalty
+		spawn_probability   = "0", -- only appears on the Staff of Loyalty
+		price               = 220,
+		mana                = 30,
+		action 		        = function()								
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/spark_bolt_enhancer.xml,"
+								draw_actions( 1, true )
+		                    end,
+	},
+
 	-- {
 	-- 	id                  = "D2D_OPENING_SHOT",
 	-- 	name 		        = "Opening Shot",
@@ -838,6 +854,14 @@ d2d_actions = {
 									c.spread_degrees = c.spread_degrees + ( 1.5 * copies )
 									draw_actions( copies, true )
 
+									if copies >= 2 then
+										-- cool muzzle
+										dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+										local x, y = EntityGetTransform( EZWand.GetHeldWand().entity_id )
+										EntityLoadAtWandTip( GetUpdatedEntityID(), "mods/D2DContentPack/files/particles/muzzle_flashes/muzzle_flash_laser_death_ray.xml" )
+										GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/chain_bolt/create", x, y )
+									end
+
 									-- c.fire_rate_wait = cached_fire_rate_wait * copies * 0.5
 									-- current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10
 								end
@@ -1217,8 +1241,8 @@ d2d_actions = {
 		description         = "$spell_d2d_second_wind_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/second_wind.png",
 		type 		        = ACTION_TYPE_OTHER,
-		spawn_level         = "0,1,2,3,4",
-		spawn_probability   = "0.3,0.5,0.4,0.3,0.2",
+		spawn_level         = "0,1,2,3,4,10",
+		spawn_probability   = "0.3,0.5,0.4,0.3,0.2,0.5",
 		price               = 200,
 		mana                = 0,
 		-- max_uses			= 1,
@@ -1401,14 +1425,10 @@ d2d_actions = {
 		spawn_probability   = "0", -- should only spawn on the Staff of Loyalty
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_animate_wand_mid_fire.xml",
         price 				= 500,
-        mana 				= 100,
+        mana 				= 0,
 	    action              = function()
-	    						current_reload_time = current_reload_time + ( 3600 * 5 )
-	    						if reflecting then return end
-	    						current_reload_time = current_reload_time - ( 3600 * 5 )
-
 	    						draw_actions( 1, true )
-            					mana = mana + 100
+            					mana = mana + 0
 	                        end,
     },
 

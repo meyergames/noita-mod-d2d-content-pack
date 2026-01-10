@@ -1,11 +1,13 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local MAX_EFFECT_DISTANCE = 100
 
 local entity_id = GetUpdatedEntityID()
 local x, y = EntityGetTransform( entity_id )
 
-local nearby_targets = EntityGetInRadiusWithTag( x, y, MAX_EFFECT_DISTANCE, "homing_target" )
+local radius_mtp = 0.5 + ( 0.5 * get_perk_pickup_count( "D2D_ALLY_PROTECTION" ) )
+
+local nearby_targets = EntityGetInRadiusWithTag( x, y, MAX_EFFECT_DISTANCE * mtp, "homing_target" )
 if #nearby_targets > 0 then
     for i,target_id in ipairs( nearby_targets ) do
         local children = EntityGetAllChildren( target_id, "d2d_ally_protection_shield" )

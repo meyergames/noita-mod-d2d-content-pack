@@ -494,19 +494,18 @@ function init_staff_of_loyalty()
 	wand.manaMax = Random( 470, 520 )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = Random( 145, 160 )
-	wand.capacity = 12
+	wand.capacity = 8
 	wand.spread = 0
 
-	wand:AttachSpells( "D2D_ANIMATE_WAND_MID_FIRE" )
-	wand:AddSpells( "D2D_COMPACT_SHOT", "LIGHT_BULLET", "LIGHT_BULLET" )
-	wand:AddSpells( "D2D_COMPACT_SHOT", "LIGHT_BULLET", "LIGHT_BULLET" )
-	wand:AddSpells( "D2D_COMPACT_SHOT", "LIGHT_BULLET", "LIGHT_BULLET" )
-	for i = 1, ( wand.capacity - 9 ) do
+	wand:AttachSpells( "D2D_ANIMATE_WAND_MID_FIRE", "D2D_SPARK_BOLT_ENHANCER" )
+	wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "D2D_COMPACT_SHOT" )
+	for i = 1, ( wand.capacity - 3 ) do
 		wand:AddSpells( "LIGHT_BULLET" )
 	end
 
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_loyalty_t1.png", 8, 4, 17, 0 )
 	EntityAddTag( wand.entity_id, "d2d_staff_of_loyalty" )
+	set_internal_int( wand.entity_id, "d2d_staff_tier", 1 )
     EntityAddComponent2( wand.entity_id, "LuaComponent", {
     	script_item_picked_up = "mods/D2DContentPack/files/scripts/items/wands/staff_of_loyalty_on_pickup.lua",
 		execute_every_n_frame = -1,
@@ -526,7 +525,7 @@ function upgrade_staff_of_loyalty( original )
 	wand.manaMax = Random( 940, 1040 )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = Random( 290, 320 )
-	wand.capacity = 25
+	wand.capacity = 18
 	wand.spread = 0
 	local spells, always_casts = original:GetSpells()
 	for i,always_cast in ipairs( always_casts ) do
@@ -537,6 +536,7 @@ function upgrade_staff_of_loyalty( original )
 	end
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_loyalty_t2.png", 10, 4, 18, 0 )
 	EntityAddTag( wand.entity_id, "d2d_staff_of_loyalty" )
+	set_internal_int( wand.entity_id, "d2d_staff_tier", 2 )
     EntityAddComponent2( wand.entity_id, "LuaComponent", {
     	script_item_picked_up = "mods/D2DContentPack/files/scripts/items/wands/staff_of_loyalty_on_pickup.lua",
 		execute_every_n_frame = -1,
