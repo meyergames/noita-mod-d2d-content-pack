@@ -267,19 +267,24 @@ d2d_perks = {
 		ui_description = "$perk_d2d_ally_protection_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ally_protection_016.png",
 		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/ally_protection.png",
-		stackable = STACKABLE_NO,
-		-- max_in_perk_pool = 3,
-		-- stackable_maximum = 3,
+		stackable = STACKABLE_YES,
+		max_in_perk_pool = 3,
+		stackable_maximum = 3,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			EntityAddComponent( entity_who_picked, "LuaComponent", 
-			{
-				_tags="perk_component",
-				script_source_file="mods/D2DContentPack/files/scripts/perks/effect_ally_protection_update.lua",
-				execute_every_n_frame="15",
-			} )
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if pickup_count <= 1 then
+				EntityAddComponent( entity_who_picked, "LuaComponent", 
+				{
+					_tags="perk_component,d2d_ally_protection",
+					script_source_file="mods/D2DContentPack/files/scripts/perks/effect_ally_protection_update.lua",
+					execute_every_n_frame="15",
+				} )
+			end
         end,
+        func_remove = function( entity_who_picked)
+			remove_lua( entity_who_picked, "d2d_ally_protection" )
+        end
 	},
 
 	-- {
