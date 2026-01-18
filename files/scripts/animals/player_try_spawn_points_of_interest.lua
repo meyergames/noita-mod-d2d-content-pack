@@ -8,22 +8,18 @@ local biome_name = BiomeMapGetName( px, py )
 
 function try_trigger_recent_update_message()
     if GameHasFlagRun( "d2d_poi_recent_update_message_displayed" ) then return end
-    if not is_within_bounds( entity_id, 40, 400, 6640, 6800 ) then return end
+    if not is_within_bounds( entity_id, 600, 800, -240, -80 ) then return end
 
     GameAddFlagRun( "d2d_poi_recent_update_message_displayed" )
-    RemoveSettingFlag( "d2d_update_msg_displayed_ancient_lurker" )
+    RemoveFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" )
 
     -- this print was added on 24 dec 2025; remove on 7 jan 2026
-    if not HasFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" ) then
+    if not HasFlagPersistent( "d2d_update_msg_displayed_cursed_chests" ) then
 
-        GamePrintImportant( "You sense an unfamiliar presence lurking in the Lukki Lair..." )
+        GamePrint( "[D2D] Cursed chests have received a big update!" )
+        GamePrintDelayed( "[D2D] They should now be much more worth the trouble...", 120 )
 
-        GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/orb_distant_monster/create", px, py )
-        GameScreenshake( 75 )
-
-        AddFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" )
-    elseif ModSettingGet( "D2DContentPack.enable_repeating_update_messages" ) then
-        GamePrint( "[D2D] A new boss can be found lurking deep within the Lukki Lair..." )
+        AddFlagPersistent( "d2d_update_msg_displayed_cursed_chests" )
     end
 end
 
@@ -75,13 +71,13 @@ function try_spawn_ancient_lurker()
     end
 end
 
-function try_spawn_staff_of_finality()
-    if GameHasFlagRun( "d2d_poi_spawned_staff_of_finality" ) then return end
-    if not is_within_bounds( entity_id, 6800, 7900, -5400, -4500 ) then return end
+-- function try_spawn_staff_of_finality()
+--     if GameHasFlagRun( "d2d_poi_spawned_staff_of_finality" ) then return end
+--     if not is_within_bounds( entity_id, 6800, 7900, -5400, -4500 ) then return end
 
-    EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 7380, -5080 )
-    GameAddFlagRun( "d2d_poi_spawned_staff_of_finality" )
-end
+--     EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 7380, -5080 )
+--     GameAddFlagRun( "d2d_poi_spawned_staff_of_finality" )
+-- end
 
 function try_convert_chests_into_cursed()
     local chests = EntityGetWithTag( "chest" )
@@ -197,7 +193,7 @@ end
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
-try_spawn_staff_of_finality()
+-- try_spawn_staff_of_finality()
 try_convert_chests_into_cursed()
 try_show_staff_of_loyalty_hints()
 try_upgrade_staff_of_loyalty()
