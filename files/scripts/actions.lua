@@ -336,7 +336,14 @@ d2d_actions = {
 		mana 				= 120,
 		action 				= function()
 			c.fire_rate_wait = c.fire_rate_wait + 24
+			c.friendly_fire	 = false
 			c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/projectile_morph_entity.xml,"
+
+			-- TODO:	maybe Piercing makes it more satisfying to use?
+			-- TODO #2: double the damage on anything shot through Projectile Morph?
+			-- TODO #3: make the player automatically immune to anything shot through Projectile Morph?
+            -- c.extra_entities = c.extra_entities .. "data/entities/misc/piercing_shot.xml,"
+
 			draw_actions( 1, true )
 		end,
 	},

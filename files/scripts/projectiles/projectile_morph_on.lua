@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local proj_id = GetUpdatedEntityID()
 
@@ -8,6 +8,7 @@ end
 
 local proj_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "ProjectileComponent" )
 if proj_comp then
+	-- make the shooter temporarily invisible
 	local proj_source = ComponentGetValue2( proj_comp, "mWhoShot" )
 	if proj_source then
 
@@ -67,5 +68,13 @@ if proj_comp then
 		        end
 		    end
 		end
+
+		-- double the projectile's damage
+		multiply_proj_dmg( proj_id, 2.0 )
+
+		-- make the player immune to any damage from the projectile
+		ComponentSetValue2( proj_comp, "friendly_fire", false )
+		ComponentSetValue2( proj_comp, "explosion_dont_damage_shooter", true )
+		ComponentObjectSetValue2( proj_comp, "config_explosion", "dont_damage_this", proj_source )
 	end
 end
