@@ -166,3 +166,21 @@ function held_wand_contains_spell( player_entity_id, action_id )
 
     return false
 end
+
+function swap_perk_icon_for_spent( player_id, perk_name )
+    for i,child_id in ipairs( EntityGetAllChildren( player_id ) or {} ) do
+        if EntityHasTag( child_id, "perk_entity" ) then
+            local iconcomp = EntityGetFirstComponent( child_id, "UIIconComponent" )
+            if exists( iconcomp ) then
+                local comp_name = ComponentGetValue2( iconcomp, "name" )
+                if string.find( comp_name, perk_name ) then
+                    local current_sprite_file = ComponentGetValue2( iconcomp, "icon_sprite_file" )
+                    local new_sprite_file = current_sprite_file:sub( 1, -5 ) .. "_spent.png"
+                    GamePrint( new_sprite_file )
+                    ComponentSetValue2( iconcomp, "icon_sprite_file", new_sprite_file )
+                    ComponentSetValue2( iconcomp, "name", GameTextGetTranslatedOrNot( comp_name ) .. " (spent)" )
+                end
+            end
+        end
+    end
+end

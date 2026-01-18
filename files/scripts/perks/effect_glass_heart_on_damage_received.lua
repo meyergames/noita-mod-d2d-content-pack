@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local comp_id = GetUpdatedComponentID()
 local owner = GetUpdatedEntityID()
@@ -18,5 +18,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
             EntityKill( ui_icon_id )
         end
         remove_lua( owner, "d2d_glass_heart" )
+        
+        swap_perk_icon_for_spent( owner, "d2d_glass_heart" )
 	end
 end

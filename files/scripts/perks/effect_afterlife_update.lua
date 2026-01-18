@@ -1,0 +1,1 @@
+effect_afterlife_update

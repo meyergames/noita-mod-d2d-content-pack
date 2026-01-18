@@ -1,0 +1,7 @@
+<Entity>
+	<Base file="mods/D2DContentPack/files/entities/misc/status_effects/effect_afterlife_1m.xml">
+		<GameEffectComponent 
+		    frames="54000"
+		></GameEffectComponent>
+	</Base>
+</Entity>

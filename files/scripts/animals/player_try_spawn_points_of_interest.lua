@@ -11,12 +11,12 @@ function try_trigger_recent_update_message()
     if not is_within_bounds( entity_id, 40, 400, 6640, 6800 ) then return end
 
     GameAddFlagRun( "d2d_poi_recent_update_message_displayed" )
+    RemoveSettingFlag( "d2d_update_msg_displayed_ancient_lurker" )
 
     -- this print was added on 24 dec 2025; remove on 7 jan 2026
     if not HasFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" ) then
 
-        GamePrintImportant( "An unfamiliar presence lurks within the Lukki Lair..." )
-        GamePrintDelayed( "[D2D] A new boss can be found at the bottom of the Lukki Lair.", 300 )
+        GamePrintImportant( "You sense an unfamiliar presence lurking in the Lukki Lair..." )
 
         GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/orb_distant_monster/create", px, py )
         GameScreenshake( 75 )
@@ -153,6 +153,46 @@ function try_upgrade_staff_of_loyalty()
     end
 end
 
+function try_reroll_challenge_perks()
+    local nearby_perks = EntityGetWithTag( "perk" )
+    for i,perk in ipairs( nearby_perks ) do
+        local CHALLENGE_PERK_NAMES = "D2D_TIME_TRIAL,D2D_GLASS_HEART"
+        local perk_id = get_internal_string( perk, "perk_id" )
+        local x, y = EntityGetTransform( perk )
+        local perk_biome = BiomeMapGetName( x, y )
+        if exists( perk_id ) and string.find( CHALLENGE_PERK_NAMES, perk_id )
+        and not ( string.find( perk_biome, "holy" ) or string.find( perk_biome, "EMPTY" ) ) then
+            -- briefly set perk destroy chance to 0, so other perks remain
+            -- (code copied from D2D_BLESSINGS_AND_CURSE)
+            local value_to_cache = GlobalsGetValue( "TEMPLE_PERK_DESTROY_CHANCE", 100 )
+            set_internal_int( get_player(), "blurse_cached_perk_destroy_chance", tonumber( value_to_cache ) )
+            GlobalsSetValue( "TEMPLE_PERK_DESTROY_CHANCE", 0 )
+            EntityAddComponent( entity_who_picked, "LuaComponent", 
+            {
+                _tags="perk_component",
+                script_source_file="mods/D2DContentPack/files/scripts/perks/effect_blessings_and_curse_revert.lua",
+                execute_every_n_frame="3",
+                remove_after_executed="1",
+            } )
+
+            dofile_once( "data/scripts/perks/perk.lua" )
+            perk_spawn_random( x, y, false )
+
+            -- below message is irrelevant since the player should not even see the perk appear
+            -- local itemcomp = EntityGetFirstComponent( perk, "ItemComponent" )
+            -- if exists( itemcomp ) then
+            --     local perk_name = GameTextGetTranslatedOrNot( ComponentGetValue2( itemcomp, "item_name" ) )
+            --     if exists( perk_name ) then
+            --         GamePrint( "The '" .. perk_name .. "' perk was rerolled" )
+            --         GamePrint( "(Challenge Perks can't be taken outside of Holy Mountains)" )
+            --     end
+            -- end
+
+            EntityKill( perk )
+        end
+    end
+end
+
 
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
@@ -161,3 +201,4 @@ try_spawn_staff_of_finality()
 try_convert_chests_into_cursed()
 try_show_staff_of_loyalty_hints()
 try_upgrade_staff_of_loyalty()
+try_reroll_challenge_perks()

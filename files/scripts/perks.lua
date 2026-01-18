@@ -659,13 +659,13 @@ d2d_blurses = {
 			remove_shoteffect( entity_who_picked, "d2d_master_of_lightning" )
 		end,
         -- effects:
-        -- > x1.33 fire rate and reload speed
+        -- > x1.1 fire rate and reload speed
         -- > x2.0 projectile speed
         -- > all projectiles deal +5 electric damage and electrocute enemies
         -- after the player was electrocuted, they gain a short (scaling with electrocution time) burst of...
         -- > x2.0 move speed
-        -- > x1.5 fire rate and reload speed (from x1.33)
-        -- > increased mana charge speed
+        -- > x1.33 fire rate and reload speed
+        -- > x4 mana charge speed
         -- > endless flight
 	},
 
@@ -712,7 +712,7 @@ d2d_blurses = {
         -- additionally, while the player is on fire...
         -- > x1.5 move speed (from x1.15)
         -- > slightly increased fire rate
-        -- > deal x2.5 fire damage, x1.5 other damage
+        -- > deal x2.5 fire damage, x1.25 other damage
         -- > endless flight
 	},
 
@@ -741,6 +741,31 @@ d2d_blurses = {
         	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
         	EntityKill( get_child_by_filename( entity_who_picked, "effect_juggernaut_d2d.xml" ) )
         	remove_lua( entity_who_picked, "d2d_perk_juggernaut" )
+        end
+	},
+
+	{
+		id = "D2D_AFTERLIFE",
+		ui_name = "$perk_d2d_afterlife_name",
+		ui_description = "$perk_d2d_afterlife_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/afterlife_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/afterlife.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if pickup_count <= 1 then
+				EntityAddComponent2( entity_who_picked, "LuaComponent",
+				{
+					_tags="perk_component,d2d_perk_afterlife",
+					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_afterlife_on_damage.lua",
+					execute_every_n_frame = -1,
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	remove_lua( entity_who_picked, "d2d_perk_afterlife" )
         end
 	},
 }
@@ -1135,7 +1160,7 @@ d2d_perk_reworks = {
         	-- end
 
         	if original then
-        		if Random( 1, 4 ) == 1 then
+        		if Random( 1, 10 ) <= 3 then
 	        		EntityKill( original.entity_id )
 					EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
 	        	else

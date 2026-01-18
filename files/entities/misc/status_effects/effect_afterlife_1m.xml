@@ -1,0 +1,41 @@
+<Entity tags="d2d_afterlife_effect">
+	<GameEffectComponent 
+	    effect="CUSTOM"
+	    custom_effect_id="D2D_AFTERLIFE"
+	    frames="3600"
+	></GameEffectComponent>
+	
+	<InheritTransformComponent 
+		_enabled="1" >
+	</InheritTransformComponent>
+
+	<!-- <LifetimeComponent
+		lifetime="3600">
+	</LifetimeComponent> -->
+
+    <LuaComponent
+    	script_source_file="mods/D2DContentPack/files/scripts/perks/effect_afterlife_radar.lua"
+    	execute_every_n_frame="1">
+    </LuaComponent>
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_afterlife_time_up.lua"
+      	execute_every_n_frame="-1"
+        execute_on_added="0"
+		execute_on_removed="1"
+	></LuaComponent>
+
+    <UIIconComponent
+        icon_sprite_file="mods/D2DContentPack/files/gfx/ui_gfx/status_effects/afterlife.png"
+        name="Afterlife"
+        description="Make it back to your grave in time to keep living. Die otherwise."
+        display_in_hud="true"
+        display_above_head="true"
+        is_perk="false"
+    ></UIIconComponent>
+
+	<!-- <AudioComponent
+		file="data/audio/Desktop/misc.bank"
+		event_root="game_effect/charm" >
+	</AudioComponent> -->
+</Entity>

@@ -26,6 +26,9 @@ local function handle_glass_heart( entity_item, entity_who_picked )
                 EntityKill( ui_icon_id )
             end
             remove_lua( entity_who_picked, "d2d_glass_heart" )
+
+            -- make the icon show that the perk is "spent"
+            swap_perk_icon_for_spent( owner, "d2d_glass_heart" )
         else
             GamePrintImportant( "The Glass Heart requires a deeper heart" )
         end

@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local entity_id = GetUpdatedEntityID()
 local owner = EntityGetParent(entity_id)
@@ -20,4 +20,7 @@ if ( update_count == 59 and has_reached_finish == 0 ) then
     
     -- remove Time Trial entity from player
     EntityKill( entity_id )
+
+    -- show the spent perk icon
+    swap_perk_icon_for_spent( owner, "d2d_time_trial" )
 end

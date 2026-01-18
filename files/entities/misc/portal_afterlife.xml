@@ -1,0 +1,22 @@
+<Entity>
+	<!-- teleport logic -->
+
+	<TeleportComponent
+		target_x_is_absolute_position="1"
+		target_y_is_absolute_position="1"
+		target.x="230" 
+		target.y="-79"
+	></TeleportComponent>
+
+	<LifetimeComponent
+		lifetime="60">
+	</LifetimeComponent>
+
+	<HitboxComponent 
+		aabb_min_x="-150" 
+		aabb_min_y="-150"
+		aabb_max_x="150" 
+		aabb_max_y="150" 
+	></HitboxComponent>
+
+</Entity>

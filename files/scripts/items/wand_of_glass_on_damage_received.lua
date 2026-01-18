@@ -1,8 +1,10 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function damage_received( damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible )
 	local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 	local wand = EZWand.GetHeldWand()
+	if not exists( wand ) then return end
+	
 	local is_glass = get_internal_int( wand.entity_id, "is_glass" ) == 1
 
 	local responsible_entity_tags = EntityGetTags( entity_thats_responsible )
@@ -11,7 +13,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 	if is_glass and ( responsible_entity_is_mortal or projectile_thats_responsible ~= 0 ) and damage > 0 then
 		-- play breaking sound
 		local x, y = EntityGetTransform( GetUpdatedEntityID() )
-		GamePrintImportant( "The Staff of Glass shattered")
+		GamePrintImportant( "The Staff of Glass shattered" )
 		GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/frozen/damage", x, y )
 
 		-- drop all spells

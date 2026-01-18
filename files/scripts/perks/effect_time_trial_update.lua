@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local DURATION_IN_SEC = 60
 
@@ -52,6 +52,9 @@ function on_time_trial_win()
 
     EntityLoad( chest, spx, spy )
     GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest/create", x, y )
+    
+    -- show the spent perk icon
+    swap_perk_icon_for_spent( owner, "d2d_time_trial" )
 
     -- remove Time Trial entity from player
     EntityKill( entity_id )
