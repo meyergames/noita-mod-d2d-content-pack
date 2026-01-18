@@ -346,7 +346,7 @@ d2d_perks = {
         	remove_lua( entity_who_picked, "d2d_perk_borrowed_time" )
         end
 	},
-
+	
 	{
 		id = "D2D_BLESSINGS_AND_CURSE",
 		ui_name = "$perk_d2d_blessings_and_curse_name",
@@ -753,6 +753,7 @@ d2d_blurses = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if pickup_count <= 1 then
 				EntityAddComponent2( entity_who_picked, "LuaComponent",

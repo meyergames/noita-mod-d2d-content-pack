@@ -7,13 +7,15 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] maybe Projectile Morph should GREATLY increase the projectile's damage
+
 [ ] curse: Exploding Gold but a more violent, dangerous explosion when gold disappears
 
-[ ] Quantum Experimentation: increase success chance (70-75%?)
+[x] Quantum Experimentation: increase success chance (70-75%?)
 
-[ ] Afterlife
-		[ ] change player sprite? (see other sprite-replacing mods for tech inspiration)
-		[ ] "You've entered the Afterlife", "Make it back to your grave to be fully revived" message
+[x] Afterlife
+		[x] change player sprite? (see other sprite-replacing mods for tech inspiration)
+		[x] "You've entered the Afterlife", "Make it back to your grave to be fully revived" message
 		[ ] consider temporarily removing all perks? (RISKY with the mod's history of perk removal bugs)
 
 [ ] "camera zoom mod"... camera zoom (out) perk???
