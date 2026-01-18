@@ -7,7 +7,17 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
-[ ] maybe Projectile Morph should GREATLY increase the projectile's damage
+[ ] change "d2d_apoth_actions" into "d2d_mod_dependent_actions", and add two new parameters:
+		[ ] disable_if_mod_enabled <-- only adds the spell if the corresponding mod (string value) is enabled (i.e. apoth-only)
+		[ ] enable_if_mod_disabled <-- only adds the spell if the corresponding mod is NOT enabled (i.e. to prevent duplicates)
+
+[ ] make mid-fire spells controller compatible! (important)
+
+[ ] Behind You! curse: a bomb floats behind you. when shot (by an enemy), it explodes for minor damage and knockback. recharges and reappears after 30 seconds
+
+[ ] integrate AFA and/or Summon Beacon into this mod?
+
+[x] maybe Projectile Morph should GREATLY increase the projectile's damage <-- double will do
 
 [ ] curse: Exploding Gold but a more violent, dangerous explosion when gold disappears
 
@@ -17,6 +27,8 @@ WE POST NEW IDEAS AT THE TOP NOW
 		[x] change player sprite? (see other sprite-replacing mods for tech inspiration)
 		[x] "You've entered the Afterlife", "Make it back to your grave to be fully revived" message
 		[ ] consider temporarily removing all perks? (RISKY with the mod's history of perk removal bugs)
+		[ ] maybe cache the player's max HP, so they regain their original max HP upon reaching their grave?
+		[ ] make reaching the grave/full revival more visually impressive
 
 [ ] "camera zoom mod"... camera zoom (out) perk???
 
@@ -30,9 +42,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] maybe make the skull on Obliteration a bit less saturated still
 
-[ ] make Time Trial and Glass Heart only work in "holy" or "_EMPTY_"
-
-[ ] make mid-fire spells controller compatible! (important)
+[x] make Time Trial and Glass Heart only work in "holy" or "_EMPTY_"
 
 [>] "soulslike" (cursed) perk that respawns you as a ghost, at a gravestone near the mountain entrance (of the same PW?)
 		- the place where you died will contain your Soul, along with all wands, perks and spells you had.
@@ -47,14 +57,14 @@ WE POST NEW IDEAS AT THE TOP NOW
 		- con: prone to greek letter infinity shenanigans
 
 [ ] Staff of Dedication: Loyalty variation for the starting bomb wand.
-		- effect idea: doubled explosive damage on all spells
+		- effect idea: doubled explosive damage and "mdtd" on all spells
 		- default spells idea: ghost trigger + nolla + recycle + bomb
 
 [>] make the Staff of Loyalty return to your hand if you middle-click while it's animated
 		- current status (08/01/26 04:58): wand:PutInPlayersInventory() seems to delete the wand
 		- next attempt: try killing the ghost entity (through CompEx) and see what happens to the wand?
 
-[ ] maybe move the Recycle+ unlock to the Staff of Ancients, and remove the Staff of Finality?
+[x] maybe move the Recycle+ unlock to the Staff of Ancients, and remove the Staff of Finality?
 
 [x] Parry: short-range, medium-cooldown "explosion" that, when timed well, deflects bullets (like Revenge Bullets) with extra speed and damage.
 
@@ -69,7 +79,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] Pocket Dimension: Utility spell that stores all spells behind it as children of this spell. If it already contains spells, the spells are re-spawned for the player to pick up.
 
-[ ] "Alt Fire Anything" base spell
+[x] "Alt Fire Anything" base spell <-- separate mod
 Regular left-click: skip this spell and the (first) card it draws. If that seems technically impossible, reset the wand and trigger wand recharge time.
 Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, and draw the first card behind it.
 
@@ -81,11 +91,9 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Maybe the "Rewind" spell is possible now, with my new understanding of the code?
 
-[ ] Behind You! curse: a bomb floats behind you. when shot (by an enemy), it explodes for minor damage and knockback. recharges and reappears after 30 seconds
-
 [ ] Divine prank: severely limit the player's FOV (like that one wizard) and play the sound of a really scary monster
 
-[ ] Beacon: an item whose location is permanently shown on the player's UI, like on an Item Radar
+[x] Beacon: an item whose location is permanently shown on the player's UI, like on an Item Radar <-- separate mod
 
 [x] Reveal: a limited-use spell that temporarily reveals nearby wands and items
 

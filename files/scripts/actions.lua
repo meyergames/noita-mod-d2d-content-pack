@@ -1456,12 +1456,67 @@ d2d_actions = {
 	--     						-- do nothing here
 	--                         end,	
     -- },
+    
+    {
+	    id                  = "D2D_CATS_TO_DAMAGE",
+	    name 		        = "$spell_d2d_cats_to_damage_name",
+	    description         = "$spell_d2d_cats_to_damage_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/cats_to_damage.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "0", -- never spawns in the world
+		spawn_probability   = "0", -- never spawns in the world
+		only_if_mod_enabled = "Apotheosis",
+	    price               = 400,
+	    mana                = 5,
+	    action              = function()
+								c.fire_rate_wait		= c.fire_rate_wait + 5
+								c.damage_projectile_add = c.damage_projectile_add + 0.04 -- for the tooltip
+								if reflecting then return end
+								c.damage_projectile_add = c.damage_projectile_add - 0.04 -- reset
+
+								dofile_once( "data/scripts/lib/utilities.lua" )
+					            local cats_petted = get_internal_int( GetUpdatedEntityID(), "cats_petted", 1 )
+					            c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * cats_petted )
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_SUMMON_FAIRIES", -- discontinued as of 10/12/25, to be removed in a future patch
+	    name 		        = "$spell_d2d_summon_fairies_name",
+	    description         = "$spell_d2d_summon_fairies_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairies.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
+		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
+		only_if_mod_enabled = "Apotheosis",
+    	spawn_requires_flag	= "D2D_DISCONTINUED",
+	    price               = 200,
+	    mana                = 15,
+	    max_uses			= 10,
+    	never_unlimited 	= true,
+	    action              = function()
+	 							if reflecting then return end
+	 							
+                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
+    							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
+	                        end,
+    },
 }
 
 if actions ~= nil then
 	for k, v in pairs( d2d_actions ) do
 		if not HasSettingFlag( v.id.."_disabled" ) then
-			table.insert( actions, v )
+			if v.only_if_mod_enabled then
+				if ModIsEnabled( v.only_if_mod_enabled ) then
+					table.insert( actions, v )
+				end
+			elseif v.only_if_mod_disabled then
+				if not ModIsEnabled( v.only_if_mod_disabled ) then
+					table.insert( actions, v )
+				end
+			else
+				table.insert( actions, v )
+			end
 		end
 	end
 end
@@ -1473,48 +1528,6 @@ end
 -- spells that should only be added if the player has Apotheosis enabled
 if ( ModIsEnabled("Apotheosis") ) then
 	d2d_apoth_actions = {
-	    {
-		    id                  = "D2D_CATS_TO_DAMAGE",
-		    name 		        = "$spell_d2d_cats_to_damage_name",
-		    description         = "$spell_d2d_cats_to_damage_desc",
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/cats_to_damage.png",
-		    type 		        = ACTION_TYPE_MODIFIER,
-			spawn_level         = "0", -- never spawns in the world
-			spawn_probability   = "0", -- never spawns in the world
-		    price               = 400,
-		    mana                = 5,
-		    action              = function()
-									c.fire_rate_wait		= c.fire_rate_wait + 5
-									c.damage_projectile_add = c.damage_projectile_add + 0.04 -- for the tooltip
-									if reflecting then return end
-									c.damage_projectile_add = c.damage_projectile_add - 0.04 -- reset
-
-									dofile_once( "data/scripts/lib/utilities.lua" )
-						            local cats_petted = get_internal_int( GetUpdatedEntityID(), "cats_petted", 1 )
-						            c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * cats_petted )
-		                        end,
-	    },
-
-	    {
-		    id                  = "D2D_SUMMON_FAIRIES", -- discontinued as of 10/12/25, to be removed in a future patch
-		    name 		        = "$spell_d2d_summon_fairies_name",
-		    description         = "$spell_d2d_summon_fairies_desc",
-		    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairies.png",
-		    type 		        = ACTION_TYPE_PROJECTILE,
-			spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-			spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-        	spawn_requires_flag	= "D2D_DISCONTINUED",
-		    price               = 200,
-		    mana                = 15,
-		    max_uses			= 10,
-	    	never_unlimited 	= true,
-		    action              = function()
-		 							if reflecting then return end
-		 							
-	                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-	    							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
-		                        end,
-	    },
 
 	    -- {
 		--     id                  = "D2D_FAIRY_WHISTLE",
