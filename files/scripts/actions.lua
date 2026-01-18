@@ -817,6 +817,39 @@ d2d_actions = {
 	},
 
     {
+	    id                  = "D2D_SUMMON_BEACON",
+	    name 		        = "$spell_d2d_summon_beacon_name",
+	    description         = "$spell_d2d_summon_beacon_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_beacon.png",
+	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.5,0.6,0.7,0.8,0.9,1",
+		only_if_mod_disabled= "d2d_beacons",
+	    price               = 200,
+	    mana                = 50,
+	    max_uses			= 10,
+	    action              = function()
+	    						c.fire_rate_wait = c.fire_rate_wait + 40
+	    						current_reload_time = current_reload_time + 40
+
+	    						if reflecting then return end
+
+                                dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+                                local radar_id = get_internal_int( GetUpdatedEntityID(), "beacon_radar_id" )
+                                if not radar_id or radar_id == 0 then
+									radar_id = EntityAddComponent2( GetUpdatedEntityID(), "LuaComponent", 
+									{ 
+										script_source_file = "mods/D2DContentPack/files/scripts/projectiles/beacon_radar.lua",
+										execute_every_n_frame = 1,
+									} )
+									set_internal_int( GetUpdatedEntityID(), "beacon_radar_id", radar_id )
+                                end
+
+                                add_projectile( "mods/D2DContentPack/files/entities/projectiles/beacon.xml" )
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_COMPACT_SHOT",
 	    name 		        = "$spell_d2d_compact_shot_name",
 	    description         = "$spell_d2d_compact_shot_desc",
@@ -1456,7 +1489,7 @@ d2d_actions = {
 	--     						-- do nothing here
 	--                         end,	
     -- },
-    
+
     {
 	    id                  = "D2D_CATS_TO_DAMAGE",
 	    name 		        = "$spell_d2d_cats_to_damage_name",

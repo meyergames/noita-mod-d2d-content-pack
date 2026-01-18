@@ -70,6 +70,29 @@ mod_settings =
         ui_description = "",
         settings = {
             {
+                id = "beacon_hide_distance_threshold",
+                ui_name = "Beacon indicator max distance",
+                ui_description = "How far away must a Beacon be, before its indicator is hidden?\nA value of 0 means beacon indicators will always be visible.",
+                value_default = 2000,
+                value_min = 0,
+                value_max = 5000,
+                scope = MOD_SETTING_SCOPE_RUNTIME,
+            },
+            {
+                id = "nerf_greek_spells",
+                ui_name = "Make Greek spells limited-use",
+                ui_description = "For when the Greek letter spells make the game too easy for you.\nYou'll have to get creative if you want unlimited spells...",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+        },
+    },
+    {
+        category_id = "starting_wand_settings",
+        ui_name = "Starting Wands",
+        ui_description = "",
+        settings = {
+            {
                 id = "more_starting_wand_variety",
                 ui_name = "More starting wand variety",
                 ui_description = "When enabled, your starting wand may contain a wider\nvariety of the base game's projectile spells.",
@@ -104,13 +127,6 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
-            {
-                id = "nerf_greek_spells",
-                ui_name = "Make Greek spells limited-use",
-                ui_description = "For when the Greek letter spells make the game too easy for you.\nYou'll have to get creative if you want unlimited spells...",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
-            },
             -- {
             --     id = "afa_compat",
             --     ui_name = "Disable alt fire spells if Alt Fire Anything is enabled",
@@ -118,12 +134,12 @@ mod_settings =
             --     value_default = true,
             --     scope = MOD_SETTING_SCOPE_NEW_GAME,
             -- },
-            {
-                id = "Spells",
-                ui_name = "Enabled/disabled spells",
-                ui_fn = mod_setting_vertical_spacing,
-                not_setting = true,
-            },
+            -- {
+            --     id = "Spells",
+            --     ui_name = "Enabled/disabled spells",
+            --     ui_fn = mod_setting_vertical_spacing,
+            --     not_setting = true,
+            -- },
         },
     },
     {
