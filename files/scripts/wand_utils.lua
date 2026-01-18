@@ -338,11 +338,11 @@ function spawn_glass_staff( x, y )
 end
 
 function spawn_ancient_staff( x, y )
-	local staff = init_ancient_staff( recharge_time )
+	local staff = init_ancient_staff()
 	staff:PlaceAt( x, y )
 end
 
-function init_ancient_staff( recharge_time )
+function init_ancient_staff()
     local wand = EZWand()
     wand:SetName( "Staff of Ancients", true )
     wand.shuffle = false
@@ -353,8 +353,8 @@ function init_ancient_staff( recharge_time )
     wand.manaChargeSpeed = 702
     wand.capacity = 25
     wand.spread = 0
-	wand:AddSpells( "D2D_PROJECTILE_MORPH", "ACCELERATING_SHOT", "D2D_SHOCKWAVE", "LARPA_DEATH", "DARKFLAME" )
-
+	wand:AddSpells( "D2D_PROJECTILE_MORPH", "ACCELERATING_SHOT", "D2D_SHOCKWAVE", "D2D_RECYCLE_PLUS", "LARPA_DEATH", "D2D_RECYCLE_PLUS", "DARKFLAME" )
+	
     wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ancient_2.png", 11, 4, 17, 0 )
     EntityAddChild( wand.entity_id, EntityLoad( "mods/D2DContentPack/files/entities/items/staff_of_ancients.xml" ) )
 
