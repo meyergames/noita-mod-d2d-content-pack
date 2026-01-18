@@ -136,6 +136,10 @@
 		file="data/audio/Desktop/animals.bank"
 		event_root="animals/failed_alchemist_b" >
 	</AudioComponent>
+
+	<VariableStorageComponent
+		_tags="no_gold_drop">
+	</VariableStorageComponent>
 	
 	<Entity>
 		<InheritTransformComponent />
