@@ -301,6 +301,30 @@ function wand_remove_random_always_cast( wand )
 	return false
 end
 
+function determine_blink_dmg_mtp()
+	-- first check the staff
+    local wand = EZWand.GetHeldWand()
+    if wand then
+    	local tier = get_internal_int( wand.entity_id, "staff_of_time_tier" )
+    	if tier == 3 then
+    		return 0.02
+    	elseif tier == 2 then
+    		return 0.05
+    	elseif tier == 1 then
+    		return 0.10
+    	end
+    end
+
+    -- if the spell is cast outside of the Staff of Time, check the player's fastest Time Trial completion this run
+    if GameHasFlagRun( "d2d_time_trial_gold_this_run" ) then
+    	return 0.02
+    elseif GameHasFlagRun( "d2d_time_trial_silver_this_run" ) then
+    	return 0.05
+    else
+    	return 0.10
+    end
+end
+
 function spawn_glass_staff( x, y )
     local wand = EZWand()
     local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )

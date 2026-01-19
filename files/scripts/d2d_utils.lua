@@ -1,33 +1,10 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/alt_fire_utils.lua" )
 local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 
 function exists( id )
     return id and id ~= 0
-end
-
-function determine_blink_dmg_mtp()
-	-- first check the staff
-    local wand = EZWand.GetHeldWand()
-    if wand then
-    	local tier = get_internal_int( wand.entity_id, "staff_of_time_tier" )
-    	if tier == 3 then
-    		return 0.02
-    	elseif tier == 2 then
-    		return 0.05
-    	elseif tier == 1 then
-    		return 0.10
-    	end
-    end
-
-    -- if the spell is cast outside of the Staff of Time, check the player's fastest Time Trial completion this run
-    if GameHasFlagRun( "d2d_time_trial_gold_this_run" ) then
-    	return 0.02
-    elseif GameHasFlagRun( "d2d_time_trial_silver_this_run" ) then
-    	return 0.05
-    else
-    	return 0.10
-    end
 end
 
 function EntityInflictMaxHealthDamage( entity_id, ratio, can_kill, death_msg )

@@ -1534,75 +1534,30 @@ d2d_actions = {
     							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
 	                        end,
     },
-}
+    {
+	    id                  = "D2D_ALT_FIRE_ANYTHING",
+	    name 		        = "$spell_d2d_alt_fire_anything_name",
+	    description         = "$spell_d2d_alt_fire_anything_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_anything.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6,10",
+		spawn_probability   = "0.2,0.4,0.6,0.8,1,1,1",
+		only_if_mod_disabled= "alt_fire_anything",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_anything.xml",
+	    price               = 400,
+	    mana                = 1,
+		action 				= function()
+								while #deck > 0 do
+									local data = deck[1]
+									---@diagnostic disable-next-line: inject-field
+									data.in_fake_hand = true
+									table.insert(hand, data)
+									table.remove(deck, 1)
+								end
+								draw_actions(1, true)
+							end,
+    },
 
-if actions ~= nil then
-	for k, v in pairs( d2d_actions ) do
-		if not HasSettingFlag( v.id.."_disabled" ) then
-			if v.only_if_mod_enabled then
-				if ModIsEnabled( v.only_if_mod_enabled ) then
-					table.insert( actions, v )
-				end
-			elseif v.only_if_mod_disabled then
-				if not ModIsEnabled( v.only_if_mod_disabled ) then
-					table.insert( actions, v )
-				end
-			else
-				table.insert( actions, v )
-			end
-		end
-	end
-end
-
-
-
-
-
--- spells that should only be added if the player has Apotheosis enabled
-if ( ModIsEnabled("Apotheosis") ) then
-	d2d_apoth_actions = {
-
-	    -- {
-		--     id                  = "D2D_FAIRY_WHISTLE",
-		--     name 		        = "$spell_d2d_fairy_whistle_name",
-		--     description         = "$spell_d2d_fairy_whistle_desc",
-		--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fairy_whistle.png",
-		--     type 		        = ACTION_TYPE_UTILITY,
-		-- 	spawn_level         = "0",
-		-- 	spawn_probability   = "0",
-		--     price               = 200,
-		--     mana                = 50,
-		--     max_uses			= 10,
-		--     action              = function()
-		--  							if reflecting then return end
-		--  							dofile_once( "data/scripts/lib/utilities.lua" )
-
-		--  							-- place all fairies on the player to prevent them from getting stuck in solids
-	    --                             local x, y = EntityGetTransform( GetUpdatedEntityID() )
-		--  							local nearby_fairies = EntityGetInRadiusWithTag( x, y, 300, "fairy" )
-		--  							for i,fairy_id in ipairs( nearby_fairies ) do
-		--  								local old_x, old_y = EntityGetTransform( fairy_id )
-		-- 								EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", old_x, old_y )
-		--  								EntitySetTransform( fairy_id, x, y )
-		--  							end
-		--                         end,
-	    -- },
-	}
-
-	if(actions ~= nil)then
-		for k, v in pairs(d2d_apoth_actions)do
-			if(not HasSettingFlag(v.id.."_disabled"))then
-				table.insert(actions, v)
-			end
-		end
-	end
-end
-
-
-
-
-
-d2d_alt_fire_actions = {
     {
 	    id                  = "D2D_MANA_REFILL_ALT_FIRE",
 	    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
@@ -1708,10 +1663,20 @@ d2d_alt_fire_actions = {
     },
 }
 
-if actions ~= nil and d2d_alt_fire_actions ~= nil then
-	for k, v in pairs( d2d_alt_fire_actions ) do
-		if( not HasSettingFlag( v.id .. "_disabled" ) ) then
-			table.insert(actions, v)
+if actions ~= nil then
+	for k, v in pairs( d2d_actions ) do
+		if not HasSettingFlag( v.id.."_disabled" ) then
+			if v.only_if_mod_enabled then
+				if ModIsEnabled( v.only_if_mod_enabled ) then
+					table.insert( actions, v )
+				end
+			elseif v.only_if_mod_disabled then
+				if not ModIsEnabled( v.only_if_mod_disabled ) then
+					table.insert( actions, v )
+				end
+			else
+				table.insert( actions, v )
+			end
 		end
 	end
 end

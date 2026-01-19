@@ -189,6 +189,45 @@ function try_reroll_challenge_perks()
     end
 end
 
+function try_spawn_afa_copy_1()
+    if GameHasFlagRun( "d2d_afa_copy_1_spawned" ) then return end
+    if not is_within_bounds( entity_id, -4600, -4000, 3500, 4200 ) then return end
+    -- in the orb room next to the early Magical Temple
+
+    CreateItemActionEntity( "D2D_ALT_FIRE_ANYTHING", -4324, 3859 )
+
+    GameAddFlagRun( "d2d_afa_copy_1_spawned" )
+end
+
+function try_spawn_afa_copy_2()
+    if GameHasFlagRun( "d2d_afa_copy_2_spawned" ) then return end
+    if not is_within_bounds( entity_id, -4250, -3500, 9700, 10300 ) then return end
+    -- in the orb room at the bottom of the Lukki Lair
+
+    CreateItemActionEntity( "D2D_ALT_FIRE_ANYTHING", -3810, 10102 )
+    
+    GameAddFlagRun( "d2d_afa_copy_2_spawned" )
+end
+
+function try_spawn_afa_copy_3()
+    if GameHasFlagRun( "d2d_afa_copy_3_spawned" ) then return end
+    if not is_within_bounds( entity_id, 10100, 11000, 15750, 16500 ) then return end
+    -- in the orb room at the bottom of the Wizards' Den
+
+    CreateItemActionEntity( "D2D_ALT_FIRE_ANYTHING", 10526, 16160 )
+    
+    GameAddFlagRun( "d2d_afa_copy_3_spawned" )
+end
+
+function try_spawn_afa_copies()
+    if ModIsEnabled( "alt_fire_anything" ) then return end
+    if ModSettingGet( "D2D_ALT_FIRE_ANYTHING_disabled" ) then return end
+
+    try_spawn_afa_copy_1()
+    try_spawn_afa_copy_2()
+    try_spawn_afa_copy_3()
+end
+
 
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
@@ -198,3 +237,4 @@ try_convert_chests_into_cursed()
 try_show_staff_of_loyalty_hints()
 try_upgrade_staff_of_loyalty()
 try_reroll_challenge_perks()
+try_spawn_afa_copies()
