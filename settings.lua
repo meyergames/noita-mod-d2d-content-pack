@@ -1,7 +1,8 @@
 dofile("data/scripts/lib/mod_settings.lua")
 
 --Key binding data
-local listening = false
+local listening_alt_fire = false
+local listening_mid_fire = false
 local there_has_been_input = false
 local key_inputs ={}
 local mouse_inputs = {}
@@ -11,10 +12,14 @@ local current_keybind = ""
 
 --Keybinds
 local keybind_name = "Keybind"
-local keybind_desc = "Edit your Alt Fire keybind"
-local keybind_tutorial_altfire = "\nHit the prompt below to input a new alt-fire binding.\nThe default setting is right mouse button."
+local keybind_desc_altfire = "Edit your Alt Fire keybind"
+local keybind_desc_midfire = "Edit your Mid Fire keybind"
+local keybind_tutorial_altfire = "\nHit the prompt below to input a new alt-fire binding.\nThe default setting is the right mouse button."
+local keybind_explanation_midfire = "\nSome special wands in this mod use \"Mid Fire\" spells."
+local keybind_tutorial_midfire = "\nHit the prompt below to input a new mid-fire binding.\nThe default setting is the middle mouse button."
 local keybind_newbinding = "SET NEW BINDING"
 local keybind_current_altfire = "Current binding: "
+local keybind_current_midfire = "Current binding: "
 
 mouse_codes = {
   MOUSE_LEFT = 1,
@@ -333,7 +338,7 @@ joystick_codes = {
   Y = 26
 }
 
-function input_listen(key_inputs,mouse_inputs,joystick_inputs)
+function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
   local there_is_input = false
   for _, code in pairs(key_codes) do
       if InputIsKeyDown(code) then
@@ -384,16 +389,17 @@ function input_listen(key_inputs,mouse_inputs,joystick_inputs)
     decided = true
   end
   binding = binding:sub(1, -2)
-  ModSettingSet( "D2DContentPack.alt_fire_keybind", binding )
+  ModSettingSet( mod_setting, binding )
 
   if there_has_been_input and not there_is_input then
-      listening = false
+      listening_alt_fire = false
+      listening_mid_fire = false
       there_has_been_input = false
       key_inputs = {}
       mouse_inputs = {}
       joystick_inputs = {}
-      if ModSettingGet( "D2DContentPack.alt_fire_keybind" ) == "key_code,mouse_code,joystick_code" then
-          ModSettingSet( "D2DContentPack.alt_fire_keybind", old_binding )
+      if ModSettingGet( mod_setting ) == "key_code,mouse_code,joystick_code" then
+          ModSettingSet( mod_setting, old_binding )
       end
   end
 end
@@ -507,16 +513,16 @@ mod_settings =
             },
             {
                 id = "alt_fire_enable_in_inventory",
-                ui_name = "Enable Alt Fire spells while inventory is open",
-                ui_description = "When enabled, this mod's Alt Fire spells will function even\nwhen the inventory is opened.",
+                ui_name = "Enable Alt/Mid Fire spells while inventory is open",
+                ui_description = "When enabled, this mod's Alt/Mid Fire spells will function even\nwhen the inventory is opened.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },
         },
     },
     {
-        category_id = "keybind_settings",
-        ui_name = "Keybinds",
+        category_id = "alt_fire_settings",
+        ui_name = "Keybind: Alt Fire",
         ui_description = "Which button should be used to alt-fire?",
         foldable = true,
         _folded = true,
@@ -526,8 +532,8 @@ mod_settings =
                 ui_name = "",
                 value_default = "key_code,mouse_code,2,joystick_code",
                 ui_fn = function(mod_id, gui, in_main_menu, im_id, setting)
-                            if listening then
-                                input_listen(key_inputs,mouse_inputs,joystick_inputs)
+                            if listening_alt_fire then
+                                input_listen(key_inputs,mouse_inputs,joystick_inputs,"D2DContentPack.alt_fire_keybind")
                             end
 
                             local _id = 0
@@ -574,7 +580,7 @@ mod_settings =
 
                             GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
                             GuiText(gui, 5, 0, keybind_tutorial_altfire)
-                            if listening then
+                            if listening_alt_fire then
                               GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
                               GuiOptionsAdd(gui, GUI_OPTION.NonInteractive)
                             end
@@ -582,7 +588,7 @@ mod_settings =
                               key_inputs = {}
                               mouse_inputs = {}
                               joystick_inputs = {}
-                              listening = true
+                              listening_alt_fire = true
                               there_has_been_input = false
                               old_binding = ModSettingGet("D2DContentPack.alt_fire_keybind")
                             end
@@ -603,6 +609,102 @@ mod_settings =
                 id = "alt_fire_always_enable_right_click",
                 ui_name = "Always enable right-click Alt Fire",
                 ui_description = "If enabled, this mod's Alt Fire spells can always be triggered\nwith a right-click, regardless of the configured keybind.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_RUNTIME,
+            },
+        },
+    },
+    {
+        category_id = "mid_fire_settings",
+        ui_name = "Keybind: Mid Fire",
+        ui_description = "Which button should be used to mid-fire?",
+        foldable = true,
+        _folded = true,
+        settings = {
+            {
+                id = "mid_fire_keybind",
+                ui_name = "",
+                value_default = "key_code,mouse_code,2,joystick_code",
+                ui_fn = function(mod_id, gui, in_main_menu, im_id, setting)
+                            if listening_mid_fire then
+                                input_listen(key_inputs,mouse_inputs,joystick_inputs,"D2DContentPack.mid_fire_keybind")
+                            end
+
+                            local _id = 0
+                            local function id()
+                              _id = _id + 1
+                              return _id
+                            end
+
+                            local keybind_string = ""
+                            local keybind_setting = ModSettingGet("D2DContentPack.mid_fire_keybind")
+                            local mode = "key_code"
+                            for code in string.gmatch(keybind_setting, "[^,]+") do
+                              if code == "mouse_code" or code == "key_code" or code == "joystick_code" then
+                                  mode = code
+                              else
+                                  if keybind_string ~= "" then
+                                      keybind_string = keybind_string .. " + "
+                                  end
+                                  code = tonumber(code)
+                                  if mode == "key_code" then
+                                      for key, value in pairs(key_codes) do
+                                          if value == code then
+                                              keybind_string = keybind_string .. key
+                                              ModSettingSet("D2DContentPack.mid_fire_keybind_translated",key)
+                                          end
+                                      end
+                                  elseif mode == "mouse_code" then
+                                      for key, value in pairs(mouse_codes) do
+                                          if value == code then
+                                              keybind_string = keybind_string .. key
+                                              ModSettingSet("D2DContentPack.mid_fire_keybind_translated",key)
+                                          end
+                                      end
+                                  elseif mode == "joystick_code" then
+                                      for key, value in pairs(joystick_codes) do
+                                          if value == code then
+                                              keybind_string = keybind_string .. key
+                                              ModSettingSet("D2DContentPack.mid_fire_keybind_translated",key)
+                                          end
+                                      end
+                                  end
+                              end
+                            end
+
+                            GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
+                            GuiText(gui, 5, 0, keybind_explanation_midfire)
+                            GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
+                            GuiText(gui, 5, 0, keybind_tutorial_midfire)
+                            if listening_mid_fire then
+                              GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+                              GuiOptionsAdd(gui, GUI_OPTION.NonInteractive)
+                            end
+                            if GuiButton(gui, id(), 10, 5, keybind_newbinding) then
+                              key_inputs = {}
+                              mouse_inputs = {}
+                              joystick_inputs = {}
+                              listening_mid_fire = true
+                              there_has_been_input = false
+                              old_binding = ModSettingGet("D2DContentPack.mid_fire_keybind")
+                            end
+                            GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
+                            GuiText(gui, 5, 5, keybind_current_midfire .. keybind_string)
+                            GuiText(gui, 0, -5, " ")
+                            end
+            },
+            {
+                id = "mid_fire_keybind_translated",
+                ui_name = "Secret setting",
+                value_default = "MOUSE_MIDDLE",
+                text_max_length = 20,
+                allowed_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789",
+                hidden = true,
+            },
+            {
+                id = "mid_fire_always_enable_middle_click",
+                ui_name = "Always enable middle-click Mid Fire",
+                ui_description = "If enabled, this mod's Mid Fire spells can always be triggered\nwith a middle-click, regardless of the configured keybind.",
                 value_default = true,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },

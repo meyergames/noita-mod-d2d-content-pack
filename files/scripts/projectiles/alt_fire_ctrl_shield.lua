@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 local entity_id = GetUpdatedEntityID()
@@ -12,7 +12,9 @@ local aim_x, aim_y = ComponentGetValue2(controlscomp, "mAimingVectorNormalized")
 
 local shield_id = EntityGetWithTag( "alt_fire_ctrl_shield" )[1]
 
-if InputIsMouseButtonDown( 2 ) and not GameIsInventoryOpen() then -- is the right mouse button pressed?
+if is_alt_fire_pressed() then
+    if not ModSettingGet( "D2DContentPack.alt_fire_enable_in_inventory" ) and GameIsInventoryOpen() then return end
+    
 	local itf_comp = EntityGetComponent( shield_id, "InheritTransformComponent" )
     local _x, _y, _sx, _sy, rot = ComponentGetValue2( itf_comp, "Transform" )
 	rot = math.atan(x+aim_x*20, y+aim_y*20)

@@ -22,7 +22,7 @@ if cooldown_frame == 0 then
     ComponentSetValue2( variablecomp, "value_int", GameGetFrameNum() + cooldown_frames )
 end
 
-if InputIsMouseButtonJustDown( 3 ) then -- is the middle mouse button pressed?
+if is_mid_fire_pressed() then
     local mana = wand.mana
     if ( mana >= manacost ) then
         local staff_tier = get_internal_int( wand.entity_id, "d2d_staff_tier" )

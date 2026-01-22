@@ -153,7 +153,6 @@ function swap_perk_icon_for_spent( player_id, perk_name )
                 if string.find( comp_name, perk_name ) then
                     local current_sprite_file = ComponentGetValue2( iconcomp, "icon_sprite_file" )
                     local new_sprite_file = current_sprite_file:sub( 1, -5 ) .. "_spent.png"
-                    GamePrint( new_sprite_file )
                     ComponentSetValue2( iconcomp, "icon_sprite_file", new_sprite_file )
                     ComponentSetValue2( iconcomp, "name", GameTextGetTranslatedOrNot( comp_name ) .. " (spent)" )
                 end

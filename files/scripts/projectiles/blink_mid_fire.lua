@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 local entity_id = GetUpdatedEntityID()
@@ -22,7 +22,7 @@ end
 local is_always_cast = ComponentGetValue2( icomp,"permanently_attached" )
 
 if GameGetFrameNum() >= cooldown_frame then
-    if InputIsMouseButtonDown( 3 ) then -- is the middle mouse button pressed?
+    if is_mid_fire_pressed() then
         local mana = wand.mana
         if ( mana >= manacost and ( uses_remaining ~= 0 or is_always_cast ) ) then
             wand.mana = mana - manacost

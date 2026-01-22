@@ -7,19 +7,20 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
-[ ] check if determine_blink_dmg_mtp() is still triggered now it is moved to 'wand_utils.lua'
-
-[ ] finalize alt fire integration:
-		[ ] test whether the integration of d2d_alt_fire_actions into d2d_actions doesn't cause any trouble in mod settings
-		[ ] see if AFA listens to 'alt_fire_utils.lua'
-		[ ] change other alt fire spells to listen to 'is_alt_fire_pressed()' instead of 'InputIsMouseButtonDown( 2 )'
-		[ ] add a keybind setting for mid-fire?
+[x] prepare next patch release
+		[x] check if determine_blink_dmg_mtp() is still triggered now it is moved to 'wand_utils.lua'
+		[>] finalize alt fire integration:
+				[x] test whether the integration of d2d_alt_fire_actions into d2d_actions doesn't cause any trouble in mod settings
+				[x] see if AFA listens to 'alt_fire_utils.lua'
+				[x] change other alt fire spells to listen to 'is_alt_fire_pressed()' instead of 'InputIsMouseButtonDown( 2 )'
+						[x] test Alt Fire Concrete Wall etc. with keybind on 'F'
+				[x] add a keybind setting for mid-fire?
 
 [x] change "d2d_apoth_actions" into "d2d_mod_dependent_actions", and add two new parameters: <-- merged with d2d_actions
 		[x] disable_if_mod_enabled <-- only adds the spell if the corresponding mod (string value) is enabled (i.e. apoth-only)
 		[x] enable_if_mod_disabled <-- only adds the spell if the corresponding mod is NOT enabled (i.e. to prevent duplicates)
 
-[ ] make mid-fire spells controller compatible! (important)
+[x] make mid-fire spells controller compatible! (important)
 
 [ ] Behind You! curse: a bomb floats behind you. when shot (by an enemy), it explodes for minor damage and knockback. recharges and reappears after 30 seconds
 
