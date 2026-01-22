@@ -899,7 +899,7 @@ d2d_actions = {
 										dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 										local x, y = EntityGetTransform( EZWand.GetHeldWand().entity_id )
 										EntityLoadAtWandTip( GetUpdatedEntityID(), "mods/D2DContentPack/files/particles/muzzle_flashes/muzzle_flash_laser_death_ray.xml" )
-										GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/chain_bolt/create", x, y )
+										-- GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/chain_bolt/create", x, y )
 									end
 
 									-- c.fire_rate_wait = cached_fire_rate_wait * copies * 0.5
