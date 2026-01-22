@@ -339,7 +339,8 @@ function spawn_glass_staff( x, y )
     wand.capacity = ( wand_lvl * 4 ) + Random( -1, 1 )
     wand.spread = Random( -8, -2 )
     dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-
+    
+    wand:AttachSpells( "D2D_BOLT_CATCHER_ALT_FIRE" )
     wand:AddSpells( "SPREAD_REDUCE", "D2D_COMPACT_SHOT" )
     for i = 1, ( wand.capacity - 2 ) do
     	wand:AddSpells( "D2D_GLASS_SHARD" )
