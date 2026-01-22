@@ -943,6 +943,9 @@ d2d_actions = {
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 60
 	    						if reflecting then return end
+	    						
+	                            -- spawn the "projectile"
+	    						add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml" )
 
 	                            -- deal max health damage (cannot kill)
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
@@ -951,9 +954,6 @@ d2d_actions = {
 	                            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 								local mtp = determine_blink_dmg_mtp()
 	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * mtp, p_hp - 0.04 ), "DAMAGE_SLICE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-	                            -- spawn the "projectile"
-	    						add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml" )
 	                        end,
     },
 

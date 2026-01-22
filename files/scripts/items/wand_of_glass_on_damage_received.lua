@@ -38,6 +38,25 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 				EntitySetComponentsWithTagEnabled( spell_card_id, "item_unidentified", false )
         	end
         end
+        for i,spell in ipairs( attached_spells ) do
+        	-- CreateItemActionEntity( spell.id, x, y )
+	        local px, py = EntityGetFirstHitboxCenter( get_player() )
+	        local spell_card_id = CreateItemActionEntity( spell.action_id, px, py )
+	        local vel_comp = EntityGetFirstComponentIncludingDisabled( spell_card_id, "VelocityComponent" )
+	        if vel_comp then
+				local dx, dy = mx - px, my - py
+				local dist = math.sqrt( dx * dx + dy * dy )
+				dist = math.min( dist, 100 )
+				dist = dist + Random( 5, 10 )
+				local dir = math.atan2( dy, dx )
+				dir = dir + Randomf( math.rad( -20 ), math.rad( 20 ) )
+				local vx, vy = math.cos( dir ) * dist, math.sin( dir ) * dist
+				ComponentSetValue2( vel_comp, "mVelocity", vx, vy )
+				EntitySetComponentsWithTagEnabled( spell_card_id, "enabled_in_world", true )
+				EntitySetComponentsWithTagEnabled( spell_card_id, "enabled_in_inventory", false )
+				EntitySetComponentsWithTagEnabled( spell_card_id, "item_unidentified", false )
+        	end
+        end
 
         -- delete wand
         wand:PlaceAt( x, y )
