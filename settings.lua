@@ -505,13 +505,6 @@ mod_settings =
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },
             {
-                id = "nerf_greek_spells",
-                ui_name = "Make Greek spells limited-use",
-                ui_description = "For when the Greek letter spells make the game too easy for you.\nYou'll have to get creative if you want unlimited spells...",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
-            },
-            {
                 id = "alt_fire_enable_in_inventory",
                 ui_name = "Enable Alt/Mid Fire spells while inventory is open",
                 ui_description = "When enabled, this mod's Alt/Mid Fire spells will function even\nwhen the inventory is opened.",
@@ -776,6 +769,27 @@ mod_settings =
                 ui_description = "When enabled, the Ancient Lurker will appear only after\npicking up a specific nearby circular object.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
+            },
+        },
+    },
+    {
+        category_id = "anti_cheese_settings",
+        ui_name = "Anti-cheese settings",
+        ui_description = "",
+        settings = {
+            {
+                id = "nerf_greek_spells",
+                ui_name = "Make Greek spells limited-use",
+                ui_description = "For when infinite casts of anything make the game too easy for you.\nYou'll have to get creative if you want (near-)unlimited spells...",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "cap_max_health",
+                ui_name = "Limit max health to 1000",
+                ui_description = "For when overusing a certain exploit makes the game too easy for you.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
         },
     },

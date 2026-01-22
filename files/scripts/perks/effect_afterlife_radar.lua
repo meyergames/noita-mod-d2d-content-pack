@@ -76,6 +76,27 @@ else
 			end
 		end
 
+		-- show reclaim effect
+		local had_over_1000_hp = get_internal_bool( player_id, "d2d_max_hp_was_over_1000", true )
+		if had_over_1000_hp then
+			GamePrintImportant( "You've reclaimed your life", "...but feel more mortal than before." )
+	    else
+	    	GamePrintImportant( "You've reclaimed your life")
+		end
+		EntityLoad( "data/entities/particles/image_emitters/heart_effect.xml", pos_x, pos_y - 12 )
+		GameTriggerMusicCue( "item" )
+		if not has_perk( "GLASS_CANNON" ) then
+			local mortal_reminder = EntityLoad( "mods/D2DContentPack/files/entities/misc/status_effects/effect_afterlife_mortality.xml", pos_x, pos_y )
+			EntityAddChild( player_id, mortal_reminder )
+
+			local uicomp = EntityGetFirstComponent( mortal_reminder, "UIIconComponent" )
+			if uicomp then
+				-- this somehow doesn't work when set in the XML
+				ComponentSetValue2( uicomp, "is_perk", true )
+				ComponentSetValue2( uicomp, "display_above_head", false )
+			end
+	    end
+
 		-- destroy the effect and the grave
 		if removed then
 			EntityKill( effect_id )

@@ -1,0 +1,10 @@
+<Entity>
+    <UIIconComponent
+        icon_sprite_file="mods/D2DContentPack/files/gfx/ui_gfx/status_effects/health_cap.png"
+        name="Mortal Reminder"
+        description="Your max health can no longer exceed 1000."
+        display_in_hud="true"
+        display_above_head="false"
+        is_perk="false"
+    ></UIIconComponent>
+</Entity>

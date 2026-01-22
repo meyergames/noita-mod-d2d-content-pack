@@ -49,9 +49,17 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 			-- respawn the player at the mountain entrance with max. 1000 hp
 			-- ComponentSetValue2( dcomp, "max_hp", 4 )
 			-- ComponentSetValue2( dcomp, "hp", damage + math.max( max_hp * 0.25, 4 ) )
+			if max_hp > 40 then
+				set_internal_bool( player_id, "d2d_max_hp_was_over_1000", true )
+			end
 			local new_max_hp = math.min( max_hp, 40 )
 			ComponentSetValue2( dcomp, "max_hp", new_max_hp )
 			ComponentSetValue2( dcomp, "hp", damage + new_max_hp )
+
+			-- set the max health cap to 1000, if the player doesn't already have the Glass Cannon health cap
+			if not has_perk( "GLASS_CANNON" ) then
+				ComponentSetValue2( dcomp, "max_hp_cap", 40 )
+			end
 
 			GamePrintImportant( "You've entered the Afterlife", "Make it back to your grave to reclaim your life" )
 

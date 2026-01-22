@@ -41,6 +41,11 @@ function OnPlayerSpawned( player )
         ModSettingSet( "D2DContentPack.spawn_ancient_lurker_manually", true )
     end
 
+    if ModSettingGet( "D2DContentPack.cap_max_health" ) then
+        local dcomp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
+        ComponentSetValue2( dcomp, "max_hp_cap", 40 )
+    end
+
     dofile_once( "data/scripts/lib/utilities.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
     dofile( "mods/D2DContentPack/files/scripts/actions.lua" )

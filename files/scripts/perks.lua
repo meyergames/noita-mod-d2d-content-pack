@@ -744,7 +744,7 @@ d2d_blurses = {
         	remove_lua( entity_who_picked, "d2d_perk_juggernaut" )
         end
 	},
-
+	
 	{
 		id = "D2D_AFTERLIFE",
 		ui_name = "$perk_d2d_afterlife_name",
