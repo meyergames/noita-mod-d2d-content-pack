@@ -939,9 +939,7 @@ d2d_actions = {
 		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
         spawn_requires_flag	= "d2d_time_trial_bronze",
 	    price               = 300,
-	    mana                = 80,
-	    max_uses			= 20,
-	    never_unlimited		= true,
+	    mana                = 400,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 60
 	    						if reflecting then return end
@@ -971,12 +969,11 @@ d2d_actions = {
 		spawn_probability   = "0", -- should only spawn on the Staff of Time
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire.xml",
         price 				= 300,
-        mana 				= 80,
-        max_uses			= 20,
-        never_unlimited		= true,
+        mana 				= 400,
 	    action              = function()
 	    						draw_actions( 1, true )
-            					mana = mana + 80
+            					-- mana = mana + 400
+            					-- enabling the line above gives the Staff of Time infinite mana
 	                        end,
     },
 

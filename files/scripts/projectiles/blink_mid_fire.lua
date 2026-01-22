@@ -12,7 +12,7 @@ local cooldown_frame
 local variablecomp = EntityGetFirstComponentIncludingDisabled( entity_id, "VariableStorageComponent" )
 cooldown_frame = ComponentGetValue2( variablecomp, "value_int" )
 local aim_x, aim_y = ComponentGetValue2(controlscomp, "mAimingVectorNormalized")
-local manacost = 80
+local manacost = 400
 
 local uses_remaining = -1
 local icomp = EntityGetFirstComponentIncludingDisabled( entity_id, "ItemComponent" )
