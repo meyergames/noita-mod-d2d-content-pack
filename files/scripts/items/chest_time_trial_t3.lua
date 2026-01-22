@@ -15,7 +15,7 @@ function drop_rewards( x, y )
 	wand.castDelay = 30
 	wand.rechargeTime = 40
 	wand.manaMax = 1800
-	wand.manaChargeSpeed = 72
+	wand.manaChargeSpeed = 240
 	wand.capacity = 18
 	wand.spread = 0
 	wand:AttachSpells( "D2D_BLINK_MID_FIRE", "D2D_REWIND_ALT_FIRE" )
