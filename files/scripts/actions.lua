@@ -935,11 +935,11 @@ d2d_actions = {
 	    description         = "$spell_d2d_blink_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink.png",
 	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "6,10",
-		spawn_probability   = "0.4,0.5",
+		spawn_level         = "2,3,4,5,6,10",
+		spawn_probability   = "0.05,0.1,0.2,0.3,0.4,0.5",
         spawn_requires_flag	= "d2d_time_trial_bronze",
-	    price               = 300,
-	    mana                = 400,
+	    price               = 800,
+        mana 				= 200,
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 60
 	    						if reflecting then return end
@@ -948,7 +948,6 @@ d2d_actions = {
 								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
 								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-
 	                            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 								local mtp = determine_blink_dmg_mtp()
 	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * mtp, p_hp - 0.04 ), "DAMAGE_SLICE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
@@ -968,12 +967,18 @@ d2d_actions = {
 		spawn_level         = "0", -- should only spawn on the Staff of Time
 		spawn_probability   = "0", -- should only spawn on the Staff of Time
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire.xml",
-        price 				= 300,
-        mana 				= 400,
+        price 				= 800,
+        mana 				= 200,
 	    action              = function()
 	    						draw_actions( 1, true )
-            					-- mana = mana + 400
-            					-- enabling the line above gives the Staff of Time infinite mana
+	    						
+	    						if reflecting then return end
+
+            					-- only restore mana if this spell is NOT an always-cast
+	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_BLINK_MID_FIRE" ) then
+	            					mana = mana + 200
+	            				end
 	                        end,
     },
 
@@ -1593,7 +1598,14 @@ d2d_actions = {
     	custom_uses_logic 	= true,
 	    action              = function()
 	    						draw_actions( 1, true )
-        						mana = mana + 80
+
+	    						if reflecting then return end
+
+            					-- only restore mana if this spell is NOT an always-cast
+	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_CONCRETE_WALL_ALT_FIRE" ) then
+        							mana = mana + 80
+	            				end
 	                        end,
     },
 
@@ -1615,7 +1627,14 @@ d2d_actions = {
     	custom_uses_logic 	= true,
 	    action              = function()
 	    						draw_actions( 1, true )
-        						mana = mana + 50
+
+	    						if reflecting then return end
+
+            					-- only restore mana if this spell is NOT an always-cast
+	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_SMOKE_BOMB_ALT_FIRE" ) then
+        							mana = mana + 50
+	            				end
 	                        end,
     },
 
@@ -1636,7 +1655,14 @@ d2d_actions = {
     	custom_uses_logic 	= true,
 		action 		        = function()
 	    						draw_actions( 1, true )
-        						mana = mana + 30
+
+	    						if reflecting then return end
+
+            					-- only restore mana if this spell is NOT an always-cast
+	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_BOLT_CATCHER_ALT_FIRE" ) then
+        							mana = mana + 30
+	            				end
 		                    end,
 	},
 
@@ -1655,7 +1681,14 @@ d2d_actions = {
 	    mana                = 40,
 	    action              = function()
 	    						draw_actions( 1, true )
-        						mana = mana + 40
+
+	    						if reflecting then return end
+
+            					-- only restore mana if this spell is NOT an always-cast
+	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_REWIND_ALT_FIRE" ) then
+        							mana = mana + 40
+	            				end
 	                        end,	
     },
 }

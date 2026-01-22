@@ -30,7 +30,6 @@ end
 function is_mid_fire_pressed()
     local binding = ModSettingGet( "D2DContentPack.mid_fire_keybind" )
     local mode = "key_code"
-    GamePrint( binding )
     for code in string.gmatch(binding, "[^,]+") do
         if code == "mouse_code" or code == "key_code" or code == "joystick_code" then
             mode = code

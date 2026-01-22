@@ -36,6 +36,8 @@ if GameGetFrameNum() >= cooldown_frame then
 
                 EntityKill( marker_id )
                 set_internal_int( get_player(), "rewind_marker_id", -1 )
+                
+                wand.mana = mana - manacost
             end
 
             ComponentSetValue2( variablecomp, "value_int", GameGetFrameNum() + cooldown_frames )

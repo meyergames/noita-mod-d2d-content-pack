@@ -126,7 +126,7 @@ function EntityLoadAtWandTip( player_entity_id, load_this_entity, wand_id )
     end
 end
 
-function held_wand_contains_spell( player_entity_id, action_id )
+function held_wand_contains_slotted_spell( player_entity_id, action_id )
     local held_wand = EZWand.GetHeldWand()
     local spells, always_casts = held_wand:GetSpells()
     
@@ -135,6 +135,14 @@ function held_wand_contains_spell( player_entity_id, action_id )
             return true
         end
     end
+
+    return false
+end
+
+function held_wand_contains_always_cast( player_entity_id, action_id )
+    local held_wand = EZWand.GetHeldWand()
+    local spells, always_casts = held_wand:GetSpells()
+    
     for i,always_cast in ipairs( always_casts ) do
         if always_cast.action_id == action_id then
             return true
