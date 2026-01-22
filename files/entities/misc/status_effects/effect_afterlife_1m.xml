@@ -30,7 +30,7 @@
         name="Afterlife"
         description="Make it back to your grave in time to keep living. Die otherwise."
         display_in_hud="true"
-        display_above_head="true"
+        display_above_head="false"
         is_perk="false"
     ></UIIconComponent>
 

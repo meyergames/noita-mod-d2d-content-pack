@@ -41,7 +41,9 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 			local effect_id = LoadGameEffectEntityTo( player_id, path )
 			local uicomp = EntityGetFirstComponent( effect_id, "UIIconComponent" )
 			if uicomp then
+				-- this somehow doesn't work when set in the XML
 				ComponentSetValue2( uicomp, "is_perk", false )
+				ComponentSetValue2( uicomp, "display_above_head", false )
 			end
 
 			-- respawn the player at the mountain entrance with max. 1000 hp
