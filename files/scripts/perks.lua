@@ -316,7 +316,7 @@ d2d_perks = {
 	-- },
 
 	{
-		id = "D2D_BORROWED_TIME",
+		id = "D2D_BORROWED_TIME", -- discontinued as of 22/01/26
 		ui_name = "$perk_d2d_borrowed_time_name",
 		ui_description = "$perk_d2d_borrowed_time_desc",
 		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/borrowed_time_016.png",
@@ -324,6 +324,7 @@ d2d_perks = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
+		not_in_default_perk_pool = true, -- discontinued as of 22/01/26
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if pickup_count <= 1 then
 				EntityAddComponent( entity_who_picked, "LuaComponent",
