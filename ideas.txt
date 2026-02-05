@@ -7,6 +7,30 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Turn "Missing Mana To Damage" into a rework for "Mana To Damage"
+
+[ ] Mana Lock retry
+
+[ ] Projectile Morph: 'penetrate_entities = true' if a projectile's explosion damage is lower than its projectile damage?
+
+[!] perk that gives enemies a chance to drop a spell card (scaling with max HP)
+
+[ ] perk reroll voucher item, grants one free perk reroll
+
+[ ] some kind of item/staff/thing hidden in the ground below the temple heart and spell refresher?
+
+[ ] perk: limited-use spells cost 0 mana to use
+
+[ ] I should be able to make the Time Trial effect a timed status effect now, right?
+
+[ ] "reverse hand": 'other' spell that adds your discard pile to your deck in reversed order.
+
+[ ] modifier: +3 damage for every projectile in your discard
+
+[ ] voucher item that can be held to purchase one item (incl. perk reroll) for free
+
+[ ] "Blue Magic" but better
+
 [x] prepare next patch release
 		[x] check if determine_blink_dmg_mtp() is still triggered now it is moved to 'wand_utils.lua'
 		[>] finalize alt fire integration:
@@ -112,7 +136,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [-] do add Alt Fire Anything to this mod, as well?
 
-[ ] Backtrack: "Teleports you to where you last touched the ground" (overwrite previous location when mFramesInAirCounter is exactly 1?)
+[x] Backtrack: "Teleports you to where you last touched the ground" (overwrite previous location when mFramesInAirCounter is exactly 1?)
 
 [ ] Dismantle Wand: spell that destroys a nearby wand and spawns all the spells it contains.
 
@@ -134,14 +158,12 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 	[ ] same for fire
 	[ ] same for explosions
 
-[ ] I should be able to make the Time Trial effect a timed status effect now, right?
-
 [ ] Perk "Lost The Key": in the next biome, 1 (or more?) key is spawned somewhere that must be collected before the portals to the next Holy Mountain open. Some kind of reward upon entering the Holy Mountain.
 	[ ] Might work better as a curse? "Lost My Keys!"
 
-[ ] Minigun-esque passive spell that increases your wand's fire rate the longer the fire button is held. Could also gradually decrease a spell's mana cost by a bit, though maybe that'd be a bit unbalanced; it should have *some* kind of limit. (although maybe firing 60 magic arrows per second comes with its own set of downsides already)
+[x] Minigun-esque passive spell that increases your wand's fire rate the longer the fire button is held. Could also gradually decrease a spell's mana cost by a bit, though maybe that'd be a bit unbalanced; it should have *some* kind of limit. (although maybe firing 60 magic arrows per second comes with its own set of downsides already)
 
-[ ] Ness "PK Flash" spell that fires a slow, pulsating projectile ("bomb") if the player has none in the field already. While the player keeps the fire button down, the active wand's mana recharge is disabled; every second, 10% of the wand's max mana is consumed to fuel the bomb, sending homing particles from the wand to the bomb, its size and damage increasing based on mana consumed. Releasing the fire button, or when mana runs out after 10 seconds, causes the bomb to explode.
+[>] Ness "PK Flash" spell that fires a slow, pulsating projectile ("bomb") if the player has none in the field already. While the player keeps the fire button down, the active wand's mana recharge is disabled; every second, 10% of the wand's max mana is consumed to fuel the bomb, sending homing particles from the wand to the bomb, its size and damage increasing based on mana consumed. Releasing the fire button, or when mana runs out after 10 seconds, causes the bomb to explode.
 > max mana determines max charges (i.e. size/damage/effects)		example: 	1400 max mana = 1400 max charges
 > mana charge speed determines charges per seconds					example: 	0 mana ch.sp  = +140 charges per second
   (minimum of +10% charge per second)								example:	10 mana ch.sp = +150 charges per second
@@ -170,7 +192,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Luminous Orb?
 
-[ ] heart balloon, alt. time trial
+[x] heart balloon, alt. time trial
 
 [ ] cursed chest addition: super strong wands, with a catch:
 	[x] very high max mana, but 0 charge speed (so it cannot be used anymore at some point)
@@ -204,8 +226,6 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] force field modifier: spawns a damage-less explosion that knocks back nearby physics objects and enemies
 
-[ ] perk reroll voucher, grants one free perk reroll
-
 [ ] a one-way door to a parallel world left or right of the one you're in
 
 [ ] slay the spire inspired content:
@@ -218,15 +238,14 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] perk that restores HP on each enemy kill, equal to 1% of their max HP
 
-[ ] passive spell that greatly empowers shuffle wands (for each unique spell in it?)
+[x] passive spell that greatly empowers shuffle wands
+		[ ] ...for each unique spell in it?
 
 [ ] projectile that converts spell cards into +2 max health bubbles?
 
 [ ] dolly's mirror (STS): perk that duplicates a random spell in your inventory
 
-[ ] 'other' spell that halves the next spell's mana drain
-
-[!] perk that gives enemies a chance to drop a spell card (scaling with max HP)
+[x] 'other' spell that halves the next spell's mana drain
 
 [ ] perk: when a limited-use spell reaches 0, it is temporarily converted into an optimize-like modifier (slight fire rate and mana improvements)
 
@@ -239,9 +258,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] passive spell: mana charge speed is doubled when the wand is not your active wand
 
-[ ] some kind of item/staff/thing hidden in the ground below the temple heart and spell refresher?
-
-[ ] perk: temple health and ammo pickups are replaced with 2 extra random perks to choose from
+[x] perk: temple health and ammo pickups are replaced with 2 extra random perks to choose from <-- Perksmith
 
 [ ] perk: all holy mountains gain a portal that teleports you to one of the exit portals in the biome above (random)
 
@@ -251,8 +268,6 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 (use the Anvil of Destiny hammer sounds? if open source)
 
 [ ] lizard tail: when you would die, gain a random curse but respawn at the last HM (using dead isn't dead code)
-
-[ ] perk: limited-use spells cost 0 mana to use
 
 [!] perk (one-off): all spells in your inventory are transformed into a random other spell of the same category; duplicate spells change into the same spells
 
@@ -277,10 +292,6 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] ambrosia modifier: makes the target immune to all damage for 2 seconds. friendly fire off.
 
 [ ] "die die die" (rename to "piercing volley"): projectile that shoots 9 piercing darts in a large cone to deal damage in a wide AoE.
-
-[ ] "reverse hand": 'other' spell that adds your discard pile to your deck in reversed order.
-
-[ ] modifier: +3 damage for every projectile in your discard
 
 [ ] greek spell: copy a random spell in your inventory, 0 mana cost
 
@@ -324,9 +335,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 [ ] curse: passing a wand without firing it within 10 seconds has a chance to animate it, making it hostile towards you.
 - discarding a wand*
 
-[ ] alt fire spawns should be fixed... was very disappointing to not find the guaranteed spawn in the wizard's den
-
-[ ] voucher item that can be held to purchase one item (incl. perk reroll) for free
+[x] alt fire spawns should be fixed... was very disappointing to not find the guaranteed spawn in the wizard's den
 
 [ ] sticky modifier: causes a projectile to stick to whatever it collides with first
 
@@ -340,7 +349,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] homing modifier that locks on to enemy projectiles?
 
-[ ] modifier that halves the next spell's mana cost
+[x] modifier that halves the next spell's mana cost
 
 [ ] buff Bolt Catcher with infinite casts?
 
@@ -378,7 +387,7 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] track kills made with Staff of Glass, print every 50th
 
-[ ] glass shard projectile: only 1 initial slice damage, but each hit adds a stack to the enemy; not hitting them for 1 second consumes all stacks for 11 damage per stack. higher net dps than all other "rapidfire-compatible" projectile spells, but delayed damage and easy to overshoot. maybe upon triggering, shards are fired from the enemy in random directions, potentially hitting other enemies <-- friendly fire enabled for obvious reasons.
+[x] glass shard projectile: only 1 initial slice damage, but each hit adds a stack to the enemy; not hitting them for 1 second consumes all stacks for 11 damage per stack. higher net dps than all other "rapidfire-compatible" projectile spells, but delayed damage and easy to overshoot. maybe upon triggering, shards are fired from the enemy in random directions, potentially hitting other enemies <-- friendly fire enabled for obvious reasons.
 
 [ ] Warp Rush: also grant x2 damage on the next cast within 1 sec (i.e. empowers big shots)
 		[ ] or make this a separate perk

@@ -845,6 +845,7 @@ function lift_all_curses( entity_id )
 	-- 	-- EntityAddComponent2( perk_entity, "LifetimeComponent", { lifetime = 1 } )
 	-- end
 
+	-- remove cursed perk entities
 	local curse_entities = EntityGetWithTag( "d2d_curse_perk" )
 	for i,curse_entity in ipairs( curse_entities or {} ) do
 		EntityKill( curse_entity )
@@ -878,6 +879,9 @@ function lift_all_curses( entity_id )
     for i,cursed_chest in ipairs( cursed_chests or {} ) do
     	EntityKill( cursed_chest )
     end
+
+	-- crude fix to Heal Block not being removed
+    remove_lua( entity_id, "d2d_curse_heal_block" )
     
     GlobalsSetValue( "PLAYER_CURSE_COUNT", "0" )
 end
