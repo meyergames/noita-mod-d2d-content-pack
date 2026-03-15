@@ -578,3 +578,27 @@ function upgrade_staff_of_loyalty( original )
 	-- destroy the original
 	EntityKill( original.entity_id )
 end
+
+function spawn_staff_of_nutrition( x, y )
+	local staff = init_staff_of_nutrition()
+	staff:PlaceAt( x, y )
+end
+
+function init_staff_of_nutrition()
+    local wand = EZWand()
+	wand:SetName( "Staff of Nutrition", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 20
+	wand.rechargeTime = 90
+	wand.manaMax = Random( 225, 275 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 120, 129 )
+	wand.capacity = 5
+	wand.spread = 3
+	wand:AttachSpells( "D2D_BANANA_BOMB_ENHANCER" )
+	wand:AddSpells( "D2D_BANANA_BOMB", "D2D_BANANA_BOMB_SUPER", "D2D_BANANA_BOMB_GIGA" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_nutrition.png", 11, 6, 18, 0 )
+
+	return wand
+end

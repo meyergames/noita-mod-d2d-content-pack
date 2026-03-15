@@ -383,6 +383,23 @@ d2d_actions = {
 		                    end,
 	},
 
+	{
+		id                  = "D2D_BANANA_BOMB_ENHANCER",
+		name 		        = "$spell_d2d_banana_bomb_enhancer_name",
+		description         = "$spell_d2d_banana_bomb_enhancer_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/banana_bomb_enhancer.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_requires_flag = "d2d_staff_guardian_nutrition_defeated",
+		spawn_level         = "0,1,2,3,4,5",
+		spawn_probability   = "0.6,0.5,0.4,0.3,0.3,0.3",
+		price               = 250,
+		mana                = 30,
+		action 		        = function()								
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/banana_bomb_enhancer.xml,"
+								draw_actions( 1, true )
+		                    end,
+	},
+
 	-- {
 	-- 	id                  = "D2D_OPENING_SHOT",
 	-- 	name 		        = "Opening Shot",

@@ -1,4 +1,4 @@
-dofile( "data/scripts/lib/utilities.lua" )
+dofile( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local SPAWN_AMOUNT = 5
 

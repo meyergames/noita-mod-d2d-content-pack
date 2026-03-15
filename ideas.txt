@@ -7,9 +7,28 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Some kind of preset wand (that spawns predictably) with basic Recycle on it by default?
+
+[x] Projectile-type spell that shifts into the first non-limited use projectile in your inventory
+		[ ] or to make it have *some* disadvantage: a random projectile spell in your inventory
+
+[ ] Brittle Bones + Hookshot "FAFO experience" bug (may cause 10k+ damage)
+
+[ ] Evolving Wands: spawn a circle around the player when they land on the ground - once per new biome - that the player can leave to upgrade the wand that was held at the time of exiting the circle
+
+[x] Staff of Nutrition: a wand shaped like a banana tree. has a unique always-cast modifier:
+		[x] when a Banana Bomb explodes (excluding the final, smaller explosions), a healing aura (of the same size as the 
+				explosion) is created. unlike Circle of Vigour, these healing auras do not apply a regeneration effect; instead, they scan their radius every X frames to heal the player slightly, forcing the player to stay within the radius to maximize their healing. an aura's total healing could be equal to 50% of the explosion's damage to the player.
+
+				[ ] alternatively, if the effect should be more limited, the healing aura could be released by enemies killed by banana bombs instead (healing strength scaling with the explosion tier)
+
+				[ ] alternatively, make a strong healing effect trigger once, 2 seconds after the parent banana bomb's explosion
+				
+		--- most importantly, the player should be required to stay in the vicinity of still-exploding banana bombs
+
 [ ] Turn "Missing Mana To Damage" into a rework for "Mana To Damage"
 
-[ ] Mana Lock retry
+[x] Mana Lock retry
 
 [ ] Projectile Morph: 'penetrate_entities = true' if a projectile's explosion damage is lower than its projectile damage?
 
@@ -25,7 +44,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] "reverse hand": 'other' spell that adds your discard pile to your deck in reversed order.
 
-[ ] modifier: +3 damage for every projectile in your discard
+[x] modifier: +3 damage for every projectile in your discard
 
 [ ] voucher item that can be held to purchase one item (incl. perk reroll) for free
 

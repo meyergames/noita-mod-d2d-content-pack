@@ -152,6 +152,35 @@ function held_wand_contains_always_cast( player_entity_id, action_id )
     return false
 end
 
+function any_wand_contains_spell( player_entity_id, action_id )
+    local wands = {}
+    local children = EntityGetAllChildren( player_entity_id ) or {}
+    for key, child in pairs( children ) do
+        if EntityGetName( child ) == "inventory_quick" then
+            local may_be_wands = EntityGetAllChildren( child ) or {}
+            if #may_be_wands > 0 then
+                for i,may_be_wand in ipairs( may_be_wands ) do
+                    if EntityHasTag( may_be_wand, "wand" ) then
+                        table.insert( wands, may_be_wand )
+                    end
+                end
+            end
+        end
+    end
+
+    if #wands > 0 then
+        for i,wand in ipairs( wands ) do
+            if held_wand_contains_slotted_spell( player_entity_id, action_id ) then
+                return true
+            elseif held_wand_contains_always_cast( player_entity_id, action_id ) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
 function swap_perk_icon_for_spent( player_id, perk_name )
     for i,child_id in ipairs( EntityGetAllChildren( player_id ) or {} ) do
         if EntityHasTag( child_id, "perk_entity" ) then
