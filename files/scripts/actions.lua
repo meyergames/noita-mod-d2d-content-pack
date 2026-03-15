@@ -702,6 +702,62 @@ d2d_actions = {
 		                    end,
 	},
 
+	{
+		id                  = "D2D_PRISMATIC_SHOT",
+		name 		        = "$spell_d2d_prismatic_shot_name",
+		description         = "$spell_d2d_prismatic_shot_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/prismatic_shot.png",
+		type 		        = ACTION_TYPE_PROJECTILE,
+		recursive			= true,
+		spawn_level         = "1,2,3,4,5", -- BULLET
+		spawn_probability   = "0.5,0.8,1,1,1", -- inverse of BULLET
+		price               = 250,
+		mana                = 5,
+		action 		        = function()
+								-- c.fire_rate_wait = c.fire_rate_wait + 3
+								if reflecting then return end
+
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								local children = EntityGetAllChildren( get_player() )
+								local success = false
+								for k=1,#children do
+									child = children[k]
+								    if EntityGetName( child ) == "inventory_full" then
+								        local inventory_items = EntityGetAllChildren(child)
+								        if( inventory_items ~= nil ) then
+								            for z=1, #inventory_items do
+								            	item = inventory_items[z]
+
+								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+								            	if ia_comp then
+								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
+								            		local data = get_actions_lua_data( action_id )
+								            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
+								            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+													if not data.recursive and data.type == 0 and uses_remaining ~= 0 then
+														local rec = check_recursion( data, recursion_level )
+														if rec > -1 then
+															data.action( rec )
+															mana = mana - data.mana
+															if uses_remaining > 0 then
+																ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+															end
+															success = true
+															break
+														end
+								            		end
+								            	end
+								            end
+								        end
+								    end
+								end
+
+								if not success then
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+								end
+		                    end,
+	},
+
     {
 	    id                  = "D2D_CONCRETE_WALL",
 	    name 		        = "$spell_d2d_concrete_wall_name",
@@ -1198,7 +1254,7 @@ d2d_actions = {
 	    price               = 330,
 	    mana                = 10,
 	    action              = function()
-                                draw_actions( 1, true )
+                                -- draw_actions( 1, true )
 	                        end,
     },
 
@@ -1207,7 +1263,7 @@ d2d_actions = {
 		name 		        = "$spell_d2d_fixed_altitude_name",
 		description         = "$spell_d2d_fixed_altitude_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fixed_altitude.png",
-		type 		        = ACTION_TYPE_PASSIVE,
+		type 		        = ACTION_TYPE_MODIFIER, -- TODO: Test if this works decently
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_fixed_altitude.xml",
@@ -1223,32 +1279,29 @@ d2d_actions = {
 		name 		        = "$spell_d2d_mana_lock_name",
 		description         = "$spell_d2d_mana_lock_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/mana_lock.png",
-		type 		        = ACTION_TYPE_PASSIVE,
+		type 		        = ACTION_TYPE_OTHER,
 		-- spawn_level         = "1,2,3,4,5,6,10",
 		-- spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1,1",
 		spawn_level         = "0",
 		spawn_probability   = "0",
-		-- custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mana_lock.xml",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_mana_lock.xml",
 		price               = 280,
 		mana                = 0,
 		action 		        = function()
 	    						if reflecting then return end
-								GamePrint( "[D2D] The 'Mana Lock' spell is currently out of order; please come back later.")
-								-- disable Add Mana etc
-								-- for i,v in ipairs( deck ) do
-								-- 	local spell_data = deck[i]
-								-- 	if spell_data.mana < 0 then
-								-- 		mana = mana - math.abs( spell_data.mana )
-								-- 	end
-								-- end
-								-- for i,v in ipairs( discarded ) do
-								-- 	local spell_data = discarded[i]
-								-- 	if spell_data.mana < 0 then
-								-- 		mana = mana - math.abs( spell_data.mana )
-								-- 	end
-								-- end
+	    						GamePrint( "[D2D] The 'Mana Lock' spell is currently out of order; please come back later." )
 
-								draw_actions( 1, true )
+								-- SCANNING 'hand' HERE DOESN'T MAKE SENSE IF IT'S A PASSIVE SPELL
+
+								-- local mana_init = mana
+								-- draw_actions( 1, true )
+
+								-- local total_mana_cost = mana_init - mana
+								-- if total_mana_cost > 0 then
+								-- 	-- local refund = total_mana_cost * 0.9
+								-- 	local reduced_cost = total_mana_cost * 0.1
+								-- 	mana = mana_init - reduced_cost
+								-- end
 		                    end,
 	},
 
@@ -1424,6 +1477,100 @@ d2d_actions = {
 									if refund > 0 then
 										mana = mana + refund
 									end
+								end
+		                    end,
+	},
+
+	{
+		id                  = "D2D_PRISM",
+		name 		        = "$spell_d2d_prism_name",
+		description         = "$spell_d2d_prism_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/prism.png",
+		type 		        = ACTION_TYPE_OTHER,
+		recursive			= true,
+		spawn_level         = "2,3,4,10",
+		spawn_probability   = "0.2,0.4,1,1",
+		price               = 300,
+		mana                = 20,
+		action 		        = function()
+								-- c.fire_rate_wait = c.fire_rate_wait + 15
+								if reflecting then return end
+
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								local children = EntityGetAllChildren( get_player() )
+								for k=1,#children do
+									child = children[k]
+								    if EntityGetName( child ) == "inventory_full" then
+								        local inventory_items = EntityGetAllChildren(child)
+								        if( inventory_items ~= nil ) then
+								            for z=1, #inventory_items do
+								            	item = inventory_items[z]
+
+								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+								            	if ia_comp then
+								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
+								            		local data = get_actions_lua_data( action_id )
+								            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
+								            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+													if not data.recursive and uses_remaining ~= 0 then
+														local rec = check_recursion( data, recursion_level )
+														if ( data ~= nil ) and ( rec > -1 ) then
+															data.action( rec )
+															mana = mana - data.mana
+															if uses_remaining > 0 then
+																ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+															end
+															success = true
+															break
+														end
+								            		end
+									            end
+								            end
+								        end
+								    end
+								end
+		                    end,
+	},
+
+	{
+		id                  = "D2D_DELTA",
+		name 		        = "$spell_d2d_delta_name",
+		description         = "$spell_d2d_delta_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/delta.png",
+		type 		        = ACTION_TYPE_OTHER,
+		recursive			= true,
+		spawn_level         = "5,6,10", -- ALPHA
+		spawn_probability   = "0.1,0.2,1", -- ALPHA
+		spawn_requires_flag = "card_unlocked_duplicate",
+		price               = 600,
+		mana                = 80,
+		action 		        = function()
+								c.fire_rate_wait = c.fire_rate_wait + 15
+								if reflecting then return end
+
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								local children = EntityGetAllChildren( get_player() )
+								for k=1,#children do
+									child = children[k]
+								    if EntityGetName( child ) == "inventory_full" then
+								        local inventory_items = EntityGetAllChildren(child)
+								        if( inventory_items ~= nil ) then
+								            for z=1, #inventory_items do
+								            	item = inventory_items[z]
+
+								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+								            	if ia_comp then
+								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
+								            		local data = get_actions_lua_data( action_id )
+													local rec = check_recursion( data, recursion_level )
+													if exists( data ) and not data.recursive and rec > -1 then
+														data.action( rec )
+														break
+													end
+								            	end
+								            end
+								        end
+								    end
 								end
 		                    end,
 	},
@@ -1868,6 +2015,11 @@ if actions ~= nil and ModSettingGet( "D2DContentPack.nerf_greek_spells" ) then
 	    },
 
 	    ["APOTHEOSIS_KAPPA"] = {
+	    	max_uses = 30,
+	    	never_unlimited = true,
+	    },
+
+	    ["D2D_DELTA"] = {
 	    	max_uses = 30,
 	    	never_unlimited = true,
 	    },

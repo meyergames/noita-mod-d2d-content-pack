@@ -263,6 +263,21 @@ function try_spawn_staff_of_nutrition()
     end
 end
 
+function try_add_delta_to_ylialkemisti()
+    if GameHasFlagRun( "d2d_poi_gave_ylialkemisti_delta" ) then return end
+    if not is_within_bounds( entity_id, -5200, -4500, 400, 1000 ) then return end
+
+    local targets = EntityGetWithTag( "boss" )
+    if #targets > 0 then
+        for i,boss_id in ipairs( targets ) do
+            EntityAddComponent2( boss_id, "LuaComponent", {
+                script_death = "mods/D2DContentPack/files/scripts/animals/boss_alchemist_death_extra.lua"
+            } )
+            GameAddFlagRun( "d2d_poi_gave_ylialkemisti_delta" )
+        end
+    end
+end
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
@@ -273,3 +288,4 @@ try_upgrade_staff_of_loyalty()
 try_reroll_challenge_perks()
 try_spawn_afa_copies()
 try_spawn_staff_of_nutrition()
+try_add_delta_to_ylialkemisti()
