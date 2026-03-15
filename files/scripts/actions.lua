@@ -1774,7 +1774,7 @@ d2d_actions = {
 		only_if_mod_disabled= "alt_fire_anything",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_anything.xml",
 	    price               = 400,
-	    mana                = 1,
+	    mana                = 0,
 		action 				= function()
 								while #deck > 0 do
 									local data = deck[1]
