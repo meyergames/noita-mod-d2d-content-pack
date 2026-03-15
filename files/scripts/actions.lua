@@ -311,13 +311,76 @@ d2d_actions = {
 		description         = "$spell_d2d_damage_missing_mana_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
 		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "0.4,0.6,8,1",
+		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
 		price               = 220,
 		mana                = 50,
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 25
 			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
+
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_HOVER_TO_DAMAGE",
+		name 		        = "$spell_d2d_hover_to_damage_name",
+		description         = "$spell_d2d_hover_to_damage_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/hover_to_damage.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
+		price               = 200,
+		mana                = 0,
+		action 		        = function()
+								c.damage_projectile_add = c.damage_projectile_add + 0.8
+
+								if reflecting then return end
+								c.damage_projectile_add = c.damage_projectile_add - 0.8
+
+								local cdatacomp = EntityGetFirstComponentIncludingDisabled( get_player(), "CharacterDataComponent" )
+								if cdatacomp then
+									local is_on_ground = ComponentGetValue2( cdatacomp, "is_on_ground" )
+									local hover_energy = ComponentGetValue2( cdatacomp, "mFlyingTimeLeft" )
+									if not is_on_ground and hover_energy >= 0.15 then
+										c.damage_projectile_add = c.damage_projectile_add + 0.8
+										ComponentSetValue2( cdatacomp, "mFlyingTimeLeft", hover_energy - 0.15 )
+									end
+								end
+
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_COMBO_DAMAGE",
+		name 		        = "$spell_d2d_combo_damage_name",
+		description         = "$spell_d2d_combo_damage_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/combo_damage.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
+		price               = 200,
+		mana                = 20,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 25
+								c.damage_projectile_add = c.damage_projectile_add + 0.32
+								c.damage_critical_chance = c.damage_critical_chance + 8
+								if reflecting then return end
+								c.damage_projectile_add = c.damage_projectile_add - 0.32
+								c.damage_critical_chance = c.damage_critical_chance - 8
+
+								local prior_projectiles = 0
+								if #discarded > 0 then
+									for i,v in ipairs( discarded ) do
+										if discarded[i].type == 0 then -- 0 == ACTION_TYPE_PROJECTILE, apparently
+											prior_projectiles = prior_projectiles + 1
+										end
+									end
+									c.damage_projectile_add = c.damage_projectile_add + ( 0.32 * prior_projectiles )
+									c.damage_critical_chance = c.damage_critical_chance + ( 8 * prior_projectiles )
+								end
 
 			                    draw_actions( 1, true )
 		                    end,
