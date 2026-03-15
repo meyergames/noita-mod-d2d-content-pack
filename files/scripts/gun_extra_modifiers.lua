@@ -2,7 +2,7 @@ dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 extra_modifiers["d2d_master_of_explosions_boost"] = function()
 	local is_immune_to_explosions = has_game_effect( get_player(), "PROTECTION_EXPLOSION" )
-	if( not is_immune_to_explosions ) then
+	if( not is_immune_to_explosions ) and exists( c ) then
 		c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_explosions_impact.xml,"
 		c.explosion_radius = c.explosion_radius + 15.0
 		c.damage_explosion_add = c.damage_explosion_add + 0.4
@@ -12,7 +12,9 @@ extra_modifiers["d2d_master_of_explosions_boost"] = function()
 end
 
 extra_modifiers["d2d_master_of_lightning_boost"] = function()
-	local is_immune_to_electricity = has_game_effect( get_player(), "PROTECTION_ELECTRICITY" )
+    if true then return end
+    
+    local is_immune_to_electricity = has_game_effect( get_player(), "PROTECTION_ELECTRICITY" )
     if( not is_immune_to_electricity ) then
 		c.damage_electricity_add = c.damage_electricity_add + 0.2
         c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
@@ -50,7 +52,7 @@ extra_modifiers["d2d_overheating_wands"] = function()
         local mana = wand.mana
         local max_mana = wand.manaMax
         
-    	local not_enough_mana = c.action_mana_drain < mana
+    	-- local not_enough_mana = c.action_mana_drain < mana
 
         local rand = Random( 0, 100 )
         local chance = 1.0 / ( ( 1.0 / ( max_mana * 0.5 ) ) * math.max( mana, 0.1 ) )
@@ -74,7 +76,7 @@ end
 
 extra_modifiers["d2d_no_rhythm"] = function()
     local enabled = get_perk_pickup_count( "D2D_CURSE_NO_RHYTHM" ) > 0
-    if ( enabled ) then
+    if enabled and exists( c ) then
         local rand = Random( 72, 128 )
         c.fire_rate_wait = c.fire_rate_wait * rand * 0.01
         current_reload_time = current_reload_time * rand * 0.01
@@ -117,27 +119,6 @@ extra_modifiers["d2d_spray_and_pray"] = function()
     if wand and wand.shuffle then
         c.fire_rate_wait = c.fire_rate_wait * 0.25
         current_reload_time = current_reload_time * 0.5
-    end
-end
-
-extra_modifiers["d2d_mana_lock"] = function()
-    local is_enabled = get_internal_bool( get_player(), "d2d_mana_lock_enabled", is_enabled )
-    if not is_enabled then return end
-
-    local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-    local wand = EZWand.GetHeldWand()
-    if wand then
-        local mana_cost = wand.mana - mana
-        -- mana = mana + ( mana_cost * 0.9 )
-        -- GamePrint("mana cost: " .. mana_cost)
-        for i,v in ipairs( hand ) do
-            local spell_data = hand[i]
-            if spell_data.mana > 0 then
-                mana = mana + ( spell_data.mana * 0.9 )
-            elseif spell_data.mana < 0 then
-                mana = mana + spell_data.mana -- additive because it's a negative number
-            end
-        end
     end
 end
     

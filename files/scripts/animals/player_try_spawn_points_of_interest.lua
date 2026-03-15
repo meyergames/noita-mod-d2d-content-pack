@@ -263,6 +263,26 @@ function try_spawn_staff_of_nutrition()
     end
 end
 
+function try_cap_max_health()
+    if not ModSettingGet( "D2DContentPack.cap_max_health" ) then return end
+
+    local dmg_comp = EntityGetFirstComponent( entity_id, "DamageModelComponent" )
+    if exists( dmg_comp ) then
+        local p_hp = ComponentGetValue2( dmg_comp, "hp" )
+        local p_max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
+        if p_max_hp > 40 then
+            ComponentSetValue2( dmg_comp, "max_hp", 40 )
+
+            if p_hp > 40 then
+                ComponentSetValue2( dmg_comp, "hp", 40 )
+            end
+
+            GamePrint( "[D2D] You've chosen to cap your max health at 1000." )
+            GamePrintDelayed( "[D2D] This limit can be removed in mod settings.", 120 )
+        end
+    end
+end
+
 function try_add_delta_to_ylialkemisti()
     if GameHasFlagRun( "d2d_poi_gave_ylialkemisti_delta" ) then return end
     if not is_within_bounds( entity_id, -5200, -4500, 400, 1000 ) then return end
@@ -288,4 +308,5 @@ try_upgrade_staff_of_loyalty()
 try_reroll_challenge_perks()
 try_spawn_afa_copies()
 try_spawn_staff_of_nutrition()
+try_cap_max_health()
 try_add_delta_to_ylialkemisti()
