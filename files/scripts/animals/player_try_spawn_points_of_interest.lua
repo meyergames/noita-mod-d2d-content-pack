@@ -264,7 +264,7 @@ function try_spawn_staff_of_nutrition()
 end
 
 function try_cap_max_health()
-    if not ModSettingGet( "D2DContentPack.cap_max_health" ) then return end
+    if not ModSettingGet( "D2DContentPack.cap_max_health" ) and not GameHasFlagRun( "d2d_afterlife_health_cap" ) then return end
 
     local dmg_comp = EntityGetFirstComponent( entity_id, "DamageModelComponent" )
     if exists( dmg_comp ) then
@@ -277,8 +277,12 @@ function try_cap_max_health()
                 ComponentSetValue2( dmg_comp, "hp", 40 )
             end
 
-            GamePrint( "[D2D] You've chosen to cap your max health at 1000." )
-            GamePrintDelayed( "[D2D] This limit can be removed in mod settings.", 120 )
+            if ModSettingGet( "D2DContentPack.cap_max_health" ) then
+                GamePrint( "[D2D] You've chosen to cap your max health at 1000." )
+                GamePrintDelayed( "[D2D] This limit can be removed in mod settings.", 120 )
+            else
+                GamePrint( "Your max health is limited to 1000 due to Afterlife's effect." )
+            end
         end
     end
 end

@@ -58,7 +58,8 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 
 			-- set the max health cap to 1000, if the player doesn't already have the Glass Cannon health cap
 			if not has_perk( "GLASS_CANNON" ) then
-				ComponentSetValue2( dcomp, "max_hp_cap", 40 )
+				-- ComponentSetValue2( dcomp, "max_hp_cap", 40 )
+				GameAddFlagRun( "d2d_afterlife_health_cap" )
 			end
 
 			GamePrintImportant( "You've entered the Afterlife", "Make it back to your grave to reclaim your life" )
