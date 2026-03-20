@@ -7,6 +7,54 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] A Wand of Destruction buff?
+
+[ ] (Greek) spell that copies all spells in the 4th wand slot. Good for having a shared AFA function on 2-3 wands (like heal + tele + dig)
+
+[ ] Mana Lock: retry scanning hand, draw, deck and discard for Add Mana etc; now that it's an Other-type spell instead of Passive, this might now work
+
+[ ] Make Time Trial and Glass Heart warn the player about their breaking mechanic if they walk close towards the exit (i.e. x+100 or so)
+
+[ ] Three Blessings and a Curse rework: spawn 6 more perks (to form a 9x9 grid) and give the player the option to choose ONE of them.
+		[ ] Consider making it a 4x4 grid with Extra Perk, or 5x5 with 2 Extra Perk stacks, etc.
+
+[ ] NEW MOD: Prayer Scroll, a "wand" that can hold a few spells and be thrown on the sky altar to spawn a specific perk.
+		[ ] better odds with the Peace With Gods perk, worse odds if the gods are angry
+
+[ ] Consider making Prism and Delta check for the *last* spell instead of the first, as a QoL improvement when combined with 
+		Prismatic Shot
+
+[x] Hue Shift: "Middle-click to cycle through the first three spells in your inventory"
+							 (could be 'select' for controller?)
+							 (also have a separate variation for the *last* three spells)
+		i.e. [A] [B] [C] [D] [E]	...		[L] [M] [N] [O] [P] <-- A and P are selected
+			-> [B] [C] [A] [D] [E]	...		[L] [M] [P] [N] [O] <-- B and O are selected
+			-> [C] [A] [B] [D] [E]	...		[L] [M] [O] [P] [N] <-- C and E are selected
+		or
+				 [A] [ ] [B] [C] [D]	...		[L] [M] [ ] [N] [O] <-- A and O
+				 [ ] [B] [A] [C] [D]	...		[L] [M] [O] [ ] [N] <-- B and N
+				 [B] [A] [ ] [C] [D]	...		[L] [M] [N] [O] [ ] <-- B and O
+		[x] on cast, GamePrint the new first spell and play the spell card swap SFX
+		[x] stick both spell variations on the Staff of Light by default <-- only the first one for now
+		[ ] Staff of Light obtain method idea:
+					- Reflective Weirdos drop a Fractured Prism on death, if you don't already have one (and haven't created the SoL)
+					- Killing more Reflective Weirdos while carrying a Fractured Prism gives it a charge
+					- A Fractured Prism with 9 charges (i.e. 10 total kills) turns into a Radiant Prism
+					- Placing a Radiant Prism on top of the Pyramid creates the Staff of Light (this should only work once)
+		[x] Staff of Light default stats and spells:
+					- No shuffle
+					- 0.03 cast delay
+					- 0.08 reload time
+					- 299 max mana (should prolly be more, but the speed of light starts with "2997924")
+					- 7924 mana charge speed
+					- 20-25 capacity
+					- 2x speed? (as in, "the speed of light")
+					- always cast "Rainbow Glimmer" <-- and "Light"
+					- 2x Prism Shot + Prism + Combo Breaker + Bundled Shot + 3x Prism Shots + both (alt fire) Hue Shift spells
+				[ ] "Prism" could be made into a SoL-exclusive spell (or at least unlocked by obtaining the SoL once)
+						[-] and its mana cost set to 0
+		[ ] Rename to "Staff of Radiance"?
+
 [ ] Some kind of preset wand (that spawns predictably) with basic Recycle on it by default?
 
 [x] Projectile-type spell that shifts into the first non-limited use projectile in your inventory

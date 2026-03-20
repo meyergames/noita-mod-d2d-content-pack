@@ -364,10 +364,13 @@ d2d_actions = {
 		price               = 200,
 		mana                = 20,
 		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 25
+			                    c.fire_rate_wait = c.fire_rate_wait + 5
+			                    current_reload_time = current_reload_time + 5
 								c.damage_projectile_add = c.damage_projectile_add + 0.32
 								c.damage_critical_chance = c.damage_critical_chance + 8
 								if reflecting then return end
+			                    c.fire_rate_wait = c.fire_rate_wait - 5
+			                    current_reload_time = current_reload_time - 5
 								c.damage_projectile_add = c.damage_projectile_add - 0.32
 								c.damage_critical_chance = c.damage_critical_chance - 8
 
@@ -378,6 +381,8 @@ d2d_actions = {
 											prior_projectiles = prior_projectiles + 1
 										end
 									end
+			                    	c.fire_rate_wait = c.fire_rate_wait + ( 5 * prior_projectiles )
+			                    	current_reload_time = current_reload_time + ( 5 * prior_projectiles )
 									c.damage_projectile_add = c.damage_projectile_add + ( 0.32 * prior_projectiles )
 									c.damage_critical_chance = c.damage_critical_chance + ( 8 * prior_projectiles )
 								end
@@ -1115,6 +1120,13 @@ d2d_actions = {
 	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_BLINK_MID_FIRE" ) then
 	            					mana = mana + 200
 	            				end
+
+	    						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
+	    							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    							GamePrintDelayed( "[D2D] By default, 'Mid Fire Blink' is cast with the middle mouse button", 60 )
+	    							GamePrintDelayed( "[D2D] You can change this keybind in the mod's settings", 180 )
+	    							GameAddFlagRun( "d2d_mid_fire_key_rebind_explained" )
+	    						end
 	                        end,
     },
 
@@ -1504,27 +1516,30 @@ d2d_actions = {
 								        local inventory_items = EntityGetAllChildren(child)
 								        if( inventory_items ~= nil ) then
 								            for z=1, #inventory_items do
-								            	item = inventory_items[z]
+								            	local index = #inventory_items+1-z -- start at the end
+								            	if index > 0 then
+									            	item = inventory_items[index]
 
-								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
-								            	if ia_comp then
-								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
-								            		local data = get_actions_lua_data( action_id )
-								            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
-								            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
-													if not data.recursive and uses_remaining ~= 0 then
-														local rec = check_recursion( data, recursion_level )
-														if ( data ~= nil ) and ( rec > -1 ) then
-															data.action( rec )
-															mana = mana - data.mana
-															if uses_remaining > 0 then
-																ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+									            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+									            	if ia_comp then
+									            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
+									            		local data = get_actions_lua_data( action_id )
+									            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
+									            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+														if not data.recursive and uses_remaining ~= 0 then
+															local rec = check_recursion( data, recursion_level )
+															if ( data ~= nil ) and ( rec > -1 ) then
+																data.action( rec )
+																mana = mana - data.mana
+																if uses_remaining > 0 then
+																	ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+																end
+																success = true
+																break
 															end
-															success = true
-															break
-														end
-								            		end
-									            end
+									            		end
+										            end
+										        end
 								            end
 								        end
 								    end
@@ -1556,18 +1571,21 @@ d2d_actions = {
 								        local inventory_items = EntityGetAllChildren(child)
 								        if( inventory_items ~= nil ) then
 								            for z=1, #inventory_items do
-								            	item = inventory_items[z]
+								            	local index = #inventory_items+1-z -- start at the end
+								            	if index > 0 then
+									            	item = inventory_items[index]
 
-								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
-								            	if ia_comp then
-								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
-								            		local data = get_actions_lua_data( action_id )
-													local rec = check_recursion( data, recursion_level )
-													if exists( data ) and not data.recursive and rec > -1 then
-														data.action( rec )
-														break
-													end
-								            	end
+									            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+									            	if ia_comp then
+									            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
+									            		local data = get_actions_lua_data( action_id )
+														local rec = check_recursion( data, recursion_level )
+														if exists( data ) and not data.recursive and rec > -1 then
+															data.action( rec )
+															break
+														end
+									            	end
+									            end
 								            end
 								        end
 								    end
@@ -1698,6 +1716,13 @@ d2d_actions = {
 	    action              = function()
 	    						draw_actions( 1, true )
             					mana = mana + 0
+
+	    						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
+	    							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    							GamePrintDelayed( "[D2D] By default, 'Animate / Recall' is cast with the middle mouse button", 60 )
+	    							GamePrintDelayed( "[D2D] You can change this keybind in the mod's settings", 180 )
+	    							GameAddFlagRun( "d2d_mid_fire_key_rebind_explained" )
+	    						end
 	                        end,
     },
 
@@ -1763,6 +1788,7 @@ d2d_actions = {
     							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
 	                        end,
     },
+
     {
 	    id                  = "D2D_ALT_FIRE_ANYTHING",
 	    name 		        = "$spell_d2d_alt_fire_anything_name",
@@ -1918,6 +1944,54 @@ d2d_actions = {
 	            				end
 	                        end,	
     },
+
+    {
+	    id                  = "D2D_HUE_SHIFT_A",
+	    name 		        = "$spell_d2d_hue_shift_a_name",
+	    description         = "$spell_d2d_hue_shift_a_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/hue_shift_a.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0", -- should only spawn on the Staff of Light
+		spawn_probability   = "0", -- should only spawn on the Staff of Light
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_hue_shift_a.xml",
+	    price               = 500,
+	    mana                = 0,
+	    action              = function()
+	    						draw_actions( 1, true )
+
+	    						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
+	    							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    							GamePrint( "[D2D] By default, 'Hue Shift' is cast with the middle mouse button", 60 )
+	    							GamePrintDelayed( "[D2D] You can change this keybind in the mod's settings", 180 )
+	    							GameAddFlagRun( "d2d_mid_fire_key_rebind_explained" )
+	    						end
+	                        end,
+    },
+
+    -- {
+	--     id                  = "D2D_HUE_SHIFT_Z",
+	--     name 		        = "$spell_d2d_hue_shift_z_name",
+	--     description         = "$spell_d2d_hue_shift_z_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/hue_shift_z.png",
+	--     type 		        = ACTION_TYPE_PASSIVE,
+    --     subtype     		= { altfire = true },
+	-- 	spawn_level         = "0", -- should only spawn on the Staff of Light
+	-- 	spawn_probability   = "0", -- should only spawn on the Staff of Light
+	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_hue_shift_z.xml",
+	--     price               = 500,
+	--     mana                = 0,
+	--     action              = function()
+	--     						draw_actions( 1, true )
+
+	--     						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
+	--     							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	--     							GamePrint( "[D2D] By default, 'Hue Shift Z' is cast with the middle mouse button", 60 )
+	--     							GamePrintDelayed( "[D2D] You can change this keybind in the mod's settings", 180 )
+	--     							GameAddFlagRun( "d2d_mid_fire_key_rebind_explained" )
+	--     						end
+	--                         end,
+    -- },
 }
 
 if actions ~= nil then

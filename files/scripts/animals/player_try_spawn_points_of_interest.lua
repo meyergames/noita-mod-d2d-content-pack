@@ -246,12 +246,6 @@ function try_spawn_staff_of_nutrition()
 
                 -- spawn the ghost on top of the first faraway enemy
                 EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_nutrition_stuck.xml", tx, ty )
-
-                GamePrint("STAFF OF NUTRITION SPAWNED")
-                GamePrint("STAFF OF NUTRITION SPAWNED")
-                GamePrint("STAFF OF NUTRITION SPAWNED")
-                GamePrint("STAFF OF NUTRITION SPAWNED")
-                GamePrint("STAFF OF NUTRITION SPAWNED")
                 
                 -- add flag so this function isn't run again
                 GameAddFlagRun( "d2d_poi_spawned_staff_of_nutrition" )
@@ -302,6 +296,23 @@ function try_add_delta_to_ylialkemisti()
     end
 end
 
+function try_add_staff_drop_to_reflective_weirdo()
+    if GameHasFlagRun( "d2d_poi_spawned_staff_of_light" ) then return end
+
+    local targets = EntityGetWithTag( "d2d_apoth_wraith_returner" )
+    if exists( targets ) then
+        for i,target in ipairs( targets ) do
+            local had_staff_drop_added = get_internal_bool( target, "had_staff_drop_added" )
+            if not had_staff_drop_added then
+                set_internal_bool( target, "had_staff_drop_added", true )
+                EntityAddComponent2( target, "LuaComponent", {
+                    script_death = "mods/D2DContentPack/files/scripts/animals/wraith_returner_drop_staff.lua"
+                })
+            end
+        end
+    end
+end
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
@@ -314,3 +325,4 @@ try_spawn_afa_copies()
 try_spawn_staff_of_nutrition()
 try_cap_max_health()
 try_add_delta_to_ylialkemisti()
+-- try_add_staff_drop_to_reflective_weirdo()

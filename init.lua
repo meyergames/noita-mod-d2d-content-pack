@@ -24,6 +24,18 @@ if ModIsEnabled("anvil_of_destiny") then
   ModLuaFileAppend("mods/anvil_of_destiny/files/scripts/modded_content.lua", "mods/D2DContentPack/files/scripts/aod/aod_modded_content_append.lua")
 end
 
+function OnModInit()
+    if ModIsEnabled( "Apotheosis" ) then
+        local file = "mods/Apotheosis/data/entities/animals/wraith_returner_apotheosis.xml"
+        local content = ModTextFileGetContent( file )
+        content = content:gsub(
+            "<Entity name=\"$enemy_apotheosis_wraith_returner_apotheosis\" >",
+            "<Entity name=\"$enemy_apotheosis_wraith_returner_apotheosis\" tags=\"d2d_apoth_wraith_returner\" >")
+        ModTextFileSetContent( file, content )
+        GamePrint("GSUBBED BABY")
+    end
+end
+
 function OnModPostInit()
     ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/D2DContentPack/files/scripts/perks.lua")
     -- ModLuaFileAppend("data/scripts/gun/procedural/starting_wand.lua", "mods/D2DContentPack/files/scripts/items/wands/starting_wand_append.lua")
@@ -138,7 +150,6 @@ function OnPlayerSpawned( player )
     -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 230, -109 )
     -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_remembrance_stuck.xml", 180, -109 )
 
-    -- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
     -- spawn_staff_of_loyalty( 230, -79 )
     -- GamePrintDelayed( "test 1", 240 )
     -- GamePrintDelayed( "test 2", 480 )

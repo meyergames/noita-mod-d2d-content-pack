@@ -591,14 +591,50 @@ function init_staff_of_nutrition()
 	wand.spellsPerCast = 1
 	wand.castDelay = 20
 	wand.rechargeTime = 90
-	wand.manaMax = Random( 225, 275 )
+	wand.manaMax = Random( 2200, 2299 )
 	wand.mana = wand.manaMax
-	wand.manaChargeSpeed = Random( 120, 129 )
-	wand.capacity = 5
+	wand.manaChargeSpeed = Random( 700, 799 )
+	wand.capacity = 6
 	wand.spread = 3
-	wand:AttachSpells( "D2D_BANANA_BOMB_ENHANCER" )
-	wand:AddSpells( "D2D_BANANA_BOMB", "D2D_BANANA_BOMB_SUPER", "D2D_BANANA_BOMB_GIGA" )
+	wand:AddSpells(
+		"D2D_BANANA_BOMB_ENHANCER",
+		"D2D_RECYCLE",
+		"D2D_BANANA_BOMB_SUPER" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_nutrition.png", 11, 6, 18, 0 )
+
+	return wand
+end
+
+function spawn_staff_of_light( x, y )
+	local staff = init_staff_of_light()
+	staff:PlaceAt( x, y )
+end
+
+function init_staff_of_light()
+    local wand = EZWand()
+	wand:SetName( "Staff of Light", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 2
+	wand.rechargeTime = 5
+	wand.manaMax = 299
+	wand.mana = 299
+	wand.manaChargeSpeed = 7924
+	wand.capacity = 20
+	wand.spread = 0
+	wand:AttachSpells( "LIGHT", "D2D_HUE_SHIFT_A", "COLOUR_RAINBOW" )
+	wand:AddSpells(
+		"D2D_PRISMATIC_SHOT",
+		"D2D_PRISMATIC_SHOT",
+		"D2D_PRISMATIC_SHOT",
+		"D2D_PRISM",
+		"D2D_COMBO_DAMAGE",
+		"D2D_COMPACT_SHOT",
+		"D2D_PRISMATIC_SHOT",
+		"D2D_PRISMATIC_SHOT",
+		"D2D_PRISMATIC_SHOT",
+		"D2D_PRISMATIC_SHOT" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_light.png", 13, 4, 23, 0 )
 
 	return wand
 end
