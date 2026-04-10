@@ -695,12 +695,13 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		-- spawn_level         = "1,2,3,4,5,6,10",
 		-- spawn_probability   = "0.1,0.25,0.5,0.75,1,1,0.75",
+		-- recursive 			= true,
 		spawn_level         = "0",
 		spawn_probability   = "0",
 	    price               = 480,
 	    mana                = 100,
-	    max_uses			= 3,
-	    custom_uses_logic	= true,
+	    -- max_uses			= 3,
+	    -- custom_uses_logic	= true,
 	    action              = function()
                                 c.fire_rate_wait    = c.fire_rate_wait + 160
                                 if reflecting then return end
@@ -729,6 +730,21 @@ d2d_actions = {
                                 	mana = mana + 100
                                 else
                                 	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
+                                	c.fire_rate_wait    = c.fire_rate_wait + 160
+
+									-- local action_entity = find_action_entity( hand[#hand] )
+									-- if action_entity then
+					            	-- 	local item_comp = EntityGetFirstComponentIncludingDisabled( action_entity, "ItemComponent" )
+					            	-- 	if exists( item_comp ) then
+									-- 	    uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+									--         ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+									--         if ( uses_remaining == 1 ) then
+									-- 			local x, y = EntityGetTransform( get_player() )
+									--             GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+									--             EntityLoad("mods/D2DContentPack/files/particles/fade_unstable_nucleus.xml", x, y )
+		                            --     	end
+		                            --     end
+	                                -- end
                                 end
 	                        end,
     },
@@ -1379,7 +1395,7 @@ d2d_actions = {
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_stabilize.xml",
 	    price               = 130,
-	    mana                = -15,
+	    mana                = 0,
 	    action              = function()
 			                    draw_actions( 1, true )
 	                        end,
