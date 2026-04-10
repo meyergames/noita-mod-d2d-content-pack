@@ -16,7 +16,17 @@ if ability_comp then
 				ComponentSetValue2( shield_comp, "energy", 0 )
 			end
 		end
+
+		if get_internal_bool( GetUpdatedEntityID(), "d2d_reload_shield_move_speed_applied" ) then
+			reset_move_speed( player, "d2d_reload_shield" )
+			set_internal_bool( GetUpdatedEntityID(), "d2d_reload_shield_move_speed_applied", false )
+		end
 	else
 		wand.mana = math.min( wand.mana + ( ( wand.manaChargeSpeed / 60 ) * 3.0 ), wand.manaMax )
+
+		if not get_internal_bool( GetUpdatedEntityID(), "d2d_reload_shield_move_speed_applied" ) then
+			multiply_move_speed( player, "d2d_reload_shield", 1.5, 1.25 )
+			set_internal_bool( GetUpdatedEntityID(), "d2d_reload_shield_move_speed_applied", true )
+		end
 	end
 end
