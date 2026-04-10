@@ -74,7 +74,7 @@ local _order_deck = order_deck
 order_deck = function()
 	if reflecting then return end
 	
-	if GlobalsGetValue( "d2d_try_stabilize_wand" ) == "true" and Random( 1, 100 ) > 5 then
+	if GlobalsGetValue( "d2d_try_stabilize_wand" ) == "true" and Random( 1, 100 ) > 1 then
 		-- temporarily set the wand to its opposite shuffle setting
 		gun.shuffle_deck_when_empty = not gun.shuffle_deck_when_empty
 

@@ -1,6 +1,8 @@
 -- Credit to Goki for this script
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
+local entity = GetUpdatedEntityID()
+
 function ease_angle( angle, target_angle, easing )
     local dir = ( angle - target_angle ) / (math.pi * 2)
     dir = dir - math.floor( dir + 0.5 )
@@ -8,8 +10,10 @@ function ease_angle( angle, target_angle, easing )
     return angle - dir * easing
 end
 
-local entity = GetUpdatedEntityID()
-raise_internal_int( entity, "frames_alive", 1 )
+local spawn_time = get_internal_int( GetUpdatedEntityID(), "d2d_unstable_nucleus_charge_particle_spawn_time" )
+if not exists( spawn_time ) then
+    set_internal_int( entity, "d2d_unstable_nucleus_charge_particle_spawn_time", GameGetFrameNum() )
+end
 
 local projectile = EntityGetFirstComponentIncludingDisabled( entity, "ProjectileComponent" )
 if projectile ~= nil then
@@ -31,7 +35,8 @@ if projectile ~= nil then
             -- local magnitude = Random( 50, 200 ) * ( 0.25 + ( charges * 0.00075 ) )
             -- local magnitude = Random( 50, 200 ) * ( 1.0 + ( charges * 0.001 ) ) -- surprisingly, this one yields the best result
             -- local magnitude = 50 + Random( 0, get_internal_int( entity, "frames_alive" ) )
-            local magnitude = 20 + get_internal_int( entity, "frames_alive" ) * 2
+            local magnitude = 20 +
+            ( GameGetFrameNum() - get_internal_int( entity, "d2d_unstable_nucleus_charge_particle_spawn_time" ) ) * 2
 
             local distance = math.sqrt( math.pow( target_x - x, 2 ) + math.pow( target_y - y, 2 ) )
             -- local magnitude = 100 + ( 150 * ( ( 500 - math.min( distance, 500 ) ) * 0.002 ) )
