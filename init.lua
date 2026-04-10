@@ -86,6 +86,12 @@ function OnPlayerSpawned( player )
             perk_spawn( 800, -100, v.id )
         end
     end
+
+    for k, v in pairs( d2d_perk_reworks ) do
+        if HasSettingFlag( v.id.."_spawn_at_start" ) then
+            perk_spawn( 800, -100, v.id )
+        end
+    end
     -- if d2d_apoth_perks then
     --     for k, v in pairs( d2d_apoth_perks ) do
     --         if HasSettingFlag( v.id.."_spawn_at_start" ) then
