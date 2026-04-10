@@ -428,6 +428,31 @@ d2d_perks = {
         end,
 	},
 
+	{
+		id = "D2D_LEECH_LIFE",
+		ui_name = "$perk_d2d_leech_life_name",
+		ui_description = "$perk_d2d_leech_life_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/leech_life_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/leech_life.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if pickup_count <= 1 then
+				EntityAddComponent2( entity_who_picked, "LuaComponent",
+				{ 
+					_tags = "perk_component,d2d_perk_leech_life",
+					script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_leech_life_update.lua",
+					execute_every_n_frame = 60,
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	remove_lua( entity_who_picked, "d2d_perk_leech_life" )
+        end,
+	},
+
 
 	-- {
 	-- 	id = "D2D_HOMEBODY_WANDS",

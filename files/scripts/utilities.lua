@@ -163,7 +163,7 @@ end
 -- custom variation that makes a variable if it doesn't exist yet
 function set_internal_string( entity_id, variable_name, new_value )
 	local variable_found = false
-	local components = EntityGetComponent( entity_id, "VariableStorageComponent" )	
+	local components = EntityGetComponentIncludingDisabled( entity_id, "VariableStorageComponent" )	
 	if ( components ~= nil ) then
 		for key,comp_id in pairs(components) do 
 			local var_name = ComponentGetValue2( comp_id, "name" )
