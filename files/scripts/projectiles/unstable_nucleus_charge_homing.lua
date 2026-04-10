@@ -1,5 +1,5 @@
--- Credit to gkbrkb for this script
-dofile_once( "data/scripts/lib/utilities.lua" )
+-- Credit to Goki for this script
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function ease_angle( angle, target_angle, easing )
     local dir = ( angle - target_angle ) / (math.pi * 2)
@@ -17,7 +17,7 @@ if projectile ~= nil then
     local charges = get_internal_int( entity, "charges" )
     if charges == nil then charges = 0 end
 
-    if unstable_nucleus_id ~= nil and unstable_nucleus_id ~= -1 then
+    if exists( unstable_nucleus_id ) then
         local target_x, target_y = EntityGetTransform( unstable_nucleus_id )
         local x, y = EntityGetTransform( entity )
         local target_angle = math.atan2( target_y - y, target_x - x )

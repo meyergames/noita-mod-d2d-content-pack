@@ -1,4 +1,4 @@
-<Entity name="$projectile_default" tags="projectile_player,unstable_nucleus" >
+<Entity name="$projectile_default" tags="projectile_player,d2d_unstable_nucleus" >
   
 	<Base file="data/entities/base_projectile.xml" >
 		<VelocityComponent
@@ -118,14 +118,6 @@
   <LuaComponent
     script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_gravity.lua"
     execute_every_n_frame="1"
-    >
-  </LuaComponent>
-
-  <LuaComponent
-    script_source_file="mods/D2DContentPack/files/scripts/projectiles/unstable_nucleus_off.lua"
-    execute_on_removed="1"
-    execute_every_n_frame="-1"
-    execute_times="1"
     >
   </LuaComponent>
   

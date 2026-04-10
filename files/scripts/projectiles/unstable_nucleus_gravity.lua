@@ -26,7 +26,7 @@ end
 local entities = EntityGetInRadiusWithTag(x, y, pull_radius, "projectile")
 for _,id in ipairs(entities) do	
 	local physicscomp = EntityGetFirstComponent(id, "PhysicsBody2Component") or EntityGetFirstComponent( id, "PhysicsBodyComponent")
-	if physicscomp == nil and not EntityHasTag(id,"unstable_nucleus") then
+	if physicscomp == nil and not EntityHasTag( id,"d2d_unstable_nucleus" ) then
 		local px, py = EntityGetTransform( id )
 
 		local velocitycomp = EntityGetFirstComponent( id, "VelocityComponent" )

@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 -- entity id and internal vars
 local entity_id = GetUpdatedEntityID()
@@ -55,16 +55,16 @@ if wand.mana > 10 then
 	end
 end
 
-local controls = EntityGetFirstComponent( get_player(), "ControlsComponent" )
-local is_fire_pressed = ComponentGetValue2( controls, "mButtonDownFire" )
+local is_fire_pressed = is_fire_pressed() or is_alt_fire_pressed()
 if not is_fire_pressed or wand.mana <= 10 or wand.entity_id ~= wand_id then
 	local proj_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "ProjectileComponent" )
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_radius", 25 + ( charges * 0.05 ) ) -- 75 at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "damage", 2.4 + ( charges * 0.0216 ) ) -- 600 at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "max_durability_to_destroy", 10 + math.floor( charges / 250 ) ) -- can destroy brickwork at 1000 charges
-	ComponentObjectSetValue2( proj_comp, "config_explosion", "ray_energy", 4500000 + ( charges * 4500 ) ) -- doubled at 1000 charges
+	ComponentObjectSetValue2( proj_comp, "config_explosion", "ray_energy", 4500000 + ( charges * 9000 ) ) -- tripled at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "camera_shake", 10 + ( charges * 0.09 ) ) -- 100 at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "knockback_force", 1.0 + ( charges * 0.004 ) ) -- 5.0 at 1000 charges
+	-- GamePrint( "Exploded with " .. charges .. " charges" )
 
 	local light_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "LightComponent" )
 	ComponentSetValue2( light_comp, "radius", 60 + ( charges * 0.12 ) )

@@ -652,7 +652,6 @@ d2d_actions = {
 	    id                  = "D2D_UNSTABLE_NUCLEUS",
 	    name 		        = "$spell_d2d_unstable_nucleus_name",
 	    description         = "$spell_d2d_unstable_nucleus_desc",
-        inject_after        = { "GRENADE_TIER_3" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/unstable_nucleus.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		-- spawn_level         = "1,2,3,4,5,6,10",
@@ -664,23 +663,34 @@ d2d_actions = {
 	    max_uses			= 3,
 	    custom_uses_logic	= true,
 	    action              = function()
-	    						if reflecting then return end
-	    						
-								GamePrint( "[D2D] The 'Unstable Nucleus' spell is currently under maintenance; please come back later." )
+                                c.fire_rate_wait    = c.fire_rate_wait + 160
+                                if reflecting then return end
+                                c.fire_rate_wait	= c.fire_rate_wait - 160
 
-                                -- c.fire_rate_wait    = c.fire_rate_wait + 160
-                                -- if reflecting then return end
-                                -- c.fire_rate_wait	= c.fire_rate_wait - 160
+                                dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+                                local nucleus = EntityGetWithTag( "d2d_unstable_nucleus" )
+                                if exists( nucleus ) and #nucleus > 0 then
+                                	-- trigger the effect of Wand Refresh
+									for i,v in ipairs( hand ) do
+										table.insert( discarded, v )
+									end
+									for i,v in ipairs( deck ) do
+										table.insert( discarded, v )
+									end
+									hand = {}
+									deck = {}
+									if not force_stop_draws then
+										force_stop_draws = true
+										move_discarded_to_deck()
+										order_deck()
+									end
 
-                                -- dofile_once( "data/scripts/lib/utilities.lua" )
-                                -- local proj_id = get_internal_int( get_player(), "unstable_nucleus_id" )
-                                -- if proj_id ~= nil and proj_id ~= -1 then
-                                -- 	-- shoot charging "projectile"
-                                -- 	draw_actions( 1, true )
-                                -- 	mana = mana + 100
-                                -- else
-                                -- 	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
-                                -- end
+                                	-- shoot charging "projectile"
+                                	-- draw_actions( 1, true )
+                                	mana = mana + 100
+                                else
+                                	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
+                                end
 	                        end,
     },
 
