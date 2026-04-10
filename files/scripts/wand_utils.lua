@@ -545,13 +545,36 @@ function upgrade_staff_of_loyalty( original )
 	wand:SetName( "Staff of Loyalty", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
+
+	-- add any extra cast delay from the previous tier
 	wand.castDelay = Random( 3, 6 )
+	if original.castDelay < 6 then
+		wand.castDelay = wand.castDelay + ( original.castDelay - 6 )
+	end
+
+	-- add any extra recharge time from the previous tier
 	wand.rechargeTime = Random( 10, 15 )
+	if original.rechargeTime < 15 then
+		wand.rechargeTime = wand.rechargeTime + ( original.rechargeTime - 15 )
+	end
+
+	-- add any extra max mana from the previous tier
 	wand.manaMax = Random( 940, 1040 )
+	if original.manaMax > 520 then
+		wand.manaMax = wand.manaMax + ( original.manaMax - 520 )
+	end
 	wand.mana = wand.manaMax
+
+	-- add any extra mana charge speed from the previous tier
 	wand.manaChargeSpeed = Random( 290, 320 )
-	wand.capacity = 18
-	wand.spread = 0
+	if original.manaChargeSpeed > 160 then
+		wand.manaChargeSpeed = wand.manaChargeSpeed + ( original.manaChargeSpeed - 160 )
+	end
+
+	-- ...and the remaining stats
+	wand.capacity = 18 + ( original.capacity - 8 )
+	wand.spread = 0 + ( original.spread )
+
 	local spells, always_casts = original:GetSpells()
 	for i,always_cast in ipairs( always_casts ) do
 		wand:AttachSpells( always_cast.action_id )
@@ -635,6 +658,13 @@ function init_staff_of_light()
 		"D2D_PRISMATIC_SHOT",
 		"D2D_PRISMATIC_SHOT" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_light.png", 13, 4, 23, 0 )
+
+	-- local sprite_comp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "SpriteComponent" )
+	-- if sprite_comp then
+	-- 	ComponentSetValue2( sprite_comp, "image_file", "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_light_anim.xml" )
+	-- 	ComponentSetValue2( sprite_comp, "next_rect_animation", "default" )
+	-- 	ComponentSetValue2( sprite_comp, "rect_animation", "default" )
+	-- end
 
 	return wand
 end
