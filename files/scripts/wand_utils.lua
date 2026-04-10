@@ -638,3 +638,16 @@ function init_staff_of_light()
 
 	return wand
 end
+
+function get_all_wand_actions( wand )
+	local actions = {}
+	local spells, always_casts = wand:GetSpells()
+	for i,always_cast in ipairs( always_casts ) do
+		table.insert( actions, always_cast )
+	end
+	for i,spell in ipairs( spells ) do
+		table.insert( actions, spell )
+	end
+
+	return actions
+end

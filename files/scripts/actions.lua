@@ -929,6 +929,73 @@ d2d_actions = {
 	                        end,
     },
 
+	{
+	    id                  = "D2D_BLUE_MAGIC",
+	    name 		        = "$spell_d2d_blue_magic_name",
+	    description         = "$spell_d2d_blue_magic_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blue_magic.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4,5",
+		spawn_probability   = "0.5,0.4,0.3,0.2,0.2,0.2",
+	    price               = 150,
+	    mana                = 20,
+	    -- max_uses			= 10,
+	    -- custom_uses_logic	= true,
+	    action              = function()
+	    						c.fire_rate_wait = c.fire_rate_wait + 15
+
+                                if reflecting then return end
+                                dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
+								local action = hand[#hand]
+								if action.id ~= "D2D_BLUE_MAGIC" then
+									c.damage_projectile_add = c.damage_projectile_add + 0.04
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+			                    	mana = mana + 15
+									return
+								end
+								local action_entity = find_action_entity( action )
+								if not action_entity then
+									c.damage_projectile_add = c.damage_projectile_add + 0.04
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+			                    	mana = mana + 15
+									return
+								end
+
+                                local proj_file = get_internal_string( action_entity, "d2d_blue_magic_projectile_file" )
+                                if exists( proj_file ) and proj_file ~= "" then
+                                	add_projectile( proj_file )
+
+                                	-- local cast_delay = get_internal_int( action_entity, "d2d_blue_magic_cast_delay" )
+                                	-- if exists( cast_delay ) then
+	                                -- 	c.fire_rate_wait = c.fire_rate_wait + ( cast_delay * 0.25 )
+	                                -- end
+
+				            		local item_comp = EntityGetFirstComponentIncludingDisabled( action_entity, "ItemComponent" )
+				            		if exists( item_comp ) then
+				            			local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+				            			-- if uses_remaining > 0 then
+											-- ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+										-- end
+										if uses_remaining == 0 then
+	                                		set_internal_string( action_entity, "d2d_blue_magic_projectile_file", "" )
+									        ComponentSetValue2( item_comp, "item_name", GameTextGetTranslatedOrNot( "$spell_d2d_blue_magic_name" ) )
+									        ComponentSetValue2( item_comp, "always_use_item_name_in_ui", true )
+
+									        -- play last use effects
+									        -- local x, y = EntityGetTransform( get_player() )
+					                        -- GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+					                        -- EntityLoad( "mods/D2DContentPack/files/particles/fade_blue_magic.xml", x, y )
+	                                	end
+                                	end
+                                else
+									c.damage_projectile_add = c.damage_projectile_add + 0.04
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+			                    	mana = mana + 15
+                                end
+	                        end,
+	},
+
     {
 	    id                  = "D2D_SMALL_EXPLOSION",
 	    name 		        = "$spell_d2d_small_explosion_name",

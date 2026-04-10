@@ -1,4 +1,9 @@
 
+function is_fire_pressed()
+    local controls = EntityGetFirstComponent( get_player(), "ControlsComponent" )
+    return ComponentGetValue2( controls, "mButtonDownFire" )
+end
+
 function is_alt_fire_pressed()
     local binding = ModSettingGet( "D2DContentPack.alt_fire_keybind" )
     local mode = "key_code"

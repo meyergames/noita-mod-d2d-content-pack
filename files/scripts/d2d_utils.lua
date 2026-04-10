@@ -197,3 +197,27 @@ function swap_perk_icon_for_spent( player_id, perk_name )
         end
     end
 end
+
+-- this function is from Goki's Things
+function find_action_entity( action )
+    for _,e in pairs(EntityGetWithTag("card_action")) do
+        local item = EntityGetFirstComponentIncludingDisabled( e, "ItemComponent" )
+        if item then
+            if ComponentGetValue2( item, "mItemUid" ) == action.inventoryitem_id then
+                return e
+            end
+        end
+    end
+end
+
+function debug_piles( deck, hand, discarded )
+    for i,card in ipairs( deck ) do
+        GamePrint( "DECK: " .. card.id )
+    end
+    for i,card in ipairs( hand ) do
+        GamePrint( "HAND: " .. card.id )
+    end
+    for i,card in ipairs( discarded ) do
+        GamePrint( "DISCARDED: " .. card.id )
+    end
+end
