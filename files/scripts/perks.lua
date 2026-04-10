@@ -371,30 +371,28 @@ d2d_perks = {
 				execute_every_n_frame="3",
 				remove_after_executed="1",
 			} )
-			
-            local nearby_perks = EntityGetInRadiusWithTag( x, y, 50, "perk" )
-            if nearby_perks then
-            	dofile_once( "data/scripts/perks/perk.lua" )
-				for _,perk_id in ipairs( nearby_perks ) do
-					local vscomps = EntityGetComponentIncludingDisabled( perk_id, "VariableStorageComponent" )
-					local has_pdro = false
-					for _,vscomp in ipairs( vscomps ) do
-						local var_name = ComponentGetValue2( vscomp, "name" )
-						if var_name == "perk_dont_remove_others" then
-							has_pdro = true
-							ComponentSetValue2( vscomp, "value_bool", true )
-						end
-					end
-					if not has_pdro then
-						addNewInternalVariable( perk_id, "perk_dont_remove_others", "value_bool", true )
-					end
+
+			-- get the x position of the lefternmost perk
+			local nearby_perks = EntityGetInRadiusWithTag( x, y, 150, "perk" )
+			local start_x = x
+			for i,perk_id in ipairs( nearby_perks ) do
+				local perk_x, perk_y = EntityGetTransform( perk_id )
+				if perk_x < start_x then
+					start_x = perk_x
+				end
+				EntityKill( perk_id )
+			end
+
+			-- spawn many perks
+			local perk_count = tonumber( GlobalsGetValue( "TEMPLE_PERK_COUNT", "3" ) )
+			local item_width = 60 / perk_count
+			for j=1, perk_count do
+				for i=1, perk_count do
+					perk_spawn_random( start_x + ( (i-1) * item_width ), y - ( ( j-1 ) * item_width ) )
 				end
 			end
 
-			-- spawn a random extra perk
-			perk_spawn_random( x, y, true )
-
-			-- apply a random curse
+			-- oh yeah, also apply a random curse
 			apply_random_curse( get_player() )
 		end,
 	},
