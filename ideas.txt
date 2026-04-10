@@ -7,6 +7,8 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Perksmith has some odd behaviour with perk rerolls; rerolling and then picking up the perk between the pickups (which also 		 rerolls) causes the perks on the altar to disappear, and the heart + diamond to remain
+
 [ ] A Wand of Destruction buff?
 
 [ ] (Greek) spell that copies all spells in the 4th wand slot. Good for having a shared AFA function on 2-3 wands (like heal + tele + dig)

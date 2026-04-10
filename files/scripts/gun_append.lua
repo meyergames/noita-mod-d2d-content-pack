@@ -62,3 +62,34 @@ move_hand_to_discarded = function(...)
 	end
 	return _move_hand_to_discarded(...)
 end
+
+-- local _order_deck = order_deck
+-- order_deck = function()
+
+-- 	GamePrint( "order!" )
+-- 	_order_deck()
+-- end
+
+local _order_deck = order_deck
+order_deck = function()
+	if reflecting then return end
+	
+	if GlobalsGetValue( "d2d_try_stabilize_wand" ) == "true" and Random( 1, 100 ) > 5 then
+		-- temporarily set the wand to its opposite shuffle setting
+		gun.shuffle_deck_when_empty = not gun.shuffle_deck_when_empty
+
+		_order_deck()
+
+		-- reset the wand's shuffle setting
+		gun.shuffle_deck_when_empty = not gun.shuffle_deck_when_empty
+	else
+		_order_deck()
+	end
+end
+
+local _play_action = play_action
+play_action = function( action )
+	if not action.skip then
+		_play_action( action )
+	end
+end

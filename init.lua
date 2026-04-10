@@ -32,13 +32,29 @@ function OnModInit()
             "<Entity name=\"$enemy_apotheosis_wraith_returner_apotheosis\" >",
             "<Entity name=\"$enemy_apotheosis_wraith_returner_apotheosis\" tags=\"d2d_apoth_wraith_returner\" >")
         ModTextFileSetContent( file, content )
-        GamePrint("GSUBBED BABY")
+        -- GamePrint("GSUBBED BABY")
     end
+
+    -- if ModIsEnabled( "gkbrkn_noita" ) then
+    --     local file = "mods/gkbrkn_noita/files/gkbrkn/misc/player_damage_received.lua"
+    --     local content = ModTextFileGetContent( file )
+    --     content = content:gsub(
+    --         "if not EntityHasVar( action, \"gkbrkn_blue_magic_projectile_file\" ) then",
+    --         "if true then" )
+    --     ModTextFileSetContent( file, content )
+    --     GamePrint("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    -- end
 end
 
 function OnModPostInit()
     ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/D2DContentPack/files/scripts/perks.lua")
     -- ModLuaFileAppend("data/scripts/gun/procedural/starting_wand.lua", "mods/D2DContentPack/files/scripts/items/wands/starting_wand_append.lua")
+
+    -- if ModIsEnabled( "gkbrkn_noita" ) then
+    --     ModLuaFileAppend(
+    --         "mods/gkbrkn_noita/files/gkbrkn/misc/player_damage_received.lua",
+    --         "mods/D2DContentPack/files/scripts/mod_appends/gkbrkn_player_damage_received.lua" )
+    -- end
 end
 
 function OnPlayerSpawned( player )
@@ -123,6 +139,11 @@ function OnPlayerSpawned( player )
     {
         script_source_file="mods/D2DContentPack/files/scripts/animals/player_try_spawn_points_of_interest.lua",
         execute_every_n_frame="60",
+    } )
+
+    EntityAddComponent( player, "LuaComponent", 
+    {
+        script_damage_received="mods/D2DContentPack/files/scripts/animals/player_damage_received.lua",
     } )
 
     -- spawn love wand

@@ -1,0 +1,26 @@
+<Entity tags="card_action">
+
+    <Base file="data/entities/misc/custom_cards/energy_shield.xml" >
+        <SpriteComponent
+            image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/reload_shield.png" >
+        </SpriteComponent>
+
+        <ItemActionComponent
+            _tags="enabled_in_world"
+            action_id="D2D_RELOAD_SHIELD" >
+        </ItemActionComponent>
+
+        <EnergyShieldComponent
+            max_energy="1"
+            recharge_speed="0.5"
+            energy_required_to_shield="0.01"
+        ></EnergyShieldComponent>
+    </Base>
+
+    <LuaComponent
+        _tags="enabled_in_hand,enabled_in_inventory,enabled_in_world"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/reload_shield_update.lua"
+        execute_every_n_frame="1"
+    ></LuaComponent>
+
+</Entity>

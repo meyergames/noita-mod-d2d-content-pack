@@ -215,6 +215,45 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_CONTROLLED_FUSE",
+	    name 		        = "$spell_d2d_controlled_fuse_name",
+	    description         = "$spell_d2d_controlled_fuse_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/controlled_fuse.png",
+	    type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.3,0.4,0.5,0.6,0.7,0.8",
+	    price               = 330,
+	    mana                = 20,
+	    action              = function()
+	    						-- c.fire_rate_wait = c.fire_rate_wait + 60
+								if reflecting then return end
+
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								if not get_internal_bool( get_player(), "is_fuse_being_controlled" ) then
+									c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/controlled_fuse.xml,"
+                                	draw_actions( 1, true )
+                                	set_internal_bool( get_player(), "is_fuse_being_controlled", true )
+                                else
+                                	for i,v in ipairs( hand ) do
+										table.insert( discarded, v )
+									end
+									hand = {}
+
+									for i,v in ipairs( deck ) do
+										table.insert( discarded, v )
+									end
+									deck = {}
+									
+									if ( force_stop_draws == false ) then
+										force_stop_draws = true
+										move_discarded_to_deck()
+										order_deck()
+									end
+								end
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_MANA_REFILL",
 	    name 		        = "$spell_d2d_mana_refill_name",
 	    description         = "$spell_d2d_mana_refill_desc",
@@ -225,7 +264,7 @@ d2d_actions = {
 		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
 	    price               = 330,
 	    mana                = 0,
-	    max_uses			= 5,
+	    max_uses			= 10,
 		never_unlimited 	= true,
 		-- custom_uses_logic	= true,
 	    action              = function()
@@ -1331,6 +1370,38 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_STABILIZE",
+	    name 		        = "$spell_d2d_stabilize_name",
+	    description         = "$spell_d2d_stabilize_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/stabilize.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "0,1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_stabilize.xml",
+	    price               = 130,
+	    mana                = -15,
+	    action              = function()
+			                    draw_actions( 1, true )
+	                        end,
+    },
+
+    -- {
+	--     id                  = "D2D_PASSIVE_MANA_CHARGE",
+	--     name 		        = "$spell_d2d_passive_mana_charge_name",
+	--     description         = "$spell_d2d_passive_mana_charge_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/passive_mana_charge.png",
+	--     type 		        = ACTION_TYPE_PASSIVE,
+	-- 	spawn_level         = "0,1,2,3,4,5,6",
+	-- 	spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_passive_mana_charge.xml",
+	--     price               = 80,
+	--     mana                = 0,
+	--     action              = function()
+	-- 		                    draw_actions( 1, true )
+	--                         end,
+    -- },
+
+    {
 	    id                  = "D2D_RAPIDFIRE_SALVO",
 	    name 		        = "$spell_d2d_rapidfire_salvo_name",
 	    description         = "$spell_d2d_rapidfire_salvo_desc",
@@ -1343,7 +1414,7 @@ d2d_actions = {
 	    price               = 330,
 	    mana                = 10,
 	    action              = function()
-                                -- draw_actions( 1, true )
+                                draw_actions( 1, true )
 	                        end,
     },
 
@@ -1352,12 +1423,28 @@ d2d_actions = {
 		name 		        = "$spell_d2d_fixed_altitude_name",
 		description         = "$spell_d2d_fixed_altitude_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/fixed_altitude.png",
-		type 		        = ACTION_TYPE_MODIFIER, -- TODO: Test if this works decently
+		type 		        = ACTION_TYPE_PASSIVE, -- TODO: Test if this works decently
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.3,0.5,0.7,0.9,1.1,1",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_fixed_altitude.xml",
 		price               = 280,
 		mana                = 1,
+		action 		        = function()
+								draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_RELOAD_SHIELD",
+		name 		        = "$spell_d2d_reload_shield_name",
+		description         = "$spell_d2d_reload_shield_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/reload_shield.png",
+		type 		        = ACTION_TYPE_PASSIVE, -- TODO: Test if this works decently
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.05,0.4,0.8,0.4,0.4,0.6",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_reload_shield.xml",
+		price               = 280,
+		mana                = 10,
 		action 		        = function()
 								draw_actions( 1, true )
 		                    end,
@@ -1491,9 +1578,59 @@ d2d_actions = {
 									-- draw the spell
 									draw_actions( 1, true )
 
-									-- 1/4 chance to save a charge
-									if Random( 1, 10 ) ~= 1 then
+									-- determine chance
+									local save_chance = 90
+									if next_card.never_unlimited then save_chance = 75 end
+
+									if Random( 1, 100 ) < save_chance then
 										next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
+									end
+								end
+		                    end,
+	},
+
+	{
+		id                  = "D2D_FORCE_CAST",
+		name 		        = "$spell_d2d_force_cast_name",
+		description         = "$spell_d2d_force_cast_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/force_cast.png",
+		type 		        = ACTION_TYPE_OTHER,
+		recursive 			= true,
+		spawn_level         = "3,4,5,6",
+		spawn_probability   = "0.2,0.3,0.4,0.5",
+		price               = 200,
+		mana                = 0,
+		action 		        = function()
+								if reflecting then return end
+
+								-- select the next card
+								local data = {}
+								if ( #deck > 0 ) then
+									data = deck[1]
+								elseif ( #hand > 0 ) then
+									data = hand[1]
+								else
+									data = nil
+								end
+
+								-- skip if the spell can be cast normally
+								-- local lua_data = get_actions_lua_data( data.id )
+								-- if data.mana <= mana or data.uses_remaining > 0 then
+								-- 	draw_actions( 1, true )
+								-- 	return
+								-- end
+
+								local rec = check_recursion( data, recursion_level )
+								if data and rec > -1 then
+									data.action( rec )
+
+									-- damage the player for 5% of max health, without killing them
+									local player = GetUpdatedEntityID()
+									local dmgcomp = EntityGetFirstComponent( player, "DamageModelComponent" )
+									if exists( dmgcomp ) then
+										local hp = ComponentGetValue2( dmgcomp, "hp" )
+										local max_hp = ComponentGetValue2( dmgcomp, "max_hp" )
+										EntityInflictDamage( player, math.min( max_hp * 0.05, hp - 0.04 ), "DAMAGE_NONE", "force cast", "NORMAL", 0, 0, player, x, y, 0 )
 									end
 								end
 		                    end,
@@ -1794,6 +1931,8 @@ d2d_actions = {
 	    						draw_actions( 1, true )
             					mana = mana + 0
 
+	    						if reflecting then return end
+
 	    						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
 	    							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 	    							GamePrintDelayed( "[D2D] By default, 'Animate / Recall' is cast with the middle mouse button", 60 )
@@ -1841,6 +1980,8 @@ d2d_actions = {
 								dofile_once( "data/scripts/lib/utilities.lua" )
 					            local cats_petted = get_internal_int( GetUpdatedEntityID(), "cats_petted", 1 )
 					            c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * cats_petted )
+
+	    						draw_actions( 1, true )
 	                        end,
     },
 
@@ -1903,7 +2044,7 @@ d2d_actions = {
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_mana_refill.xml",
 	    price               = 330,
 	    mana                = 0,
-	    max_uses			= 5,
+	    max_uses			= 10,
 	    never_unlimited		= true,
     	custom_uses_logic 	= true,
 	    action              = function()
@@ -2036,6 +2177,8 @@ d2d_actions = {
 	    mana                = 0,
 	    action              = function()
 	    						draw_actions( 1, true )
+
+	    						if reflecting then return end
 
 	    						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
 	    							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )

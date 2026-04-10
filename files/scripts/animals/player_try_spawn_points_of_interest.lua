@@ -264,18 +264,20 @@ function try_cap_max_health()
     if exists( dmg_comp ) then
         local p_hp = ComponentGetValue2( dmg_comp, "hp" )
         local p_max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
-        if p_max_hp > 40 then
-            ComponentSetValue2( dmg_comp, "max_hp", 40 )
 
-            if p_hp > 40 then
-                ComponentSetValue2( dmg_comp, "hp", 40 )
+        local HP_LIMIT = 40
+        if p_max_hp > HP_LIMIT then
+            ComponentSetValue2( dmg_comp, "max_hp", HP_LIMIT )
+
+            if p_hp > HP_LIMIT then
+                ComponentSetValue2( dmg_comp, "hp", HP_LIMIT )
             end
 
             if ModSettingGet( "D2DContentPack.cap_max_health" ) then
-                GamePrint( "[D2D] You've chosen to cap your max health at 1000." )
+                GamePrint( "[D2D] You've chosen to cap your max health." )
                 GamePrintDelayed( "[D2D] This limit can be removed in mod settings.", 120 )
             else
-                GamePrint( "Your max health is limited to 1000 due to Afterlife's effect." )
+                GamePrint( "Your max health is limited to 1000 due to Afterlife." )
             end
         end
     end
