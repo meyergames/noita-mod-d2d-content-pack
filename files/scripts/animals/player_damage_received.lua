@@ -1,6 +1,8 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function damage_received( damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible )
+    if entity_thats_responsible == get_player() then return end
+    
     local wand = EZWand.GetHeldWand()
     if not wand then return end
 

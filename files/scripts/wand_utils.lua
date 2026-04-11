@@ -522,7 +522,7 @@ function init_staff_of_loyalty()
 	wand.capacity = 8
 	wand.spread = 0
 
-	wand:AttachSpells( "D2D_ANIMATE_WAND_MID_FIRE", "D2D_SPARK_BOLT_ENHANCER" )
+	wand:AttachSpells( "D2D_SPARK_BOLT_ENHANCER" )
 	wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "D2D_COMPACT_SHOT" )
 	for i = 1, ( wand.capacity - 3 ) do
 		wand:AddSpells( "LIGHT_BULLET" )
@@ -575,10 +575,14 @@ function upgrade_staff_of_loyalty( original )
 	wand.capacity = 18 + ( original.capacity - 8 )
 	wand.spread = 0 + ( original.spread )
 
+	-- copy always-casts on the previous tier
 	local spells, always_casts = original:GetSpells()
 	for i,always_cast in ipairs( always_casts ) do
 		wand:AttachSpells( always_cast.action_id )
 	end
+	-- add Home Teleport
+	wand:AttachSpells( "D2D_HOME_TELEPORT_MID_FIRE" )
+	-- copy normal spells on the previous tier
 	for i,spell in ipairs( spells ) do
 		wand:AddSpells( spell.action_id )
 	end

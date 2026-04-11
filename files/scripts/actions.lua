@@ -1958,6 +1958,32 @@ d2d_actions = {
 	                        end,
     },
 
+    {
+	    id                  = "D2D_HOME_TELEPORT_MID_FIRE",
+	    name 		        = "$spell_d2d_home_teleport_mid_fire_name",
+	    description         = "$spell_d2d_home_teleport_mid_fire_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/home_teleport_mid_fire.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0", -- should only spawn on the Staff of Loyalty
+		spawn_probability   = "0", -- should only spawn on the Staff of Loyalty
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_home_teleport_mid_fire.xml",
+        price 				= 500,
+        mana 				= 0,
+	    action              = function()
+	    						draw_actions( 1, true )
+
+	    						if reflecting then return end
+
+	    						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
+	    							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    							GamePrintDelayed( "[D2D] By default, 'Home Teleport' is cast with the middle mouse button", 60 )
+	    							GamePrintDelayed( "[D2D] You can change this keybind in the mod's settings", 180 )
+	    							GameAddFlagRun( "d2d_mid_fire_key_rebind_explained" )
+	    						end
+	                        end,
+    },
+
     -- {
 	--     id                  = "D2D_UPGRADE_RESET_SPELLS_PER_CAST",
 	--     name 		        = "$spell_d2d_upgrade_reset_spells_per_cast_name",

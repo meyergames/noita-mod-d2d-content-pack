@@ -11,15 +11,15 @@ function try_trigger_recent_update_message()
     if not is_within_bounds( entity_id, 600, 800, -240, -80 ) then return end
 
     GameAddFlagRun( "d2d_poi_recent_update_message_displayed" )
-    RemoveFlagPersistent( "d2d_update_msg_displayed_ancient_lurker" )
+    RemoveFlagPersistent( "d2d_update_msg_displayed_cursed_chests" )
 
-    -- this print was added on 24 dec 2025; remove on 7 jan 2026
-    if not HasFlagPersistent( "d2d_update_msg_displayed_cursed_chests" ) then
+    -- this print was added on 10 apr 2026
+    if not HasFlagPersistent( "d2d_update_msg_displayed_toolbox" ) then
 
-        GamePrint( "[D2D] Cursed chests have received a big update!" )
-        GamePrintDelayed( "[D2D] They should now be much more worth the trouble...", 120 )
+        GamePrint( "[D2D] UPDATE: The Summon Toolbox perk has received a buff!" )
+        GamePrintDelayed( "[D2D] UPDATE: Toolboxes can now contain a variety of Passive and Other-type spells.", 120 )
 
-        AddFlagPersistent( "d2d_update_msg_displayed_cursed_chests" )
+        AddFlagPersistent( "d2d_update_msg_displayed_toolbox" )
     end
 end
 
@@ -304,6 +304,9 @@ function try_add_staff_drop_to_reflective_weirdo()
     local targets = EntityGetWithTag( "d2d_apoth_wraith_returner" )
     if exists( targets ) then
         for i,target in ipairs( targets ) do
+            if is_within_bounds( entity_id, -5200, -4500, 400, 1000 ) then
+                -- kill the wraith and spawn the staff
+            end
             local had_staff_drop_added = get_internal_bool( target, "had_staff_drop_added" )
             if not had_staff_drop_added then
                 set_internal_bool( target, "had_staff_drop_added", true )
