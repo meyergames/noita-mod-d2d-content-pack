@@ -685,3 +685,124 @@ function get_all_wand_actions( wand )
 
 	return actions
 end
+
+function generate_random_toolbox_spells( amount, do_print )
+	local px, py = EntityGetTransform( get_player() )
+	local toolboxes = EntityGetInRadiusWithTag( px, py, 100, "d2d_toolbox" )
+	if not toolboxes or #toolboxes == 0 then return false end
+
+	local common = {
+		-- upgrades
+		"D2D_UPGRADE_CAPACITY",
+		"D2D_UPGRADE_CAPACITY",
+		"D2D_UPGRADE_CAPACITY",
+		"D2D_UPGRADE_FIRE_RATE",
+		"D2D_UPGRADE_FIRE_RATE",
+		"D2D_UPGRADE_MAX_MANA",
+		"D2D_UPGRADE_MAX_MANA",
+		"D2D_UPGRADE_MANA_CHARGE_SPEED",
+		"D2D_UPGRADE_MANA_CHARGE_SPEED",
+
+		-- ammo
+		"D2D_SECOND_WIND",
+	}
+
+	local uncommon = {
+		-- upgrades
+		"D2D_UPGRADE_SHUFFLE",
+		"D2D_UPGRADE_REMOVE_ALWAYS_CAST",
+
+		-- ammo
+		"D2D_RECYCLE",
+
+		-- shields
+		"ENERGY_SHIELD_SECTOR",
+		"D2D_RELOAD_SHIELD",
+
+		-- mana
+		"D2D_MANA_SPLIT",
+		"D2D_MANA_REFILL_ALT_FIRE",
+
+		-- shuffle
+		"D2D_STABILIZE",
+		"D2D_SPRAY_AND_PRAY",
+
+		-- mobility
+		"D2D_REWIND_ALT_FIRE",
+		"D2D_FIXED_ALTITUDE",
+
+		-- misc.
+		"D2D_CIRCLE_OF_TINKERING",
+	}
+
+	local rare = {
+		-- ammo
+		"D2D_FORCE_CAST",
+
+		-- shields
+		"ENERGY_SHIELD",
+
+		-- misc.
+		"D2D_ALT_FIRE_ANYTHING",
+	}
+
+	-- if Apotheosis is enabled, add Alt Fire Small Teleport Bolt
+	if ModIsEnabled( "Apotheosis" ) then
+		table.insert( uncommon, "APOTHEOSIS_ALT_FIRE_TELEPORT_SHORT" )
+	end
+
+	-- if the player has defeated the Ancient Lurker, add Recycle Plus
+	-- local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
+	if HasFlagPersistent( "d2d_ancient_lurker_defeated" ) then
+		table.insert( rare, "D2D_RECYCLE_PLUS" )
+	end
+
+	-- try spawning the spell(s) on the toolbox
+	local success = false
+	local toolbox = EZWand( toolboxes[1] )
+	if toolbox then
+		for i=1, amount do
+			if toolbox:GetFreeSlotsCount() > 0 then
+
+				-- pick Common, Uncommon or Rare table
+				local spells = {}
+				SetRandomSeed( px + i, py )
+				local rnd = Random( 1, 100 )
+				if rnd <= 5 then -- 5% chance for a rare spell (1/20)
+					spells = rare
+				elseif rnd <= 25 then -- 20% chance for an uncommon spell (1/5)
+					spells = uncommon
+				elseif rnd <= 100 then -- 75% chance for a common spell (3/4)
+					spells = common
+				end
+
+				-- add a random spell from that table to the toolbox
+				local spell_id = random_from_array( spells )
+				toolbox:AddSpells( spell_id )
+				success = true
+				if do_print then
+					dofile_once( "mods/D2DContentPack/files/scripts/actions.lua" )
+					for i,action in ipairs( actions ) do
+						if action.id == spell_id then
+							GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", px, py )
+							GamePrint( "The Toolbox generated a new spell: \"" .. GameTextGetTranslatedOrNot( action.name ) .. "\"")
+							break
+						end
+					end
+				end
+
+			else
+				if do_print then
+					GamePrint( "The Toolbox is too full to generate more spells." )
+				end
+			end
+		end
+	end
+
+	return success
+
+	-- if the spell couldn't spawn on the toolbox, spawn it in the world instead
+	-- if not spawned_in_toolbox then
+	-- 	CreateItemActionEntity( random_spell, px, py )
+	-- end
+end

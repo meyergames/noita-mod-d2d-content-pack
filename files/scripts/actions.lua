@@ -1090,6 +1090,42 @@ d2d_actions = {
 	},
 
     {
+	    id                  = "D2D_CIRCLE_OF_TINKERING",
+	    name 		        = "$spell_d2d_circle_of_tinkering_name",
+	    description         = "$spell_d2d_circle_of_tinkering_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/circle_of_tinkering.png",
+	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		spawn_level         = "5,6,10",
+		spawn_probability   = "0.4,0.6,1",
+	    price               = 200,
+	    mana                = 20,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+		destroyed_on_use	= true,
+	    action              = function()
+								c.fire_rate_wait = c.fire_rate_wait + 15
+
+	    						if reflecting then return end
+
+								local action = hand[#hand]
+								if action.id == "D2D_CIRCLE_OF_TINKERING" then
+									local action_entity = find_action_entity( action )
+									if action_entity then
+			    						-- spawn a permanent circle of tinkering
+			    						local x, y = EntityGetTransform( GetUpdatedEntityID() )
+										EntityLoad( "mods/D2DContentPack/files/entities/misc/wand_tinkering_aura.xml", x, y )
+
+										-- ...then destroy this spell as a sacrifice
+										EntityKill( action_entity )
+										EntityLoad("mods/D2DContentPack/files/particles/fade_circle_of_tinkering.xml", x, y )
+										GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+										GamePrint( "The \"Circle of Tinkering\" spell was consumed" )
+									end
+								end
+	                        end,
+    },
+
+    {
 	    id                  = "D2D_SUMMON_BEACON",
 	    name 		        = "$spell_d2d_summon_beacon_name",
 	    description         = "$spell_d2d_summon_beacon_desc",
@@ -1239,6 +1275,7 @@ d2d_actions = {
         subtype     		= { altfire = true },
 		spawn_level         = "0", -- should only spawn on the Staff of Time
 		spawn_probability   = "0", -- should only spawn on the Staff of Time
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_blink_mid_fire.xml",
         price 				= 800,
         mana 				= 200,
@@ -1662,39 +1699,47 @@ d2d_actions = {
 		spawn_probability   = "0.3,0.5,0.4,0.3,0.2,0.5",
 		price               = 200,
 		mana                = 0,
-		-- max_uses			= 1,
-		-- custom_uses_logic	= true,
 		action 		        = function()
-								draw_actions( 1, true )
-
 								if reflecting then return end
 								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
-								if #hand >= 2 then
-									local next_limited_use_spell = nil
-									for i,card in ipairs( hand ) do
-										local _data = get_actions_lua_data( card.id )
-										if _data.max_uses and _data.max_uses > -1 then
-											next_limited_use_spell = card
-											break
+								local action = hand[#hand]
+								if action.id == "D2D_SECOND_WIND" then
+									local action_entity = find_action_entity( action )
+									if action_entity then
+										-- draw the next spell
+										draw_actions( 1, true )
+
+										if #hand >= 2 then
+											local next_limited_use_spell = nil
+											for i,card in ipairs( hand ) do
+												local _data = get_actions_lua_data( card.id )
+												if _data.max_uses and _data.max_uses > -1 then
+													next_limited_use_spell = card
+													break
+												end
+											end
+
+											-- if the next spell is destroyed on use, do nothing
+											if next_limited_use_spell.id == "D2D_CIRCLE_OF_TINKERING" then
+												return
+											end
+
+											-- if the next spell is limited-use, refill it
+											if next_limited_use_spell and next_limited_use_spell.uses_remaining == 1 then
+												local action_lua_data = get_actions_lua_data( next_limited_use_spell.id )
+
+												local x, y = EntityGetTransform( GetUpdatedEntityID() )
+												next_limited_use_spell.uses_remaining = action_lua_data.max_uses + 1
+
+												-- ...then destroy this spell as a sacrifice
+												EntityKill( action_entity )
+												EntityLoad("mods/D2DContentPack/files/particles/fade_second_wind.xml", x, y )
+												GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+												GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/spell_refresh/create", x, y )
+												GamePrint( "\"Second Wind\" was sacrificed to refill \"" .. GameTextGetTranslatedOrNot( action_lua_data.name ) .. "\"" )
+											end
 										end
-									end
-
-									-- if the next spell is limited-use, refill it
-									if next_limited_use_spell and next_limited_use_spell.uses_remaining == 1 then
-										local action_lua_data = get_actions_lua_data( next_limited_use_spell.id )
-
-										local x, y = EntityGetTransform( GetUpdatedEntityID() )
-										next_limited_use_spell.uses_remaining = action_lua_data.max_uses + 1
-
-										-- ...then destroy this spell as a sacrifice
-										local EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
-										EZWand.GetHeldWand():RemoveSpells( "D2D_SECOND_WIND" )
-
-										EntityLoad("mods/D2DContentPack/files/particles/fade_second_wind.xml", x, y )
-										GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
-										GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/spell_refresh/create", x, y )
-										GamePrint( "\"Second Wind\" was sacrificed to refill \"" .. GameTextGetTranslatedOrNot( action_lua_data.name ) .. "\"" )
 									end
 								end
 		                    end,
@@ -1940,6 +1985,7 @@ d2d_actions = {
         subtype     		= { altfire = true },
 		spawn_level         = "0", -- should only spawn on the Staff of Loyalty
 		spawn_probability   = "0", -- should only spawn on the Staff of Loyalty
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_animate_wand_mid_fire.xml",
         price 				= 500,
         mana 				= 0,
@@ -1967,6 +2013,7 @@ d2d_actions = {
         subtype     		= { altfire = true },
 		spawn_level         = "0", -- should only spawn on the Staff of Loyalty
 		spawn_probability   = "0", -- should only spawn on the Staff of Loyalty
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_home_teleport_mid_fire.xml",
         price 				= 500,
         mana 				= 0,
@@ -2010,6 +2057,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0", -- never spawns in the world
 		spawn_probability   = "0", -- never spawns in the world
+		spawn_requires_flag = "d2d_impossible_spawn",
 		only_if_mod_enabled = "Apotheosis",
 	    price               = 400,
 	    mana                = 5,

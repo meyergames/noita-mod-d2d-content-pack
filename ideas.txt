@@ -7,6 +7,8 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] simple damage modifier that multiplies damage by x1.5
+
 [ ] Perksmith has some odd behaviour with perk rerolls; rerolling and then picking up the perk between the pickups (which also 		 rerolls) causes the perks on the altar to disappear, and the heart + diamond to remain
 
 [ ] A Wand of Destruction buff?

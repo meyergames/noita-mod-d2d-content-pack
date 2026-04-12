@@ -189,6 +189,7 @@ d2d_perks = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
+		not_in_default_perk_pool = true, -- discontinued, to be removed in the future
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if ( pickup_count <= 1 ) then
 				EntityAddComponent( entity_who_picked, "LuaComponent", 
@@ -1149,14 +1150,20 @@ d2d_perk_reworks = {
 		ui_name_vanilla = "High Mana, Low Capacity",
 		ui_name = "$perk_d2d_summon_toolbox_name",
 		ui_description = "$perk_d2d_summon_toolbox_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/toolbox_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/toolbox.png",
-		stackable = STACKABLE_YES,
-		one_off_effect = true,
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/summon_toolbox_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/summon_toolbox.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
 		usable_by_enemies = false,
         func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+        	if pickup_count > 1 then return end
+
         	local x, y = EntityGetTransform( entity_who_picked )
-        	EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/toolbox_perk.xml", x, y - 8 )
+        	EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/toolbox.xml", x, y - 8 )
+        	EntityAddComponent2( entity_who_picked, "LuaComponent", {
+		        script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_summon_toolbox_update.lua",
+		        execute_every_n_frame = 60,
+        	})
         end,
 	},
 
