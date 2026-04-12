@@ -840,4 +840,3 @@ function spawn_random_upgrade_spells( amount, x, y )
 			EntitySetComponentsWithTagEnabled( spell_card_id, "item_unidentified", false )
     	end
     end
-end

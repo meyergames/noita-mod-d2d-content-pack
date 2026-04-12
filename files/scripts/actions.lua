@@ -450,6 +450,8 @@ d2d_actions = {
 
 			                    draw_actions( 1, true )
 		                    end,
+	},
+
 	{
 		id          		= "D2D_PROJECTILE_MORPH",
 		name 				= "$spell_d2d_projectile_morph_name",
@@ -684,6 +686,26 @@ d2d_actions = {
 			                    c.fire_rate_wait = c.fire_rate_wait - 1
 			                    c.spread_degrees = c.spread_degrees + 6
 			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/glass_shard.xml" )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_ECHO_SHOT",
+		name 		        = "$spell_d2d_echo_shot_name",
+		description         = "$spell_d2d_echo_shot_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/echo_shot.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/echo_shot.xml" },
+		type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4",
+		spawn_probability   = "0.4,0.6,0.8,1,1",
+		price               = 130,
+		mana                = 18,
+		action 		        = function()
+								c.fire_rate_wait = c.fire_rate_wait + 7
+								c.screenshake = c.screenshake + 1
+								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 10.0
+
+			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/echo_shot.xml" )
 		                    end,
 	},
 

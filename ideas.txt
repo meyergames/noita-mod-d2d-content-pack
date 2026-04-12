@@ -7,11 +7,16 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
-[ ] simple damage modifier that multiplies damage by x1.5
+[x] a "sweet spot" projectile. deals less damage than its contemporaries by default, but gains doubled damage when it hits an 
+		enemy at an exact range - including damage from modifiers. it could become white-glowing at that range.
 
-[ ] Perksmith has some odd behaviour with perk rerolls; rerolling and then picking up the perk between the pickups (which also 		 rerolls) causes the perks on the altar to disappear, and the heart + diamond to remain
+[ ] simple modifier that multiplies a projectile's damage by x1.5
+		[ ] should have some decent cast delay + reload time, since it's intended for slower spells anyway
 
-[ ] A Wand of Destruction buff?
+[ ] Perksmith has some odd behaviour with perk rerolls; rerolling and then picking up the perk between the pickups (which
+		also rerolls) causes the perks on the altar to disappear, and the heart + diamond to remain
+
+[x] A Wand of Destruction buff?
 
 [ ] (Greek) spell that copies all spells in the 4th wand slot. Good for having a shared AFA function on 2-3 wands (like heal + tele + dig)
 
