@@ -50,11 +50,12 @@ function OnModPostInit()
     ModLuaFileAppend("data/scripts/perks/perk_list.lua", "mods/D2DContentPack/files/scripts/perks.lua")
     -- ModLuaFileAppend("data/scripts/gun/procedural/starting_wand.lua", "mods/D2DContentPack/files/scripts/items/wands/starting_wand_append.lua")
 
-    -- if ModIsEnabled( "gkbrkn_noita" ) then
-    --     ModLuaFileAppend(
-    --         "mods/gkbrkn_noita/files/gkbrkn/misc/player_damage_received.lua",
-    --         "mods/D2DContentPack/files/scripts/mod_appends/gkbrkn_player_damage_received.lua" )
-    -- end
+    dofile_once( "mods/D2DContentPack/files/scripts/d2d_gsubs.lua" )
+
+    -- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+    -- local x, y = EntityGetTransform( get_player() )
+    -- EntityLoad( "data/entities/items/wands/wand_good/wand_good_2.xml", x, y )
+
 end
 
 function OnPlayerSpawned( player )

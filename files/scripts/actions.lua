@@ -693,19 +693,16 @@ d2d_actions = {
 	    description         = "$spell_d2d_unstable_nucleus_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/unstable_nucleus.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
-		-- spawn_level         = "1,2,3,4,5,6,10",
-		-- spawn_probability   = "0.1,0.25,0.5,0.75,1,1,0.75",
-		-- recursive 			= true,
-		spawn_level         = "0",
-		spawn_probability   = "0",
+		spawn_level         = "0", -- only spawns on the Wand of Destruction
+		spawn_probability   = "0", -- only spawns on the Wand of Destruction
+		spawn_requires_flag	= "d2d_impossible_spawn",
 	    price               = 480,
 	    mana                = 100,
 	    -- max_uses			= 3,
 	    -- custom_uses_logic	= true,
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_unstable_nucleus.xml",
 	    action              = function()
-                                c.fire_rate_wait    = c.fire_rate_wait + 160
                                 if reflecting then return end
-                                c.fire_rate_wait	= c.fire_rate_wait - 160
 
                                 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
                                 local nucleus = EntityGetWithTag( "d2d_unstable_nucleus" )
@@ -990,8 +987,8 @@ d2d_actions = {
 	    description         = "$spell_d2d_blue_magic_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blue_magic.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4,5",
-		spawn_probability   = "0.5,0.4,0.3,0.2,0.2,0.2",
+		spawn_level         = "0,1,2,3,4,5,6", -- spawn more often in Temple of the Arts
+		spawn_probability   = "0.2,0.2,0.3,0.3,0.4,1,1",
 	    price               = 150,
 	    mana                = 20,
 	    -- max_uses			= 10,

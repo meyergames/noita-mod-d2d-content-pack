@@ -7,6 +7,9 @@ local max_charges = get_internal_int( entity_id, "max_charges" )
 local p_x, p_y = EntityGetTransform( get_player() )
 local x, y = EntityGetTransform( entity_id )
 
+local controlscomp = EntityGetFirstComponent( get_player(), "ControlsComponent")
+local aim_x, aim_y = ComponentGetValue2(controlscomp, "mAimingVectorNormalized")
+
 local wand_hscomp = EntityGetFirstComponentIncludingDisabled( wand_id, "HotspotComponent" )
 local wand_x_offset, wand_y_offset = ComponentGetValueVector2( wand_hscomp, "offset" )
 
@@ -39,7 +42,10 @@ if wand.mana > 10 then
 		local y_offset = math.sin(theta) * 5
 	    local dir_x = ( x + x_offset ) - x
 		local dir_y = ( y + y_offset ) - y
-		shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge_white.xml", wand_x + dir_x, wand_y + dir_y, dir_x * 20, dir_y * 20 )
+
+		local ox = wand_x + ( aim_x * 24 ) + dir_x
+		local oy = wand_y + ( aim_y * 24 ) + dir_y
+		shoot_projectile( wand_id, "mods/D2DContentPack/files/entities/projectiles/deck/unstable_nucleus_charge_white.xml", ox, oy, dir_x * 20, dir_y * 20 )
 
 		-- spawn particles within the projectile's radius
 		for i=1,math.floor( 1 + ( charges * 0.004 ) ) do
@@ -64,15 +70,16 @@ if not is_fire_pressed or wand.mana <= 10 or wand.entity_id ~= wand_id then
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "ray_energy", 4500000 + ( charges * 9000 ) ) -- tripled at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "camera_shake", 10 + ( charges * 0.09 ) ) -- 100 at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "knockback_force", 1.0 + ( charges * 0.004 ) ) -- 5.0 at 1000 charges
-	-- GamePrint( "Exploded with " .. charges .. " charges" )
+	GamePrint( "Exploded with " .. charges .. " charges" )
 
 	local light_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "LightComponent" )
 	ComponentSetValue2( light_comp, "radius", 60 + ( charges * 0.12 ) )
 	
 	local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
-	ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + 160 )
-	ComponentSetValue2( acomp, "mReloadFramesLeft", 160 )
-	ComponentSetValue2( acomp, "reload_time_frames", 160 )
+	local reload_time = charges * 0.12
+	ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
+	ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
+	ComponentSetValue2( acomp, "reload_time_frames", reload_time )
 
 	EntityKill( entity_id )
 end
