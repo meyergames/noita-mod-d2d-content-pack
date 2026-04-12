@@ -806,3 +806,37 @@ function generate_random_toolbox_spells( amount, do_print )
 	-- 	CreateItemActionEntity( random_spell, px, py )
 	-- end
 end
+
+function spawn_random_upgrade_spells( amount, x, y )
+	local upgrades = {
+		"D2D_UPGRADE_CAPACITY",
+		"D2D_UPGRADE_CAPACITY",
+		"D2D_UPGRADE_CAPACITY",
+		"D2D_UPGRADE_FIRE_RATE",
+		"D2D_UPGRADE_FIRE_RATE",
+		"D2D_UPGRADE_MAX_MANA",
+		"D2D_UPGRADE_MAX_MANA",
+		"D2D_UPGRADE_MANA_CHARGE_SPEED",
+		"D2D_UPGRADE_MANA_CHARGE_SPEED",
+		"D2D_UPGRADE_SHUFFLE",
+		"D2D_UPGRADE_REMOVE_ALWAYS_CAST",
+	}
+
+	local arc = ( amount - 1 ) * 60
+    for i=1, amount do
+    	local spell_id = random_from_array( upgrades )
+        local spell_card_id = CreateItemActionEntity( spell_id, x, y )
+        local vel_comp = EntityGetFirstComponentIncludingDisabled( spell_card_id, "VelocityComponent" )
+        if vel_comp then
+			local dx, dy = x, y - 10 -- point upward
+			local dir = math.atan2( dy, dx )
+			-- dir = dir + Randomf( math.rad( -30 ), math.rad( 30 ) )
+			dir = dir + math.rad( -( arc / 2 ) + ( arc / amount ) * (i-1) )
+			local vx, vy = math.cos( dir ) * 100, math.sin( dir ) * 100
+			ComponentSetValue2( vel_comp, "mVelocity", vx, vy )
+			EntitySetComponentsWithTagEnabled( spell_card_id, "enabled_in_world", true )
+			EntitySetComponentsWithTagEnabled( spell_card_id, "enabled_in_inventory", false )
+			EntitySetComponentsWithTagEnabled( spell_card_id, "item_unidentified", false )
+    	end
+    end
+end
