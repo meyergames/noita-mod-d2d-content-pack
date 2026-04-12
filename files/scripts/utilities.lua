@@ -698,11 +698,11 @@ function spawn_random_perk( x, y, dont_remove_others )
 end
 
 
-function spawn_perk( perk_id, x, y )
+function spawn_perk( perk_id, x, y, dont_remove_others )
     dofile_once( "data/scripts/perks/perk_list.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
 
-    local perk = perk_spawn( x, y, perk_id )
+    local perk = perk_spawn( x, y, perk_id, dont_remove_others )
 end
 
 

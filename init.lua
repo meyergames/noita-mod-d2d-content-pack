@@ -66,16 +66,12 @@ function OnPlayerSpawned( player )
         ModSettingSet( "D2DContentPack.spawn_ancient_lurker_manually", true )
     end
 
-    -- if ModSettingGet( "D2DContentPack.cap_max_health" ) then
-    --     local dcomp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
-    --     ComponentSetValue2( dcomp, "max_hp_cap", 40 )
-    -- end
-
     dofile_once( "data/scripts/lib/utilities.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
     dofile( "mods/D2DContentPack/files/scripts/actions.lua" )
     dofile( "mods/D2DContentPack/files/scripts/perks.lua" )
 
+    -- maybe spawn a challenge perk
     if ModSettingGet( "D2DContentPack.spawn_challenge_perk_sometimes" ) then
         local rnd = Random( 0, 100 )
         if ( rnd <= 5 ) then
@@ -88,43 +84,24 @@ function OnPlayerSpawned( player )
         end
     end
 
+    -- spawn perks at start, if the player chose any in the mod settings
     for k, v in pairs( d2d_actions ) do
         if HasSettingFlag( v.id.."_spawn_at_start" ) then
             CreateItemActionEntity( v.id, 800, -100 )
         end
     end
-
     for k, v in pairs( d2d_perks ) do
         if HasSettingFlag( v.id.."_spawn_at_start" ) then
             perk_spawn( 800, -100, v.id )
         end
     end
-
     for k, v in pairs( d2d_perk_reworks ) do
         if HasSettingFlag( v.id.."_spawn_at_start" ) then
             perk_spawn( 800, -100, v.id )
         end
     end
-    -- if d2d_apoth_perks then
-    --     for k, v in pairs( d2d_apoth_perks ) do
-    --         if HasSettingFlag( v.id.."_spawn_at_start" ) then
-    --             perk_spawn( 800, -100, v.id )
-    --         end
-    --     end
-    -- end
 
     dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
-    -- spawn_random_staff( 0, -100, 55 )
-    -- spawn_random_staff( 20, -100, 75 )
-
-    -- dofile_once( "data/scripts/perks/perk.lua" )
-    -- spawn_random_perk( -20, -50 )
-    -- spawn_perk( "D2D_BLESSINGS_AND_CURSE", 0, -50 )
-    -- spawn_random_perk( 20, -50 )
-
-    -- dofile_once( "data/scripts/lib/utilities.lua" )
-    -- local px, py = EntityGetTransform( get_player() )
-    -- CreateItemActionEntity( "D2D_BLINK", px, py )
 
     EntityAddComponent( player, "LuaComponent", 
     {
@@ -138,46 +115,13 @@ function OnPlayerSpawned( player )
         execute_every_n_frame="60",
     } )
 
+    -- this is for Blue Magic
     EntityAddComponent( player, "LuaComponent", 
     {
         script_damage_received="mods/D2DContentPack/files/scripts/animals/player_damage_received.lua",
     } )
-
-    -- spawn love wand
-    -- local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
-    -- local wand = EZWand()
-    -- wand:SetName( "Bow of Charming", true )
-    -- wand.shuffle = false
-    -- wand.spellsPerCast = 1
-    -- wand.castDelay = 5
-    -- wand.rechargeTime = 59
-    -- wand.manaMax = 99
-    -- wand.manaChargeSpeed = 99
-    -- wand.capacity = 4
-    -- wand.spread = 0
-    -- wand:AddSpells( "D2D_CHARMING_ARROW", "ND2D_ALT_FIRE_ANYTHING", "D2D_CHARMING_WHISTLE", "D2D_COMMAND_ATTACK" )
-    -- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_charm_bow.png", 3, 6, 7, 0 )
-    -- wand:PlaceAt( 750, -100 )
-
-    -- disable the line below to start storing the player's stored spells
-    -- ModSettingSet( "D2DContentPack.som_stored_spells", "" )
-    -- RemoveFlagPersistent( "d2d_ancient_lurker_defeated" )
     
-    -- spawn_ancient_staff( 230, -79 )
-    -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ghost_of_memories.xml", -70, -79 )
-    -- EntityLoad( "mods/D2DContentPack/files/entities/animals/ancient_lurker.xml", -70, -79 )
-    
-    -- dofile_once( "data/scripts/lib/utilities.lua" )
-    -- local x, y = EntityGetTransform( get_player() )
-    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/spell_gem.xml", x + 20, y + 40 )
-
-    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 230, -109 )
-    -- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_remembrance_stuck.xml", 180, -109 )
-
-    -- spawn_staff_of_loyalty( 230, -79 )
-    -- GamePrintDelayed( "test 1", 240 )
-    -- GamePrintDelayed( "test 2", 480 )
-    -- GamePrintDelayed( "test 3", 540 )
+    dofile_once( "mods/D2DContentPack/files/scripts/d2d_class_loadouts.lua" )
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")

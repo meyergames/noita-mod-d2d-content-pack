@@ -10,7 +10,7 @@
 	</Base>
 
     <ProjectileComponent 
-        _enabled="1" 
+        _enabled="1"
         lob_min="0.5"
         lob_max="0.7"
         speed_min="400"

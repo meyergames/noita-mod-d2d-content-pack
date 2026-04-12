@@ -25,7 +25,7 @@ if ability_comp then
 		wand.mana = math.min( wand.mana + ( ( wand.manaChargeSpeed / 60 ) * 3.0 ), wand.manaMax )
 
 		if not get_internal_bool( GetUpdatedEntityID(), "d2d_reload_shield_move_speed_applied" ) then
-			multiply_move_speed( player, "d2d_reload_shield", 1.5, 1.25 )
+			multiply_move_speed( player, "d2d_reload_shield", 1.6, 1.3 )
 			set_internal_bool( GetUpdatedEntityID(), "d2d_reload_shield_move_speed_applied", true )
 		end
 	end

@@ -438,6 +438,7 @@ d2d_perks = {
 		stackable = STACKABLE_YES,
 		one_off_effect = false,
 		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if pickup_count <= 1 then
 				EntityAddComponent2( entity_who_picked, "LuaComponent",

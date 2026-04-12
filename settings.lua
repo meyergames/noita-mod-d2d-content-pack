@@ -514,6 +514,20 @@ mod_settings =
         },
     },
     {
+        category_id = "loadout_settings",
+        ui_name = "Class Loadouts",
+        ui_description = "",
+        settings = {
+            {
+                id = "spawn_loadout_sniper",
+                ui_name = "Spawn Sniper Loadout",
+                ui_description = "Preset wand, perk and health settings for a sneaky playstyle.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+        },
+    },
+    {
         category_id = "alt_fire_settings",
         ui_name = "Keybind: Alt Fire",
         ui_description = "Which button should be used to alt-fire?",

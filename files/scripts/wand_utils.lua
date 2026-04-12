@@ -218,7 +218,7 @@ function wand_upgrade_cast_delay( wand, percent, min_increase, limit )
 
 	if wand.castDelay > limit then
 		wand.castDelay = math.max( old_value - math.max( old_value * percent, min_increase ), limit )
-		GamePrint( "Your wand's cast delay was increased! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. ")" )
+		GamePrint( "Your wand's cast delay was reduced! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. ")" )
 		return true
 	end
 
@@ -231,7 +231,7 @@ function wand_upgrade_recharge_time( wand, percent, min_increase, limit )
 
 	if wand.rechargeTime > limit then
 		wand.rechargeTime = math.max( old_value - math.max( old_value * percent, min_increase ), limit )
-		GamePrint("Your wand's cast delay was increased! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.rechargeTime / 60 ) .. ")" )
+		GamePrint("Your wand's recharge time was reduced! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.rechargeTime / 60 ) .. ")" )
 		return true
 	end
 
@@ -732,6 +732,7 @@ function generate_random_toolbox_spells( amount, do_print )
 		"D2D_FIXED_ALTITUDE",
 
 		-- misc.
+		"D2D_RAPIDFIRE_SALVO",
 		"D2D_CIRCLE_OF_TINKERING",
 	}
 
