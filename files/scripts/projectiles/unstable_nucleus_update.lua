@@ -70,7 +70,7 @@ if not is_fire_pressed or wand.mana <= 10 or wand.entity_id ~= wand_id then
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "ray_energy", 4500000 + ( charges * 9000 ) ) -- tripled at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "camera_shake", 10 + ( charges * 0.09 ) ) -- 100 at 1000 charges
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "knockback_force", 1.0 + ( charges * 0.004 ) ) -- 5.0 at 1000 charges
-	GamePrint( "Exploded with " .. charges .. " charges" )
+	-- GamePrint( "Exploded with " .. charges .. " charges" )
 
 	local light_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "LightComponent" )
 	ComponentSetValue2( light_comp, "radius", 60 + ( charges * 0.12 ) )
