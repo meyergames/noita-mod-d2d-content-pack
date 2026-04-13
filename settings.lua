@@ -436,10 +436,10 @@ mod_settings =
         ui_description = "",
         settings = {
             {
-                id = "enable_repeating_update_messages",
-                ui_name = "Repeat in-game messages about new updates",
-                ui_description = "When this setting is enabled, in-game messages about\nnew updates to this mod will be shown once per run.",
-                value_default = true,
+                id = "enable_loadouts",
+                ui_name = "Enable Class Loadouts",
+                ui_description = "Spawns several class loadouts to choose from at the start of your run.",
+                value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
         }
@@ -510,20 +510,6 @@ mod_settings =
                 ui_description = "When enabled, this mod's Alt/Mid Fire spells will function even\nwhen the inventory is opened.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
-            },
-        },
-    },
-    {
-        category_id = "loadout_settings",
-        ui_name = "Class Loadouts",
-        ui_description = "",
-        settings = {
-            {
-                id = "enable_loadouts",
-                ui_name = "Enable Class Loadouts",
-                ui_description = "Spawns several class loadouts to choose from at the start of your run.",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
         },
     },

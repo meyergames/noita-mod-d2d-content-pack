@@ -232,14 +232,10 @@ function try_spawn_staff_of_nutrition()
     if GameHasFlagRun( "d2d_poi_spawned_staff_of_nutrition" ) then return end
     if not is_within_bounds( entity_id, 0, 400, 6650, 7000 ) then return end
 
-    GamePrint( "Test 1" )
-
     local targets = EntityGetWithTag( "homing_target" )
     if #targets > 0 then
         for i,target_id in ipairs( targets ) do
             local tx, ty = EntityGetTransform( target_id )
-
-            GamePrint( "Test 2" )
 
             -- if the enemy is west of the player and at least 300 units away, spawn the ghost
             if distance_between( entity_id, target_id ) > 300 and ty > 6650 then

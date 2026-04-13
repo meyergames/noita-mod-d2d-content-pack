@@ -51,11 +51,6 @@ local function empty_inventory( player )
         	EntityKill( wand )
         end
     end
-
-    -- start with a vial of water by default
-    local x, y = EntityGetTransform( player )
-    local water = EntityLoad( "data/entities/items/pickup/potion_water.xml", x, y )
-    GamePickUpInventoryItem( player, water, false )
 end
 
 function spawn_loadout_sniper( player )
@@ -66,6 +61,7 @@ function spawn_loadout_sniper( player )
 
 	-- spawn the second wand first, for some reason
     wand = EZWand()
+	wand:SetName( "Extractor", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
 	wand.castDelay = 6
@@ -84,6 +80,7 @@ function spawn_loadout_sniper( player )
 
 	-- spawn the first wand
     local wand = EZWand()
+	wand:SetName( "Crossbow", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
 	wand.castDelay = Random( 8, 12 )
@@ -111,6 +108,11 @@ function spawn_loadout_sniper( player )
     	ComponentSetValue2( dmg_comp, "hp", 2 ) -- 50 hp
     	ComponentSetValue2( dmg_comp, "max_hp", 2 ) -- 50 hp
     end
+
+    -- start with a vial of water
+    local x, y = EntityGetTransform( player )
+    local water = EntityLoad( "data/entities/items/pickup/potion_water.xml", x, y )
+    GamePickUpInventoryItem( player, water, false )
 end
 
 function spawn_loadout_tinkerer( player )
@@ -121,6 +123,7 @@ function spawn_loadout_tinkerer( player )
 
 	-- spawn the second wand first, for some reason
     local wand = EZWand()
+	wand:SetName( "Wand Mk.2", true )
 	wand.shuffle = true
 	wand.spellsPerCast = 2
 	wand.castDelay = Random( 3, 8 )
@@ -136,6 +139,7 @@ function spawn_loadout_tinkerer( player )
 
 	-- spawn the first wand
     local wand = EZWand()
+	wand:SetName( "Wands", true )
 	wand.shuffle = true
 	wand.spellsPerCast = 1
 	wand.castDelay = Random( 1, 2 )
@@ -146,6 +150,7 @@ function spawn_loadout_tinkerer( player )
 	wand.capacity = 10
 	wand.spread = 15
 	wand:AttachSpells(
+		"CHAOTIC_ARC",
 		"D2D_OVERCLOCK",
 		"BOUNCE" )
 	wand:AddSpells(
@@ -169,6 +174,90 @@ function spawn_loadout_tinkerer( player )
 
 	-- put the toolbox in the player's inventory
 	GamePickUpInventoryItem( player, EntityGetWithTag( "d2d_toolbox")[1], false )
+
+    -- start with a vial of water
+    local x, y = EntityGetTransform( player )
+    local water = EntityLoad( "data/entities/items/pickup/potion_water.xml", x, y )
+    GamePickUpInventoryItem( player, water, false )
+end
+
+function spawn_loadout_pyromancer( player )
+	empty_inventory( player )
+
+	local x, y = EntityGetTransform( player )
+	y = y - 32
+
+	-- spawn the second wand first, for some reason
+    local wand = EZWand()
+	wand:SetName( "Wildfire", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 3
+	wand.castDelay = Random( 1, 3 )
+	wand.rechargeTime = Random( 15, 20 )
+	wand.manaMax = Random( 221, 229 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 12, 15 )
+	wand.capacity = 3
+	wand.spread = 3
+	wand:AttachSpells( "TORCH", "CHAOTIC_ARC", "BOUNCE" )
+	wand:AddSpells( "FIREBOMB", "FIREBOMB", "FIREBOMB" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_2.png", 7, 4, 8, 0 )
+	wand:PutInPlayersInventory()
+
+	-- spawn the first wand
+    local wand = EZWand()
+	wand:SetName( "Combustion", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = Random( 6, 8 )
+	wand.rechargeTime = Random( 20, 25 )
+	wand.manaMax = Random( 170, 220 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 21, 23 )
+	wand.capacity = 5
+	wand.spread = 0
+	wand:AddSpells( "D2D_ECHO_SHOT", "D2D_ECHO_SHOT", "D2D_ECHO_SHOT" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_1.png", 7, 5, 13, 0 )
+	wand:PutInPlayersInventory()
+
+	-- perks
+	give_perk( player, "D2D_MASTER_OF_FIRE" )
+	give_perk( player, "D2D_CURSE_STENDARI" )
+
+    -- start with alcohol
+    local x, y = EntityGetTransform( player )
+    local water = EntityLoad( "data/entities/items/pickup/potion_slime.xml", x, y )
+    GamePickUpInventoryItem( player, water, false )
+
+    -- change the player's sprite
+	local spritecomp_body = EntityGetFirstComponent( player, "SpriteComponent" )
+	if exists( spritecomp_body ) then
+		local image_file = ComponentGetValue2( spritecomp_body, "image_file" )
+		ComponentSetValue2( spritecomp_body, "image_file", "mods/D2DContentPack/files/gfx/enemies_gfx/loadouts/player_pyromancer.xml" )
+	end
+
+	local children = EntityGetAllChildren( player_id )
+	if exists( children ) then
+		for i,child in ipairs( children ) do
+
+			-- change the player's arm
+			if EntityGetName( child ) == "arm_r" then
+				local spritecomp_arm = EntityGetFirstComponent( child, "SpriteComponent" )
+				if exists( spritecomp_arm ) then
+					local image_file = ComponentGetValue2( spritecomp_arm, "image_file" )
+					set_internal_string( player_id, "d2d_afterlife_cached_sprite_arm", image_file )
+					ComponentSetValue2( spritecomp_arm, "image_file", "mods/D2DContentPack/files/gfx/enemies_gfx/player_afterlife_arm.xml")
+				end
+			end
+	
+			-- hide the cape
+		    if EntityGetName( child ) == "cape" then
+				for i,child_vp_comp in ipairs( EntityGetComponent( child, "VerletPhysicsComponent" ) ) do
+					ComponentSetValue2( child_vp_comp, "follow_entity_transform", false )
+				end
+		    end
+		end
+	end
 end
 
 function item_pickup( entity_item, entity_who_picked, item_name )

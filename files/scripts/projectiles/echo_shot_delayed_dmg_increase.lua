@@ -14,8 +14,19 @@ end
 -- change the explosion sprite
 local proj_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "ProjectileComponent" )
 if exists( proj_comp ) then
-	ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_sprite",
+	-- also make the projectile more destructive
+	local expl_radius = ComponentObjectGetValue2( proj_comp, "config_explosion", "explosion_radius" )
+	ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_radius", expl_radius + 4 )
+	local prev_mdtd = ComponentObjectGetValue2( proj_comp, "config_explosion", "max_durability_to_destroy" )
+	ComponentObjectSetValue2( proj_comp, "config_explosion", "max_durability_to_destroy", prev_mdtd + 2 )
+
+	if expl_radius + 4 > 8 then
+		ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_sprite",
+		"mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_032_red.xml" )
+	else
+		ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_sprite",
 		"mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_016_red.xml" )
+	end
 end
 
 -- change the particle colors

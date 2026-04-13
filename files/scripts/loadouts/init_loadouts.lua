@@ -1,6 +1,6 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
-local NUM_CLASSES = 2
+local NUM_CLASSES = 3
 
 classes = {
 	{
@@ -10,13 +10,20 @@ classes = {
 		ui_description = "$loadout_d2d_sniper_desc",
 		sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/sniper.png",
 	},
-	{
-		id = "D2D_CLASS_TINKERER",
-		function_name = "spawn_loadout_tinkerer",
-		ui_name = "$loadout_d2d_tinkerer_name",
-		ui_description = "$loadout_d2d_tinkerer_desc",
-		sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/tinkerer.png",
-	},
+    {
+        id = "D2D_CLASS_TINKERER",
+        function_name = "spawn_loadout_tinkerer",
+        ui_name = "$loadout_d2d_tinkerer_name",
+        ui_description = "$loadout_d2d_tinkerer_desc",
+        sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/tinkerer.png",
+    },
+    {
+        id = "D2D_CLASS_PYROMANCER",
+        function_name = "spawn_loadout_pyromancer",
+        ui_name = "$loadout_d2d_pyromancer_name",
+        ui_description = "$loadout_d2d_pyromancer_desc",
+        sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/pyromancer.png",
+    },
 }
 
 -- this function was copied and adjusted from the Selectable Classes mod
@@ -24,7 +31,9 @@ function spawn_class_cards( start_x, start_y )
     --generate class pickups in rows
     for i=1, NUM_CLASSES do
         --load pickup
-        local entity = EntityLoad( "mods/D2DContentPack/files/entities/misc/loadouts/class_card.xml", start_x + ( (i-1) * 40 ), start_y )
+        local entity = EntityLoad( "mods/D2DContentPack/files/entities/misc/loadouts/class_card.xml",
+            start_x + ( (i-1) * 20 ),
+            start_y + ( (i%2) * 20 ) )
         if entity == nil then return end
 
         local class = classes[i]
@@ -67,7 +76,7 @@ function spawn_class_cards( start_x, start_y )
 end
 
 local x, y = EntityGetTransform( get_player() )
-spawn_class_cards( x - ( (NUM_CLASSES-1) * 20 ), y - 32 )
+spawn_class_cards( x - ( (NUM_CLASSES-1) * 10 ), y - 60 )
 EntityLoad( "mods/D2DContentPack/files/entities/misc/loadouts/class_selection_aura.xml", x, y )
 
 if not HasFlagPersistent( "d2d_class_loadouts_introduced" ) then

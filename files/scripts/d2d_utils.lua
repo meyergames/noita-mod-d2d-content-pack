@@ -73,7 +73,7 @@ function multiply_proj_dmg( proj_id, mtp )
     if proj_comp then
         local old_dmg = ComponentGetValue2( proj_comp, "damage" )
         ComponentSetValue2( proj_comp, "damage", old_dmg * mtp )
-
+        
         local old_expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
         if exists( old_expl_dmg ) then
             ComponentSetValue2( proj_comp, "config_explosion", "damage", old_expl_dmg * mtp )
