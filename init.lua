@@ -121,7 +121,9 @@ function OnPlayerSpawned( player )
         script_damage_received="mods/D2DContentPack/files/scripts/animals/player_damage_received.lua",
     } )
     
-    dofile_once( "mods/D2DContentPack/files/scripts/d2d_class_loadouts.lua" )
+    if not HasFlagPersistent( "d2d_class_loadouts_introduced") or ModSettingGet( "D2DContentPack.enable_loadouts" ) then
+        dofile_once( "mods/D2DContentPack/files/scripts/loadouts/init_loadouts.lua" )
+    end
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")

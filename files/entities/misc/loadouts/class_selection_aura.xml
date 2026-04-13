@@ -1,0 +1,103 @@
+<Entity name="$projectile_default" tags="d2d_class_selection_aura">
+
+  <HitboxComponent 
+    aabb_min_x="-21" 
+    aabb_min_y="-21"
+    aabb_max_x="21" 
+    aabb_max_y="21" >
+  </HitboxComponent>
+
+  <!-- <GameAreaEffectComponent
+      radius="28"
+      frame_length="70"
+    >
+  </GameAreaEffectComponent> -->
+  
+	<ParticleEmitterComponent 
+		emitted_material_name="spark_white"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="2"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="100"
+		cosmetic_force_create="0"
+		airflow_force="0.1"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+  	<ParticleEmitterComponent 
+		emitted_material_name="spark_yellow"
+		gravity.y="0.0"
+		lifetime_min="0.5"
+		lifetime_max="1.5"
+		count_min="4"
+		count_max="4"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="100"
+		area_circle_radius.max="100"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+  <SpriteComponent 
+    _enabled="1" 
+    offset_x="0"
+    offset_y="0"
+    alpha="0.25"
+    image_file="data/projectiles_gfx/blast.xml"
+    additive="1"
+     >
+  </SpriteComponent>
+  
+  <VelocityComponent
+    gravity_y="0"
+    mass="0.07"
+    >
+  </VelocityComponent>
+  
+  <SpriteParticleEmitterComponent
+    sprite_file="mods/D2DContentPack/files/particles/tinkle_spark.xml"
+    delay="0"
+    lifetime="1.5"
+    color.r="1" color.g="1" color.b="1" color.a="1"
+    color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+    velocity.x="0" velocity.y="0"
+    gravity.x="0" gravity.y="10"
+    velocity_slowdown="0"
+    rotation="0"
+    angular_velocity="0"
+    use_velocity_as_rotation="0"
+    scale.x="1" scale.y="1"
+    scale_velocity.x="0" scale_velocity.y="0"
+    emission_interval_min_frames="3"
+    emission_interval_max_frames="6"
+    count_min="1" count_max="1"
+    randomize_position.min_x="-100"
+    randomize_position.max_x="100"
+    randomize_position.min_y="-100"
+    randomize_position.max_y="100"
+    velocity_always_away_from_center="1"
+    >
+  </SpriteParticleEmitterComponent>
+
+  <LuaComponent
+    script_source_file="mods/D2DContentPack/files/scripts/loadouts/class_selection_aura_update.lua"
+    execute_every_n_frame="1"
+  ></LuaComponent>
+
+</Entity>

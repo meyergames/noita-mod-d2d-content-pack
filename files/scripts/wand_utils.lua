@@ -840,3 +840,23 @@ function spawn_random_upgrade_spells( amount, x, y )
 			EntitySetComponentsWithTagEnabled( spell_card_id, "item_unidentified", false )
     	end
     end
+end
+
+function has_space_for_wand( player )
+    local wand_count = 0
+    local children = EntityGetAllChildren( player ) or {}
+    for key, child in pairs( children ) do
+        if EntityGetName( child ) == "inventory_quick" then
+            local may_be_wands = EntityGetAllChildren( child ) or {}
+            if #may_be_wands > 0 then
+                for i,may_be_wand in ipairs( may_be_wands ) do
+                    if EntityHasTag( may_be_wand, "wand" ) then
+                        wand_count = wand_count + 1
+                    end
+                end
+            end
+        end
+    end
+
+    return wand_count < 4
+end

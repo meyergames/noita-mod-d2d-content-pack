@@ -1,0 +1,5 @@
+<Entity tags="teleportable_NOT,d2d_class_card">
+  <LuaComponent 
+    script_item_picked_up="mods/D2DContentPack/files/scripts/loadouts/apply_loadout.lua"
+  ></LuaComponent>
+</Entity>

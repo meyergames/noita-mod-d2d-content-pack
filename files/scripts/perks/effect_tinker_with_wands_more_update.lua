@@ -11,8 +11,10 @@ for _,wand_id in pairs( EntityGetWithTag( "wand" ) ) do
 			if not ComponentGetValue2( itemcomp, "has_been_picked_by_player" ) then
 				local wx, wy = EntityGetTransform( wand_id )
 				if not string.find( BiomeMapGetName( wx, wy ), "holy" ) then
-					EntityLoad( "mods/D2DContentPack/files/entities/misc/wand_tinkering_aura.xml", wx, wy )	
-					set_internal_bool( wand_id, "d2d_twwm_wand_aura_spawned", true )
+					if not EntityHasTag( wand_id, "d2d_toolbox" ) then -- quick and dirty workaround for the Tinkerer loadout
+						EntityLoad( "mods/D2DContentPack/files/entities/misc/wand_tinkering_aura.xml", wx, wy )	
+						set_internal_bool( wand_id, "d2d_twwm_wand_aura_spawned", true )
+					end
 				end
 			end
 		end

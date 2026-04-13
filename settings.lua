@@ -519,9 +519,9 @@ mod_settings =
         ui_description = "",
         settings = {
             {
-                id = "spawn_loadout_sniper",
-                ui_name = "Spawn Sniper Loadout",
-                ui_description = "Preset wand, perk and health settings for a sneaky playstyle.",
+                id = "enable_loadouts",
+                ui_name = "Enable Class Loadouts",
+                ui_description = "Spawns several class loadouts to choose from at the start of your run.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
