@@ -738,7 +738,7 @@ function generate_random_toolbox_spells( amount, do_print )
 
 	local rare = {
 		-- ammo
-		"D2D_FORCE_CAST",
+		-- "D2D_FORCE_CAST",
 
 		-- shields
 		"ENERGY_SHIELD",
@@ -771,9 +771,9 @@ function generate_random_toolbox_spells( amount, do_print )
 				local rnd = Random( 1, 100 )
 				if rnd <= 5 then -- 5% chance for a rare spell (1/20)
 					spells = rare
-				elseif rnd <= 25 then -- 20% chance for an uncommon spell (1/5)
+				elseif rnd <= 20 then -- 15% chance for an uncommon spell (~1/7)
 					spells = uncommon
-				elseif rnd <= 100 then -- 75% chance for a common spell (3/4)
+				elseif rnd <= 100 then -- 80% chance for a common spell (4/5)
 					spells = common
 				end
 
