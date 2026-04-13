@@ -1160,11 +1160,20 @@ d2d_perk_reworks = {
         	if pickup_count > 1 then return end
 
         	local x, y = EntityGetTransform( entity_who_picked )
-        	EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/toolbox.xml", x, y - 8 )
+        	local toolbox_id = EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/toolbox.xml", x, y - 8 )
         	EntityAddComponent2( entity_who_picked, "LuaComponent", {
 		        script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_summon_toolbox_update.lua",
 		        execute_every_n_frame = 60,
         	})
+
+        	-- try to pick up the wand, if the player has space
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	if has_space_for_wand( entity_who_picked ) then
+        		local toolbox = EZWand( toolbox_id )
+        		if exists( toolbox ) then
+	        		toolbox:PutInPlayersInventory()
+	        	end
+        	end
         end,
 	},
 
