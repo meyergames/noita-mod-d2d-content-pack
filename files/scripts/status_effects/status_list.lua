@@ -13,7 +13,7 @@ d2d_status_effects =
     {
 		id="VIRAL_INFECTION_WEAK",
 		ui_name="Viral Infection (weakened)",
-		ui_description="Maybe medical attention wasn't quite enough.",
+		ui_description="The virus has been mostly cured, though you'll\nneed more Knowledge to completely get rid of it.",
 		ui_icon="mods/D2DContentPack/files/gfx/ui_gfx/status_effects/borrowed_time_012.png",
 		protects_from_fire=false,
 		effect_entity="mods/D2DContentPack/files/entities/misc/status_effects/effect_virus_weak.xml",
