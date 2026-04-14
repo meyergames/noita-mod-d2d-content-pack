@@ -3,7 +3,7 @@ dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 local proj_id = GetUpdatedEntityID()
 
 -- double the projectile's damage, including modifiers
-multiply_proj_dmg( proj_id, 2.0 )
+multiply_proj_dmg( proj_id, 4.0 )
 
 -- change the projectile sprite
 local sprite_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "SpriteComponent" )
@@ -16,11 +16,11 @@ local proj_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "Projectile
 if exists( proj_comp ) then
 	-- also make the projectile more destructive
 	local expl_radius = ComponentObjectGetValue2( proj_comp, "config_explosion", "explosion_radius" )
-	ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_radius", expl_radius + 4 )
+	ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_radius", expl_radius + 3 )
 	local prev_mdtd = ComponentObjectGetValue2( proj_comp, "config_explosion", "max_durability_to_destroy" )
 	ComponentObjectSetValue2( proj_comp, "config_explosion", "max_durability_to_destroy", prev_mdtd + 2 )
 
-	if expl_radius + 4 > 8 then
+	if expl_radius + 3 > 8 then
 		ComponentObjectSetValue2( proj_comp, "config_explosion", "explosion_sprite",
 		"mods/D2DContentPack/files/gfx/projectiles_gfx/explosion_032_red.xml" )
 	else

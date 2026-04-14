@@ -859,3 +859,22 @@ function has_space_for_wand( player )
 
     return wand_count < 4
 end
+
+function last_wand( player )
+    local wands = {}
+    local children = EntityGetAllChildren( player ) or {}
+    for key, child in pairs( children ) do
+        if EntityGetName( child ) == "inventory_quick" then
+            local may_be_wands = EntityGetAllChildren( child ) or {}
+            if #may_be_wands > 0 then
+                for i,may_be_wand in ipairs( may_be_wands ) do
+                    if EntityHasTag( may_be_wand, "wand" ) then
+                        table.insert( wands, may_be_wand )
+                    end
+                end
+            end
+        end
+    end
+    
+    return wands[#wands]
+end
