@@ -720,7 +720,6 @@ function generate_random_toolbox_spells( amount, do_print )
 		"D2D_RELOAD_SHIELD",
 
 		-- mana
-		"D2D_MANA_SPLIT",
 		"D2D_MANA_REFILL_ALT_FIRE",
 
 		-- shuffle
@@ -737,8 +736,8 @@ function generate_random_toolbox_spells( amount, do_print )
 	}
 
 	local rare = {
-		-- ammo
-		-- "D2D_FORCE_CAST",
+		-- mana
+		"D2D_MANA_SPLIT",
 
 		-- shields
 		"ENERGY_SHIELD",
