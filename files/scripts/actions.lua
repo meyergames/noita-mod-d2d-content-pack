@@ -797,6 +797,7 @@ d2d_actions = {
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "6,10",
 		spawn_probability   = "0.1,0.5",
+		spawn_requires_flag = "d2d_staff_of_obliteration_obtained",
 		price               = 690,
 		mana                = 99,
 		action 		        = function()
