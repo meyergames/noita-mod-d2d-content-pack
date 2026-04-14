@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function death( damage_type_bit_field, damage_message, entity_thats_responsible, drop_items )
     local owner = GetUpdatedEntityID()
