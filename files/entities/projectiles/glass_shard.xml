@@ -13,4 +13,9 @@
       event_root="player_projectiles/fizzle">
   </AudioComponent>
 
+  <VariableStorageComponent
+      name="projectile_file"
+      value_string="mods/D2DContentPack/files/entities/projectiles/glass_shard.xml"
+  ></VariableStorageComponent>
+
 </Entity>
