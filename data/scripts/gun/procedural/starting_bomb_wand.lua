@@ -47,7 +47,7 @@ gun.mana_charge_speed = {5,20}
 gun.mana_max = {80,110}
 gun.actions = { "BOMB", "DYNAMITE", "MINE", "ROCKET", "GRENADE" }
 
-if ModSettingGet( "D2DContentPack.sometimes_start_with_banana_bomb" ) and not ModSettingGet( "D2D_BANANA_BOMB_disabled") then
+if ModSettingGet( "D2DContentPack.sometimes_start_with_d2d_spells" ) and not ModSettingGet( "D2D_BANANA_BOMB_disabled") then
 	table.insert( gun.actions, "D2D_BANANA_BOMB" )
 end
 

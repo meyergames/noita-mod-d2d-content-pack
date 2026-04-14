@@ -54,11 +54,16 @@ if ModSettingGet( "D2DContentPack.more_starting_wand_variety" ) then
 	table.insert( gun.actions, "BUCKSHOT" )
 	table.insert( gun.actions, "DISC_BULLET" )
 end
-if ModSettingGet( "D2DContentPack.sometimes_start_with_glass_shard" ) and not ModSettingGet( "D2D_GLASS_SHARD_disabled") then
-	table.insert( gun.actions, "D2D_GLASS_SHARD" )
-end
-if ModSettingGet( "D2DContentPack.sometimes_start_with_sniper_bolt" ) and not ModSettingGet( "D2D_SNIPE_SHOT_disabled") then
-	table.insert( gun.actions, "D2D_SNIPE_SHOT" )
+if ModSettingGet( "D2DContentPack.sometimes_start_with_d2d_spells" ) then
+	if not ModSettingGet( "D2D_GLASS_SHARD_disabled") then
+		table.insert( gun.actions, "D2D_GLASS_SHARD" )
+	end
+	if not ModSettingGet( "D2D_ECHO_SHOT_disabled") then
+		table.insert( gun.actions, "D2D_ECHO_SHOT" )
+	end
+	if not ModSettingGet( "D2D_SNIPE_SHOT_disabled") then
+		table.insert( gun.actions, "D2D_SNIPE_SHOT" )
+	end
 end
 
 local mana_max = get_random_between_range( gun.mana_max )
