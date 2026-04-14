@@ -496,6 +496,27 @@ mod_settings =
         ui_description = "",
         settings = {
             {
+                id = "more_starting_wand_variety",
+                ui_name = "More starting wand variety",
+                ui_description = "When enabled, your starting wand may contain a wider\nvariety of the base game's projectile spells.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "dynamite_as_default_bomb",
+                ui_name = "Start with dynamite more often",
+                ui_description = "When enabled, your starting bomb wand has a higher chance\nto contain dynamite.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "sometimes_start_with_d2d_spells",
+                ui_name = "Sometimes start with D2D spells",
+                ui_description = "When enabled, your starting wands may sometimes contain\nspells exclusive to this mod, such as Glass Shard, Echo Bolt,\nSniper Bolt or the Banana Bomb.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
                 id = "beacon_hide_distance_threshold",
                 ui_name = "Beacon indicator max distance",
                 ui_description = "How far away must a Beacon be, before its indicator is hidden?\nA value of 0 means beacon indicators will always be visible.",
@@ -701,47 +722,6 @@ mod_settings =
                 value_default = true,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },
-        },
-    },
-    {
-        category_id = "starting_wand_settings",
-        ui_name = "Starting Wands",
-        ui_description = "",
-        settings = {
-            {
-                id = "more_starting_wand_variety",
-                ui_name = "More starting wand variety",
-                ui_description = "When enabled, your starting wand may contain a wider\nvariety of the base game's projectile spells.",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
-            },
-            {
-                id = "dynamite_as_default_bomb",
-                ui_name = "Start with dynamite more often",
-                ui_description = "When enabled, your starting bomb wand has a higher chance\nto contain dynamite.",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
-            },
-            {
-                id = "sometimes_start_with_d2d_spells",
-                ui_name = "Sometimes start with D2D spells",
-                ui_description = "When enabled, your starting wands may sometimes contain\nspells exclusive to this mod, such as Glass Shard, Echo Bolt,\nSniper Bolt or the Banana Bomb.",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
-            },
-            -- {
-            --     id = "afa_compat",
-            --     ui_name = "Disable alt fire spells if Alt Fire Anything is enabled",
-            --     ui_description = "If the Alt Fire Anything mod is enabled, disable this\nmod's individual alt fire spell variations.",
-            --     value_default = true,
-            --     scope = MOD_SETTING_SCOPE_NEW_GAME,
-            -- },
-            -- {
-            --     id = "Spells",
-            --     ui_name = "Enabled/disabled spells",
-            --     ui_fn = mod_setting_vertical_spacing,
-            --     not_setting = true,
-            -- },
         },
     },
     {
