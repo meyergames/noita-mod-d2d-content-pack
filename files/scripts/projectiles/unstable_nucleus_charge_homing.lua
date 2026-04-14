@@ -10,6 +10,10 @@ function ease_angle( angle, target_angle, easing )
     return angle - dir * easing
 end
 
+if get_internal_bool( entity, "d2d_unstable_nucleus_particle_expended" ) then
+    return
+end
+
 local spawn_time = get_internal_int( GetUpdatedEntityID(), "d2d_unstable_nucleus_charge_particle_spawn_time" )
 if not exists( spawn_time ) then
     set_internal_int( entity, "d2d_unstable_nucleus_charge_particle_spawn_time", GameGetFrameNum() )

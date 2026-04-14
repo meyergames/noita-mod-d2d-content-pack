@@ -82,4 +82,11 @@ if not is_fire_pressed or wand.mana <= 10 or wand.entity_id ~= wand_id then
 	ComponentSetValue2( acomp, "reload_time_frames", reload_time )
 
 	EntityKill( entity_id )
+
+	local particles = EntityGetWithTag( "d2d_unstable_nucleus_particle" )
+	if exists( particles ) then
+		for i,particle in ipairs( particles ) do
+			set_internal_bool( particle, "d2d_unstable_nucleus_particle_expended", true )
+		end
+	end
 end
