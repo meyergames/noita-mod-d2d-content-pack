@@ -1661,12 +1661,21 @@ d2d_actions = {
 									draw_actions( 1, true )
 
 									-- 1/4 chance to save a charge
-									if Random( 1, 4 ) == 4 then
-										next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
 
+									-- determine chance
+									local save_chance = 50
+									if next_card.never_unlimited then save_chance = 25 end
+
+									if Random( 1, 100 ) < save_chance then
+										next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
+										
 										local x, y = EntityGetTransform( GetUpdatedEntityID() )
 										GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 									end
+
+									-- if Random( 1, 4 ) == 4 then
+									-- 	next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
+									-- end
 								end
 		                    end,
 	},
