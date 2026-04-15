@@ -1468,13 +1468,15 @@ d2d_actions = {
 	    description         = "$spell_d2d_stabilize_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/stabilize.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "0,1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.9,0.8,0.7,0.6",
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag	= "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_stabilize.xml",
 	    price               = 130,
 	    mana                = 0,
 	    action              = function()
 			                    draw_actions( 1, true )
+			                    GamePrint( "The 'Stabilize' spell no longer works; it was made into a new perk." )
 	                        end,
     },
 
@@ -1920,7 +1922,7 @@ d2d_actions = {
 		spawn_level         = "0",
 		spawn_probability   = "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_capacity.xml",
-	    price               = 190,
+	    price               = 100,
 	    mana                = 0,
 	    max_uses			= 1,
 	    custom_uses_logic	= true,
@@ -1938,7 +1940,7 @@ d2d_actions = {
 		spawn_level         = "0",
 		spawn_probability   = "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_fire_rate.xml",
-	    price               = 190,
+	    price               = 100,
 	    mana                = 0,
 	    max_uses			= 1,
 	    custom_uses_logic	= true,
@@ -1956,7 +1958,7 @@ d2d_actions = {
 		spawn_level         = "0",
 		spawn_probability   = "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_max_mana.xml",
-	    price               = 190,
+	    price               = 100,
 	    mana                = 0,
 	    max_uses			= 1,
 	    custom_uses_logic	= true,
@@ -1974,7 +1976,7 @@ d2d_actions = {
 		spawn_level         = "0",
 		spawn_probability   = "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_mana_charge_speed.xml",
-	    price               = 190,
+	    price               = 100,
 	    mana                = 0,
 	    max_uses			= 1,
 	    custom_uses_logic	= true,
@@ -1992,7 +1994,7 @@ d2d_actions = {
 		spawn_level         = "0",
 		spawn_probability   = "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_shuffle.xml",
-	    price               = 490,
+	    price               = 100,
 	    mana                = 0,
 	    max_uses			= 1,
 	    custom_uses_logic	= true,
@@ -2010,7 +2012,7 @@ d2d_actions = {
 		spawn_level         = "0",
 		spawn_probability   = "0",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_remove_always_cast.xml",
-	    price               = 490,
+	    price               = 100,
 	    mana                = 0,
 	    max_uses			= 1,
 	    custom_uses_logic	= true,
@@ -2297,6 +2299,28 @@ d2d_actions = {
     },
 
     {
+	    id                  = "D2D_DISMANTLE_MID_FIRE",
+	    name 		        = "$spell_d2d_dismantle_mid_fire_name",
+	    description         = "$spell_d2d_dismantle_mid_fire_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/dismantle_mid_fire.png",
+	    type 		        = ACTION_TYPE_PASSIVE,
+        subtype     		= { altfire = true },
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_dismantle_mid_fire.xml",
+	    price               = 200,
+	    mana                = 0,
+	    action              = function()
+	    						current_reload_time = current_reload_time + 90
+	    						if reflecting then return end
+	    						current_reload_time = current_reload_time - 90
+
+	    						draw_actions( 1, true )
+	                        end,	
+    },
+
+    {
 	    id                  = "D2D_HUE_SHIFT_A",
 	    name 		        = "$spell_d2d_hue_shift_a_name",
 	    description         = "$spell_d2d_hue_shift_a_desc",
@@ -2321,30 +2345,6 @@ d2d_actions = {
 	    						end
 	                        end,
     },
-
-    -- {
-	--     id                  = "D2D_HUE_SHIFT_Z",
-	--     name 		        = "$spell_d2d_hue_shift_z_name",
-	--     description         = "$spell_d2d_hue_shift_z_desc",
-	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/hue_shift_z.png",
-	--     type 		        = ACTION_TYPE_PASSIVE,
-    --     subtype     		= { altfire = true },
-	-- 	spawn_level         = "0", -- should only spawn on the Staff of Light
-	-- 	spawn_probability   = "0", -- should only spawn on the Staff of Light
-	-- 	custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_hue_shift_z.xml",
-	--     price               = 500,
-	--     mana                = 0,
-	--     action              = function()
-	--     						draw_actions( 1, true )
-
-	--     						if not GameHasFlagRun( "d2d_mid_fire_key_rebind_explained" ) then
-	--     							dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-	--     							GamePrint( "[D2D] By default, 'Hue Shift Z' is cast with the middle mouse button", 60 )
-	--     							GamePrintDelayed( "[D2D] You can change this keybind in the mod's settings", 180 )
-	--     							GameAddFlagRun( "d2d_mid_fire_key_rebind_explained" )
-	--     						end
-	--                         end,
-    -- },
 }
 
 if actions ~= nil then
@@ -2365,39 +2365,77 @@ if actions ~= nil then
 	end
 end
 
--- function OrganiseProgress()
---     dofile_once( "data/scripts/gun/gun_actions.lua" )
 
---     -- Based on Conga Lyne's implementation
---     for insert_index = 1, #d2d_actions do
---         local action_to_insert = d2d_actions[insert_index]
---         -- Check if spells to inject after are defined
---         if action_to_insert.inject_after ~= nil then
---             -- Loop over actions
---             local found = false
---             for actions_index = #actions, 1, -1 do
---                 action = actions[actions_index]
---                 -- Loop over inject after options
---                 for inject_index = 1, #action_to_insert.inject_after do
---                     if action.id == action_to_insert.inject_after[inject_index] then
---                         found = true
---                         break
---                     end
---                 end
---                 if found then
---                     table.insert(actions, actions_index + 1, action_to_insert)
---                     break
---                 end
---                 if actions_index == 1 then
---                     --Insert here as a failsafe incase the matchup ID can't be found.. some other mod might delete the spell we're trying to insert at
---                     actions[#actions + 1] = action_to_insert
---                 end
---             end
---         else
---             actions[#actions + 1] = action_to_insert
---         end
---     end
--- end
+
+
+
+
+
+
+
+
+-- reworks
+if actions ~= nil then
+	local actions_to_edit = {
+		["DARKFLAME"] = {
+			max_uses = -1,
+		},
+
+		["ZETA"] = {
+			description         = "$spell_d2d_zeta_rework_desc",
+			spawn_level         = "5,6,10",
+			spawn_probability   = "0.1,0.1,1",
+			price               = 600,
+			mana                = 320,
+			max_uses			= 30,
+			never_unlimited		= true,
+			action 		        = function()
+									c.fire_rate_wait = c.fire_rate_wait + 50
+									if reflecting then return end
+
+									dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+									local last_wand = last_wand( get_player() )
+									if not exists( last_wand ) then return end
+									local actions = get_all_wand_actions( EZWand( last_wand ) )
+									if not exists( actions ) or #actions == 0 then return end
+
+									local spells_that_halt = { "RESET", "D2D_ALT_FIRE_ANYTHING", "ND2D_ALT_FIRE_ANYTHING" }
+						            for i=1, #actions do
+						            	local action = actions[i].entity_id
+					            		local action_id = actions[i].action_id
+
+					            		-- if the spell is RESET or AFA, end the loop
+					            		for i,spell_that_halts in ipairs( spells_that_halt ) do
+					            			if action_id == spell_that_halts then
+					            				return
+					            			end
+					            		end
+
+					            		local data = get_actions_lua_data( action_id )
+					            		local item_comp = EntityGetFirstComponentIncludingDisabled( action, "ItemComponent" )
+					            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+
+					            		-- below part is copied from OMEGA
+										local rec = check_recursion( data, recursion_level )
+										if ( data ~= nil ) and ( ( data.recursive == nil ) or ( data.recursive == false ) ) then
+											dont_draw_actions = true
+											data.action( rec )
+											dont_draw_actions = false
+										end
+						            end
+			                    end,
+	    },
+	}
+
+	for i=1,#actions do
+        if actions_to_edit[actions[i].id] then
+            for key, value in pairs(actions_to_edit[actions[i].id]) do
+                actions[i][key] = value
+            end
+            actions[i]['d2d_reworked'] = true
+        end
+    end
+end
 
 if actions ~= nil and ModSettingGet( "D2DContentPack.nerf_greek_spells" ) then
 	local actions_to_edit = {
