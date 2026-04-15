@@ -75,13 +75,16 @@ for i,creature_id in ipairs(creatures) do
         local e_max_hp = ComponentGetValue2( e_dcomp, "max_hp" )
         local fire_dmg_mtp = ComponentObjectGetValue2( e_dcomp, "damage_multipliers", "fire" )
 
-        -- custom fire damage formula
-        local remaining_hp_dmg = ( e_hp - e_max_hp ) * 0.02
-
         -- maybe spread fire
         if Random( 1, 3 ) == 3 then
             local cx, cy = EntityGetTransform( creature_id )
             spread_fire( creature_id, cx, cy )
+
+            -- deal 10% of remaining health as bonus fire damage, but only to enemies
+            if creature_id ~= owner then
+                local remaining_hp_dmg = math_clamp( e_hp * 0.1, 0.2, 4 )
+                EntityInflictDamage( creature_id, remaining_hp_dmg, "DAMAGE_FIRE", "master_of_fire fire", "NONE", 0, 0, owner, cx, cy, 0 )
+            end
         end
 
         -- fire heals the player if their health is below 20%
@@ -92,9 +95,6 @@ for i,creature_id in ipairs(creatures) do
 
                 GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
             end
-        -- apply the custom fire damage formula to everyone except the player
-        else
-            EntityInflictDamage( creature_id, remaining_hp_dmg, "DAMAGE_FIRE", "master_of_fire fire", "NONE", 0, 0, owner, x, y, 0 )
         end
     end
 end
