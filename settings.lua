@@ -442,6 +442,13 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
+            {
+                id = "enable_curses_on_loadouts",
+                ui_name = "Enable Curses on Class Loadouts",
+                ui_description = "When enabled, each class loadout has a thematically fitting Curse.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
         }
     },
     {

@@ -11,7 +11,7 @@ if EntityHasTag( parent_id, "d2d_toolbox" ) then return end
 
 -- do the upgrading
 local wand = EZWand( parent_id )
-if wand_upgrade_mana_charge_speed( wand, 0.1, 50, 5000 ) then
+if wand_upgrade_mana_charge_speed( wand, 0.1, 30, 5000 ) then
 	local x, y = EntityGetTransform( card_entity_id )
 	GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 	EntityKill( card_entity_id )

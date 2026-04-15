@@ -55,8 +55,9 @@ if is_mid_fire_pressed() and GameGetFrameNum() >= cooldown_frame then
 		EntityKill( spell.entity_id )
 	end
 
-	-- play explosion sfx
+	-- play explosion sfx/vfx
 	GamePlaySound( "data/audio/Desktop/explosion.bank", "explosions/glitter", x, y )
+	EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/dismantle_explosion.xml", x, y )
 
 	-- determine how many upgrades the player gets
 	local amt_of_upgrades = math.floor( points / 10 )
