@@ -1,6 +1,8 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 dofile("data/scripts/perks/perk.lua")
 
+local curses_enabled = ModSettingGet( "D2DContentPack.enable_curses_on_loadouts" )
+
 -- this function was copied from the Selectable Classes mod
 local function give_perk( target, perk )
     local data = get_perk_with_id(perk_list, perk)
@@ -99,8 +101,11 @@ function spawn_loadout_sniper( player )
 
 	-- spawn perks
 	give_perk( player, "INVISIBILITY" )
+	give_perk( player, "D2D_ALL_SEEING_EYE" )
 	give_perk( player, "LOWER_SPREAD" )
-	give_perk( player, "CRITICAL_HIT" )	
+	if curses_enabled then
+		give_perk( player, "D2D_CURSE_FRAGILE" )
+	end
 
     -- set the player's health
     local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
@@ -142,16 +147,21 @@ function spawn_loadout_tinkerer( player )
 	wand:SetName( "Wands", true )
 	wand.shuffle = true
 	wand.spellsPerCast = 1
-	wand.castDelay = Random( 1, 2 )
-	wand.rechargeTime = Random( 16, 24 )
 	wand.manaMax = Random( 170, 220 )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = Random( 50, 70 )
 	wand.capacity = 10
 	wand.spread = 15
+	if not curses_enabled then
+		wand.castDelay = Random( 1, 2 )
+		wand.rechargeTime = Random( 16, 24 )
+		wand:AttachSpells( "D2D_OVERCLOCK" )
+	else
+		wand.castDelay = Random( -14, -13 )
+		wand.rechargeTime = Random( 1, 2 )
+	end
 	wand:AttachSpells(
 		"CHAOTIC_ARC",
-		"D2D_OVERCLOCK",
 		"BOUNCE" )
 	wand:AddSpells(
 		"LIGHT_BULLET",
@@ -171,6 +181,9 @@ function spawn_loadout_tinkerer( player )
 	give_perk( player, "D2D_SUMMON_TOOLBOX" )
 	give_perk( player, "D2D_TINKER_WITH_WANDS_MORE" )
 	give_perk( player, "WAND_EXPERIMENTER" )
+	if curses_enabled then
+		give_perk( player, "D2D_CURSE_OVERHEATING" )
+	end
 
 	-- put the toolbox in the player's inventory
 	GamePickUpInventoryItem( player, EntityGetWithTag( "d2d_toolbox")[1], false )
@@ -199,8 +212,8 @@ function spawn_loadout_pyromancer( player )
 	wand.manaChargeSpeed = Random( 12, 15 )
 	wand.capacity = 3
 	wand.spread = 3
-	wand:AttachSpells( "TORCH", "CHAOTIC_ARC", "BOUNCE" )
-	wand:AddSpells( "FIREBOMB", "FIREBOMB", "FIREBOMB" )
+	wand:AttachSpells( "TORCH", "LIGHT", "CHAOTIC_ARC", "BOUNCE", "" )
+	wand:AddSpells( "AIR_BULLET", "AIR_BULLET", "AIR_BULLET" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_2.png", 7, 4, 8, 0 )
 	wand:PutInPlayersInventory()
 
@@ -222,7 +235,9 @@ function spawn_loadout_pyromancer( player )
 
 	-- perks
 	give_perk( player, "D2D_MASTER_OF_FIRE" )
-	give_perk( player, "D2D_CURSE_STENDARI" )
+	if curses_enabled then
+		give_perk( player, "D2D_CURSE_STENDARI" )
+	end
 
     -- start with alcohol
     local x, y = EntityGetTransform( player )

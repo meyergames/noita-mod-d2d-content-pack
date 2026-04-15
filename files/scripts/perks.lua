@@ -815,7 +815,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_stendari.xml" )
         end,
@@ -834,7 +834,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_repel_gold.xml" )
         end,
@@ -853,7 +853,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 			
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_divine_prank.xml" )
 
@@ -899,13 +899,22 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
-            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-			            { 
-				            extra_modifier = "d2d_overheating_wands",
-			            } )
+            EntityAddComponent2( entity_who_picked, "ShotEffectComponent", {
+            	_tags = "perk_component,d2d_overheating",
+	            extra_modifier = "d2d_overheating_wands",
+            })
         end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	local se_comps = EntityGetComponent( entity_who_picked, "ShotEffectComponent" )
+        	for i,se_comp in ipairs( se_comps ) do
+        		if ComponentHasTag( "d2d_overheating" ) then
+        			EntityRemoveComponent( entity_who_picked, se_comp )
+        		end
+        	end
+        end
 	},
 
 	{
@@ -921,12 +930,11 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
-            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
-			            { 
-				            extra_modifier = "d2d_no_rhythm",
-			            } )
+            EntityAddComponent2( entity_who_picked, "ShotEffectComponent", { 
+	            extra_modifier = "d2d_no_rhythm",
+            })
         end,
 	},
 
@@ -943,7 +951,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
            	LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_floor_is_lava.xml" )
         end,
@@ -962,7 +970,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_combustion.xml" )
         end,
@@ -981,7 +989,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_levitation_cramps.xml" )
         end,
@@ -1000,7 +1008,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_fall_damage.xml" )
         end,
@@ -1019,7 +1027,7 @@ d2d_curses = {
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if reflecting then return end
 			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
 			-- LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_heal_block.xml" )
 			if pickup_count <= 1 then
@@ -1035,6 +1043,40 @@ d2d_curses = {
         	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
         	remove_lua( entity_who_picked, "d2d_curse_heal_block" )
         end
+
+
+	},
+
+	{
+		id = "D2D_CURSE_FRAGILE",
+		ui_name = "$perk_d2d_curse_fragile_name",
+		ui_description = "$perk_d2d_curse_fragile_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/fragile_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/fragile.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if reflecting then return end
+			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+			GlobalsSetValue( "PLAYER_CURSE_COUNT", curse_count + 1 )
+
+			if pickup_count <= 1 then
+				EntityAddComponent2( entity_who_picked, "LuaComponent", 
+				{
+					_tags = "perk_component,d2d_curse_fragile",
+					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_curse_fragile_on_damage.lua",
+					execute_every_n_frame = -1,
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	remove_lua( entity_who_picked, "d2d_curse_fragile" )
+        end
+
+
 	},
 
 	-- fall damage
