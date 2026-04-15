@@ -436,21 +436,40 @@ d2d_actions = {
 		description         = "$spell_d2d_damage_mult_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_mult.png",
 		type 		        = ACTION_TYPE_MODIFIER,
-		-- spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
-		-- spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
-		spawn_level         = "0",
-		spawn_probability   = "0",
-		spawn_requires_flag	= "d2d_impossible_spawn", -- disabled for now since it doesn't work reliably
+		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
+		-- spawn_level         = "0",
+		-- spawn_probability   = "0",
+		-- spawn_requires_flag	= "d2d_impossible_spawn", -- disabled for now since it doesn't work reliably
 		price               = 200,
-		mana                = 20,
+		mana                = 50,
 		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 24
+			                    current_reload_time = current_reload_time + 24
 
 								if reflecting then return end
 
 								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_mult.xml,"
 								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
 
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_DAMAGE_RECHARGE",
+		name 		        = "$spell_d2d_damage_recharge_name",
+		description         = "$spell_d2d_damage_recharge_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_recharge.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.4", -- 2/3 of DAMAGE
+		-- spawn_level         = "0",
+		-- spawn_probability   = "0",
+		-- spawn_requires_flag	= "d2d_impossible_spawn",
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_damage_recharge.xml",
+		price               = 200,
+		mana                = 20,
+		action 		        = function()
 			                    draw_actions( 1, true )
 		                    end,
 	},
