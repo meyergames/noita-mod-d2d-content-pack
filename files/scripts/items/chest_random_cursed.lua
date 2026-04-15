@@ -79,15 +79,16 @@ end
 
 function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
     local max_curse_count = #d2d_curses
+	local cursed_chests_opened = get_internal_int( get_player(), "d2d_cursed_chests_opened" )
 	local curses_obtained = tonumber( GlobalsGetValue( "PLAYER_CURSE_COUNT" ) )
 
-	if curses_obtained == 1 then
+	if cursed_chests_opened == 1 then
 
 		-- on the first chest, spawn the Curse Hunter perk and the "Curses To X" spells
 		spawn_perk( "D2D_HUNT_CURSES", x, y, false )
    		CreateItemActionEntity( "D2D_CURSES_TO_DAMAGE", x - 20, y )
    		CreateItemActionEntity( "D2D_CURSES_TO_MANA", x + 20, y )
-		random_wand_reward( x, y - 20, curses_obtained )
+		random_wand_reward( x, y - 20, cursed_chests_opened )
 
 	elseif curses_obtained == max_curse_count + 1 then
 
@@ -99,8 +100,8 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	else
 
 		-- on most chests, give random perks to choose from, including a Blurse if possible
-		random_perk_reward( x, y, curses_obtained )
-		random_wand_reward( x, y - 20, curses_obtained )
+		random_perk_reward( x, y, cursed_chests_opened )
+		random_wand_reward( x, y - 20, cursed_chests_opened )
 
 	end
 end
