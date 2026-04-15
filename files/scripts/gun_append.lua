@@ -73,16 +73,15 @@ end
 local _order_deck = order_deck
 order_deck = function()
 	if reflecting then return end
-	
-	if GlobalsGetValue( "d2d_try_stabilize_wand" ) == "true" and Random( 1, 100 ) > 1 then
-		-- temporarily set the wand to its opposite shuffle setting
-		gun.shuffle_deck_when_empty = not gun.shuffle_deck_when_empty
 
+	if GameHasFlagRun( "D2D_STABILIZE_ACTIVE" )
+	and gun.shuffle_deck_when_empty 
+	and Random( 1, 50 ) > 1 then
+		gun.shuffle_deck_when_empty = false
 		_order_deck()
-
-		-- reset the wand's shuffle setting
-		gun.shuffle_deck_when_empty = not gun.shuffle_deck_when_empty
+		gun.shuffle_deck_when_empty = true
 	else
+		GamePrint( "GORSH" )
 		_order_deck()
 	end
 end

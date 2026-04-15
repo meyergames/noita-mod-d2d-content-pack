@@ -60,6 +60,7 @@ function OnPlayerSpawned( player )
 
     if not HasFlagPersistent( "d2d_force_init_mod_settings" ) then
         ModSettingSet( "D2D_TINKER_WITH_WANDS_MORE_disabled", true )
+        ModSettingSet( "D2D_STABILIZE_disabled", true )
         AddFlagPersistent( "d2d_force_init_mod_settings" )
     end
     if ModIsEnabled( "new_enemies" ) then

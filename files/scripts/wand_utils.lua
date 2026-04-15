@@ -702,9 +702,6 @@ function generate_random_toolbox_spells( amount, do_print )
 		"D2D_UPGRADE_MAX_MANA",
 		"D2D_UPGRADE_MANA_CHARGE_SPEED",
 		"D2D_UPGRADE_MANA_CHARGE_SPEED",
-
-		-- ammo
-		"D2D_SECOND_WIND",
 	}
 
 	local uncommon = {
@@ -713,17 +710,17 @@ function generate_random_toolbox_spells( amount, do_print )
 		"D2D_UPGRADE_REMOVE_ALWAYS_CAST",
 
 		-- ammo
+		"D2D_SECOND_WIND",
+		"D2D_SECOND_WIND",
 		"D2D_RECYCLE",
 
 		-- shields
 		"ENERGY_SHIELD_SECTOR",
-		"D2D_RELOAD_SHIELD",
 
 		-- mana
 		"D2D_MANA_REFILL_ALT_FIRE",
 
 		-- shuffle
-		"D2D_STABILIZE",
 		"D2D_SPRAY_AND_PRAY",
 
 		-- mobility
@@ -741,6 +738,7 @@ function generate_random_toolbox_spells( amount, do_print )
 
 		-- shields
 		"ENERGY_SHIELD",
+		"D2D_RELOAD_SHIELD",
 
 		-- misc.
 		"D2D_ALT_FIRE_ANYTHING",
@@ -752,8 +750,8 @@ function generate_random_toolbox_spells( amount, do_print )
 	end
 
 	-- if the player has defeated the Ancient Lurker, add Recycle Plus
-	-- local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
-	if HasFlagPersistent( "d2d_ancient_lurker_defeated" ) then
+	local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
+	if HasFlagPersistent( "d2d_ancient_lurker_defeated" ) and hm_visits >= 4 then
 		table.insert( rare, "D2D_RECYCLE_PLUS" )
 	end
 
@@ -766,7 +764,7 @@ function generate_random_toolbox_spells( amount, do_print )
 
 				-- pick Common, Uncommon or Rare table
 				local spells = {}
-				SetRandomSeed( px + i, py )
+				SetRandomSeed( px + i, py - GameGetFrameNum() )
 				local rnd = Random( 1, 100 )
 				if rnd <= 5 then -- 5% chance for a rare spell (1/20)
 					spells = rare
@@ -875,6 +873,6 @@ function last_wand( player )
             end
         end
     end
-    
+
     return wands[#wands]
 end

@@ -1178,6 +1178,24 @@ d2d_perk_reworks = {
 	},
 
 	{
+		id = "D2D_STABILIZE",
+		id_vanilla = "NO_MORE_SHUFFLE",
+		ui_name_vanilla = "No More Shuffle",
+		ui_name = "$perk_d2d_stabilize_name",
+		ui_description = "$perk_d2d_stabilize_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/stabilize_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/stabilize.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+        	if pickup_count > 1 then return end
+        	
+        	GameAddFlagRun( "D2D_STABILIZE_ACTIVE" )
+        end,
+	},
+
+	{
 		id = "D2D_DUPLICATE_WAND",
 		id_vanilla = "GKBRKN_DUPLICATE_WAND",
 		ui_name_vanilla = "Duplicate Wand",

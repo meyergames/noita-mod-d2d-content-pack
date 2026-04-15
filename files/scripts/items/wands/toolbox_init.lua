@@ -12,7 +12,7 @@ wand.manaChargeSpeed = 0
 wand.capacity = 10
 wand.spread = 0
 EntityAddTag( wand.entity_id, "d2d_toolbox" )
-
+wand:AttachSpells( "D2D_DISMANTLE_MID_FIRE" )
 wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_toolbox.png", 5, 2, 4, 3 )
 
 local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
