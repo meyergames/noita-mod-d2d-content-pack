@@ -13,12 +13,10 @@ if exists( wand ) and exists( proj_comp ) and not was_already_applied then
 	local time_until_full_mana = wand.manaMax / math.max( wand.manaChargeSpeed, 10 )
 
 	-- the spell is barely effective if the wand recharges its mana quickly
-	local effectiveness = ( time_until_full_mana * 0.1 ) -- 1s = 5%, 10s = 50%, etc
+	local effectiveness = ( time_until_full_mana * 0.1 ) -- 1s = 10%, 10s = 100%, 20s = 200%, ...
 
 	local dmg_mtp = 1.0 + ( ( wand.mana * 0.001 ) * effectiveness )
-	GamePrint( dmg_mtp )
-	wand.mana = 1
-    
+
 	multiply_proj_dmg( proj_id, dmg_mtp, "missing_mana_to_dmg" )
 	set_internal_bool( proj_id, "d2d_missing_mana_to_dmg_applied", true )
 end
