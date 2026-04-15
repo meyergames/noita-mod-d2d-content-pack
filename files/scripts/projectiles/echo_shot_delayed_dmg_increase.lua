@@ -3,7 +3,7 @@ dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 local proj_id = GetUpdatedEntityID()
 
 -- double the projectile's damage, including modifiers
-multiply_proj_dmg( proj_id, 4.0 )
+multiply_proj_dmg( proj_id, 4.0, "echo_shot" )
 
 -- change the projectile sprite
 local sprite_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "SpriteComponent" )

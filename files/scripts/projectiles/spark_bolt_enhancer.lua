@@ -13,7 +13,7 @@ if exists( proj_id ) then
 		if exists( action_name ) and string.find( string.lower( action_name ), "spark bolt" ) then
 
 			-- double dmg
-			multiply_proj_dmg( proj_id, 2.0 )
+			multiply_proj_dmg( proj_id, 2.0, "spark_bolt_enhancer" )
 			-- multiply_proj_speed( proj_id, 2.0 )
 
 			-- add knockback

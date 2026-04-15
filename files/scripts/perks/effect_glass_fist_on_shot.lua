@@ -9,6 +9,6 @@ function shot( projectile_entity_id )
 
 		local proj_comp = EntityGetFirstComponent( projectile_entity_id, "ProjectileComponent" )
 		local old_dmg = ComponentGetValue2( proj_comp, "damage" )
-		multiply_proj_dmg( projectile_entity_id, 3.0 - ( 0.5 ^ ( pickup_count - 1 ) ) )
+		multiply_proj_dmg( projectile_entity_id, 3.0 - ( 0.5 ^ ( pickup_count - 1 ) ), "glass_fist" )
 	end
 end

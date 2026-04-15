@@ -70,7 +70,7 @@ if proj_comp then
 		end
 
 		-- double the projectile's damage
-		multiply_proj_dmg( proj_id, 2.0 )
+		multiply_proj_dmg( proj_id, 2.0, "proj_morph" )
 
 		-- make the player immune to any damage from the projectile
 		ComponentSetValue2( proj_comp, "friendly_fire", false )

@@ -94,13 +94,14 @@ function spawn_loadout_sniper( player )
 	wand.spread = -5
 	wand:AddSpells(
 		"D2D_RELOAD_SHIELD",
+		"D2D_DAMAGE_RECHARGE",
 		"D2D_SNIPE_SHOT" )
-	wand:RemoveSpells( "LIGHT_BULLET", "LIGHT_BULLET" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/sniper_1.png", 10, 5, 11, 0 )
 	wand:PutInPlayersInventory()
 
 	-- spawn perks
 	give_perk( player, "INVISIBILITY" )
+	-- give_perk( player, "REPELLING_CAPE" )
 	give_perk( player, "D2D_ALL_SEEING_EYE" )
 	give_perk( player, "LOWER_SPREAD" )
 	if curses_enabled then

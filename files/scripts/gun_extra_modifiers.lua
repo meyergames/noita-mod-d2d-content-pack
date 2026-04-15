@@ -127,3 +127,14 @@ extra_modifiers["d2d_fairy_friend"] = function()
         c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * #nearby_fairies )
     end
 end
+
+extra_modifiers["d2d_damage_recharge"] = function()
+    local is_enabled = get_internal_bool( get_player(), "d2d_damage_recharge_enabled", is_enabled )
+    if not is_enabled then return end
+
+    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_recharge.xml,"
+end
+
+extra_modifiers["d2d_proj_dmg_mtp"] = function()
+    -- c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/proj_dmg_mtp_apply.xml,"
+end

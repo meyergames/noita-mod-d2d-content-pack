@@ -7,6 +7,10 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Mid-fire spell for all class loadout wands that destroys a nearby wand to take over all of its stats, so that their
+	appearance can be kept throughout a run.
+	[ ] Spells that no longer fit due to reduced capacity would be ejected.
+
 [ ] Curse: all wands you find have some annoying always-cast
 		( things like Chaotic Path, Giant Explosion on Slimy Enemies, Reduce Lifetime, Nolla, Heavy Spread, Anti Homing, 
 		  Recoil, Decelerating Shot, Avoiding Arc, Oil Trail, Blood To Acid, ... )

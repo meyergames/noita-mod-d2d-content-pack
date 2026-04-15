@@ -18,6 +18,6 @@ if exists( wand ) and exists( proj_comp ) and not was_already_applied then
 
     local mtp = 1.0 + ( mtp1 * mtp2 * mtp3 )
     
-	multiply_proj_dmg( proj_id, mtp )
+	multiply_proj_dmg( proj_id, mtp, "missing_mana_to_dmg" )
 	set_internal_bool( proj_id, "d2d_missing_mana_to_dmg_applied", true )
 end

@@ -125,6 +125,10 @@ function OnPlayerSpawned( player )
     if not HasFlagPersistent( "d2d_class_loadouts_introduced") or ModSettingGet( "D2DContentPack.enable_loadouts" ) then
         dofile_once( "mods/D2DContentPack/files/scripts/loadouts/init_loadouts.lua" )
     end
+
+    EntityAddComponent2( player, "ShotEffectComponent", {
+        extra_modifier = "d2d_proj_dmg_mtp",
+    })
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")

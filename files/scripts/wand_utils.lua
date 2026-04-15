@@ -740,6 +740,9 @@ function generate_random_toolbox_spells( amount, do_print )
 		"ENERGY_SHIELD",
 		"D2D_RELOAD_SHIELD",
 
+		-- damage
+		"D2D_DAMAGE_RECHARGE",
+
 		-- misc.
 		"D2D_ALT_FIRE_ANYTHING",
 	}

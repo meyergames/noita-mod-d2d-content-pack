@@ -68,27 +68,40 @@ function math_clamp( value, low, high )
     return math.min( math.max( value, low ), high )
 end
 
-function multiply_proj_dmg( proj_id, mtp )
-    local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
-    if proj_comp then
-        local old_dmg = ComponentGetValue2( proj_comp, "damage" )
-        ComponentSetValue2( proj_comp, "damage", old_dmg * mtp )
-        
-        local old_expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
-        if exists( old_expl_dmg ) then
-            ComponentSetValue2( proj_comp, "config_explosion", "damage", old_expl_dmg * mtp )
-        end
+function multiply_proj_dmg( proj_id, mtp, mtp_source_name )
+    local existing_mtp_sources = get_internal_string( proj_id, "d2d_proj_dmg_mtp_sources" ) or ""
 
-        -- TODO: do this for the other damage types as well
-        local damage_types = { "melee", "projectile", "explosion", "electricity", "fire", "drill", "slice", "ice", "healing", "physics_hit", "radioactive", "poison", "curse", "holy" }
-        for i,dmg_type in ipairs( damage_types ) do
-            local old_dmg = ComponentObjectGetValue2( proj_comp, "damage_by_type", dmg_type )
-            if exists( old_dmg ) then
-                ComponentObjectSetValue2( proj_comp, "damage_by_type", dmg_type, old_dmg * mtp )
-            end 
+    if not string.find( existing_mtp_sources, mtp_source_name ) then
+        set_internal_string( proj_id, "d2d_proj_dmg_mtp_sources", existing_mtp_sources .. mtp_source_name .. "," )
+
+        local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
+        if proj_comp then
+            local old_dmg = ComponentGetValue2( proj_comp, "damage" )
+            ComponentSetValue2( proj_comp, "damage", old_dmg * mtp )
+
+            local old_expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
+            if exists( old_expl_dmg ) then
+                ComponentObjectSetValue2( proj_comp, "config_explosion", "damage", old_expl_dmg * mtp )
+            end
+
+            -- TODO: do this for the other damage types as well
+            local damage_types = { "melee", "projectile", "explosion", "electricity", "fire", "drill", "slice", "ice", "healing", "physics_hit", "radioactive", "poison", "curse", "holy" }
+            for i,dmg_type in ipairs( damage_types ) do
+                local old_dmg = ComponentObjectGetValue2( proj_comp, "damage_by_type", dmg_type )
+                if exists( old_dmg ) then
+                    ComponentObjectSetValue2( proj_comp, "damage_by_type", dmg_type, old_dmg * mtp )
+                end 
+            end
         end
     end
 end
+
+-- function trigger_proj_dmg_mtp( proj_id )
+--     local mtp = get_internal_float( proj_id, "d2d_proj_dmg_mtp" )
+--     if not mtp then return end
+
+--     set_internal_float( proj_id, "d2d_proj_dmg_mtp", 1.0 )
+-- end
 
 function multiply_proj_speed( proj_id, mtp )
     local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
