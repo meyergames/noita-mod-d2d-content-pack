@@ -436,11 +436,8 @@ d2d_actions = {
 		description         = "$spell_d2d_damage_mult_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_mult.png",
 		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
-		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
-		-- spawn_level         = "0",
-		-- spawn_probability   = "0",
-		-- spawn_requires_flag	= "d2d_impossible_spawn", -- disabled for now since it doesn't work reliably
+		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
 		price               = 200,
 		mana                = 50,
 		action 		        = function()
@@ -462,14 +459,17 @@ d2d_actions = {
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_recharge.png",
 		type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
-		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.4", -- 2/3 of DAMAGE
-		-- spawn_level         = "0",
-		-- spawn_probability   = "0",
-		-- spawn_requires_flag	= "d2d_impossible_spawn",
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
 		price               = 200,
-		mana                = 40,
+		mana                = 50,
 		action 		        = function()
-								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/damage_recharge_apply.xml,"
+			                    c.fire_rate_wait = c.fire_rate_wait + 25
+
+								if reflecting then return end
+
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_recharge.xml,"
+								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+
 			                    draw_actions( 1, true )
 		                    end,
 	},
@@ -2419,8 +2419,6 @@ if actions ~= nil then
 			spawn_probability   = "0.1,0.1,1",
 			price               = 600,
 			mana                = 320,
-			max_uses			= 30,
-			never_unlimited		= true,
 			action 		        = function()
 									c.fire_rate_wait = c.fire_rate_wait + 50
 									if reflecting then return end
@@ -2456,6 +2454,14 @@ if actions ~= nil then
 										end
 						            end
 			                    end,
+	    },
+	    
+	    ["ROCKET_TIER_2"] = {
+	    	max_uses = 10,
+	    },
+	    
+	    ["ROCKET_TIER_3"] = {
+	    	max_uses = 10,
 	    },
 	}
 
@@ -2519,6 +2525,11 @@ if actions ~= nil and ModSettingGet( "D2DContentPack.nerf_greek_spells" ) then
 	    ["D2D_DELTA"] = {
 	    	max_uses = 30,
 	    	never_unlimited = true,
+	    },
+
+	    ["ZETA"] = {
+			max_uses = 30,
+			never_unlimited = true,
 	    },
 	}
 

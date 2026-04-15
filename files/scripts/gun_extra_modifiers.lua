@@ -74,9 +74,9 @@ end
 extra_modifiers["d2d_no_rhythm"] = function()
     local enabled = get_perk_pickup_count( "D2D_CURSE_NO_RHYTHM" ) > 0
     if enabled and exists( c ) then
-        local rand = Random( 72, 128 )
-        c.fire_rate_wait = c.fire_rate_wait * rand * 0.01
-        current_reload_time = current_reload_time * rand * 0.01
+        local mtp = 0.01 * Random( 72, 128 ) -- i.e. 0.72 - 1.28
+        c.fire_rate_wait = math_clamp( c.fire_rate_wait * mtp, c.fire_rate_wait, c.fire_rate_wait + 10 )
+        current_reload_time = math_clamp( current_reload_time * mtp, current_reload_time, current_reload_time + 10 )
     end
 end
 
