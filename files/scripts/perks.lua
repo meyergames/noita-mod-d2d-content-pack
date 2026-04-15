@@ -1167,13 +1167,13 @@ d2d_perk_reworks = {
         	})
 
         	-- try to pick up the wand, if the player has space
-        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-        	if has_space_for_wand( entity_who_picked ) then
-        		local toolbox = EZWand( toolbox_id )
-        		if exists( toolbox ) then
-	        		toolbox:PutInPlayersInventory()
-	        	end
-        	end
+        	-- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	-- if has_space_for_wand( entity_who_picked ) then
+        	-- 	local toolbox = EZWand( toolbox_id )
+        	-- 	if exists( toolbox ) then
+	        -- 		toolbox:PutInPlayersInventory()
+	        -- 	end
+        	-- end
         end,
 	},
 
@@ -1192,6 +1192,13 @@ d2d_perk_reworks = {
         	if pickup_count > 1 then return end
         	
         	GameAddFlagRun( "D2D_STABILIZE_ACTIVE" )
+
+            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+            if not HasFlagPersistent( "d2d_update_msg_displayed_no_more_shuffle_rework" ) then
+	            GamePrintDelayed( "[D2D] This perk replaces the original No More Shuffle perk.", 180 )
+	            GamePrintDelayed( "[D2D] You can disable this change for future runs in the mod's settings.", 300 )
+	            AddFlagPersistent( "d2d_update_msg_displayed_no_more_shuffle_rework" )
+	        end
         end,
 	},
 

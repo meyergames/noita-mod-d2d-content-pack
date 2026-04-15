@@ -81,7 +81,6 @@ order_deck = function()
 		_order_deck()
 		gun.shuffle_deck_when_empty = true
 	else
-		GamePrint( "GORSH" )
 		_order_deck()
 	end
 end

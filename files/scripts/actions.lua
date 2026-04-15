@@ -436,8 +436,11 @@ d2d_actions = {
 		description         = "$spell_d2d_damage_mult_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_mult.png",
 		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
-		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
+		-- spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
+		-- spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag	= "d2d_impossible_spawn", -- disabled for now since it doesn't work reliably
 		price               = 200,
 		mana                = 20,
 		action 		        = function()
@@ -1475,8 +1478,9 @@ d2d_actions = {
 	    price               = 130,
 	    mana                = 0,
 	    action              = function()
-			                    draw_actions( 1, true )
+			                    if reflecting then return end
 			                    GamePrint( "The 'Stabilize' spell no longer works; it was made into a new perk." )
+			                    draw_actions( 1, true )
 	                        end,
     },
 

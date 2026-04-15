@@ -7,18 +7,39 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Curse: all wands you find have some annoying always-cast
+		( things like Chaotic Path, Giant Explosion on Slimy Enemies, Reduce Lifetime, Nolla, Heavy Spread, Anti Homing, 
+		  Recoil, Decelerating Shot, Avoiding Arc, Oil Trail, Blood To Acid, ... )
+
+[ ] some reason to bring the broken wand to the anvil?
+
+[ ] exclude brickwork from The Floor Is Lava
+
+[ ] modifier that creates a scanning entity that stays on top of the projectile + a bit after the projectile is destroyed. all nearby *other* projectiles of the same owner gain bonus damage. basically, this empowers secondary projectiles like those from path of dark flame and larpa.
+
+[ ] new Other-type ammo preservation spell that gives the next limited spell a 100% chance not to use a charge, but costs gold each time it is used.
+
+[ ] Curse: 10% of damage taken is lost permanently
+
+[x] (Greek) spell that copies all spells in the 4th wand slot. Good for having a shared AFA function on 2-3 wands (like heal + tele + dig)
+
+[ ] Toolbox addition: right-click to destroy held spells. chance to get an upgrade from it.
+
+[ ] Toolbox: also generate a spell upon entering a new HM? (i.e. hm_visits > old_hm_visits)
+
+[ ] upgrade the Staff of Glass' stats upon picking up a temple heart?
+		[ ] this inadvertently diminishes the reward of completing Glass Heart in deeper, more difficult biomes
+
 [x] a "sweet spot" projectile. deals less damage than its contemporaries by default, but gains doubled damage when it hits an 
 		enemy at an exact range - including damage from modifiers. it could become white-glowing at that range.
 
-[ ] simple modifier that multiplies a projectile's damage by x1.5
+[x] simple modifier that multiplies a projectile's damage by x1.5
 		[ ] should have some decent cast delay + reload time, since it's intended for slower spells anyway
 
 [ ] Perksmith has some odd behaviour with perk rerolls; rerolling and then picking up the perk between the pickups (which
 		also rerolls) causes the perks on the altar to disappear, and the heart + diamond to remain
 
 [x] A Wand of Destruction buff?
-
-[ ] (Greek) spell that copies all spells in the 4th wand slot. Good for having a shared AFA function on 2-3 wands (like heal + tele + dig)
 
 [ ] Mana Lock: retry scanning hand, draw, deck and discard for Add Mana etc; now that it's an Other-type spell instead of Passive, this might now work
 
