@@ -460,16 +460,16 @@ d2d_actions = {
 		name 		        = "$spell_d2d_damage_recharge_name",
 		description         = "$spell_d2d_damage_recharge_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_recharge.png",
-		type 		        = ACTION_TYPE_PASSIVE,
+		type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
 		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.4", -- 2/3 of DAMAGE
 		-- spawn_level         = "0",
 		-- spawn_probability   = "0",
 		-- spawn_requires_flag	= "d2d_impossible_spawn",
-        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_damage_recharge.xml",
 		price               = 200,
-		mana                = 20,
+		mana                = 40,
 		action 		        = function()
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/damage_recharge_apply.xml,"
 			                    draw_actions( 1, true )
 		                    end,
 	},
@@ -1668,7 +1668,7 @@ d2d_actions = {
 
 									if Random( 1, 100 ) < save_chance then
 										next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
-										
+
 										local x, y = EntityGetTransform( GetUpdatedEntityID() )
 										GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 									end
