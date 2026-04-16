@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua")
 
 local EFFECT_RADIUS = 50
 
@@ -7,12 +7,10 @@ local owner = EntityGetParent( entity_id )
 local cdatacomp = EntityGetFirstComponentIncludingDisabled( owner, "CharacterDataComponent" )
 local x, y = EntityGetTransform( owner )
 
-local is_immune_to_fire = has_game_effect( owner, "PROTECTION_FIRE" )
-
 local on_fire_effect_count = GameGetGameEffectCount( owner, "ON_FIRE" )
 local is_effect_active = getInternalVariableValue( owner, "master_of_fire_is_effect_active", "value_int" )
 
-if( not is_immune_to_fire and on_fire_effect_count > 0 ) then
+if not is_immune_to_fire() and on_fire_effect_count > 0 then
 
     if( is_effect_active == 0 ) then
         multiply_move_speed( owner, "master_of_fire", 1.33 )
@@ -24,7 +22,7 @@ if( not is_immune_to_fire and on_fire_effect_count > 0 ) then
 
     -- EntityInflictDamage( owner, -(e_max_hp * 0.01), "DAMAGE_HEALING", "master_of_fire healing", "NONE", 0, 0, enemy, x, y, 0 )
 
-elseif( is_immune_to_fire or ( on_fire_effect_count == 0 and is_effect_active == 1 ) ) then
+elseif is_immune_to_fire() or ( on_fire_effect_count == 0 and is_effect_active == 1 ) then
 
     reset_move_speed( owner, "master_of_fire" )
     -- reset_all_damage( owner, "master_of_fire" )

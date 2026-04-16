@@ -6,9 +6,7 @@ local entity_id = GetUpdatedEntityID()
 local owner = EntityGetParent( entity_id )
 local x, y = EntityGetTransform( owner )
 
-local is_immune_to_electricity = has_game_effect( owner, "PROTECTION_ELECTRICITY" )
-if is_immune_to_electricity then
-    -- remove_perk( "D2D_MASTER_OF_FIRE" )
+if is_immune_to_electricity() then
     return
 end
 

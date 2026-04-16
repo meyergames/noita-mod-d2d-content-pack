@@ -1,11 +1,7 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function shot( entity_id )
-	local is_immune_to_fire = has_game_effect( get_player(), "PROTECTION_FIRE" )
-	local is_on_fire = has_game_effect( get_player(), "ON_FIRE" )
-
-	-- GamePrint("player has immunity: " .. tostring(is_immune_to_explosions))
-	if ( is_immune_to_fire or not is_on_fire ) then return end
+	if is_immune_to_fire() or not has_game_effect( get_player(), "ON_FIRE" ) then return end
 
 	local comps = EntityGetComponent( entity_id, "ProjectileComponent" )
 	if( comps ~= nil ) then

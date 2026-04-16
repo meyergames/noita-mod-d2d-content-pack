@@ -1075,8 +1075,6 @@ d2d_curses = {
         	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
         	remove_lua( entity_who_picked, "d2d_curse_fragile" )
         end
-
-
 	},
 
 	-- fall damage

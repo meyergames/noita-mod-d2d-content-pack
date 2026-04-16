@@ -5,11 +5,10 @@ local owner = EntityGetParent( entity_id )
 local cdatacomp = EntityGetFirstComponentIncludingDisabled( owner, "CharacterDataComponent" )
 local x, y = EntityGetTransform( owner )
 
-local is_immune_to_electricity = has_game_effect( owner, "PROTECTION_ELECTRICITY" )
 local electrocuted_effect_count = GameGetGameEffectCount( owner, "ELECTROCUTION" )
 
 local extra_boost_timer = getInternalVariableValue( owner, "master_of_lightning_extra_boost_timer", "value_int" )
-if( not is_immune_to_electricity and electrocuted_effect_count > 0 ) then
+if not is_immune_to_electricity() and electrocuted_effect_count > 0 then
     setInternalVariableValue( owner, "master_of_lightning_extra_boost_timer", "value_int", extra_boost_timer + 3 )
 end
 

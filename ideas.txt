@@ -7,6 +7,8 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Alt Fire Prism (for one-slot Alt Fire Anything)
+
 [ ] Mid-fire spell for all class loadout wands that destroys a nearby wand to take over all of its stats, so that their
 	appearance can be kept throughout a run.
 	[ ] Spells that no longer fit due to reduced capacity would be ejected.
@@ -19,7 +21,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] exclude brickwork from The Floor Is Lava
 
-[ ] modifier that creates a scanning entity that stays on top of the projectile + a bit after the projectile is destroyed. all nearby *other* projectiles of the same owner gain bonus damage. basically, this empowers secondary projectiles like those from path of dark flame and larpa.
+[ ] modifier that creates a scanning entity that stays on top of the projectile + a bit after the projectile is destroyed. all nearby *other* projectiles of the same owner gain bonus damage / copy all "c.extra_entities". basically, this empowers secondary projectiles like those from path of dark flame and larpa.
 
 [ ] new Other-type ammo preservation spell that gives the next limited spell a 100% chance not to use a charge, but costs gold each time it is used.
 
@@ -27,7 +29,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [x] (Greek) spell that copies all spells in the 4th wand slot. Good for having a shared AFA function on 2-3 wands (like heal + tele + dig)
 
-[ ] Toolbox addition: right-click to destroy held spells. chance to get an upgrade from it.
+[x] Toolbox addition: right-click to destroy held spells. chance to get an upgrade from it.
 
 [ ] Toolbox: also generate a spell upon entering a new HM? (i.e. hm_visits > old_hm_visits)
 

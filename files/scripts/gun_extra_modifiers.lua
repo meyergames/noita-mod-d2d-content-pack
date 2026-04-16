@@ -13,9 +13,8 @@ end
 
 extra_modifiers["d2d_master_of_lightning_boost"] = function()
     if true then return end
-    
-    local is_immune_to_electricity = has_game_effect( get_player(), "PROTECTION_ELECTRICITY" )
-    if( not is_immune_to_electricity ) then
+
+    if not is_immune_to_electricity() then
 		c.damage_electricity_add = c.damage_electricity_add + 0.2
         c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
         c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_lightning_try_electrify.xml,"
@@ -32,8 +31,7 @@ extra_modifiers["d2d_master_of_lightning_boost_plus"] = function()
 end
 
 extra_modifiers["d2d_master_of_fire_boost"] = function()
-    local is_immune_to_fire = has_game_effect( get_player(), "PROTECTION_FIRE" )
-    if( not is_immune_to_fire ) then
+    if not is_immune_to_fire() then
 	    c.damage_fire_add = c.damage_fire_add + 0.2
 		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
     end
