@@ -144,32 +144,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_QUICK_BURNER", -- discontinued as of 10/12/25, to be removed in a future patch
-	    name 		        = "$spell_d2d_quick_burner_name",
-	    description         = "$spell_d2d_quick_burner_desc",
-        inject_after        = { "D2D_FLURRY", "RECHARGE", "RECHARGE", "MANA_REDUCE" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/quick_burner.png",
-	    type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-        spawn_requires_flag	= "D2D_DISCONTINUED",
-		related_extra_entities = { "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml" },
-	    price               = 330,
-	    mana                = 8,
-	    action              = function()
-					            c.damage_projectile_add = c.damage_projectile_add + 0.4
-								c.fire_rate_wait 		= c.fire_rate_wait - 10
-								current_reload_time 	= current_reload_time - 20
-								c.speed_multiplier		= c.speed_multiplier * 2
-								if reflecting then return end
-								c.knockback_force 		= c.knockback_force + 3.0
-
-								c.extra_entities    	= c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/quick_burner.xml,"
-			                    draw_actions( 1, true )
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_CONTROLLED_REACH",
 	    name 		        = "$spell_d2d_controlled_reach_name",
 	    description         = "$spell_d2d_controlled_reach_desc",
@@ -752,25 +726,128 @@ d2d_actions = {
 		                    end,
 	},
 
-    {
-	    id                  = "D2D_GIGA_DRAIN",
-	    name 		        = "$spell_d2d_giga_drain_name",
-	    description         = "$spell_d2d_giga_drain_desc",
-        inject_after        = { "CHAINSAW" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/giga_drain.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4", -- spawning it in The Vault does not make sense
-		spawn_probability   = "0.5,0.8,1,1.1,1",
-	    price               = 150,
-	    mana                = 60,
-	    action              = function()
-		                        c.fire_rate_wait = current_reload_time + 8
-		                        current_reload_time = current_reload_time + 20
-								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 50
+	{
+		id                  = "D2D_PRISMATIC_SHOT",
+		name 		        = "$spell_d2d_prismatic_shot_name",
+		description         = "$spell_d2d_prismatic_shot_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/prismatic_shot.png",
+		type 		        = ACTION_TYPE_PROJECTILE,
+		recursive			= true,
+		spawn_level         = "1,2,3,4,5", -- BULLET
+		spawn_probability   = "0.5,0.8,1,1,1", -- inverse of BULLET
+		price               = 250,
+		mana                = 5,
+		action 		        = function()
+								-- c.fire_rate_wait = c.fire_rate_wait + 3
+								if reflecting then return end
 
-                                add_projectile( "mods/D2DContentPack/files/entities/projectiles/giga_drain_bullet.xml" )
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								local children = EntityGetAllChildren( get_player() )
+								local success = false
+								for k=1,#children do
+									child = children[k]
+								    if EntityGetName( child ) == "inventory_full" then
+								        local inventory_items = EntityGetAllChildren(child)
+								        if( inventory_items ~= nil ) then
+								            for z=1, #inventory_items do
+								            	item = inventory_items[z]
+
+								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+								            	if ia_comp then
+								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
+								            		local data = get_actions_lua_data( action_id )
+								            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
+								            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+													if not data.recursive and data.type == 0 and uses_remaining ~= 0 then
+														local rec = check_recursion( data, recursion_level )
+														if rec > -1 then
+															data.action( rec )
+															mana = mana - data.mana
+															if uses_remaining > 0 then
+																ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+															end
+															success = true
+															break
+														end
+								            		end
+								            	end
+								            end
+								        end
+								    end
+								end
+
+								if not success then
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+								end
+		                    end,
+	},
+
+	{
+	    id                  = "D2D_BLUE_MAGIC",
+	    name 		        = "$spell_d2d_blue_magic_name",
+	    description         = "$spell_d2d_blue_magic_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blue_magic.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4,5,6", -- spawn more often in Temple of the Arts
+		spawn_probability   = "0.2,0.2,0.3,0.3,0.4,1,1",
+	    price               = 150,
+	    mana                = 20,
+	    -- max_uses			= 10,
+	    -- custom_uses_logic	= true,
+	    action              = function()
+	    						c.fire_rate_wait = c.fire_rate_wait + 15
+
+                                if reflecting then return end
+                                dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
+								local action = hand[#hand]
+								if action.id ~= "D2D_BLUE_MAGIC" then
+									c.damage_projectile_add = c.damage_projectile_add + 0.04
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+			                    	mana = mana + 15
+									return
+								end
+								local action_entity = find_action_entity( action )
+								if not action_entity then
+									c.damage_projectile_add = c.damage_projectile_add + 0.04
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+			                    	mana = mana + 15
+									return
+								end
+
+                                local proj_file = get_internal_string( action_entity, "d2d_blue_magic_projectile_file" )
+                                if exists( proj_file ) and proj_file ~= "" then
+                                	add_projectile( proj_file )
+
+                                	-- local cast_delay = get_internal_int( action_entity, "d2d_blue_magic_cast_delay" )
+                                	-- if exists( cast_delay ) then
+	                                -- 	c.fire_rate_wait = c.fire_rate_wait + ( cast_delay * 0.25 )
+	                                -- end
+
+				            		local item_comp = EntityGetFirstComponentIncludingDisabled( action_entity, "ItemComponent" )
+				            		if exists( item_comp ) then
+				            			local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+				            			-- if uses_remaining > 0 then
+											-- ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+										-- end
+										if uses_remaining == 0 then
+	                                		set_internal_string( action_entity, "d2d_blue_magic_projectile_file", "" )
+									        ComponentSetValue2( item_comp, "item_name", GameTextGetTranslatedOrNot( "$spell_d2d_blue_magic_name" ) )
+									        ComponentSetValue2( item_comp, "always_use_item_name_in_ui", true )
+
+									        -- play last use effects
+									        -- local x, y = EntityGetTransform( get_player() )
+					                        -- GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+					                        -- EntityLoad( "mods/D2DContentPack/files/particles/fade_blue_magic.xml", x, y )
+	                                	end
+                                	end
+                                else
+									c.damage_projectile_add = c.damage_projectile_add + 0.04
+			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+			                    	mana = mana + 15
+                                end
 	                        end,
-    },
+	},
 
     {
 	    id                  = "D2D_UNSTABLE_NUCLEUS",
@@ -855,61 +932,25 @@ d2d_actions = {
 		                    end,
 	},
 
-	{
-		id                  = "D2D_PRISMATIC_SHOT",
-		name 		        = "$spell_d2d_prismatic_shot_name",
-		description         = "$spell_d2d_prismatic_shot_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/prismatic_shot.png",
-		type 		        = ACTION_TYPE_PROJECTILE,
-		recursive			= true,
-		spawn_level         = "1,2,3,4,5", -- BULLET
-		spawn_probability   = "0.5,0.8,1,1,1", -- inverse of BULLET
-		price               = 250,
-		mana                = 5,
-		action 		        = function()
-								-- c.fire_rate_wait = c.fire_rate_wait + 3
-								if reflecting then return end
+    {
+	    id                  = "D2D_GIGA_DRAIN",
+	    name 		        = "$spell_d2d_giga_drain_name",
+	    description         = "$spell_d2d_giga_drain_desc",
+        inject_after        = { "CHAINSAW" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/giga_drain.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4", -- spawning it in The Vault does not make sense
+		spawn_probability   = "0.5,0.8,1,1.1,1",
+	    price               = 150,
+	    mana                = 60,
+	    action              = function()
+		                        c.fire_rate_wait = current_reload_time + 8
+		                        current_reload_time = current_reload_time + 20
+								shot_effects.recoil_knockback	= shot_effects.recoil_knockback + 50
 
-								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-								local children = EntityGetAllChildren( get_player() )
-								local success = false
-								for k=1,#children do
-									child = children[k]
-								    if EntityGetName( child ) == "inventory_full" then
-								        local inventory_items = EntityGetAllChildren(child)
-								        if( inventory_items ~= nil ) then
-								            for z=1, #inventory_items do
-								            	item = inventory_items[z]
-
-								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
-								            	if ia_comp then
-								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
-								            		local data = get_actions_lua_data( action_id )
-								            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
-								            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
-													if not data.recursive and data.type == 0 and uses_remaining ~= 0 then
-														local rec = check_recursion( data, recursion_level )
-														if rec > -1 then
-															data.action( rec )
-															mana = mana - data.mana
-															if uses_remaining > 0 then
-																ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
-															end
-															success = true
-															break
-														end
-								            		end
-								            	end
-								            end
-								        end
-								    end
-								end
-
-								if not success then
-			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
-								end
-		                    end,
-	},
+                                add_projectile( "mods/D2DContentPack/files/entities/projectiles/giga_drain_bullet.xml" )
+	                        end,
+    },
 
     {
 	    id                  = "D2D_CONCRETE_WALL",
@@ -930,6 +971,60 @@ d2d_actions = {
                                 add_projectile("mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml")
 	                        end,
     },
+
+	{
+		id                  = "D2D_BAG_OF_BOMBS",
+		name 		        = "$spell_d2d_bag_of_bombs_name",
+		description         = "$spell_d2d_bag_of_bombs_desc",
+        inject_after        = { "DYNAMITE" },
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/bag_of_bombs.png",
+		type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0,1,2,3,4", -- DYNAMITE
+		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
+		price               = 250,
+		mana                = 75,
+        max_uses            = 30,
+       	custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
+		action 		        = function()
+                                local rand = Random( 0, 1000 )
+                                if( rand < 250 ) then -- 25%
+			                        add_projectile("data/entities/projectiles/bomb.xml")
+			                        c.fire_rate_wait = c.fire_rate_wait + 100
+                                elseif( rand < 400 ) then -- 15%
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb.xml", 1)
+			                        c.fire_rate_wait = c.fire_rate_wait + 50
+			                        c.spread_degrees = c.spread_degrees + 6.0
+                                elseif( rand < 500 ) then -- 10% (1/10)
+			                        add_projectile("data/entities/projectiles/deck/glitter_bomb.xml")
+			                        c.fire_rate_wait = c.fire_rate_wait + 50
+			                        c.spread_degrees = c.spread_degrees + 12.0
+                                elseif( rand < 550 ) then -- 5% (1/20)
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/bomb_dud.xml", 1)
+			                        c.fire_rate_wait = c.fire_rate_wait + 100
+                                elseif( rand < 570 ) then -- 2% (1/50)
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml", 1)
+			                        c.fire_rate_wait = c.fire_rate_wait + 50
+			                        c.spread_degrees = c.spread_degrees + 6.0
+                                elseif( rand < 580 ) then -- 1% (1/100)
+			                        add_projectile("data/entities/projectiles/bomb_holy.xml")
+			                        current_reload_time = current_reload_time + 80
+			                        shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
+			                        c.fire_rate_wait = c.fire_rate_wait + 40
+                                elseif( rand < 585 ) then -- 0.5% (1/200)
+			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml", 1)
+			                        c.fire_rate_wait = c.fire_rate_wait + 50
+			                        c.spread_degrees = c.spread_degrees + 6.0
+                                elseif( rand < 590 ) then -- 0.5% (1/200)
+			                        add_projectile("data/entities/projectiles/propane_tank.xml")
+			                        c.fire_rate_wait = c.fire_rate_wait + 50
+			                        c.spread_degrees = c.spread_degrees + 6.0
+                                else -- about 41%
+			                        add_projectile("data/entities/projectiles/deck/tnt.xml")
+			                        c.fire_rate_wait = c.fire_rate_wait + 50
+			                        c.spread_degrees = c.spread_degrees + 6.0
+                                end
+		                    end,
+	},
 
 	{
 		id                  = "D2D_BANANA_BOMB",
@@ -994,60 +1089,6 @@ d2d_actions = {
 		                    end,
 	},
 
-	{
-		id                  = "D2D_BAG_OF_BOMBS",
-		name 		        = "$spell_d2d_bag_of_bombs_name",
-		description         = "$spell_d2d_bag_of_bombs_desc",
-        inject_after        = { "DYNAMITE" },
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/bag_of_bombs.png",
-		type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4", -- DYNAMITE
-		spawn_probability   = "1,0.9,0.8,0.7,0.6", -- DYNAMITE
-		price               = 250,
-		mana                = 75,
-        max_uses            = 30,
-       	custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_bag_of_bombs.xml",
-		action 		        = function()
-                                local rand = Random( 0, 1000 )
-                                if( rand < 250 ) then -- 25%
-			                        add_projectile("data/entities/projectiles/bomb.xml")
-			                        c.fire_rate_wait = c.fire_rate_wait + 100
-                                elseif( rand < 400 ) then -- 15%
-			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb.xml", 1)
-			                        c.fire_rate_wait = c.fire_rate_wait + 50
-			                        c.spread_degrees = c.spread_degrees + 6.0
-                                elseif( rand < 500 ) then -- 10% (1/10)
-			                        add_projectile("data/entities/projectiles/deck/glitter_bomb.xml")
-			                        c.fire_rate_wait = c.fire_rate_wait + 50
-			                        c.spread_degrees = c.spread_degrees + 12.0
-                                elseif( rand < 550 ) then -- 5% (1/20)
-			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/bomb_dud.xml", 1)
-			                        c.fire_rate_wait = c.fire_rate_wait + 100
-                                elseif( rand < 570 ) then -- 2% (1/50)
-			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml", 1)
-			                        c.fire_rate_wait = c.fire_rate_wait + 50
-			                        c.spread_degrees = c.spread_degrees + 6.0
-                                elseif( rand < 580 ) then -- 1% (1/100)
-			                        add_projectile("data/entities/projectiles/bomb_holy.xml")
-			                        current_reload_time = current_reload_time + 80
-			                        shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
-			                        c.fire_rate_wait = c.fire_rate_wait + 40
-                                elseif( rand < 585 ) then -- 0.5% (1/200)
-			                        add_projectile("mods/D2DContentPack/files/entities/projectiles/banana_bomb_giga.xml", 1)
-			                        c.fire_rate_wait = c.fire_rate_wait + 50
-			                        c.spread_degrees = c.spread_degrees + 6.0
-                                elseif( rand < 590 ) then -- 0.5% (1/200)
-			                        add_projectile("data/entities/projectiles/propane_tank.xml")
-			                        c.fire_rate_wait = c.fire_rate_wait + 50
-			                        c.spread_degrees = c.spread_degrees + 6.0
-                                else -- about 41%
-			                        add_projectile("data/entities/projectiles/deck/tnt.xml")
-			                        c.fire_rate_wait = c.fire_rate_wait + 50
-			                        c.spread_degrees = c.spread_degrees + 6.0
-                                end
-		                    end,
-	},
-
     {
 	    id                  = "D2D_SMOKE_BOMB",
 	    name 		        = "$spell_d2d_smoke_bomb_name",
@@ -1066,73 +1107,6 @@ d2d_actions = {
                                 add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/smoke_bomb.xml")
 	                        end,
     },
-
-	{
-	    id                  = "D2D_BLUE_MAGIC",
-	    name 		        = "$spell_d2d_blue_magic_name",
-	    description         = "$spell_d2d_blue_magic_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blue_magic.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4,5,6", -- spawn more often in Temple of the Arts
-		spawn_probability   = "0.2,0.2,0.3,0.3,0.4,1,1",
-	    price               = 150,
-	    mana                = 20,
-	    -- max_uses			= 10,
-	    -- custom_uses_logic	= true,
-	    action              = function()
-	    						c.fire_rate_wait = c.fire_rate_wait + 15
-
-                                if reflecting then return end
-                                dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-
-								local action = hand[#hand]
-								if action.id ~= "D2D_BLUE_MAGIC" then
-									c.damage_projectile_add = c.damage_projectile_add + 0.04
-			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
-			                    	mana = mana + 15
-									return
-								end
-								local action_entity = find_action_entity( action )
-								if not action_entity then
-									c.damage_projectile_add = c.damage_projectile_add + 0.04
-			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
-			                    	mana = mana + 15
-									return
-								end
-
-                                local proj_file = get_internal_string( action_entity, "d2d_blue_magic_projectile_file" )
-                                if exists( proj_file ) and proj_file ~= "" then
-                                	add_projectile( proj_file )
-
-                                	-- local cast_delay = get_internal_int( action_entity, "d2d_blue_magic_cast_delay" )
-                                	-- if exists( cast_delay ) then
-	                                -- 	c.fire_rate_wait = c.fire_rate_wait + ( cast_delay * 0.25 )
-	                                -- end
-
-				            		local item_comp = EntityGetFirstComponentIncludingDisabled( action_entity, "ItemComponent" )
-				            		if exists( item_comp ) then
-				            			local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
-				            			-- if uses_remaining > 0 then
-											-- ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
-										-- end
-										if uses_remaining == 0 then
-	                                		set_internal_string( action_entity, "d2d_blue_magic_projectile_file", "" )
-									        ComponentSetValue2( item_comp, "item_name", GameTextGetTranslatedOrNot( "$spell_d2d_blue_magic_name" ) )
-									        ComponentSetValue2( item_comp, "always_use_item_name_in_ui", true )
-
-									        -- play last use effects
-									        -- local x, y = EntityGetTransform( get_player() )
-					                        -- GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
-					                        -- EntityLoad( "mods/D2DContentPack/files/particles/fade_blue_magic.xml", x, y )
-	                                	end
-                                	end
-                                else
-									c.damage_projectile_add = c.damage_projectile_add + 0.04
-			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
-			                    	mana = mana + 15
-                                end
-	                        end,
-	},
 
     {
 	    id                  = "D2D_SMALL_EXPLOSION",
@@ -1383,33 +1357,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_BLINK_TRIGGER",
-	    name 		        = "$spell_d2d_blink_trigger_name",
-	    description         = "$spell_d2d_blink_trigger_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blink_trigger.png",
-	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "0", -- discontinued
-		spawn_probability   = "0", -- discontinued
-        spawn_requires_flag	= "D2D_DISCONTINUED",
-	    price               = 360,
-	    mana                = 85,
-	    max_uses			= 20,
-	    never_unlimited		= true,
-	    action              = function()
-                                c.fire_rate_wait = c.fire_rate_wait + 60
-	    						if reflecting then return end
-
-	                            -- deal 2% max health damage (cannot kill)
-								local p_dcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "DamageModelComponent" )
-								local p_hp = ComponentGetValue2( p_dcomp, "hp" )
-								local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
-	                            EntityInflictDamage( GetUpdatedEntityID(), math.min( p_max_hp * 0.02, p_hp - 0.04 ), "DAMAGE_CURSE", "blood price", "NONE", 0, 0, GetUpdatedEntityID(), x, y, 0)
-
-	    						add_projectile_trigger_death( "mods/D2DContentPack/files/entities/projectiles/deck/blink.xml", 1 )
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_REWIND",
 	    name 		        = "$spell_d2d_rewind_name",
 	    description         = "$spell_d2d_rewind_desc",
@@ -1501,25 +1448,6 @@ d2d_actions = {
 	    mana                = 1,
 	    action              = function()
 								c.spread_degrees = c.spread_degrees + 3.0
-			                    draw_actions( 1, true )
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_STABILIZE",
-	    name 		        = "$spell_d2d_stabilize_name",
-	    description         = "$spell_d2d_stabilize_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/stabilize.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "0",
-		spawn_probability   = "0",
-		spawn_requires_flag	= "d2d_impossible_spawn",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_stabilize.xml",
-	    price               = 130,
-	    mana                = 0,
-	    action              = function()
-			                    if reflecting then return end
-			                    GamePrint( "The 'Stabilize' spell no longer works; it was made into a new perk." )
 			                    draw_actions( 1, true )
 	                        end,
     },
@@ -1620,25 +1548,6 @@ d2d_actions = {
 								-- end
 		                    end,
 	},
-
-    {
-	    id                  = "D2D_ALT_ALT_FIRE_TELEPORT_BOLT", -- discontinued as of 24/12/2025, to be removed later
-	    name 		        = "$spell_d2d_alt_alt_fire_teleport_bolt_name",
-	    description         = "$spell_d2d_alt_alt_fire_teleport_bolt_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_alt_fire_teleport_bolt.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-        spawn_level			= "0",
-        spawn_probability	= "0",
-        spawn_requires_flag	= "D2D_DISCONTINUED",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_alt_fire_teleport_bolt.xml",
-        price 				= 130,
-        mana 				= 20,
-	    action              = function()
-	    						draw_actions( 1, true )
-            					mana = mana + 20
-	                        end,
-    },
 
     -- {
 	--     id                  = "D2D_BLINK_MID_FIRE",
@@ -1761,8 +1670,9 @@ d2d_actions = {
 		description         = "$spell_d2d_auto_reload_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/auto_reload.png",
 		type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "1,2,3,4,5,6,10",
-		spawn_probability   = "0.2,0.2,0.4,0.4,0.6,0.6,1",
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_auto_reload.xml",
 		price               = 150,
 		mana                = 0,
@@ -1777,12 +1687,15 @@ d2d_actions = {
 		description         = "$spell_d2d_restart_point_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/restart_point.png",
 		type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "1,2,3,4,5,6,10",
-		spawn_probability   = "0.1,0.1,0.2,0.4,0.6,0.6,1",
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_restart_point.xml",
 		price               = 150,
 		mana                = 10,
 		action 		        = function()
+								if reflecting then return end
+
 								if GlobalsGetValue( "D2D_RESTART_POINT_ACTIVE", "0" ) == "0" and #deck > 0 then
 									for i=1, #discarded do
 										table.remove( discarded, 1 )
@@ -1791,56 +1704,6 @@ d2d_actions = {
 								end
 
 								draw_actions( 1, true )
-		                    end,
-	},
-
-	{
-		id                  = "D2D_FORCE_CAST",
-		name 		        = "$spell_d2d_force_cast_name",
-		description         = "$spell_d2d_force_cast_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/force_cast.png",
-		type 		        = ACTION_TYPE_OTHER,
-		recursive 			= true,
-		spawn_level			= 0,
-		spawn_probability	= 0,
-		spawn_requires_flag	= "d2d_impossible_spawn",
-		-- spawn_level         = "3,4,5,6",
-		-- spawn_probability   = "0.2,0.3,0.4,0.5",
-		price               = 200,
-		mana                = 0,
-		action 		        = function()
-								if reflecting then return end
-
-								-- select the next card
-								local data = {}
-								if ( #deck > 0 ) then
-									data = deck[1]
-								elseif ( #hand > 0 ) then
-									data = hand[1]
-								else
-									data = nil
-								end
-
-								-- skip if the spell can be cast normally
-								-- local lua_data = get_actions_lua_data( data.id )
-								-- if data.mana <= mana or data.uses_remaining > 0 then
-								-- 	draw_actions( 1, true )
-								-- 	return
-								-- end
-
-								local rec = check_recursion( data, recursion_level )
-								if data and rec > -1 then
-									data.action( rec )
-
-									-- damage the player for 5% of max health, without killing them
-									local player = GetUpdatedEntityID()
-									local dmgcomp = EntityGetFirstComponent( player, "DamageModelComponent" )
-									if exists( dmgcomp ) then
-										local hp = ComponentGetValue2( dmgcomp, "hp" )
-										local max_hp = ComponentGetValue2( dmgcomp, "max_hp" )
-										EntityInflictDamage( player, math.min( max_hp * 0.05, hp - 0.04 ), "DAMAGE_NONE", "force cast", "NORMAL", 0, 0, player, x, y, 0 )
-									end
-								end
 		                    end,
 	},
 
@@ -2031,6 +1894,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_OTHER,
 		spawn_level         = "0",
 		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_capacity.xml",
 	    price               = 100,
 	    mana                = 0,
@@ -2049,6 +1913,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_OTHER,
 		spawn_level         = "0",
 		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_fire_rate.xml",
 	    price               = 100,
 	    mana                = 0,
@@ -2067,6 +1932,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_OTHER,
 		spawn_level         = "0",
 		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_max_mana.xml",
 	    price               = 100,
 	    mana                = 0,
@@ -2085,6 +1951,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_OTHER,
 		spawn_level         = "0",
 		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_mana_charge_speed.xml",
 	    price               = 100,
 	    mana                = 0,
@@ -2103,6 +1970,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_OTHER,
 		spawn_level         = "0",
 		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_shuffle.xml",
 	    price               = 100,
 	    mana                = 0,
@@ -2121,6 +1989,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_OTHER,
 		spawn_level         = "0",
 		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_remove_always_cast.xml",
 	    price               = 100,
 	    mana                = 0,
@@ -2231,28 +2100,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_SUMMON_FAIRIES", -- discontinued as of 10/12/25, to be removed in a future patch
-	    name 		        = "$spell_d2d_summon_fairies_name",
-	    description         = "$spell_d2d_summon_fairies_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_fairies.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed in a future patch
-		only_if_mod_enabled = "Apotheosis",
-    	spawn_requires_flag	= "D2D_DISCONTINUED",
-	    price               = 200,
-	    mana                = 15,
-	    max_uses			= 10,
-    	never_unlimited 	= true,
-	    action              = function()
-	 							if reflecting then return end
-	 							
-                                local x, y = EntityGetTransform( GetUpdatedEntityID() )
-    							add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/summon_fairies_spawner.xml", x, y )
-	                        end,
-    },
-
-    {
 	    id                  = "D2D_ALT_FIRE_ANYTHING",
 	    name 		        = "$spell_d2d_alt_fire_anything_name",
 	    description         = "$spell_d2d_alt_fire_anything_desc",
@@ -2321,35 +2168,6 @@ d2d_actions = {
 	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_CONCRETE_WALL_ALT_FIRE" ) then
         							mana = mana + 80
-	            				end
-	                        end,
-    },
-
-    {
-	    id                  = "D2D_SMOKE_BOMB_ALT_FIRE", -- discontinued as of 10/12/25, to be removed
-	    name 		        = "$spell_d2d_smoke_bomb_alt_fire_name",
-	    description         = "$spell_d2d_smoke_bomb_alt_fire_desc",
-        inject_after        = { "D2D_SMOKE_BOMB", "GRENADE_ANTI", "GRENADE_TIER_3" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_smoke_bomb.png",
-	    type 		        = ACTION_TYPE_PASSIVE,
-        subtype     		= { altfire = true },
-		spawn_level         = "0", -- discontinued as of 10/12/25, to be removed
-		spawn_probability   = "0", -- discontinued as of 10/12/25, to be removed
-        spawn_requires_flag	= "D2D_DISCONTINUED",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_smoke_bomb.xml",
-	    price               = 230,
-	    mana                = 50,
-	    max_uses			= 10,
-    	custom_uses_logic 	= true,
-	    action              = function()
-	    						draw_actions( 1, true )
-
-	    						if reflecting then return end
-
-            					-- only restore mana if this spell is NOT an always-cast
-	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-	    						if not held_wand_contains_always_cast( GetUpdatedEntityID(), "D2D_SMOKE_BOMB_ALT_FIRE" ) then
-        							mana = mana + 50
 	            				end
 	                        end,
     },
