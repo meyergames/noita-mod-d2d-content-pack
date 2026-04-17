@@ -42,7 +42,7 @@
 
 	<GameEffectComponent 
 	    effect="CHARM"
-	    frames="3600"
+	    frames="7200"
 	></GameEffectComponent>
 
 	<LuaComponent

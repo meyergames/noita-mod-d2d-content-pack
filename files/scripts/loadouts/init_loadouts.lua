@@ -24,11 +24,23 @@ classes = {
         ui_description = "$loadout_d2d_pyromancer_desc",
         sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/pyromancer.png",
     },
+    {
+        id = "D2D_CLASS_SUMMONER",
+        function_name = "spawn_loadout_summoner",
+        ui_name = "$loadout_d2d_summoner_name",
+        ui_description = "$loadout_d2d_summoner_desc",
+        sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/summoner.png",
+    },
 }
 
 -- this function was copied and adjusted from the Selectable Classes mod
 function spawn_class_cards( start_x, start_y )
-    --generate class pickups in rows
+    local classes_shuffled = shuffle_table( classes )
+    if ModSettingGet( "D2DContentPack.spawn_all_loadouts" ) then
+        NUM_CLASSES = #classes
+    end
+
+    -- select 3 classes at random to spawn
     for i=1, NUM_CLASSES do
         --load pickup
         local entity = EntityLoad( "mods/D2DContentPack/files/entities/misc/loadouts/class_card.xml",
@@ -36,7 +48,8 @@ function spawn_class_cards( start_x, start_y )
             start_y + ( (i%2) * 20 ) )
         if entity == nil then return end
 
-        local class = classes[i]
+        -- local class = random_from_array( classes_left )
+        local class = classes_shuffled[i]
 
         --setup components
         EntityAddComponent( entity, "SpriteComponent", { 

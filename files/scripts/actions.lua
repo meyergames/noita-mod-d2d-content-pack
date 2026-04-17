@@ -357,6 +357,7 @@ d2d_actions = {
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 25
 			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
+								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
 
 			                    draw_actions( 1, true )
 		                    end,
@@ -464,6 +465,7 @@ d2d_actions = {
 		mana                = 50,
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 25
+								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
 
 								if reflecting then return end
 
@@ -668,7 +670,8 @@ d2d_actions = {
 		spawn_probability	= "0.4,0.5,0.7,0.8",
 		price 				= 270,
 		mana 				= 50,
-		max_uses 			= 6,
+		max_uses 			= 3,
+		never_unlimited		= true,
 		action 				= function()
 			c.fire_rate_wait = c.fire_rate_wait + 50
 			c.spread_degrees = c.spread_degrees + 12
@@ -684,12 +687,30 @@ d2d_actions = {
 	    description         = "$spell_d2d_command_attack_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/command_attack.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3",
-		spawn_probability   = "0.3,0.4,0.5,0.6",
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
 	    price               = 190,
-	    mana                = 50,
+	    mana                = 40,
 	    action              = function()
 	 							add_projectile( "mods/D2DContentPack/files/entities/projectiles/command_attack_targetter.xml" )
+	 						end
+    },
+
+    {
+	    id                  = "D2D_COMMAND_WARP",
+	    name 		        = "$spell_d2d_command_warp_name",
+	    description         = "$spell_d2d_command_warp_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/command_warp.png",
+	    type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
+	    price               = 190,
+	    mana                = 40,
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_command_warp.xml",
+	    action              = function()
+	 							add_projectile( "mods/D2DContentPack/files/entities/projectiles/command_warp_targetter.xml" )
 	 						end
     },
 

@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local entity_id = GetUpdatedEntityID()
 -- local owner = EntityGetParent( entity_id )
@@ -48,12 +48,12 @@ if others and #others > 1 then
 
 		-- don't scan the owner of this script
 		if other ~= owner then
-			local is_charmed = GameGetGameEffect( other, "CHARM" ) ~= 0
-			if is_charmed then
+			local infat_effect = get_child_by_filename( other, "effect_charmed_short_d2d.xml" )
+			if exists( infat_effect ) then
 
-				-- make half of the infatuated creatures turn berserk when a new creature is infatuated
+				-- make 1/5 of infatuated creatures turn berserk when a new creature is infatuated
 				if other % 5 ~= 0 then
-					EntityKill( get_child_by_filename( other, "effect_charmed_short_d2d.xml" ) )
+					EntityKill( infat_effect )
 					LoadGameEffectEntityTo( other, "data/entities/misc/effect_berserk.xml" )
 					-- was_other_charmed = true
 				end

@@ -7,6 +7,16 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] breadcrumb-type spell that spawns luminous orbs for you to remember the way with.
+	[ ] 20 charges: if you touch an orb that's been around for at least 2 seconds, you automatically pick it back up and 					regain a charge.
+
+[ ] weirdo-type enemy that, once you enter its radius, deals continuous chip damage to you while you're outside of the radius - or go REALLY far away from it. aka, it puts you under pressure so you HAVE to deal with it.
+	[ ] more difficult to pull off: make it actively run/teleport away from the player (maybe like the curse-damage enemies ignoring all terrain. simply staying X distance away at all times would create a challenge of finding the right piece of map to be able to hit it properly)
+		[ ] each time chip damage is dealt, play drain particles from the player towards the enemy to hint at its location.
+	[ ] 1% of max health every 2 seconds, giving the player max. 200 seconds (~3 minutes) to kill it
+	[ ] give it a small chance to replace an already-spawned enemy?
+	[ ] name: "uutto" (leech in Finnish)
+
 [ ] gun.lua has a "handle_mana_addition" function --> could be useful for Mana Lock
 
 [ ] Alt Fire Prism (for one-slot Alt Fire Anything)

@@ -1,36 +1,6 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-dofile("data/scripts/perks/perk.lua")
 
 local curses_enabled = ModSettingGet( "D2DContentPack.enable_curses_on_loadouts" )
-
--- this function was copied from the Selectable Classes mod
-local function give_perk( target, perk )
-    local data = get_perk_with_id(perk_list, perk)
-
-    --apply game effect
-    if data.game_effect ~= nil then
-        local game_effect_comp = GetGameEffectLoadTo( target, data.game_effect, true )
-        if game_effect_comp ~= nil then
-            ComponentSetValue(game_effect_comp, "frames", "-1")
-        end
-    end
-
-    --call extra function
-    if data.func ~= nil then
-        --these aren't the right arguments, but none of the perks
-        --use entity_perk_item or item_name anyway (why would they...?)
-        data.func( target, target, perk, 1 )
-    end
-
-    --add to UI
-    local perk_ui = EntityCreateNew( "" )
-    EntityAddComponent( perk_ui, "UIIconComponent", { 
-        name = data.ui_name,
-        description = data.ui_description,
-        icon_sprite_file = data.ui_icon
-    })
-    EntityAddChild( target, perk_ui )
-end
 
 local function empty_inventory( player )
     local wands = {}
@@ -240,10 +210,10 @@ function spawn_loadout_pyromancer( player )
 		give_perk( player, "D2D_CURSE_STENDARI" )
 	end
 
-    -- start with alcohol
+    -- start with a slime potion
     local x, y = EntityGetTransform( player )
-    local water = EntityLoad( "data/entities/items/pickup/potion_slime.xml", x, y )
-    GamePickUpInventoryItem( player, water, false )
+    local slime = EntityLoad( "data/entities/items/pickup/potion_slime.xml", x, y )
+    GamePickUpInventoryItem( player, slime, false )
 
     -- change the player's sprite
 	local spritecomp_body = EntityGetFirstComponent( player, "SpriteComponent" )
@@ -274,6 +244,74 @@ function spawn_loadout_pyromancer( player )
 		    end
 		end
 	end
+end
+
+function spawn_loadout_summoner( player )
+	empty_inventory( player )
+
+	local x, y = EntityGetTransform( player )
+	y = y - 32
+
+	-- spawn the second wand
+    local wand = EZWand()
+	wand:SetName( "Charmer", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = Random( 27, 29 )
+	wand.rechargeTime = wand.castDelay
+	wand.manaMax = Random( 51, 55 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 115, 119 )
+	wand.capacity = 5
+	wand.spread = 0
+	wand:AddSpells( "D2D_COMMAND_ATTACK", "LIGHT_BULLET", "D2D_ALT_FIRE_ANYTHING", "LIGHT_BULLET", "D2D_COMMAND_WARP" )
+	wand:RemoveSpells( "LIGHT_BULLET", -1 )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/summoner_2.png", 6, 6, 6, -1 )
+	wand:PutInPlayersInventory()
+
+	-- spawn the first wand
+    local wand = EZWand()
+	wand:SetName( "Heart Bow", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = Random( 10, 12 )
+	wand.rechargeTime = Random( 15, 20 )
+	wand.manaMax = Random( 150, 175 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 25, 37 )
+	wand.capacity = 5
+	wand.spread = -12
+	wand:AddSpells( "D2D_CHARMING_ARROW", "D2D_CHARMING_ARROW" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/summoner_1.png", 2, 7, 9, 0 )
+	wand:PutInPlayersInventory()
+
+	-- perks
+	give_perk( player, "D2D_ALLY_PROTECTION" )
+	give_perk( player, "EXTRA_HP" )
+	give_perk( player, "SHIELD" )
+	-- give_perk( player, "CONTACT_DAMAGE" )
+	-- if curses_enabled then
+	-- 	give_perk( player, "D2D_CURSE_STENDARI" )
+	-- end
+
+    -- give eggs
+    for i=1, 3 do
+	    local egg = EntityLoad( "data/entities/items/pickup/egg_monster.xml", x, y )
+	    GamePickUpInventoryItem( player, egg, false )
+	end
+
+    -- start with pheromone
+    local x, y = EntityGetTransform( player )
+    local potion = EntityLoad( "data/entities/items/pickup/potion_empty.xml", x, y )
+    AddMaterialInventoryMaterial( potion, "magic_liquid_charm", 1000 )
+    GamePickUpInventoryItem( player, potion, false )
+
+    -- set the player's health
+    local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
+    if exists( dmg_comp ) then
+    	ComponentSetValue2( dmg_comp, "hp", 4 ) -- 100 hp
+    	ComponentSetValue2( dmg_comp, "max_hp", 4 ) -- 100 hp
+    end
 end
 
 function item_pickup( entity_item, entity_who_picked, item_name )

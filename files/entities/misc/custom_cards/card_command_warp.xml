@@ -1,0 +1,41 @@
+<Entity>
+	
+	<Base file="data/entities/base_custom_card.xml" > 
+		<SpriteComponent 
+			image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/command_warp.png"
+			>
+		</SpriteComponent>
+		
+		<ItemActionComponent 
+			_tags="enabled_in_world"
+			action_id="D2D_COMMAND_WARP" >
+		</ItemActionComponent>
+	</Base>
+
+	<InheritTransformComponent
+		_tags="enabled_in_world,enabled_in_hand" >
+	</InheritTransformComponent>
+
+	<ParticleEmitterComponent
+		_tags="character,enabled_in_hand"
+		emitted_material_name="magic_liquid_teleportation"
+		gravity.y="0.0"
+		lifetime_min="0.10"
+		lifetime_max="0.20"
+		count_min="15"
+		count_max="20"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="50"
+		area_circle_radius.max="50"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+</Entity>

@@ -260,3 +260,102 @@ end
 function is_immune_to_electricity()
     return has_game_effect( get_player(), "PROTECTION_ELECTRICITY" ) or exists( get_item_with_tag( "thunderstone" ) )
 end
+
+-- this function was copied from the Selectable Classes mod
+function give_perk( target, perk_id )
+    dofile_once( "data/scripts/perks/perk.lua" )
+    local data = get_perk_with_id( perk_list, perk_id )
+
+    -- only apply to enemies if the perk is usable by them
+    if target == get_player() then
+        -- register the perk flag
+        local flag_name = get_perk_picked_flag_name( perk_id )
+        local current_pickup_count = get_perk_pickup_count( perk_id )
+        local pickup_count = GlobalsSetValue( flag_name .. "_PICKUP_COUNT", tostring( current_pickup_count + 1 ) )
+    else
+        return
+    end
+
+    --apply game effect
+    if data.game_effect ~= nil then
+        local game_effect_comp = GetGameEffectLoadTo( target, data.game_effect, true )
+        if game_effect_comp ~= nil then
+            ComponentSetValue( game_effect_comp, "frames", "-1" )
+        end
+    end
+
+    --call extra function
+    if data.func ~= nil then
+        --these aren't the right arguments, but none of the perks
+        --use entity_perk_item or item_name anyway (why would they...?)
+        data.func( target, target, perk_id, 1 )
+    end
+
+    --add to UI
+    local perk_ui = EntityCreateNew( "" )
+    EntityAddComponent( perk_ui, "UIIconComponent", { 
+        name = data.ui_name,
+        description = data.ui_description,
+        icon_sprite_file = data.ui_icon
+    })
+    EntityAddChild( target, perk_ui )
+end
+
+function teleport( entity_id, to_x, to_y )
+    -- local from_x, from_y = EntityGetTransform( entity_id )
+    -- local dir_x = to_x - from_x
+    -- local dir_y = to_y - from_y
+    -- dir_x, dir_y = vec_normalize( dir_x, dir_y )
+    -- EntitySetTransform( entity_id, to_x + dir_x * 20, to_y + dir_y * 20 )
+    EntitySetTransform( entity_id, to_x, to_y )
+
+    -- reset velocity
+    local vcomp = EntityGetFirstComponent( entity_id, "VelocityComponent" )
+    if exists( vcomp ) then
+        ComponentSetValueVector2( vcomp, "mVelocity", 0, 0 )
+    end
+    
+    -- play teleport effects
+    EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", x, y )
+    GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/teleport/destroy", x, y )
+end
+
+function shuffle_table( t )
+  local tbl = {}
+    for i = 1, #t do
+        tbl[i] = t[i]
+    end
+    for i = #tbl, 2, -1 do
+        local rnd = Random( 1, i )
+        tbl[i], tbl[rnd] = tbl[rnd], tbl[i]
+    end
+    return tbl
+end
+
+function is_in_holy_mountain( entity_id )
+    local x, y = EntityGetTransform( entity_id )
+    local biome_name = BiomeMapGetName( x, y )
+    return string.find( biome_name, "holy" )
+end
+
+function share_perk_with_enemy( perk_data, entity_who_picked, entity_item )
+    -- fetch perk info ---------------------------------------------------
+
+    local pos_x, pos_y = EntityGetTransform( entity_who_picked )
+
+    local perk_id = perk_data.id
+    
+    -- add game effect
+    if perk_data.game_effect ~= nil then
+        local game_effect_comp = GetGameEffectLoadTo( entity_who_picked, perk_data.game_effect, true )
+        if game_effect_comp ~= nil then
+            ComponentSetValue( game_effect_comp, "frames", "-1" )
+        end
+    end
+    
+    if perk_data.func_enemy ~= nil then
+        perk_data.func_enemy( entity_item, entity_who_picked )
+    elseif perk_data.func ~= nil then
+        perk_data.func( entity_item, entity_who_picked )
+    end
+end

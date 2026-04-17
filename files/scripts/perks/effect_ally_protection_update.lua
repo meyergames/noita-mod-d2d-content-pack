@@ -1,36 +1,36 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+dofile_once( "data/scripts/perks/perk.lua" )
 
-local MAX_EFFECT_DISTANCE = 100
+local MAX_EFFECT_DISTANCE = 25
 
-local entity_id = GetUpdatedEntityID()
-local x, y = EntityGetTransform( entity_id )
+local player = GetUpdatedEntityID()
+local x, y = EntityGetTransform( player )
 
 local radius_mtp = 0.5 + ( 0.5 * get_perk_pickup_count( "D2D_ALLY_PROTECTION" ) )
 
 local nearby_targets = EntityGetInRadiusWithTag( x, y, MAX_EFFECT_DISTANCE * radius_mtp, "homing_target" )
 if #nearby_targets > 0 then
     for i,target_id in ipairs( nearby_targets ) do
-        local children = EntityGetAllChildren( target_id, "d2d_ally_protection_shield" )
 
-        local is_charmed = GameGetGameEffect( target_id, "CHARM" )
-        local has_shield = children and #children > 0
+        local were_perks_given = get_internal_bool( target_id, "d2d_were_perks_given" )
+        if GameGetGameEffect( target_id, "CHARM" ) ~= 0 and not were_perks_given then
+            -- give each (compatible) perk of the player to the charmed enemy
+            for i,perk in ipairs( perk_list ) do
+                if has_perk( perk.id ) then
+                    -- only apply to enemies if the perk is usable by them
+                    local data = get_perk_with_id( perk_list, perk.id )
+                    if data.usable_by_enemies then
+                        share_perk_with_enemy( data, target_id, target_id )
+                    end
+                end
+            end
+            GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
+            set_internal_bool( target_id, "d2d_were_perks_given", true )
 
-        if is_charmed ~= 0 and not has_shield then
-            local new_shield_id = EntityLoad( "mods/D2DContentPack/files/entities/misc/ally_protection_shield.xml" )
-            EntityAddChild( target_id, new_shield_id )
-            multiply_move_speed( target_id, "d2d_ally_protection", 1.5 )
-
-            -- create an arc between the player and the charmed creature
-            -- local new_arc_id = EntityLoad( "data/entities/misc/arc_electric.xml" )
-            -- EntityAddChild( entity_id, new_arc_id )
-            -- local arccomp = EntityGetComponentIncludingDisabled( new_arc_id, "ArcComponent" )
-            -- if arccomp then
-            --     ComponentSetValue2( arccomp, "mArcTarget", target_id )
-            -- end
-        elseif not is_charmed and has_shield then
-            local shield_id = EntityGetAllChildren( target_id, "d2d_ally_protection_shield" )[1]
-            EntityKill( shield_id )
-            reset_move_speed( target_id, "d2d_ally_protection" )
+        -- elseif not is_charmed then
+        --     local shield_id = EntityGetAllChildren( target_id, "d2d_ally_protection_shield" )[1]
+        --     EntityKill( shield_id )
+        --     reset_move_speed( target_id, "d2d_ally_protection" )
         end
     end
 end
@@ -41,7 +41,7 @@ if #faraway_targets > 0 then
         local children = EntityGetAllChildren( target_id, "d2d_ally_protection_shield" )
         local has_shield = children and #children > 0
 
-        if has_shield and distance_between( entity_id, target_id ) > MAX_EFFECT_DISTANCE then
+        if has_shield and distance_between( player, target_id ) > MAX_EFFECT_DISTANCE then
             local shield_id = EntityGetAllChildren( target_id, "d2d_ally_protection_shield" )[1]
             EntityKill( shield_id )
             reset_move_speed( target_id, "d2d_ally_protection" )

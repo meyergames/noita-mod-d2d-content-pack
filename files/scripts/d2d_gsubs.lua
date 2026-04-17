@@ -1,4 +1,8 @@
 
+local function esc( str )
+    return str:gsub("[%(%)%.%%%+%-%*%?%[%^%$%]]", "%%%1")
+end
+
 local function alter_wand_of_destruction()
     -- add unique tag to the wand
     local file = "data/entities/items/wands/wand_good/wand_good_2.xml"
@@ -27,4 +31,16 @@ local function alter_wand_of_destruction()
     ModTextFileSetContent( file, content )
 end
 
+local function alter_contact_damage()
+    -- prevent Contact Damage from damaging allies
+    local file = "data/scripts/perks/contact_damage.lua"
+    local content = ModTextFileGetContent( file )
+    content = content:gsub(
+        esc( "if ( entity_id ~= root_id ) then" ),
+        esc( "if entity_id ~= root_id and not GameGetGameEffect( entity_id, \"CHARM\" ) then" ) )
+    ModTextFileSetContent( file, content )
+end
+
+alter_shield_perk()
 alter_wand_of_destruction()
+alter_contact_damage()

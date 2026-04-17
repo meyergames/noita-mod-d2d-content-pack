@@ -438,7 +438,7 @@ mod_settings =
             {
                 id = "enable_loadouts",
                 ui_name = "Enable Class Loadouts",
-                ui_description = "Spawns several class loadouts to choose from at the start of your run.",
+                ui_description = "Spawns 3 random class loadouts to choose from, at the start of your run.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
@@ -447,6 +447,13 @@ mod_settings =
                 ui_name = "Enable Curses on Class Loadouts",
                 ui_description = "When enabled, each class loadout has a thematically fitting Curse.",
                 value_default = true,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "spawn_all_loadouts",
+                ui_name = "Spawn ALL Loadouts",
+                ui_description = "Spawns all available loadouts, instead of 3 at random.",
+                value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
         }

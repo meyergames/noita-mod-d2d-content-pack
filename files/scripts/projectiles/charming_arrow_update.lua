@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local entity_id = GetUpdatedEntityID()
 local x, y = EntityGetTransform( entity_id )
@@ -7,6 +7,13 @@ local owner = EntityGetInRadiusWithTag( x, y, 2, "homing_target" )[1]
 local cancel_infatuation = false
 if get_internal_bool( owner, "d2d_charming_arrow_cancel_infatuation", true ) then
 	cancel_infatuation = true
+end
+
+-- if the player is too far away, teleport this enemy to the player - unless they're in a HM
+local px, py = EntityGetTransform( get_player() )
+local dist = get_distance( x, y, px, py )
+if dist > 200 and not is_in_holy_mountain( get_player() ) then
+	teleport( owner, px, py )
 end
 
 -- if the entity is already berserk, don't infatuate them
