@@ -1267,9 +1267,10 @@ d2d_perk_reworks = {
         	-- end
 
         	if original then
-        		if Random( 1, 10 ) <= 3 then
+        		if Random( 1, 100 ) <= 25 then
 	        		EntityKill( original.entity_id )
-					EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
+					EntityLoad( "data/entities/particles/image_emitters/chest_effect_bad.xml", x, y )
+					GamePrint( "Your wand was destroyed!" )
 	        	else
 	        		local copy = EZWand()
 
@@ -1299,9 +1300,6 @@ d2d_perk_reworks = {
         end,
 	},
 }
-
-
-
 
 
 
