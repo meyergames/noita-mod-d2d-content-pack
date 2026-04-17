@@ -336,7 +336,7 @@ function spawn_glass_staff( x, y )
     wand.rechargeTime = 6
     wand.manaMax = 64 + ( 128 + Random( -4, 4 ) ) * wand_lvl
     wand.manaChargeSpeed = 96 + ( 192 + Random( -4, 4 ) ) * wand_lvl
-    wand.capacity = ( wand_lvl * 4 ) + Random( -1, 1 )
+    wand.capacity = ( wand_lvl * 4 ) + 1
     wand.spread = Random( -8, -2 )
     dofile_once( "mods/D2DContentPack/files/scripts/wand_utils.lua" )
     
@@ -360,6 +360,26 @@ function spawn_glass_staff( x, y )
 
     EntityAddTag( wand.entity_id, "glass_wand" )
     wand:PlaceAt( x, y - 20 )
+end
+
+function try_upgrade_staff_of_glass()
+	local staff_of_glass = EntityGetWithTag( "glass_wand" )[1]
+	if not staff_of_glass then return end
+
+	local wand = EZWand( staff_of_glass )
+	if not wand then return end
+
+	-- do not upgrade past the tier that has 25 capacity
+	if wand.capacity >= 25 then return end
+
+	wand.manaMax = wand.manaMax + ( 128 + Random( -4, 4 ) )
+	wand.manaChargeSpeed = wand.manaChargeSpeed + ( 192 + Random( -4, 4 ) )
+	wand.capacity = wand.capacity + 4
+	wand:AddSpells( "D2D_GLASS_SHARD", "D2D_GLASS_SHARD", "D2D_GLASS_SHARD", "D2D_GLASS_SHARD" )
+
+	local x, y = EntityGetTransform( staff_of_glass )
+	GamePrint( "The Staff of Glass was upgraded!" )
+	GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 end
 
 function spawn_ancient_staff( x, y )
@@ -686,6 +706,15 @@ function get_all_wand_actions( wand )
 	return actions
 end
 
+function get_wand_action( wand, action_id )
+	local spells, always_casts = wand:GetSpells()
+	for i,spell in ipairs( spells ) do
+		if spell.action_id == action_id then
+			return spell
+		end
+	end
+end
+
 function generate_random_toolbox_spells( amount, do_print )
 	local px, py = EntityGetTransform( get_player() )
 	local toolboxes = EntityGetInRadiusWithTag( px, py, 100, "d2d_toolbox" )
@@ -730,6 +759,7 @@ function generate_random_toolbox_spells( amount, do_print )
 		-- misc.
 		"D2D_RAPIDFIRE_SALVO",
 		"D2D_CIRCLE_OF_TINKERING",
+		"D2D_AUTO_RELOAD",
 	}
 
 	local rare = {
@@ -740,11 +770,9 @@ function generate_random_toolbox_spells( amount, do_print )
 		"ENERGY_SHIELD",
 		"D2D_RELOAD_SHIELD",
 
-		-- damage
-		"D2D_DAMAGE_RECHARGE",
-
 		-- misc.
 		"D2D_ALT_FIRE_ANYTHING",
+		"D2D_RESTART_POINT",
 	}
 
 	-- if Apotheosis is enabled, add Alt Fire Small Teleport Bolt
@@ -878,4 +906,26 @@ function last_wand( player )
     end
 
     return wands[#wands]
+end
+
+function trigger_wand_refresh( wand, min_reload_time )
+	if not wand then return end
+	local player = EntityGetRootEntity( wand.entity_id )
+
+	local inventory2 = EntityGetFirstComponent( player, "Inventory2Component" )
+	if inventory2 ~= nil then
+		ComponentSetValue2( inventory2, "mForceRefresh", true )
+		ComponentSetValue2( inventory2, "mActualActiveItem", 0 )
+
+		local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
+		local reload_time = math.max( wand.rechargeTime, min_reload_time or 0 )
+
+		-- only reload if the wand isn't already reloading
+		local next_frame_usable = ComponentGetValue2( acomp, "mReloadNextFrameUsable" )
+		if GameGetFrameNum() >= next_frame_usable then
+			ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
+			ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
+			ComponentSetValue2( acomp, "reload_time_frames", reload_time )
+		end
+	end
 end
