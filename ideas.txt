@@ -7,6 +7,8 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] gun.lua has a "handle_mana_addition" function --> could be useful for Mana Lock
+
 [ ] Alt Fire Prism (for one-slot Alt Fire Anything)
 
 [ ] Mid-fire spell for all class loadout wands that destroys a nearby wand to take over all of its stats, so that their

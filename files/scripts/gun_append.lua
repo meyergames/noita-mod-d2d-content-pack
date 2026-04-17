@@ -1,3 +1,5 @@
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
 local __draw_actions_for_shot = _draw_actions_for_shot
 _draw_actions_for_shot = function(...)
 	local me = GetUpdatedEntityID()
@@ -63,12 +65,9 @@ move_hand_to_discarded = function(...)
 	return _move_hand_to_discarded(...)
 end
 
--- local _order_deck = order_deck
--- order_deck = function()
 
--- 	GamePrint( "order!" )
--- 	_order_deck()
--- end
+
+
 
 local _order_deck = order_deck
 order_deck = function()

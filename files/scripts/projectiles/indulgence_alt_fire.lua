@@ -91,7 +91,7 @@ if is_alt_fire_pressed() and GameGetFrameNum() >= cooldown_frame then
 							GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/goldnugget/create", x, y )
 
 						    ComponentSetValue2( variablecomp, "value_int", GameGetFrameNum() + cooldown_frames )
-							trigger_wand_reload( wand, cooldown_frames )
+							trigger_wand_refresh( wand, cooldown_frames )
 
 						    break
 						else

@@ -1564,6 +1564,7 @@ d2d_actions = {
 		price               = 280,
 		mana                = 10,
 		action 		        = function()
+								current_reload_time = current_reload_time + 15
 								draw_actions( 1, true )
 		                    end,
 	},
@@ -1723,12 +1724,51 @@ d2d_actions = {
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/indulgence_alt_fire.png",
 		type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "1,2,3,4,5,6,10",
-		spawn_probability   = "0.1,0.1,0.1,0.1,0.2,0.3,1",
+		spawn_probability   = "0.2,0.2,0.4,0.4,0.6,0.6,1",
 		spawn_requires_flag	= "d2d_indulgence_unlocked",
 		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_indulgence_alt_fire.xml",
 		price               = 1000,
 		mana                = 0,
 		action 		        = function()
+								draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_AUTO_RELOAD",
+		name 		        = "$spell_d2d_auto_reload_name",
+		description         = "$spell_d2d_auto_reload_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/auto_reload.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6,10",
+		spawn_probability   = "0.2,0.2,0.4,0.4,0.6,0.6,1",
+		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_auto_reload.xml",
+		price               = 150,
+		mana                = 0,
+		action 		        = function()
+								draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_RESTART_POINT",
+		name 		        = "$spell_d2d_restart_point_name",
+		description         = "$spell_d2d_restart_point_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/restart_point.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6,10",
+		spawn_probability   = "0.1,0.1,0.2,0.4,0.6,0.6,1",
+		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_restart_point.xml",
+		price               = 150,
+		mana                = 10,
+		action 		        = function()
+								if GlobalsGetValue( "D2D_RESTART_POINT_ACTIVE", "0" ) == "0" and #deck > 0 then
+									for i=1, #discarded do
+										table.remove( discarded, 1 )
+									end
+									GlobalsSetValue( "D2D_RESTART_POINT_ACTIVE", "1" )
+								end
+
 								draw_actions( 1, true )
 		                    end,
 	},
