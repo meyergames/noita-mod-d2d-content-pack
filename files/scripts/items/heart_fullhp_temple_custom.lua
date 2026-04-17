@@ -1,4 +1,4 @@
-dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local function handle_glass_heart( entity_item, entity_who_picked )
     if has_lua( entity_who_picked, "d2d_glass_heart" ) then
@@ -49,6 +49,7 @@ local old_item_pickup = item_pickup
 item_pickup = function( entity_item, entity_who_picked, name )
     EntityRemoveIngestionStatusEffect( entity_who_picked, "VIRAL_INFECTION" )
 
+    try_upgrade_staff_of_glass()
     handle_glass_heart( entity_item, entity_who_picked )
     handle_glass_fist_boost( entity_item, entity_who_picked )
 

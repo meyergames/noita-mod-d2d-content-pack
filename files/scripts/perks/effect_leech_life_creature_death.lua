@@ -15,14 +15,14 @@ local player_id = get_player()
 local p_x, p_y = EntityGetTransform( player_id )
 local dir_x, dir_y = vec_normalize( p_x - e_x, p_y - e_y )
 
-local bubble_amt = math.min( math.max( math.ceil( e_max_hp * 0.5 ), 1 ), 20 ) * pickup_count
+local bubble_amt = math.min( math.max( math.ceil( e_max_hp * 0.25 ), 1 ), 10 ) * pickup_count
 for i = 1, bubble_amt do
     local rdir_x, rdir_y = vec_rotate( dir_x, dir_y, Random( -22.5, 22.5 ) )
     local speed = Random( 10, 40 )
     shoot_projectile( entity_id, "mods/D2DContentPack/files/entities/projectiles/deck/giga_drain_bubble.xml", e_x, e_y, rdir_x * speed, rdir_y * speed)
 end
 
-local max_hp_bubble_amt = math.min( math.max( math.ceil( e_max_hp * 0.25 ), 1 ), 10 ) * pickup_count
+local max_hp_bubble_amt = math.min( math.max( math.ceil( e_max_hp * 0.125 ), 1 ), 5 ) * pickup_count
 for i = 1, max_hp_bubble_amt do
     local rdir_x, rdir_y = vec_rotate( dir_x, dir_y, Random( -22.5, 22.5 ) )
     local speed = Random( 10, 40 )
