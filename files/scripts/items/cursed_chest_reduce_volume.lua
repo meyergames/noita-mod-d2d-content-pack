@@ -10,5 +10,5 @@ if has_perk( "D2D_HUNT_CURSES" ) then
 			auto_play_if_enabled = true,
 		})
 	end
-	ComponentSetValue2( audiocomp, "m_volume", 0.3 )
+	ComponentSetValue2( audiocomp, "m_volume", 0.5 )
 end

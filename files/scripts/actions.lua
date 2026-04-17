@@ -1717,6 +1717,23 @@ d2d_actions = {
 	},
 
 	{
+		id                  = "D2D_INDULGENCE_ALT_FIRE",
+		name 		        = "$spell_d2d_indulgence_alt_fire_name",
+		description         = "$spell_d2d_indulgence_alt_fire_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/indulgence_alt_fire.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6,10",
+		spawn_probability   = "0.1,0.1,0.1,0.1,0.2,0.3,1",
+		spawn_requires_flag	= "d2d_indulgence_unlocked",
+		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_indulgence_alt_fire.xml",
+		price               = 1000,
+		mana                = 0,
+		action 		        = function()
+								draw_actions( 1, true )
+		                    end,
+	},
+
+	{
 		id                  = "D2D_FORCE_CAST",
 		name 		        = "$spell_d2d_force_cast_name",
 		description         = "$spell_d2d_force_cast_desc",

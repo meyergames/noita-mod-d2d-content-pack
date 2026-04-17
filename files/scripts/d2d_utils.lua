@@ -213,7 +213,7 @@ end
 
 -- this function is from Goki's Things
 function find_action_entity( action )
-    for _,e in pairs(EntityGetWithTag("card_action")) do
+    for _,e in pairs( EntityGetWithTag( "card_action" ) ) do
         local item = EntityGetFirstComponentIncludingDisabled( e, "ItemComponent" )
         if item then
             if ComponentGetValue2( item, "mItemUid" ) == action.inventoryitem_id then

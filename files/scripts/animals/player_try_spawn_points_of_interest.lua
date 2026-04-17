@@ -314,6 +314,30 @@ function try_add_staff_drop_to_reflective_weirdo()
     end
 end
 
+function try_spawn_indulgence_copy_1()
+    if GameHasFlagRun( "d2d_indulgence_copy_1_spawned" ) then return end
+    if not is_within_bounds( entity_id, 14800, 15400, -3600, -3000 ) then return end
+    
+    CreateItemActionEntity( "D2D_INDULGENCE_ALT_FIRE", 15100, -3333 )
+    if not HasFlagPersistent( "d2d_indulgence_unlocked" ) then
+        AddFlagPersistent( "d2d_indulgence_unlocked" )
+    end
+
+    GameAddFlagRun( "d2d_indulgence_copy_1_spawned" )
+end
+
+function try_spawn_indulgence_copy_2()
+    if GameHasFlagRun( "d2d_indulgence_copy_2_spawned" ) then return end
+    if not is_within_bounds( entity_id, -14300, -13700, 16300, 16900 ) then return end
+
+    CreateItemActionEntity( "D2D_INDULGENCE_ALT_FIRE", 14075, 16625 )
+    if not HasFlagPersistent( "d2d_indulgence_unlocked" ) then
+        AddFlagPersistent( "d2d_indulgence_unlocked" )
+    end
+
+    GameAddFlagRun( "d2d_indulgence_copy_2_spawned" )
+end
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
@@ -327,3 +351,5 @@ try_spawn_staff_of_nutrition()
 try_cap_max_health()
 try_add_delta_to_ylialkemisti()
 -- try_add_staff_drop_to_reflective_weirdo()
+try_spawn_indulgence_copy_1()
+try_spawn_indulgence_copy_2()
