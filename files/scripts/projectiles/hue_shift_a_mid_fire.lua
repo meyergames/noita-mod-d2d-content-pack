@@ -27,6 +27,7 @@ end
 function try_drop_and_cache_spell( new_inv_x, card )
 	if not exists( card ) then
 		set_internal_int( entity_id, "cached_spell_" .. new_inv_x, -1 )
+		return
 	end
 
 	EntityRemoveFromParent( card )
