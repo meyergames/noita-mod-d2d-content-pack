@@ -280,41 +280,43 @@ d2d_actions = {
 		type 				= ACTION_TYPE_MODIFIER,
 		spawn_level         = "0",
 		spawn_probability   = "0",
+		spawn_requires_flag	= "d2d_impossible_spawn",
 		price 				= 999,
 		mana 				= 5,
 		action 				= function()
-			c.fire_rate_wait		= c.fire_rate_wait + 5
-			c.damage_curse_add 		= c.damage_curse_add + 0.2 -- for the tooltip
-			if reflecting then return end
+								c.fire_rate_wait		= c.fire_rate_wait + 5
+								c.damage_curse_add 		= c.damage_curse_add + 0.2 -- for the tooltip
+								if reflecting then return end
 
-			c.damage_curse_add 		= c.damage_curse_add - 0.2 -- reset
-            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-            if curse_count ~= nil then
-				c.damage_curse_add 		= c.damage_curse_add + ( 0.2 * tonumber( curse_count ) )
-				-- c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
-	            draw_actions( 1, true )
-	        end
+								c.damage_curse_add 		= c.damage_curse_add - 0.2 -- reset
+					            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+					            if curse_count ~= nil then
+									c.damage_curse_add 		= c.damage_curse_add + ( 0.2 * tonumber( curse_count ) )
+									-- c.extra_entities    	= c.extra_entities .. "data/entities/particles/tinyspark_purple_bright.xml,"
+						            draw_actions( 1, true )
+						        end
 		end,
 	},
 
 	{
-		id          = "D2D_CURSES_TO_MANA",
-		name 		= "$spell_d2d_curses_to_mana_name",
-		description = "$spell_d2d_curses_to_mana_desc",
-		sprite 		= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_mana.png",
-		type 		= ACTION_TYPE_MODIFIER,
-		spawn_level                       = "0",
-		spawn_probability                 = "0",
-		price 		= 999,
-		mana 		= -10,
-		action 		= function()
-			if reflecting then return end
+		id          		= "D2D_CURSES_TO_MANA",
+		name 				= "$spell_d2d_curses_to_mana_name",
+		description 		= "$spell_d2d_curses_to_mana_desc",
+		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/curses_to_mana.png",
+		type 				= ACTION_TYPE_MODIFIER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag	= "d2d_impossible_spawn",
+		price 				= 999,
+		mana 				= -10,
+		action 				= function()
+								if reflecting then return end
 
-            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-            if curse_count ~= nil then
-    			mana = mana + ( 10 * ( tonumber( curse_count ) - 1 ) )
-	            draw_actions( 1, true )
-	        end
+					            local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+					            if curse_count ~= nil then
+					    			mana = mana + ( 10 * ( tonumber( curse_count ) - 1 ) )
+						            draw_actions( 1, true )
+						        end
 		end,
 	},
 
