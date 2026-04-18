@@ -520,12 +520,33 @@ function init_staff_of_obliteration()
 	wand.manaChargeSpeed = 512
 	wand.capacity = 25
 	wand.spread = 0
-	-- wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
 	wand:AttachSpells( "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" )
 	wand:AddSpells( "D2D_DEATH_RAY" )
-	-- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_mjav.png", 8, 6, 14, 0 )
-	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed.png", 8, 6, 19, 0 )
-	-- wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_soa.png", 12, 6, 14, 0 )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed_2.png", 10, 6, 17, 0 )
+
+	return wand
+end
+
+function spawn_staff_of_curses( x, y )
+	local staff = init_staff_of_curses()
+	staff:PlaceAt( x, y )
+end
+
+function init_staff_of_curses()
+    local wand = EZWand()
+	wand:SetName( "Staff of Damnation", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = Random( 3, 5 )
+	wand.rechargeTime = Random( 23, 25 )
+	wand.manaMax = 512
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 99
+	wand.capacity = 10
+	wand.spread = 0
+	wand:AttachSpells( "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" )
+	wand:AddSpells( "D2D_BLUE_MAGIC" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed_1.png", 10, 6, 12, 0 )
 
 	return wand
 end

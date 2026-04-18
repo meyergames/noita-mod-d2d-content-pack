@@ -63,7 +63,10 @@ function random_perk_reward( x, y, cursed_chests_opened )
 		end
 	end
 
-	if #blurses > 0 and cursed_chests_opened % 2 == 1 then
+	if cursed_chests_opened == 1 then
+		spawn_random_perk( x - 20, y )
+		spawn_random_perk( x + 20, y )
+	elseif #blurses > 0 and cursed_chests_opened % 2 == 1 then
 		local random_blurse_id = random_from_array( blurses )
 		spawn_perk( random_blurse_id, x, y, false )
 		GlobalsSetValue( "d2d_blurses_spawned", blurses_already_spawned .. random_blurse_id .. "," )
@@ -84,11 +87,11 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 
 	if cursed_chests_opened == 1 then
 
-		-- on the first chest, spawn the Curse Hunter perk and the "Curses To X" spells
+		-- on the first chest, spawn the Curse Hunter perk and the Staff of Damnation
 		spawn_perk( "D2D_HUNT_CURSES", x, y, false )
-   		CreateItemActionEntity( "D2D_CURSES_TO_DAMAGE", x - 20, y )
-   		CreateItemActionEntity( "D2D_CURSES_TO_MANA", x + 20, y )
-		random_wand_reward( x, y - 20, cursed_chests_opened )
+		random_perk_reward( x, y, cursed_chests_opened )
+   		spawn_staff_of_curses( x, y - 20 )
+   		AddFlagPersistent( "d2d_staff_of_curses_obtained" )
 
 	elseif curses_obtained == max_curse_count + 1 then
 

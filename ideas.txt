@@ -7,6 +7,43 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] the Lua API literally has PolymorphTableSet functions, that should be much better for the Polymorb
+
+[ ] very long-term: a biome that is utterly dark - NOTHING can see through it - except a light that moves autonomously (a bit
+	like the monkey with the lantern in Twilight Princess)
+	[ ] could be a passage between the chasm below squidward and whatever is east of it. some kind of River Styx biome
+	[ ] also fitting within that theme: a "tunnel" from the Temple of the Arts into Hell, replacing some of the lava
+	[ ] at the top of the tower towards the sand pit biome above?
+	[ ] starting in the dark cave between the Mines and Abandoned Laboratory, tunnelling between the latter and the Fungal
+		Caverns below
+		[ ] or, have a little space below that dark cave that simply teleports the player to the biome somewhere hidden in the EDR
+
+[ ] it might be a good time to learn about pixel scenes, so that I can add a separate room for loadouts in the ceiling of the mountain top cave
+
+[ ] reminder that content can also be locked behind the various side-biomes, such as:
+	- the Frozen Vault
+	- the Apotheosis underwater biome
+	- the Apotheosis toxic biome
+	- the meditation box?
+	- the Power Plant
+	- the Wizard's Den (blue magic should be unlocked here!)
+	- the Friend Room (could have the Heart Bow?)
+	- the Sand Pit?
+	- the Ant Nest? (could also have Heart Bow(-adjacent) stuff)
+	- the chasm under squidward?
+	[ ] Main biomes are mostly covered:
+		- Mines has the Staff of Remembrance
+		- Coal Pits... could have a guaranteed cursed chest? :I7
+		- Snowy Chasm has the AFA spawn (though maybe it can also have Blue Magic? would be cool to have a miniboss at the orb room, it could drop a staff that contains both AFA and Blue Magic)
+		- Hiisi Base has the Staff of Loyalty (something for in the Ant Nest, maybe?)
+		- Underground Jungle has the... Staff of Nutrition :^)
+		- The Vault has the Ancient Lurker (could also have an upgraded ice staff?)
+		- Temple of the Arts has the Staff of Loyalty T2 (and could have Blue Magic in the Wizard's Den - maybe a variation 
+		  that does not change on hit, i.e. like Goki's?)
+		- 
+
+[ ] upgrade class-unique wands on each HM visit, so that it stays relevant throughout the main path
+
 [ ] breadcrumb-type spell that spawns luminous orbs for you to remember the way with.
 	[ ] 20 charges: if you touch an orb that's been around for at least 2 seconds, you automatically pick it back up and 					regain a charge.
 
@@ -17,7 +54,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 	[ ] give it a small chance to replace an already-spawned enemy?
 	[ ] name: "uutto" (leech in Finnish)
 
-[ ] gun.lua has a "handle_mana_addition" function --> could be useful for Mana Lock
+[ ] gun.lua has a "handle_mana_addition" function --> could be useful for Mana Lock?
 
 [ ] Alt Fire Prism (for one-slot Alt Fire Anything)
 
@@ -31,11 +68,11 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] some reason to bring the broken wand to the anvil?
 
-[ ] exclude brickwork from The Floor Is Lava
+[ ] exclude brickwork from The Floor Is Lava (also outside of HMs)
 
 [ ] modifier that creates a scanning entity that stays on top of the projectile + a bit after the projectile is destroyed. all nearby *other* projectiles of the same owner gain bonus damage / copy all "c.extra_entities". basically, this empowers secondary projectiles like those from path of dark flame and larpa.
 
-[ ] new Other-type ammo preservation spell that gives the next limited spell a 100% chance not to use a charge, but costs gold each time it is used.
+[x] new Other-type ammo preservation spell that gives the next limited spell a 100% chance not to use a charge, but costs gold each time it is used.
 
 [x] Curse: 10% of damage taken is lost permanently
 

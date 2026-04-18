@@ -338,6 +338,16 @@ function try_spawn_indulgence_copy_2()
     GameAddFlagRun( "d2d_indulgence_copy_2_spawned" )
 end
 
+function try_spawn_guaranteed_cursed_chest()
+    if GameHasFlagRun( "d2d_guaranteed_cursed_chest_spawned" ) then return end
+
+    local spawn_x, spawn_y = -3325, 3575
+    if get_distance( px, py, spawn_x, spawn_y ) > 512 then return end
+
+    EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_random_cursed_d2d.xml", spawn_x, spawn_y )
+    GameAddFlagRun( "d2d_guaranteed_cursed_chest_spawned" )
+end
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
@@ -353,3 +363,4 @@ try_add_delta_to_ylialkemisti()
 -- try_add_staff_drop_to_reflective_weirdo()
 try_spawn_indulgence_copy_1()
 try_spawn_indulgence_copy_2()
+try_spawn_guaranteed_cursed_chest()

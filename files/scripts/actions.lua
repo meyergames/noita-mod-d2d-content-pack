@@ -417,6 +417,7 @@ d2d_actions = {
 		mana                = 50,
 		action 		        = function()
 			                    current_reload_time = current_reload_time + 24
+								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
 
 								if reflecting then return end
 
@@ -788,8 +789,9 @@ d2d_actions = {
 	    description         = "$spell_d2d_blue_magic_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blue_magic.png",
 	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "0,1,2,3,4,5,6", -- spawn more often in Temple of the Arts
-		spawn_probability   = "0.2,0.2,0.3,0.3,0.4,1,1",
+		spawn_level         = "5,6,10",
+		spawn_probability   = "0.4,0.6,1",
+		spawn_requires_flag	= "d2d_staff_of_curses_obtained",
 	    price               = 150,
 	    mana                = 20,
 	    -- max_uses			= 10,
