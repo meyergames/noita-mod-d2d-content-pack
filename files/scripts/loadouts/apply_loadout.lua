@@ -290,9 +290,9 @@ function spawn_loadout_summoner( player )
 	give_perk( player, "EXTRA_HP" )
 	give_perk( player, "SHIELD" )
 	-- give_perk( player, "CONTACT_DAMAGE" )
-	-- if curses_enabled then
-	-- 	give_perk( player, "D2D_CURSE_STENDARI" )
-	-- end
+	if curses_enabled then
+		give_perk( player, "D2D_CURSE_HEAL_BLOCK" )
+	end
 
     -- give eggs
     for i=1, 3 do

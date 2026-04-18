@@ -138,7 +138,7 @@ function OnPlayerSpawned( player )
     if spawn_loadout then
         dofile_once( "mods/D2DContentPack/files/scripts/loadouts/init_loadouts.lua" )
     end
-
+    
     EntityAddComponent2( player, "ShotEffectComponent", {
         extra_modifier = "d2d_proj_dmg_mtp",
     })

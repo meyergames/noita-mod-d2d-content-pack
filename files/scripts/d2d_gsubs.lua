@@ -41,6 +41,5 @@ local function alter_contact_damage()
     ModTextFileSetContent( file, content )
 end
 
-alter_shield_perk()
 alter_wand_of_destruction()
 alter_contact_damage()

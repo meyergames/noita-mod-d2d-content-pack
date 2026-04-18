@@ -38,7 +38,7 @@ local prank_was_just_triggered = false
 
 local nearby_enemies = EntityGetInRadiusWithTag( x, y, ENEMY_DETECTION_RADIUS, "homing_target" ) -- no -1 necessary because the player is no homing target?
 local nearby_enemy_count = #nearby_enemies
-for i,nearby_enemy in ipairs( nearby_enemy_count ) do
+for i,nearby_enemy in ipairs( nearby_enemies ) do
     -- if the enemy is a helpless animal, don't count it
     if EntityHasTag( nearby_enemy, "helpless_animal" ) then
         nearby_enemy_count = nearby_enemy_count - 1
