@@ -1037,6 +1037,12 @@ function ModSettingsGui( gui, in_main_menu )
                 table.insert( filtered_perks, perk )
             end
         end
+        for i,perk in ipairs( d2d_curses ) do
+            table.insert( filtered_perks, perk )
+        end
+        for i,perk in ipairs( d2d_blurses ) do
+            table.insert( filtered_perks, perk )
+        end
         -- if d2d_apoth_perks then
         --     for i,perk in ipairs( d2d_apoth_perks ) do
         --         if not perk.not_in_default_perk_pool then
