@@ -58,6 +58,7 @@ function spawn_class_cards( start_x, start_y )
             offset_y = "10",
             update_transform = "1",
             update_transform_rotation = "0",
+            emissive = "1",
         })
         EntityAddComponent( entity, "UIInfoComponent", { 
             name = class.ui_name,
@@ -81,6 +82,14 @@ function spawn_class_cards( start_x, start_y )
         EntityAddComponent( entity, "VariableStorageComponent", { 
             name = "class_id",
             value_string = class.id,
+        })
+        EntityAddComponent2( entity, "LightComponent", {
+            _tags = "enabled_in_world",
+            _enabled = true,
+            r = 255,
+            g = 255,
+            b = 255,
+            radius = 64,
         })
 
         -- store the name of the function that initializes this class
