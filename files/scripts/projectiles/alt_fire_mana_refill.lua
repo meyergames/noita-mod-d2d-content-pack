@@ -30,6 +30,15 @@ if GameGetFrameNum() >= cooldown_frame then
 
             GamePlaySound( "data/audio/Desktop/player.bank", "player_projectiles/wall/create", x, y )
             wand.mana = wand.manaMax
+
+            -- force the wand to recharge immediately
+            local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
+            local next_frame_usable = ComponentGetValue2( acomp, "mReloadNextFrameUsable" )
+            if GameGetFrameNum() < next_frame_usable then
+                ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + 6 )
+                ComponentSetValue2( acomp, "mReloadFramesLeft", 6 )
+                ComponentSetValue2( acomp, "reload_time_frames", 6 )
+            end
             -- wand.currentCastDelay = wand.currentCastDelay + 30
 
             local spells, attached_spells = wand:GetSpells()
