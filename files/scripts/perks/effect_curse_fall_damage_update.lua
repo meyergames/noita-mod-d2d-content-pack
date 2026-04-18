@@ -20,7 +20,7 @@ if vcomp ~= nil then
 	-- apply fall damage if the player falls fast enough
 	local last_vel_y = get_internal_float( owner, "brittle_bones_velocity_y_last_frame" )
     if not was_on_ground and is_on_ground and last_vel_y > 4 then
-    	local dmg = ( last_vel_y - 4 ) * 10 -- max. 1.8 * 10 = 18 (since 5.8 seems to be terminal velocity)
+    	local dmg = math.min( ( last_vel_y - 4 ) * 10, 0.72 ) -- max. 1.8 * 10 = 18 (since 5.8 seems to be terminal velocity)
         GamePlaySound( "data/audio/Desktop/player.bank", "player/damage/melee", x, y )
         EntityInflictDamage( get_player(), dmg * 0.04, "NONE", "falling", "NONE", 0, 0, owner, x, y, 0 )
     end
