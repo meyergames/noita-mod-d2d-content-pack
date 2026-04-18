@@ -1,0 +1,8 @@
+<Entity>
+    <LuaComponent
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/bag_of_bombs_from_hand.lua"
+        execute_times="1"
+        execute_every_n_frames="-1"
+        execute_on_removed="true"
+    ></LuaComponent>
+</Entity>

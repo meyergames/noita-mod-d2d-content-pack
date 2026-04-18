@@ -64,7 +64,6 @@ function spawn_loadout_sniper( player )
 	wand.spread = -5
 	wand:AddSpells(
 		"D2D_RELOAD_SHIELD",
-		"D2D_DAMAGE_RECHARGE",
 		"D2D_SNIPE_SHOT" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/sniper_1.png", 10, 5, 11, 0 )
 	wand:PutInPlayersInventory()
@@ -173,39 +172,40 @@ function spawn_loadout_pyromancer( player )
 
 	-- spawn the second wand first, for some reason
     local wand = EZWand()
+	wand:SetName( "Combuster", true )	
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 16
+	wand.rechargeTime = 225
+	wand.manaMax = 525
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 10
+	wand.capacity = 1
+	wand.spread = -15
+	wand:AttachSpells( "SPEED", "EXPLOSIVE_PROJECTILE", "D2D_MISSING_MANA_TO_DMG" )
+	wand:AddSpells( "FIREBALL" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_2.png", 7, 5, 13, 0 )
+	wand:PutInPlayersInventory()
+
+    local wand = EZWand()
 	wand:SetName( "Wildfire", true )
 	wand.shuffle = false
-	wand.spellsPerCast = 3
+	wand.spellsPerCast = 1
 	wand.castDelay = Random( 1, 3 )
 	wand.rechargeTime = Random( 15, 20 )
 	wand.manaMax = Random( 221, 229 )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = Random( 12, 15 )
-	wand.capacity = 3
-	wand.spread = 3
-	wand:AttachSpells( "TORCH", "LIGHT", "CHAOTIC_ARC", "BOUNCE", "" )
-	wand:AddSpells( "AIR_BULLET", "AIR_BULLET", "AIR_BULLET" )
-	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_2.png", 7, 4, 8, 0 )
-	wand:PutInPlayersInventory()
-
-	-- spawn the first wand
-    local wand = EZWand()
-	wand:SetName( "Combustion", true )
-	wand.shuffle = false
-	wand.spellsPerCast = 1
-	wand.castDelay = Random( 6, 8 )
-	wand.rechargeTime = Random( 20, 25 )
-	wand.manaMax = Random( 170, 220 )
-	wand.mana = wand.manaMax
-	wand.manaChargeSpeed = Random( 21, 23 )
 	wand.capacity = 5
-	wand.spread = 0
-	wand:AddSpells( "D2D_ECHO_SHOT", "D2D_ECHO_SHOT", "D2D_ECHO_SHOT" )
-	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_1.png", 7, 5, 13, 0 )
+	wand.spread = 3
+	wand:AttachSpells( "LIGHT", "CHAOTIC_ARC", "BOUNCE" )
+	wand:AddSpells( "FIREBOMB", "FIREBOMB", "FIREBOMB" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_1.png", 5, 5, 10, 0 )
 	wand:PutInPlayersInventory()
 
 	-- perks
 	give_perk( player, "D2D_MASTER_OF_FIRE" )
+	give_perk( player, "FIRE_GAS" )
 	if curses_enabled then
 		give_perk( player, "D2D_CURSE_STENDARI" )
 	end
@@ -311,6 +311,65 @@ function spawn_loadout_summoner( player )
     if exists( dmg_comp ) then
     	ComponentSetValue2( dmg_comp, "hp", 4 ) -- 100 hp
     	ComponentSetValue2( dmg_comp, "max_hp", 4 ) -- 100 hp
+    end
+end
+
+function spawn_loadout_cannoneer( player )
+	empty_inventory( player )
+
+	local x, y = EntityGetTransform( player )
+	y = y - 32
+
+	-- spawn the second wand
+    wand = EZWand()
+	wand:SetName( "Handcannon", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = Random( 7, 9 )
+	wand.rechargeTime = Random( 121, 125 )
+	wand.manaMax = Random( 275, 297 )
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = Random( 21, 25 )
+	wand.capacity = 5
+	wand.spread = 3
+	wand:AttachSpells( "D2D_AUTO_RELOAD", "D2D_COMBO_DAMAGE" )
+	wand:AddSpells(
+		"D2D_ECHO_SHOT",
+		"D2D_ECHO_SHOT",
+		"D2D_ECHO_SHOT",
+		"D2D_ECHO_SHOT",
+		"D2D_DAMAGE_RECHARGE" )
+	wand:RemoveSpells( "LIGHT_BULLET", -1 )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/cannoneer_1.png", 5, 4, 8, 1 )
+	wand:PutInPlayersInventory()
+
+	-- perks
+	give_perk( player, "EXPLODING_CORPSES" )
+	give_perk( player, "D2D_MASTER_OF_EXPLOSIONS" )
+	-- give_perk( player, "REVENGE_EXPLOSION" )
+	give_perk( player, "ABILITY_ACTIONS_MATERIALIZED" )
+	if curses_enabled then
+		give_perk( player, "EXPLODING_GOLD" )
+	end
+
+    -- start with a vial of water
+    local x, y = EntityGetTransform( player )
+    local water = EntityLoad( "data/entities/items/pickup/potion_water.xml", x, y )
+    GamePickUpInventoryItem( player, water, false )
+
+    -- and a bag of bombs
+    local bag_of_bombs = EntityLoad( "mods/D2DContentPack/files/entities/misc/custom_cards/card_bag_of_bombs.xml", x, y )
+    local item_comp = EntityGetFirstComponentIncludingDisabled( bag_of_bombs, "ItemComponent" )
+    if exists( item_comp ) then
+    	ComponentSetValue2( item_comp, "preferred_inventory", "QUICK" )
+    end
+    GamePickUpInventoryItem( player, bag_of_bombs, false )
+
+    -- set the player's health
+    local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
+    if exists( dmg_comp ) then
+    	ComponentSetValue2( dmg_comp, "hp", 5 ) -- 125 hp
+    	ComponentSetValue2( dmg_comp, "max_hp", 5 ) -- 125 hp
     end
 end
 

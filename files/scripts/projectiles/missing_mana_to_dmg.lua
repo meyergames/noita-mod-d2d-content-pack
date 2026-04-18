@@ -15,7 +15,14 @@ if exists( wand ) and exists( proj_comp ) and not was_already_applied then
 	-- the spell is barely effective if the wand recharges its mana quickly
 	local effectiveness = ( time_until_full_mana * 0.1 ) -- 1s = 10%, 10s = 100%, 20s = 200%, ...
 
-	local dmg_mtp = 1.0 + ( ( wand.mana * 0.001 ) * effectiveness )
+	local x, y = EntityGetTransform( proj_id )
+	if time_until_full_mana >= 8 then
+		GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole_big/create", x, y )
+	elseif time_until_full_mana >= 2 then
+		GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/black_hole/create", x, y )
+	end
+
+	local dmg_mtp = 1.0 + ( ( 0.5 +  ( wand.mana * 0.001 ) ) * effectiveness )
 
 	multiply_proj_dmg( proj_id, dmg_mtp, "missing_mana_to_dmg" )
 	set_internal_bool( proj_id, "d2d_missing_mana_to_dmg_applied", true )

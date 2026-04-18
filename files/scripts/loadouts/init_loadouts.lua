@@ -31,6 +31,13 @@ classes = {
         ui_description = "$loadout_d2d_summoner_desc",
         sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/summoner.png",
     },
+    {
+        id = "D2D_CLASS_CANNONEER",
+        function_name = "spawn_loadout_cannoneer",
+        ui_name = "$loadout_d2d_cannoneer_name",
+        ui_description = "$loadout_d2d_cannoneer_desc",
+        sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/cannoneer.png",
+    },
 }
 
 -- this function was copied and adjusted from the Selectable Classes mod
@@ -98,7 +105,7 @@ function spawn_class_cards( start_x, start_y )
 end
 
 local x, y = EntityGetTransform( get_player() )
-spawn_class_cards( x - ( (NUM_CLASSES-1) * 10 ), y - 60 )
+spawn_class_cards( x - ( (NUM_CLASSES-1) * 20 ), y - 60 )
 EntityLoad( "mods/D2DContentPack/files/entities/misc/loadouts/class_selection_aura.xml", x, y )
 
 if not HasFlagPersistent( "d2d_class_loadouts_introduced" ) then

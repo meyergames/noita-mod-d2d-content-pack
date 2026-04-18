@@ -7,6 +7,8 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] make Overclock sometimes set a projectile's lifetime to 0 and enable friendly fire, making explosions deadly
+
 [ ] the Lua API literally has PolymorphTableSet functions, that should be much better for the Polymorb
 
 [ ] very long-term: a biome that is utterly dark - NOTHING can see through it - except a light that moves autonomously (a bit

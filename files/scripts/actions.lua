@@ -333,6 +333,10 @@ d2d_actions = {
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 25
 			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
+								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_blue.xml,"
+								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
+
 								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
 
 			                    draw_actions( 1, true )
@@ -401,6 +405,7 @@ d2d_actions = {
 			                    	current_reload_time = current_reload_time + ( 5 * prior_projectiles )
 									c.damage_projectile_add = c.damage_projectile_add + ( 0.32 * prior_projectiles )
 									c.damage_critical_chance = c.damage_critical_chance + ( 8 * prior_projectiles )
+									shot_effects.recoil_knockback = shot_effects.recoil_knockback + ( 20 * prior_projectiles )
 								end
 
 			                    draw_actions( 1, true )
@@ -977,26 +982,6 @@ d2d_actions = {
 	                        end,
     },
 
-    {
-	    id                  = "D2D_CONCRETE_WALL",
-	    name 		        = "$spell_d2d_concrete_wall_name",
-	    description         = "$spell_d2d_concrete_wall_desc",
-        inject_after        = { "D2D_PAYDAY", "SUMMON_ROCK" },
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/concrete_wall.png",
-	    type 		        = ACTION_TYPE_PROJECTILE,
-		spawn_level         = "1,2,3,4,5,6",
-		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
-	    price               = 200,
-	    mana                = 80,
-	    max_uses			= 5,
-	    action              = function()
-			                    c.fire_rate_wait    = c.fire_rate_wait + 40
-			                    current_reload_time = current_reload_time + 40
-
-                                add_projectile("mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml")
-	                        end,
-    },
-
 	{
 		id                  = "D2D_BAG_OF_BOMBS",
 		name 		        = "$spell_d2d_bag_of_bombs_name",
@@ -1148,6 +1133,26 @@ d2d_actions = {
 			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
 			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
 			                    c.screenshake = c.screenshake + 1.25
+	                        end,
+    },
+
+    {
+	    id                  = "D2D_CONCRETE_WALL",
+	    name 		        = "$spell_d2d_concrete_wall_name",
+	    description         = "$spell_d2d_concrete_wall_desc",
+        inject_after        = { "D2D_PAYDAY", "SUMMON_ROCK" },
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/concrete_wall.png",
+	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
+		spawn_level         = "1,2,3,4,5,6",
+		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
+	    price               = 200,
+	    mana                = 80,
+	    max_uses			= 5,
+	    action              = function()
+			                    c.fire_rate_wait    = c.fire_rate_wait + 40
+			                    current_reload_time = current_reload_time + 40
+
+                                add_projectile("mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml")
 	                        end,
     },
 

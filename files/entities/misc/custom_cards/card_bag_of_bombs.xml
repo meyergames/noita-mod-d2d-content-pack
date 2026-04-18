@@ -7,7 +7,7 @@
 	    </ItemComponent>
 
 		<SpriteComponent 
-			image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/banana_bomb.png" 
+			image_file="mods/D2DContentPack/files/gfx/ui_gfx/spells/bag_of_bombs.png" 
 		></SpriteComponent>
 		
 		<ItemActionComponent 
@@ -19,13 +19,15 @@
 	<SpriteComponent
 		_tags="enabled_in_hand,not_enabled_in_wand"
 		_enabled="0"
-    	image_file="data/items_gfx/in_hand/tnt_in_hand.png" >
+		offset_x="5"
+		offset_y="3"
+    	image_file="mods/D2DContentPack/files/gfx/items_gfx/in_hand/bag_of_bombs_in_hand.png" >
 	</SpriteComponent>
 
 	<AbilityComponent
 		_tags="enabled_in_hand"
 		ui_name="Bag Of Bombs"
-		entity_file="data/entities/projectiles/deck/tnt.xml"
+		entity_file="mods/D2DContentPack/files/entities/projectiles/deck/bag_of_bombs_from_hand.xml"
 		rotate_hand_amount="0.05"
 		throw_as_item="1" 
 		simulate_throw_as_item="1"
