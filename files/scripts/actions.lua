@@ -849,6 +849,28 @@ d2d_actions = {
 	                        end,
 	},
 
+	-- {
+	-- 	id          		= "D2D_POLY_DYNAMIC",
+	-- 	name 				= "$spell_d2d_poly_dynamic_name",
+	-- 	description 		= "$spell_d2d_poly_dynamic_desc",
+	-- 	sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/poly_dynamic.png",
+	-- 	related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/orb_poly_dynamic.xml" },
+	-- 	type 				= ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "1,2,4,5",
+	-- 	spawn_probability	= "0.4,0.5,0.7,0.8",
+	-- 	price 				= 270,
+	-- 	mana 				= 50,
+	-- 	-- max_uses 			= 5,
+	-- 	-- never_unlimited		= true,
+	-- 	action 				= function()
+	-- 		c.fire_rate_wait = c.fire_rate_wait + 50
+	-- 		c.spread_degrees = c.spread_degrees + 12
+
+	-- 		if reflecting then return end
+	-- 		add_projectile( "mods/D2DContentPack/files/entities/projectiles/orb_poly_dynamic.xml" )
+	-- 	end,
+	-- },
+
     {
 	    id                  = "D2D_UNSTABLE_NUCLEUS",
 	    name 		        = "$spell_d2d_unstable_nucleus_name",
