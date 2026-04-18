@@ -36,7 +36,15 @@ end
 
 local prank_was_just_triggered = false
 
-local nearby_enemy_count = #EntityGetInRadiusWithTag( x, y, ENEMY_DETECTION_RADIUS, "homing_target" ) -- no -1 necessary because the player is no homing target?
+local nearby_enemies = EntityGetInRadiusWithTag( x, y, ENEMY_DETECTION_RADIUS, "homing_target" ) -- no -1 necessary because the player is no homing target?
+local nearby_enemy_count = #nearby_enemies
+for i,nearby_enemy in ipairs( nearby_enemy_count ) do
+    -- if the enemy is a helpless animal, don't count it
+    if EntityHasTag( nearby_enemy, "helpless_animal" ) then
+        nearby_enemy_count = nearby_enemy_count - 1
+    end
+end
+
 local far_enemy_count = #EntityGetInRadiusWithTag( x, y, ENEMY_DETECTION_RADIUS * 2, "homing_target" )
 local is_in_holy_mountain = string.find( BiomeMapGetName( x, y ), "holy" )
 
