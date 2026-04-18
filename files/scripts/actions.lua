@@ -503,6 +503,7 @@ d2d_actions = {
 		type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0", -- only appears on the Staff of Loyalty
 		spawn_probability   = "0", -- only appears on the Staff of Loyalty
+		spawn_requires_flag	= "d2d_impossible_spawn",
 		price               = 220,
 		mana                = 30,
 		action 		        = function()								
@@ -1687,47 +1688,6 @@ d2d_actions = {
 	},
 
 	{
-		id                  = "D2D_AUTO_RELOAD",
-		name 		        = "$spell_d2d_auto_reload_name",
-		description         = "$spell_d2d_auto_reload_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/auto_reload.png",
-		type 		        = ACTION_TYPE_PASSIVE,
-		spawn_level         = "0",
-		spawn_probability   = "0",
-		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_auto_reload.xml",
-		price               = 150,
-		mana                = 0,
-		action 		        = function()
-								draw_actions( 1, true )
-		                    end,
-	},
-
-	{
-		id                  = "D2D_RESTART_POINT",
-		name 		        = "$spell_d2d_restart_point_name",
-		description         = "$spell_d2d_restart_point_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/restart_point.png",
-		type 		        = ACTION_TYPE_OTHER,
-		spawn_level         = "0",
-		spawn_probability   = "0",
-		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_restart_point.xml",
-		price               = 150,
-		mana                = 10,
-		action 		        = function()
-								if reflecting then return end
-
-								if GlobalsGetValue( "D2D_RESTART_POINT_ACTIVE", "0" ) == "0" and #deck > 0 then
-									for i=1, #discarded do
-										table.remove( discarded, 1 )
-									end
-									GlobalsSetValue( "D2D_RESTART_POINT_ACTIVE", "1" )
-								end
-
-								draw_actions( 1, true )
-		                    end,
-	},
-
-	{
 		id                  = "D2D_SECOND_WIND",
 		name 		        = "$spell_d2d_second_wind_name",
 		description         = "$spell_d2d_second_wind_desc",
@@ -1857,6 +1817,47 @@ d2d_actions = {
 								        end
 								    end
 								end
+		                    end,
+	},
+
+	{
+		id                  = "D2D_AUTO_RELOAD",
+		name 		        = "$spell_d2d_auto_reload_name",
+		description         = "$spell_d2d_auto_reload_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/auto_reload.png",
+		type 		        = ACTION_TYPE_PASSIVE,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_auto_reload.xml",
+		price               = 150,
+		mana                = 0,
+		action 		        = function()
+								draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_RESTART_POINT",
+		name 		        = "$spell_d2d_restart_point_name",
+		description         = "$spell_d2d_restart_point_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/restart_point.png",
+		type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_restart_point.xml",
+		price               = 150,
+		mana                = 10,
+		action 		        = function()
+								if reflecting then return end
+
+								if GlobalsGetValue( "D2D_RESTART_POINT_ACTIVE", "0" ) == "0" and #deck > 0 then
+									for i=1, #discarded do
+										table.remove( discarded, 1 )
+									end
+									GlobalsSetValue( "D2D_RESTART_POINT_ACTIVE", "1" )
+								end
+
+								draw_actions( 1, true )
 		                    end,
 	},
 
@@ -2277,6 +2278,7 @@ d2d_actions = {
         subtype     		= { altfire = true },
 		spawn_level         = "0", -- should only spawn on the Staff of Light
 		spawn_probability   = "0", -- should only spawn on the Staff of Light
+		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_hue_shift_a.xml",
 	    price               = 500,
 	    mana                = 0,

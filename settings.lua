@@ -431,20 +431,23 @@ mod_settings_version = 1      -- This is a magic global that can be used to migr
 mod_settings =
 {
     {
-        category_id = "default_settings",
-        ui_name = "General",
+        category_id = "loadout_settings",
+        ui_name = "Class Loadouts",
         ui_description = "",
         settings = {
             {
-                id = "enable_loadouts",
-                ui_name = "Enable Class Loadouts",
-                ui_description = "Spawns 3 random class loadouts to choose from, at the start of your run.",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
+                id = "loadout_spawn_chance",
+                ui_name = "Loadout spawn chance",
+                ui_description = "What's the chance of random class loadouts\nspawning at the start of a new game?",
+                value_default = 5,
+                value_min = 0,
+                value_max = 100,
+                value_display_formatting = " $0 %",
+                scope = MOD_SETTING_SCOPE_RUNTIME,
             },
             {
                 id = "enable_curses_on_loadouts",
-                ui_name = "Enable Curses on Class Loadouts",
+                ui_name = "Enable Curses on Loadouts",
                 ui_description = "When enabled, each class loadout has a thematically fitting Curse.",
                 value_default = true,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
@@ -947,7 +950,7 @@ function ModSettingsGui( gui, in_main_menu )
         dofile("mods/D2DContentPack/files/scripts/actions.lua")
         local filtered_actions = {}
         for i,action in ipairs( d2d_actions ) do
-            if action.spawn_probability ~= "0" then
+            if action.spawn_requires_flag ~= "d2d_impossible_spawn" then
                 table.insert( filtered_actions, action )
             end
         end
@@ -1014,14 +1017,27 @@ function ModSettingsGui( gui, in_main_menu )
                 end
             end
 
+            local not_yet_unlocked = false
+            if v.spawn_requires_flag and v.spawn_requires_flag ~= "" and not HasFlagPersistent( v.spawn_requires_flag ) then
+                not_yet_unlocked = true
+            end
+
             if HasSettingFlag( v.id.."_spawn_at_start" ) then
                 GuiColorSetForNextWidget( gui, 0, 1, 0, 1 )
             else
-                GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
+                if not_yet_unlocked then
+                    GuiColorSetForNextWidget( gui, 1, 0.5, 0, 1 )
+                else
+                    GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
+                end
             end
-            GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.name) )
 
-            
+            if not_yet_unlocked then
+                GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.name) .. " (not yet unlocked)" )
+            else
+                GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.name) )
+            end
+
             GuiLayoutEnd(gui)
             
         end
@@ -1116,9 +1132,19 @@ function ModSettingsGui( gui, in_main_menu )
             if HasSettingFlag( v.id.."_spawn_at_start" ) then
                 GuiColorSetForNextWidget( gui, 0, 1, 0, 1 )
             else
-                GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
+                if v.not_in_default_perk_pool and not string.find( v.id, "CURSE" )  then
+                    GuiColorSetForNextWidget( gui, 1, 0.5, 0, 1 )
+                else
+                    GuiColorSetForNextWidget( gui, 1, 1, 1, 1 )
+                end
             end
-            GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.ui_name) )
+
+            if v.not_in_default_perk_pool and not string.find( v.id, "CURSE" ) then
+                GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.ui_name) .. " (rare)" )
+            else
+                GuiText( gui, 0, 3, GameTextGetTranslatedOrNot(v.ui_name) )
+            end
+
             GuiLayoutEnd(gui)
         end
     else

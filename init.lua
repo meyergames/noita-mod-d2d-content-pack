@@ -132,7 +132,10 @@ function OnPlayerSpawned( player )
         script_damage_received="mods/D2DContentPack/files/scripts/animals/player_damage_received.lua",
     } )
     
-    if not HasFlagPersistent( "d2d_class_loadouts_introduced") or ModSettingGet( "D2DContentPack.enable_loadouts" ) then
+    local rnd = Random( 1, 100 )
+    local spawn_loadout = rnd <= ModSettingGet( "D2DContentPack.loadout_spawn_chance" )
+                          or not HasFlagPersistent( "d2d_class_loadouts_introduced" )
+    if spawn_loadout then
         dofile_once( "mods/D2DContentPack/files/scripts/loadouts/init_loadouts.lua" )
     end
 
