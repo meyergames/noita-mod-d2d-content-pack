@@ -936,7 +936,7 @@ function last_wand( player )
     return wands[#wands]
 end
 
-function trigger_wand_refresh( wand, min_reload_time )
+function trigger_wand_refresh( wand, mtp, min_reload_time )
 	if not wand then return end
 	local player = EntityGetRootEntity( wand.entity_id )
 
@@ -946,7 +946,7 @@ function trigger_wand_refresh( wand, min_reload_time )
 		ComponentSetValue2( inventory2, "mActualActiveItem", 0 )
 
 		local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
-		local reload_time = math.max( wand.rechargeTime, min_reload_time or 0 )
+		local reload_time = math.max( wand.rechargeTime, min_reload_time or 0 ) * mtp
 
 		-- only reload if the wand isn't already reloading
 		local next_frame_usable = ComponentGetValue2( acomp, "mReloadNextFrameUsable" )

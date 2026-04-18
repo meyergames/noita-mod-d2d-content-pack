@@ -10,7 +10,8 @@ if not is_fire_pressed() and not is_alt_fire_pressed() and is_listening then
 	local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
 	local next_frame_usable = ComponentGetValue2( acomp, "mReloadNextFrameUsable" )
 	if GameGetFrameNum() > next_frame_usable then
-		trigger_wand_refresh( wand )
+		trigger_wand_refresh( wand, 0.25 )
+		-- wand.mana = wand.mana + ( wand.manaChargeSpeed * ( wand.rechargeTime / 60 ) )
 	end
 
 	set_internal_bool( GetUpdatedEntityID(), "d2d_auto_reload_listening", false )
