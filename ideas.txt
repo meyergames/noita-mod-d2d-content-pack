@@ -7,6 +7,22 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] 
+
+[ ] Projectile spell with a sine wave trajectory (see https://noita.wiki.gg/wiki/Mod:New_Enemies_And_Bosses/Tank_Boss)
+
+[ ] Echo Bolt With Trigger, that x4s the damage of whatever it shoots, too (if it hits x4 itself)
+
+[ ] Bolt Catcher hidden mechanic: if the player has Blue Magic on the same wand, copy that spell
+
+[ ] Leech Life could use some SFX/VFX upon spawning
+
+[ ] Multicast that draws 2 spells, but calls the last one at the origin point after the cast delay
+
+[ ] Upgrade: Always-Cast
+	"May promote a random spell on the wand (25% chance per spell)"
+	(i.e. if you have only one spell on the wand, there's a 75% chance of not a single spell being promoted)
+
 [ ] make Overclock sometimes set a projectile's lifetime to 0 and enable friendly fire, making explosions deadly
 
 [ ] the Lua API literally has PolymorphTableSet functions, that should be much better for the Polymorb

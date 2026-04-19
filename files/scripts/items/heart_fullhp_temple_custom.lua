@@ -49,6 +49,7 @@ local old_item_pickup = item_pickup
 item_pickup = function( entity_item, entity_who_picked, name )
     EntityRemoveIngestionStatusEffect( entity_who_picked, "VIRAL_INFECTION" )
 
+    try_upgrade_loadout_wands()
     try_upgrade_staff_of_glass()
     handle_glass_heart( entity_item, entity_who_picked )
     handle_glass_fist_boost( entity_item, entity_who_picked )

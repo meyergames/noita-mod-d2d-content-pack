@@ -962,3 +962,27 @@ function trigger_wand_refresh( wand, mtp, min_reload_time )
 		end
 	end
 end
+
+function try_upgrade_loadout_wands()
+    local children = EntityGetAllChildren( player ) or {}
+    for key, child in pairs( children ) do
+        if EntityGetName( child ) == "inventory_quick" then
+            local may_be_wands = EntityGetAllChildren( child ) or {}
+            if #may_be_wands > 0 then
+                for i,may_be_wand in ipairs( may_be_wands ) do
+                    if EntityHasTag( may_be_wand, "d2d_loadout_wand" ) then
+                        local wand = EZWand( may_be_wand )
+                        wand.manaMax = wand.manaMax * 1.2
+                        wand.manaChargeSpeed = wand.manaChargeSpeed * 1.2
+                        wand.capacity = wand.capacity + 1
+
+						local x, y = EntityGetTransform( wand.entity_id )
+						local wand_name, show_name_in_ui = wand:GetName()
+						GamePrint( wand_name .. " was upgraded!" )
+						GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+                    end
+                end
+            end
+        end
+    end
+end
