@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local x, y = EntityGetTransform( GetUpdatedEntityID() )
 
@@ -6,7 +6,7 @@ local p_dcomp = EntityGetFirstComponentIncludingDisabled( get_player(), "DamageM
 local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
 
-for _,proj_id in pairs( EntityGetInRadiusWithTag( x, y, 20, "projectile" ) ) do
+for i,proj_id in ipairs( EntityGetInRadiusWithTag( x, y, 20, "projectile" ) ) do
 	local proj_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "ProjectileComponent" )
 	local proj_source = ComponentGetValue2( proj_comp, "mWhoShot" )
 
@@ -39,6 +39,39 @@ for _,proj_id in pairs( EntityGetInRadiusWithTag( x, y, 20, "projectile" ) ) do
     ComponentObjectSetValue2( proj_comp, "config_explosion", "create_cell_probability", 0 )
     ComponentObjectSetValue2( proj_comp, "config_explosion", "damage", 0 )
     ComponentObjectSetValue2( proj_comp, "config_explosion", "damage_mortals", 0 )
+
+    -- if the player has Volatile Blue Magic, copy the first projectile
+    if i == 1 then
+	    local wand = EZWand.GetHeldWand()
+	    if exists( wand ) then
+		    for _,action in pairs( get_all_wand_actions( wand ) ) do
+		        local action_id = action.action_id
+		        if action_id == "D2D_BLUE_MAGIC" then
+		            local projectile_file = EntityGetFilename( proj_id )
+		            if projectile_file ~= "" then
+		            	-- if the projectile is a new one, play a sound
+		            	local old_file = get_internal_string( action.entity_id, "d2d_blue_magic_projectile_file" )
+		            	if not feedback_triggered and ( not exists( old_file ) or old_file ~= projectile_file ) then
+		            		local x, y = EntityGetTransform( get_player() )
+		            		GamePrint( "Blue Magic set to: " .. projectile_file:lower():match("([%w_]-).xml"):gsub("_"," ") )
+							GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/charm/create", x, y )
+							EntityLoad( "mods/D2DContentPack/files/particles/image_emitters/blue_magic.xml", x, y )
+		            		feedback_triggered = true
+		            	end
+
+		                set_internal_string( action.entity_id, "d2d_blue_magic_projectile_file", projectile_file )
+
+		                -- update the dynamic spell
+		    			local item_comp = EntityGetFirstComponentIncludingDisabled( action.entity_id, "ItemComponent" )
+		    			if not exists( item_comp ) then return end
+
+				        ComponentSetValue2( item_comp, "item_name", string.format( "%s: %s", GameTextGetTranslatedOrNot("$spell_d2d_blue_magic_name_prefix"), projectile_file:lower():match("([%w_]-).xml"):gsub("_"," ") ) )
+				        ComponentSetValue2( item_comp, "always_use_item_name_in_ui", true )
+		            end
+		        end
+		    end
+		end
+	end
 
     -- return the projectile
 	-- EntityKill( proj_id )
