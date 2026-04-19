@@ -1260,11 +1260,9 @@ d2d_actions = {
 
 	    						if reflecting then return end
 
-                                draw_actions( 1, true )
-
 	    						local first_proj_index = -1
-								for i,v in ipairs( hand ) do
-									local spell_data = hand[i]
+								for i,v in ipairs( deck ) do
+									local spell_data = deck[i]
 									if spell_data.type == ACTION_TYPE_PROJECTILE then
 										first_proj_index = i
 										break
@@ -1272,7 +1270,7 @@ d2d_actions = {
 								end
 
                                 if first_proj_index > -1 then
-		    						local next_spell_id = hand[first_proj_index].id
+		    						local next_spell_id = deck[first_proj_index].id
 
 		    						local copies = 0
 		    						local mana_refund = 0
@@ -1300,6 +1298,8 @@ d2d_actions = {
 
 									-- c.fire_rate_wait = cached_fire_rate_wait * copies * 0.5
 									-- current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10
+								else
+									draw_actions( 1, true )
 								end
 
 	                        end,
