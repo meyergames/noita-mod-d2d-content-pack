@@ -41,5 +41,15 @@ local function alter_contact_damage()
     ModTextFileSetContent( file, content )
 end
 
+local function add_delta_drop_to_ylialkemisti()
+    local file = "data/entities/animals/boss_alchemist/death.lua"
+    local content = ModTextFileGetContent( file )
+    content = content:gsub(
+        esc( "local opts = {" ),
+        esc( "local opts = { \"D2D_DELTA\" }" ) )
+    ModTextFileSetContent( file, content )
+end
+
 alter_wand_of_destruction()
 alter_contact_damage()
+add_delta_drop_to_ylialkemisti()

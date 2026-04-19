@@ -281,21 +281,6 @@ function try_cap_max_health()
     end
 end
 
-function try_add_delta_to_ylialkemisti()
-    if GameHasFlagRun( "d2d_poi_gave_ylialkemisti_delta" ) then return end
-    if not is_within_bounds( entity_id, -5200, -4500, 400, 1000 ) then return end
-
-    local targets = EntityGetWithTag( "boss" )
-    if #targets > 0 then
-        for i,boss_id in ipairs( targets ) do
-            EntityAddComponent2( boss_id, "LuaComponent", {
-                script_death = "mods/D2DContentPack/files/scripts/animals/boss_alchemist_death_extra.lua"
-            } )
-            GameAddFlagRun( "d2d_poi_gave_ylialkemisti_delta" )
-        end
-    end
-end
-
 function try_add_staff_drop_to_reflective_weirdo()
     if GameHasFlagRun( "d2d_poi_spawned_staff_of_light" ) then return end
 
@@ -361,7 +346,6 @@ try_reroll_challenge_perks()
 try_spawn_afa_copies()
 try_spawn_staff_of_nutrition()
 try_cap_max_health()
-try_add_delta_to_ylialkemisti()
 -- try_add_staff_drop_to_reflective_weirdo()
 try_spawn_indulgence_copy_1()
 try_spawn_indulgence_copy_2()

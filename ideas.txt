@@ -7,8 +7,6 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
-[ ] 
-
 [ ] Projectile spell with a sine wave trajectory (see https://noita.wiki.gg/wiki/Mod:New_Enemies_And_Bosses/Tank_Boss)
 
 [ ] Echo Bolt With Trigger, that x4s the damage of whatever it shoots, too (if it hits x4 itself)
