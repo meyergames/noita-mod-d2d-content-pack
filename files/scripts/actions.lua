@@ -2083,6 +2083,43 @@ d2d_actions = {
 	                        end,
     },
 
+    {
+	    id                  = "D2D_BASE_TELEPORT",
+	    name 		        = "$spell_d2d_base_teleport_name",
+	    description         = "$spell_d2d_base_teleport_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/base_teleport.png",
+	    type 		        = ACTION_TYPE_UTILITY,
+		spawn_level         = "0", -- should only spawn on the Staff of Loyalty
+		spawn_probability   = "0", -- should only spawn on the Staff of Loyalty
+		spawn_requires_flag = "d2d_impossible_spawn",
+        price 				= 330,
+        mana 				= 1000,
+	    action              = function()
+	    						c.fire_rate_wait = c.fire_rate_wait + 120
+	    						current_reload_time = current_reload_time + 120
+	    						if reflecting then return end
+
+	    						-- only open a portal if there's a lodestone
+	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	    						local lx = tonumber( GlobalsGetValue( "D2D_LODESTONE_X", "0" ) )
+	    						local ly = tonumber( GlobalsGetValue( "D2D_LODESTONE_Y", "0" ) )
+	    						-- please don't throw the lodestone at (0,0)
+	    						if not lx or lx == 0 or not ly or ly == 0 then return end
+	    						-- don't open a portal if the player is carrying the lodestone
+	    						if get_carried_item_with_tag( "d2d_lodestone" ) then return end
+
+	    						local x, y = EntityGetTransform( get_player() )
+							    local aim_x, aim_y = x, y
+							    local ctrl_comp = EntityGetFirstComponent( get_player(), "ControlsComponent" )
+							    if ctrl_comp then
+							        aim_x, aim_y = ComponentGetValue2( ctrl_comp, "mAimingVectorNormalized" )
+							    end
+						        local target_x = x + ( aim_x * 50 )
+						        local target_y = y + ( aim_y * 50 )
+						        EntityLoad( "mods/D2DContentPack/files/entities/misc/portal_lodestone.xml", target_x, target_y )
+	                        end,
+    },
+
     -- {
 	--     id                  = "D2D_UPGRADE_RESET_SPELLS_PER_CAST",
 	--     name 		        = "$spell_d2d_upgrade_reset_spells_per_cast_name",

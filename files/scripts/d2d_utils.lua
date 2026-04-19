@@ -248,7 +248,7 @@ function debug_piles( deck, hand, discarded )
     end
 end
 
-function get_item_with_tag( tag )
+function get_carried_item_with_tag( tag )
     local children = EntityGetAllChildren( get_player() )
     for k=1,#children do
         child = children[k]
@@ -267,11 +267,11 @@ function get_item_with_tag( tag )
 end
 
 function is_immune_to_fire()
-    return has_game_effect( get_player(), "PROTECTION_FIRE" ) or exists( get_item_with_tag( "brimstone" ) )
+    return has_game_effect( get_player(), "PROTECTION_FIRE" ) or exists( get_carried_item_with_tag( "brimstone" ) )
 end
 
 function is_immune_to_electricity()
-    return has_game_effect( get_player(), "PROTECTION_ELECTRICITY" ) or exists( get_item_with_tag( "thunderstone" ) )
+    return has_game_effect( get_player(), "PROTECTION_ELECTRICITY" ) or exists( get_carried_item_with_tag( "thunderstone" ) )
 end
 
 -- this function was copied from the Selectable Classes mod
