@@ -10,6 +10,7 @@ local dir_y = my - oy
 
 local filename
 
+SetRandomSeed( GameGetFrameNum(), GameGetFrameNum() )
 local rand = Random( 0, 1000 )
 if( rand < 250 ) then -- 25%
     filename = "data/entities/projectiles/bomb.xml"
