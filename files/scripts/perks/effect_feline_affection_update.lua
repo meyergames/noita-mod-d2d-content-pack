@@ -15,6 +15,7 @@ if ( #targets > 0 ) then
             if Random( 0, math.max( 50 - ( 10 * get_perk_pickup_count( "D2D_FELINE_AFFECTION" ) ), 20 ) ) == 0 then
                 local cat_id = spawn_random_cat( target_x, target_y )
                 EntityAddTag( cat_id, "cat" )
+                EntitySetHerd( cat_id, "trap" )
                 set_internal_int( cat_id, "is_spawned_through_feline_affection", 1 )
                 -- EntityLoad( "mods/Apotheosis/files/entities/special/conjurer_cat_spawner.xml", target_x, target_y )
             end
@@ -28,6 +29,7 @@ if ( #cats > 0 ) then
     for i,cat in ipairs( cats ) do
         if string.find( EntityGetName(cat), "cat_" ) and not EntityHasTag( cat, "cat" ) then
             EntityAddTag( cat, "cat" )
+            EntitySetHerd( cat, "trap" )
             EntityAddComponent( cat, "LuaComponent", 
             { 
                 script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/animals/cat_damage_incoming.lua",

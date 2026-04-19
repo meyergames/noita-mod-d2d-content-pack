@@ -7,6 +7,19 @@ function exists( id )
     return id and id ~= 0
 end
 
+-- Shorthands for a really common actions (thanks raksa)
+function EntityGetValue( entity, component_name, attr_name )
+  if not exists( entity) then return end
+
+  return ComponentGetValue2( EntityGetFirstComponentIncludingDisabled( entity, component_name ), attr_name )
+end
+
+function EntitySetValue( entity, component_name, attr_name, value )
+  if not exists( entity) then return end
+
+  return ComponentSetValue2( EntityGetFirstComponentIncludingDisabled( entity, component_name ), attr_name, value )
+end
+
 function EntityInflictMaxHealthDamage( entity_id, ratio, can_kill, death_msg )
     local x, y = EntityGetTransform( entity_id )
 
@@ -358,4 +371,8 @@ function share_perk_with_enemy( perk_data, entity_who_picked, entity_item )
     elseif perk_data.func ~= nil then
         perk_data.func( entity_item, entity_who_picked )
     end
+end
+
+function EntitySetHerd( entity, herd_name )
+    EntitySetValue( entity, "GenomeDataComponent", "herd_id", StringToHerdId( herd_name ) )
 end
