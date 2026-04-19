@@ -23,6 +23,10 @@ if ( entity_id == get_player() ) then
         
         local x, y = EntityGetTransform( GetUpdatedEntityID() )
         spawn_perk( "D2D_LEECH_LIFE", x, y, true )
+
+        EntityLoad( "data/entities/particles/image_emitters/perk_effect.xml", x, y )
+        GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest/create", x, y )
+        GamePrintImportant( "A perk has appeared!", "" )
     end
     -- raise_internal_int( get_player(), "giga_drain_total_max_hp_gain", gained_max_hp * 25 )
 
