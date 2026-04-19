@@ -942,6 +942,11 @@ function trigger_wand_refresh( wand, mtp, min_reload_time )
 
 	local inventory2 = EntityGetFirstComponent( player, "Inventory2Component" )
 	if inventory2 ~= nil then
+		if inventory2 then
+			-- This will only skip 1 equip message, but it's better than nothing
+			ComponentSetValue2( inventory2, "mDontLogNextItemEquip", true )
+		end
+
 		ComponentSetValue2( inventory2, "mForceRefresh", true )
 		ComponentSetValue2( inventory2, "mActualActiveItem", 0 )
 
