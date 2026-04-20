@@ -21,7 +21,7 @@ if exists( action_entity_id ) then
 		if get_distance( x, y, px, py ) < 100 then
 
 			-- ...spawn a return portal!
-			local return_portal = EntityLoad( "mods/D2DContentPack/files/entities/misc/portal_lodestone_return.xml", x, y - 50 )
+			local return_portal = EntityLoad( "mods/D2DContentPack/files/entities/misc/portal_lodestone_return.xml", x, y - 80 )
 			local telecomp = EntityGetFirstComponentIncludingDisabled( return_portal, "TeleportComponent" )
 			if exists( telecomp ) then
 				ComponentSetValue2( telecomp, "target", portal_x, portal_y )
@@ -29,7 +29,7 @@ if exists( action_entity_id ) then
 				-- reset the vars, so that this doesn't trigger again
 				set_internal_int( action_entity_id, "d2d_last_lodestone_portal_x", 0 )
 				set_internal_int( action_entity_id, "d2d_last_lodestone_portal_y", 0 )
-			enddw
+			end
 
 			-- remember the frame on which the portal was spawned, so that the remaining duration can be printed
 			set_internal_int( lodestone_id, "d2d_lodestone_return_portal_spawn_frame", GameGetFrameNum() )

@@ -1,4 +1,4 @@
-<Entity>
+<Entity tags="d2d_lodestone_portal" >
 	<!-- teleport logic -->
 
 	<TeleportComponent

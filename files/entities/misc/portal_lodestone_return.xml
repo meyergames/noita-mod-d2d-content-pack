@@ -1,4 +1,4 @@
-<Entity tags="d2d_lodestone_return_portal,workshop" >
+<Entity tags="d2d_lodestone_return_portal" >
 	<!-- teleport logic -->
 
 	<TeleportComponent
@@ -211,4 +211,12 @@
 		velocity_always_away_from_center="-220"
 	></ParticleEmitterComponent>
 
+	<!-- <Entity tags="workshop">
+		<HitboxComponent 
+			aabb_min_x="-150" 
+			aabb_min_y="-150"
+			aabb_max_x="150" 
+			aabb_max_y="150" 
+		></HitboxComponent>
+	</Entity> -->
 </Entity>

@@ -2117,26 +2117,34 @@ d2d_actions = {
 		spawn_requires_flag = "d2d_impossible_spawn",
         price 				= 330,
         mana 				= 1000,
-        max_uses			= 1,
+        max_uses			= 2,
         custom_uses_logic	= true,
 	    action              = function()
 	    						c.fire_rate_wait = c.fire_rate_wait + 120
 	    						current_reload_time = current_reload_time + 120
+
 	    						if reflecting then return end
 
-	    						-- only open a portal if there's a lodestone
 	    						dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
+	    						-- only open the portal if a Lodestone exists
+	    						-- ( please don't throw the stone at position 0,0 )
 	    						local lx = tonumber( GlobalsGetValue( "D2D_LODESTONE_X", "0" ) )
 	    						local ly = tonumber( GlobalsGetValue( "D2D_LODESTONE_Y", "0" ) )
-	    						-- please don't throw the lodestone at (0,0)
-	    						if not lx or lx == 0 or not ly or ly == 0 then return end
-	    						-- don't open a portal if the player is carrying the lodestone
+	    						if not lx or lx == 0 or not ly or ly == 0 then
+	    							mana = mana + 1000
+	    							GamePrint( "There is no Lodestone to teleport to." )
+	    							return
+	    						end
+
+	    						-- don't open the portal if the player is carrying the Lodestone
 	    						if get_carried_item_with_tag( "d2d_lodestone" ) then
 	    							mana = mana + 1000
 	    							GamePrint( "The Lodestone is too close!")
 	    							return
 	    						end
 
+								-- don't open the portal if the Lodestone is too nearby
 	    						local px, py = EntityGetTransform( get_player() )
 	    						local lodestones = EntityGetInRadiusWithTag( px, py, 300, "d2d_lodestone" )
 	    						if exists( lodestones ) and #lodestones > 0 then
@@ -2145,6 +2153,15 @@ d2d_actions = {
 	    							return
 	    						end
 
+	    						-- don't open the portal if another portal already exists
+								local portal = EntityGetWithTag( "d2d_lodestone_portal" )[1]
+								if exists( portal ) then
+									mana = mana + 1000
+	    							GamePrint( "You've already opened a portal!" )
+	    							return
+								end
+
+								-- spawn the portal some distance from the player's wand
 							    local aim_x, aim_y = 0, 0
 							    local ctrl_comp = EntityGetFirstComponent( get_player(), "ControlsComponent" )
 							    if ctrl_comp then
@@ -2153,8 +2170,6 @@ d2d_actions = {
 						        local tx = px + ( aim_x * 50 )
 						        local ty = py + ( aim_y * 50 )
 						        EntityLoad( "mods/D2DContentPack/files/entities/misc/portal_lodestone.xml", tx, ty )
-
-
 
 						        -- look for the action id of this spell's card
 					            local action_entity_id = find_action_entity( hand[#hand] )
