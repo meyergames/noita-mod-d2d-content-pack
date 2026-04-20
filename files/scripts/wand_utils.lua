@@ -734,6 +734,16 @@ function get_all_wand_actions( wand )
 	return actions
 end
 
+function find_action_entity_by_id( action_id )
+	local all_cards = EntityGetWithTag( "card_action" )
+	for i,card in ipairs( all_cards ) do
+		if EntityGetValue( card, "ItemActionComponent", "action_id" ) == action_id then
+			return card
+		end
+	end
+	return nil
+end
+
 function get_wand_action( wand, action_id )
 	local spells, always_casts = wand:GetSpells()
 	for i,spell in ipairs( spells ) do

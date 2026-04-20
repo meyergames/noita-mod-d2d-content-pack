@@ -196,6 +196,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.3,0.4,0.5,0.6,0.7,0.8",
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_controlled_fuse.xml",
 	    price               = 330,
 	    mana                = 20,
 	    action              = function()
@@ -826,29 +827,6 @@ d2d_actions = {
                                 local proj_file = get_internal_string( action_entity, "d2d_blue_magic_projectile_file" )
                                 if exists( proj_file ) and proj_file ~= "" then
                                 	add_projectile( proj_file )
-
-                                	-- local cast_delay = get_internal_int( action_entity, "d2d_blue_magic_cast_delay" )
-                                	-- if exists( cast_delay ) then
-	                                -- 	c.fire_rate_wait = c.fire_rate_wait + ( cast_delay * 0.25 )
-	                                -- end
-
-				            		local item_comp = EntityGetFirstComponentIncludingDisabled( action_entity, "ItemComponent" )
-				            		if exists( item_comp ) then
-				            			local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
-				            			-- if uses_remaining > 0 then
-											-- ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
-										-- end
-										if uses_remaining == 0 then
-	                                		set_internal_string( action_entity, "d2d_blue_magic_projectile_file", "" )
-									        ComponentSetValue2( item_comp, "item_name", GameTextGetTranslatedOrNot( "$spell_d2d_blue_magic_name" ) )
-									        ComponentSetValue2( item_comp, "always_use_item_name_in_ui", true )
-
-									        -- play last use effects
-									        -- local x, y = EntityGetTransform( get_player() )
-					                        -- GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
-					                        -- EntityLoad( "mods/D2DContentPack/files/particles/fade_blue_magic.xml", x, y )
-	                                	end
-                                	end
                                 else
 									c.damage_projectile_add = c.damage_projectile_add + 0.04
 			                    	add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
@@ -856,6 +834,51 @@ d2d_actions = {
                                 end
 	                        end,
 	},
+
+	-- {
+	--     id                  = "D2D_BLUE_MAGIC_TRIGGER",
+	--     name 		        = "$spell_d2d_blue_magic_trigger_name",
+	--     description         = "$spell_d2d_blue_magic_trigger_desc",
+	--     sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/blue_magic_trigger.png",
+	--     type 		        = ACTION_TYPE_PROJECTILE,
+	-- 	spawn_level         = "5,6,10",
+	-- 	spawn_probability   = "0.2,0.4,0.6",
+	-- 	spawn_requires_flag	= "d2d_staff_of_curses_obtained",
+	--     price               = 150,
+	--     mana                = 20,
+	--     -- max_uses			= 10,
+	--     -- custom_uses_logic	= true,
+	--     action              = function()
+	--     						c.fire_rate_wait = c.fire_rate_wait + 15
+
+    --                             if reflecting then return end
+    --                             dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
+	-- 							local action = hand[#hand]
+	-- 							if action.id ~= "D2D_BLUE_MAGIC_TRIGGER" then
+	-- 								c.damage_projectile_add = c.damage_projectile_add + 0.04
+	-- 		                    	add_projectile_trigger_hit_world( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+	-- 		                    	mana = mana + 15
+	-- 								return
+	-- 							end
+	-- 							local action_entity = find_action_entity( action )
+	-- 							if not action_entity then
+	-- 								c.damage_projectile_add = c.damage_projectile_add + 0.04
+	-- 		                    	add_projectile_trigger_hit_world( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+	-- 		                    	mana = mana + 15
+	-- 								return
+	-- 							end
+
+    --                             local proj_file = get_internal_string( action_entity, "d2d_blue_magic_projectile_file" )
+    --                             if exists( proj_file ) and proj_file ~= "" then
+    --                             	add_projectile_trigger_hit_world( proj_file )
+    --                             else
+	-- 								c.damage_projectile_add = c.damage_projectile_add + 0.04
+	-- 		                    	add_projectile_trigger_hit_world( "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" )
+	-- 		                    	mana = mana + 15
+    --                             end
+	--                         end,
+	-- },
 
 	-- {
 	-- 	id          		= "D2D_POLY_DYNAMIC",
@@ -2084,16 +2107,18 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_BASE_TELEPORT",
-	    name 		        = "$spell_d2d_base_teleport_name",
-	    description         = "$spell_d2d_base_teleport_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/base_teleport.png",
+	    id                  = "D2D_LODESTONE_PORTAL",
+	    name 		        = "$spell_d2d_lodestone_portal_name",
+	    description         = "$spell_d2d_lodestone_portal_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/lodestone_portal.png",
 	    type 		        = ACTION_TYPE_UTILITY,
-		spawn_level         = "0", -- should only spawn on the Staff of Loyalty
-		spawn_probability   = "0", -- should only spawn on the Staff of Loyalty
+		spawn_level         = "0",
+		spawn_probability   = "0",
 		spawn_requires_flag = "d2d_impossible_spawn",
         price 				= 330,
         mana 				= 1000,
+        max_uses			= 1,
+        custom_uses_logic	= true,
 	    action              = function()
 	    						c.fire_rate_wait = c.fire_rate_wait + 120
 	    						current_reload_time = current_reload_time + 120
@@ -2106,17 +2131,62 @@ d2d_actions = {
 	    						-- please don't throw the lodestone at (0,0)
 	    						if not lx or lx == 0 or not ly or ly == 0 then return end
 	    						-- don't open a portal if the player is carrying the lodestone
-	    						if get_carried_item_with_tag( "d2d_lodestone" ) then return end
+	    						if get_carried_item_with_tag( "d2d_lodestone" ) then
+	    							mana = mana + 1000
+	    							GamePrint( "The Lodestone is too close!")
+	    							return
+	    						end
 
-	    						local x, y = EntityGetTransform( get_player() )
-							    local aim_x, aim_y = x, y
+	    						local px, py = EntityGetTransform( get_player() )
+	    						local lodestones = EntityGetInRadiusWithTag( px, py, 300, "d2d_lodestone" )
+	    						if exists( lodestones ) and #lodestones > 0 then
+	    							mana = mana + 1000
+	    							GamePrint( "The Lodestone is too close!")
+	    							return
+	    						end
+
+							    local aim_x, aim_y = 0, 0
 							    local ctrl_comp = EntityGetFirstComponent( get_player(), "ControlsComponent" )
 							    if ctrl_comp then
 							        aim_x, aim_y = ComponentGetValue2( ctrl_comp, "mAimingVectorNormalized" )
 							    end
-						        local target_x = x + ( aim_x * 50 )
-						        local target_y = y + ( aim_y * 50 )
-						        EntityLoad( "mods/D2DContentPack/files/entities/misc/portal_lodestone.xml", target_x, target_y )
+						        local tx = px + ( aim_x * 50 )
+						        local ty = py + ( aim_y * 50 )
+						        EntityLoad( "mods/D2DContentPack/files/entities/misc/portal_lodestone.xml", tx, ty )
+
+
+
+						        -- look for the action id of this spell's card
+					            local action_entity_id = find_action_entity( hand[#hand] )
+					            if not exists( action_entity_id ) then return end
+
+					            -- store the position of the summoned portal, for the return portal's destination
+					            set_internal_int( action_entity_id, "d2d_last_lodestone_portal_x", tx )
+					            set_internal_int( action_entity_id, "d2d_last_lodestone_portal_y", ty )
+
+					            -- local wand = EZWand.GetHeldWand()
+					            -- if exists( wand.entity_id ) then
+					            	-- wand.manaMax = wand.manaMax - 100
+					            	-- GamePrint( "Your wand lost 100 max mana" )
+								GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/spiral_shot/create", x, y )
+					            -- end
+
+					            -- deduct a charge
+								local uses_remaining = -1
+								local icomp = EntityGetFirstComponentIncludingDisabled( action_entity_id, "ItemComponent" )
+								if ( icomp ~= nil ) then
+									-- local is_always_cast = ComponentGetValue2( icomp,"permanently_attached" )
+
+								    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+									if uses_remaining > 0 then
+										ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
+
+										if uses_remaining - 1 == 0 then
+											EntityLoad( "mods/D2DContentPack/files/particles/fade_lodestone_portal.xml", x, y )
+											GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+										end
+									end
+								end
 	                        end,
     },
 

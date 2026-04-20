@@ -8,14 +8,18 @@ IDEAS
 WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] Projectile spell with a sine wave trajectory (see https://noita.wiki.gg/wiki/Mod:New_Enemies_And_Bosses/Tank_Boss)
+	[ ] make it double!! so they have convergent points where they both deal damage
+		[ ] could have visuals inspired by Hyper Beam (and it could be called Hyper Beam)
+		[ ] if one of the projectiles dies while the other is very nearby (<25), consider it converged and create an extra
+			strong explosion
 
 [ ] Echo Bolt With Trigger, that x4s the damage of whatever it shoots, too (if it hits x4 itself)
 
-[ ] Bolt Catcher hidden mechanic: if the player has Blue Magic on the same wand, copy that spell
+[x] Bolt Catcher hidden mechanic: if the player has Blue Magic on the same wand, copy that spell
 
-[ ] Leech Life could use some SFX/VFX upon spawning
+[x] Leech Life could use some SFX/VFX upon spawning
 
-[ ] Multicast that draws 2 spells, but calls the last one at the origin point after the cast delay
+[ ] Multicast that draws 2 spells, but calls the last one at the origin point after a delay equal to the wand's cast delay
 
 [ ] Upgrade: Always-Cast
 	"May promote a random spell on the wand (25% chance per spell)"

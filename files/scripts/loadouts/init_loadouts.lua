@@ -109,6 +109,6 @@ spawn_class_cards( x - ( (NUM_CLASSES-1) * 20 ), y - 60 )
 EntityLoad( "mods/D2DContentPack/files/entities/misc/loadouts/class_selection_aura.xml", x, y )
 
 if not HasFlagPersistent( "d2d_class_loadouts_introduced" ) then
-    EntityLoad( "mods/D2DContentPack/files/entities/misc/loadouts/book_instruction.xml", x+30, y-15 )
+    EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/books/book_instruction.xml", x+30, y-15 )
     AddFlagPersistent( "d2d_class_loadouts_introduced" )
 end

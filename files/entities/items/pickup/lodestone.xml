@@ -38,13 +38,13 @@
 		>
 	</VelocityComponent>
 
-	<!-- functionality: register its position every second -->
+	<!-- functionality: register its position and try to summon a portal back -->
 
 	<LuaComponent
 		_tags="enabled_in_world"
 		script_source_file="mods/D2DContentPack/files/scripts/items/lodestone_update.lua"
-		execute_every_n_frame="60" >
-	</LuaComponent>
+		execute_every_n_frame="60"
+	></LuaComponent>
 	
 	<!-- item -->
 

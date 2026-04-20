@@ -335,6 +335,19 @@ function try_spawn_guaranteed_cursed_chest()
     GameAddFlagRun( "d2d_guaranteed_cursed_chest_spawned" )
 end
 
+function try_spawn_lodestone()
+    if GameHasFlagRun( "d2d_lodestone_spawned" ) then return end
+
+    local spawn_x, spawn_y = 2717, 12277
+    if get_distance( px, py, spawn_x, spawn_y ) > 512 then return end
+
+    EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/lodestone.xml", spawn_x, spawn_y )
+    CreateItemActionEntity( "D2D_LODESTONE_PORTAL", spawn_x, spawn_y - 20 )
+    EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/books/book_lodestone.xml", spawn_x - 20, spawn_y )
+    
+    GameAddFlagRun( "d2d_lodestone_spawned" )
+end
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
@@ -350,3 +363,4 @@ try_cap_max_health()
 try_spawn_indulgence_copy_1()
 try_spawn_indulgence_copy_2()
 try_spawn_guaranteed_cursed_chest()
+try_spawn_lodestone()
