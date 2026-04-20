@@ -537,6 +537,74 @@ d2d_actions = {
 		                    end,
 	},
 
+	{
+		id          		= "D2D_HELIX_SHOT",
+		name 				= "$spell_d2d_helix_shot_name",
+		description 		= "$spell_d2d_helix_shot_desc",
+		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/helix_shot.png",
+		type 				= ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,4,6", -- same as Slithering Path + on tier 1
+		spawn_probability   = "0.25,0.4,0.55,0.4",
+		price 				= 100,
+		mana 				= 2,
+		action 				= function()
+								c.fire_rate_wait = c.fire_rate_wait - 5
+								-- current_reload_time = current_reload_time - 5
+								-- c.damage_projectile_add = c.damage_projectile_add + 0.08
+
+								if reflecting then return end
+
+								-- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								
+								-- local helix_action_id = hand[#hand].id
+								-- local helix_card_id = find_action_entity( helix_action_id )
+
+								-- if helix_action_id then
+								-- 	if get_internal_bool( helix_card_id, "d2d_helix_inverse" ) then
+								-- 		GamePrint("A")
+								-- 		c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/misc/sinewave_inverse.xml,"
+								-- 		set_internal_bool( helix_card_id, "d2d_helix_inverse", false )
+								-- 	else
+								-- 		GamePrint("B")
+								-- 		c.extra_entities = c.extra_entities .. "data/entities/misc/sinewave.xml,"
+								-- 		set_internal_bool( helix_card_id, "d2d_helix_inverse", true )
+								-- 	end
+								-- end
+
+								draw_actions( 1, true )
+								c.spread_degrees = c.spread_degrees - 30
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/misc/sinewave.xml,"
+
+								c.speed_multiplier = c.speed_multiplier * 2
+
+								if ( c.speed_multiplier >= 20 ) then
+									c.speed_multiplier = math.min( c.speed_multiplier, 20 )
+								elseif ( c.speed_multiplier < 0 ) then
+									c.speed_multiplier = 0
+								end
+
+								for i,card in ipairs( hand ) do
+									local proj_action_id = card.id
+									local proj_card_id = find_action_entity( proj_action_id )
+									local data = get_actions_lua_data( proj_action_id )
+									if not data.recursive and data.type == 0 then
+										local rec = check_recursion( data, recursion_level )
+										if rec > -1 then
+											-- set_internal_bool( action_entity, "d2d_helix_inverse", true )
+											data.action( rec )
+											mana = mana - data.mana
+										end
+				            		end
+								end
+
+								-- if exists( action_entity ) then
+								-- 	GamePrint("test")
+								-- 	-- c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/misc/sinewave_inverse.xml,"
+								-- 	add_projectile( EntityGetFilename( action_entity ) )
+								-- end
+							end,
+	},
+
 	-- {
 	-- 	id                  = "D2D_OPENING_SHOT",
 	-- 	name 		        = "Opening Shot",
