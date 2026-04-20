@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local entity_id = GetUpdatedEntityID()
 local x, y = EntityGetTransform( entity_id )
