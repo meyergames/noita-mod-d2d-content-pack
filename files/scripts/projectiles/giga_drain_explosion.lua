@@ -26,7 +26,8 @@ if ( owner_id ~= nil ) and ( owner_id ~= NULL_ENTITY ) and EntityGetIsAlive( own
     local damagemodel = EntityGetFirstComponentIncludingDisabled( owner_id, "DamageModelComponent")
     local hp = ComponentGetValue2( damagemodel, "hp" )
     local max_hp = ComponentGetValue2( damagemodel, "max_hp" )
+    local heal_mtp = ComponentObjectGetValue2( damagemodel, "damage_multipliers", "healing" )
 
-    ComponentSetValue( damagemodel, "hp", math.min(hp + 0.04, max_hp) )
+    ComponentSetValue( damagemodel, "hp", math.min( hp + ( 0.04 * heal_mtp ), max_hp ) )
     GamePlaySound("data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y)
 end

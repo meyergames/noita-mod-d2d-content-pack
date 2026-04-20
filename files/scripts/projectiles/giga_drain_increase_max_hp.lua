@@ -9,7 +9,9 @@ local hp = ComponentGetValue2( dcomp, "hp" )
 local max_hp = ComponentGetValue2( dcomp, "max_hp" )
 local gained_max_hp = 0.08
 
-ComponentSetValue( dcomp, "hp", hp + gained_max_hp  )
+local heal_mtp = ComponentObjectGetValue2( dcomp, "damage_multipliers", "healing" )
+
+ComponentSetValue( dcomp, "hp", hp + ( gained_max_hp * heal_mtp ) )
 ComponentSetValue( dcomp, "max_hp", max_hp + gained_max_hp  )
 
 if ( entity_id == get_player() ) then
