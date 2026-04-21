@@ -273,6 +273,9 @@ function try_cap_max_health()
                 if ModSettingGet( "D2DContentPack.cap_max_health" ) then
                     GamePrint( "[D2D] You've chosen to cap your max health." )
                     GamePrintDelayed( "[D2D] This limit can be removed in mod settings.", 120 )
+
+                    local shield = EntityLoad( "mods/D2DContentPack/files/entities/misc/health_cap_shield.xml", px, py )
+                    EntityAddChild( entity_id, shield )
                 else
                     GamePrint( "Your max health is limited to 1000 due to Afterlife." )
                 end
