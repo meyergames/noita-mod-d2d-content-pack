@@ -360,17 +360,24 @@ d2d_actions = {
 								if reflecting then return end
 								c.damage_projectile_add = c.damage_projectile_add - 0.8
 
+			                    draw_actions( 1, true )
+
 								local cdatacomp = EntityGetFirstComponentIncludingDisabled( get_player(), "CharacterDataComponent" )
 								if cdatacomp then
 									local is_on_ground = ComponentGetValue2( cdatacomp, "is_on_ground" )
 									local hover_energy = ComponentGetValue2( cdatacomp, "mFlyingTimeLeft" )
 									if not is_on_ground and hover_energy >= 0.15 then
 										c.damage_projectile_add = c.damage_projectile_add + 0.8
-										ComponentSetValue2( cdatacomp, "mFlyingTimeLeft", hover_energy - 0.15 )
+
+										local proj_count = 0
+										for i,card in ipairs( hand ) do
+											if card.type == 0 then
+												proj_count = proj_count + 1
+											end
+										end
+										ComponentSetValue2( cdatacomp, "mFlyingTimeLeft", hover_energy - ( 0.15 * proj_count ) )
 									end
 								end
-
-			                    draw_actions( 1, true )
 		                    end,
 	},
 
