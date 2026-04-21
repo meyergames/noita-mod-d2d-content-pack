@@ -49,7 +49,7 @@ if is_alt_fire_pressed() and GameGetFrameNum() >= cooldown_frame then
 						local cast_price
 						if spells[i].action_id == "DIVIDE_10" then
 							cast_price = 1000
-						elseif max_uses <= 2 then -- i.e. Circle of Vigour
+						elseif max_uses <= 2 or spells[i].recursive then -- i.e. Circle of Vigour, Greek letters
 							cast_price = 500
 						elseif max_uses <= 5 then -- i.e. Black Hole
 							cast_price = 100
