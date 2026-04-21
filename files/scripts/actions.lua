@@ -553,7 +553,7 @@ d2d_actions = {
 		spawn_level         = "1,2,4,6", -- same as Slithering Path + on tier 1
 		spawn_probability   = "0.25,0.4,0.55,0.4",
 		price 				= 100,
-		mana 				= 2,
+		mana 				= 5,
 		action 				= function()
 								c.fire_rate_wait = c.fire_rate_wait - 5
 								-- current_reload_time = current_reload_time - 5
@@ -599,7 +599,7 @@ d2d_actions = {
 										if rec > -1 then
 											-- set_internal_bool( action_entity, "d2d_helix_inverse", true )
 											data.action( rec )
-											mana = mana - data.mana
+											-- mana = mana - data.mana
 										end
 				            		end
 								end
