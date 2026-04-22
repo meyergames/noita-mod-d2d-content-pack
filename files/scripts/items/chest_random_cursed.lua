@@ -110,8 +110,6 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 end
 
 function on_open( entity_item )
-	raise_internal_int( get_player(), "d2d_cursed_chests_opened", 1 )
-
 	local x, y = EntityGetTransform( entity_item )
 	local rand_x = x
 	local rand_y = y
@@ -127,6 +125,7 @@ function on_open( entity_item )
 	
 	if ( distance_between( get_player(), entity_item ) <= 100 ) then
 		apply_random_curse( get_player() )
+		raise_internal_int( get_player(), "d2d_cursed_chests_opened", 1 )
 
 		local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )
 		
