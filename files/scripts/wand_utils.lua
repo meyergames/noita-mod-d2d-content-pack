@@ -301,6 +301,27 @@ function wand_remove_random_always_cast( wand )
 	return false
 end
 
+function wand_promote_random_spell( wand )
+	local spells, always_casts = wand:GetSpells()
+	if #spells >= 1 then
+		local chance_to_promote = 25 * #spells
+		local rnd = Random( 1, 100 )
+		if rnd <= chance_to_promote then
+			local spell_to_promote = random_from_array( spells )
+			local spell_name = GameTextGetTranslatedOrNot( get_actions_lua_data( spell_to_promote.action_id ).name )
+
+			GamePrint( "'" .. spell_name .. "' was promoted to an always-cast!" )
+		else
+			GamePlaySound( "data/audio/Desktop/misc.bank", "collision/barrel_water/destroy", x, y )
+			GamePrint( "The upgrade failed to promote any spell. (chance was " .. chance_to_promote .. "%)" )
+		end
+		return true
+	end
+
+	GamePrint( "Your wand isn't carrying any spells!" )
+	return false
+end
+
 function determine_blink_dmg_mtp()
 	-- first check the staff
     local wand = EZWand.GetHeldWand()
