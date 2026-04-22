@@ -207,7 +207,7 @@ d2d_actions = {
 								if not get_internal_bool( get_player(), "is_fuse_being_controlled" ) then
 									c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/controlled_fuse.xml,"
                                 	draw_actions( 1, true )
-                                	set_internal_bool( get_player(), "is_fuse_being_controlled", true )
+                                	set_internal_bool( get_player(), "is_fuse_being_controlled", is_fire_pressed() )
                                 else
                                 	for i,v in ipairs( hand ) do
 										table.insert( discarded, v )
@@ -334,8 +334,6 @@ d2d_actions = {
 		action 		        = function()
 			                    c.fire_rate_wait = c.fire_rate_wait + 25
 			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
-								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
-								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_blue.xml,"
 								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
 
 								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
@@ -2098,6 +2096,44 @@ d2d_actions = {
 		spawn_probability   = "0",
 		spawn_requires_flag = "d2d_impossible_spawn",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_shuffle.xml",
+	    price               = 100,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    {
+	    id                  = "D2D_UPGRADE_REMOVE_ALWAYS_CAST",
+	    name 		        = "$spell_d2d_upgrade_remove_always_cast_name",
+	    description         = "$spell_d2d_upgrade_remove_always_cast_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_remove_always_cast.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_remove_always_cast.xml",
+	    price               = 100,
+	    mana                = 0,
+	    max_uses			= 1,
+	    custom_uses_logic	= true,
+	    action              = function()
+	    						-- do nothing here
+	                        end,	
+    },
+
+    {
+	    id                  = "D2D_UPGRADE_PROMOTE_SPELL",
+	    name 		        = "$spell_d2d_upgrade_promote_spell_name",
+	    description         = "$spell_d2d_upgrade_promote_spell_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_promote_spell.png",
+	    type 		        = ACTION_TYPE_OTHER,
+		spawn_level         = "0",
+		spawn_probability   = "0",
+		spawn_requires_flag = "d2d_impossible_spawn",
+		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_promote_spell.xml",
 	    price               = 100,
 	    mana                = 0,
 	    max_uses			= 1,

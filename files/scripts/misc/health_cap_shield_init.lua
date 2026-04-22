@@ -2,7 +2,7 @@ dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local existing_shields = EntityGetWithTag( "d2d_health_cap_shield" )
 if exists( existing_shields ) then
-	local radius = 12 + ( 4 * #existing_shields )
+	local radius = 16 + ( 4 * #existing_shields )
 
 	local shield_comp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "EnergyShieldComponent" )
 	if exists( shield_comp ) then
