@@ -2621,6 +2621,48 @@ if actions ~= nil then
 	    ["ROCKET_TIER_3"] = {
 	    	max_uses = 10,
 	    },
+
+	    ["APOTHEOSIS_PORTAL_LUKKI_RED_PORTAL"] = {
+	    	action 			= function()
+					            add_projectile("mods/Apotheosis/files/entities/projectiles/deck/markerportals/portal_red_portal.xml")
+					            c.fire_rate_wait = c.fire_rate_wait + 100
+					            current_reload_time = current_reload_time + 100
+
+					            if reflecting then return end
+					            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+					            local x, y = EntityGetTransform( get_player() )
+					            GlobalsSetValue( "D2D_APOTH_RED_PORTAL_X", tostring( x ) )
+					            GlobalsSetValue( "D2D_APOTH_RED_PORTAL_Y", tostring( y ) )
+        					end,
+	    },
+
+	    ["APOTHEOSIS_PORTAL_LUKKI_GREEN_PORTAL"] = {
+	    	action 			= function()
+					            add_projectile("mods/Apotheosis/files/entities/projectiles/deck/markerportals/portal_green_portal.xml")
+					            c.fire_rate_wait = c.fire_rate_wait + 100
+					            current_reload_time = current_reload_time + 100
+
+					            if reflecting then return end
+					            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+					            local x, y = EntityGetTransform( get_player() )
+					            GlobalsSetValue( "D2D_APOTH_GREEN_PORTAL_X", tostring( x ) )
+					            GlobalsSetValue( "D2D_APOTH_GREEN_PORTAL_Y", tostring( y ) )
+        					end,
+	    },
+
+	    ["APOTHEOSIS_PORTAL_LUKKI_BLUE_PORTAL"] = {
+	    	action 			= function()
+					            add_projectile("mods/Apotheosis/files/entities/projectiles/deck/markerportals/portal_blue_portal.xml")
+					            c.fire_rate_wait = c.fire_rate_wait + 100
+					            current_reload_time = current_reload_time + 100
+
+					            if reflecting then return end
+					            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+					            local x, y = EntityGetTransform( get_player() )
+					            GlobalsSetValue( "D2D_APOTH_BLUE_PORTAL_X", tostring( x ) )
+					            GlobalsSetValue( "D2D_APOTH_BLUE_PORTAL_Y", tostring( y ) )
+        					end,
+	    },
 	}
 
 	for i=1,#actions do

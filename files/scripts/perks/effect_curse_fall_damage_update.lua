@@ -7,6 +7,8 @@ local x,y = EntityGetTransform( owner )
 local vcomp = EntityGetFirstComponentIncludingDisabled( owner, "VelocityComponent" )
 if vcomp ~= nil then
 	local p_dcomp = EntityGetFirstComponentIncludingDisabled( owner, "DamageModelComponent" )
+	if not p_dcomp then return end
+	
 	local p_hp = ComponentGetValue2( p_dcomp, "hp" )
 	local p_max_hp = ComponentGetValue2( p_dcomp, "max_hp" )
 

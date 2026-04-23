@@ -351,6 +351,80 @@ function try_spawn_lodestone()
     GameAddFlagRun( "d2d_lodestone_spawned" )
 end
 
+function try_destroy_old_apoth_lukki_portals()
+    local new_x
+    local new_y
+    local red_portals = EntityGetWithTag( "lukki_portal_red" )
+    local green_portals = EntityGetWithTag( "lukki_portal_green" )
+    local blue_portals = EntityGetWithTag( "lukki_portal_blue" )
+    local portal_x
+    local portal_y
+
+    for i,portal in ipairs( red_portals ) do
+        new_x = tonumber( GlobalsGetValue( "D2D_APOTH_RED_PORTAL_X", "0" ) )
+        new_y = tonumber( GlobalsGetValue( "D2D_APOTH_RED_PORTAL_Y", "0" ) )
+        portal_x, portal_y = EntityGetTransform( portal )
+        if get_distance( portal_x, portal_y, new_x, new_y ) > 30 then
+            EntityKill( portal )
+        else
+            local was_biome_name_set = get_internal_bool( portal, "d2d_apoth_portal_destination_set" )
+            if not was_biome_name_set then
+                local dest_x = GlobalsGetValue( "apotheosis_markerportal_red_x", "0" )
+                local dest_y = GlobalsGetValue( "apotheosis_markerportal_red_y", "0" )
+                local biome_name = GameTextGetTranslatedOrNot( BiomeMapGetName( dest_x, dest_y ) )
+                if biome_name == "_EMPTY_" then biome_name = "the surface" end
+
+                EntityAddComponent2( portal, "UIInfoComponent", {
+                    name = "Portal to " .. biome_name
+                } )
+                set_internal_bool( portal, "d2d_apoth_portal_destination_set", true )
+            end
+        end
+    end
+    for i,portal in ipairs( green_portals ) do
+        new_x = tonumber( GlobalsGetValue( "D2D_APOTH_GREEN_PORTAL_X", "0" ) )
+        new_y = tonumber( GlobalsGetValue( "D2D_APOTH_GREEN_PORTAL_Y", "0" ) )
+        portal_x, portal_y = EntityGetTransform( portal )
+        if get_distance( portal_x, portal_y, new_x, new_y ) > 30 then
+            EntityKill( portal )
+        else
+            local was_biome_name_set = get_internal_bool( portal, "d2d_apoth_portal_destination_set" )
+            if not was_biome_name_set then
+                local dest_x = GlobalsGetValue( "apotheosis_markerportal_green_x", "0" )
+                local dest_y = GlobalsGetValue( "apotheosis_markerportal_green_y", "0" )
+                local biome_name = GameTextGetTranslatedOrNot( BiomeMapGetName( dest_x, dest_y ) )
+                if biome_name == "_EMPTY_" then biome_name = "the surface" end
+
+                EntityAddComponent2( portal, "UIInfoComponent", {
+                    name = "Portal to " .. biome_name
+                } )
+                set_internal_bool( portal, "d2d_apoth_portal_destination_set", true )
+            end
+        end
+    end
+    for i,portal in ipairs( blue_portals ) do
+        new_x = tonumber( GlobalsGetValue( "D2D_APOTH_BLUE_PORTAL_X", "0" ) )
+        new_y = tonumber( GlobalsGetValue( "D2D_APOTH_BLUE_PORTAL_Y", "0" ) )
+        portal_x, portal_y = EntityGetTransform( portal )
+        if get_distance( portal_x, portal_y, new_x, new_y ) > 30 then
+            EntityKill( portal )
+        else
+            local was_biome_name_set = get_internal_bool( portal, "d2d_apoth_portal_destination_set" )
+            if not was_biome_name_set then
+                local dest_x = GlobalsGetValue( "apotheosis_markerportal_blue_x", "0" )
+                local dest_y = GlobalsGetValue( "apotheosis_markerportal_blue_y", "0" )
+                local biome_name = GameTextGetTranslatedOrNot( BiomeMapGetName( dest_x, dest_y ) )
+                if biome_name == "_EMPTY_" then biome_name = "the surface" end
+
+                EntityAddComponent2( portal, "UIInfoComponent", {
+                    name = "Portal to " .. biome_name
+                } )
+                set_internal_bool( portal, "d2d_apoth_portal_destination_set", true )
+            end
+        end
+    end
+end
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
@@ -367,3 +441,4 @@ try_spawn_indulgence_copy_1()
 try_spawn_indulgence_copy_2()
 try_spawn_guaranteed_cursed_chest()
 try_spawn_lodestone()
+try_destroy_old_apoth_lukki_portals()

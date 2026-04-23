@@ -50,6 +50,72 @@ local function add_delta_drop_to_ylialkemisti()
     ModTextFileSetContent( file, content )
 end
 
+local function alter_apotheosis_portals()
+    if not ModIsEnabled( "Apotheosis" ) then return end
+
+
+
+    -- make the red portal stay after use
+    local file = "mods/Apotheosis/files/entities/projectiles/deck/markerportals/portal_red_portal.xml"
+    local content = ModTextFileGetContent( file )
+    content = content:gsub(
+        esc( "lukki_portal" ),
+        esc( "lukki_portal\" tags=\"lukki_portal_red" ) )
+    content = content:gsub(
+        esc( "lifetime=\"600\"" ),
+        esc( "lifetime=\"-1\"" ) )
+    ModTextFileSetContent( file, content )
+
+    file = "mods/Apotheosis/files/scripts/magic/markerportals/portal_use_red.lua"
+    content = ModTextFileGetContent( file )
+    content = content:gsub(
+        esc( "EntityKill( entity_id )" ),
+        esc( "-- EntityKill( entity_id )" ) )
+    ModTextFileSetContent( file, content )
+
+
+
+    -- green too
+    file = "mods/Apotheosis/files/entities/projectiles/deck/markerportals/portal_green_portal.xml"
+    content = ModTextFileGetContent( file )
+    content = content:gsub(
+        esc( "lukki_portal" ),
+        esc( "lukki_portal\" tags=\"lukki_portal_green" ) )
+    content = content:gsub(
+        esc( "lifetime=\"600\"" ),
+        esc( "lifetime=\"-1\"" ) )
+    ModTextFileSetContent( file, content )
+
+    file = "mods/Apotheosis/files/scripts/magic/markerportals/portal_use_green.lua"
+    content = ModTextFileGetContent( file )
+    content = content:gsub(
+        esc( "EntityKill( entity_id )" ),
+        esc( "-- EntityKill( entity_id )" ) )
+    ModTextFileSetContent( file, content )
+
+
+
+    -- blue too
+    file = "mods/Apotheosis/files/entities/projectiles/deck/markerportals/portal_blue_portal.xml"
+    content = ModTextFileGetContent( file )
+    content = content:gsub(
+        "lukki_portal",
+        "lukki_portal\" tags=\"lukki_portal_blue" )
+    content = content:gsub(
+        esc( "lifetime=\"600\"" ),
+        esc( "lifetime=\"-1\"" ) )
+    ModTextFileSetContent( file, content )
+
+    file = "mods/Apotheosis/files/scripts/magic/markerportals/portal_use_blue.lua"
+    content = ModTextFileGetContent( file )
+    content = content:gsub(
+        esc( "EntityKill( entity_id )" ),
+        esc( "-- EntityKill( entity_id )" ) )
+    ModTextFileSetContent( file, content )
+
+end
+
 alter_wand_of_destruction()
 alter_contact_damage()
 add_delta_drop_to_ylialkemisti()
+alter_apotheosis_portals()

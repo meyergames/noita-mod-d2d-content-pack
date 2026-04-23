@@ -7,6 +7,24 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Spells To X: Utility-type spell that converts all live projectiles into the next spell
+
+[ ] Summon Lodestone: make it require a few seconds of channelling? + set the recharge time .5s longer than that
+
+[ ] Hearts To Power
+	"Becomes stronger with each heart collected."
+	[ ] or: Utility spell that spawns upon reaching 1000 max hp.
+			Instantly restores 100 HP. Gains 1 charge for every heart collected.
+
+[ ] modifier that causes projectiles to fire projectiles back to you at the end of their lifetime, those projectiles' damage 	 scaling with the lifetime of the projectile that shot it. kinda like Xayah's thing
+
+[ ] make the effect of Bombs Materialized a standard feature, instead of a perk
+
+[ ] extra max hp's should still mean something when at 1000 hp...
+	[ ] maybe max hp should increase, but >1000 hp, all damage is deducted from max health as well
+	[x] or: gain a strong shield that doesn't regenerate
+		[ ] problem: certain player projectiles will damage and destroy it pretty quickly (like healing bubbles or path of 		dark flame)
+
 [-] Projectile spell with a sine wave trajectory (see https://noita.wiki.gg/wiki/Mod:New_Enemies_And_Bosses/Tank_Boss)
 	[-] make it double!! so they have convergent points where they both deal damage
 		[-] could have visuals inspired by Hyper Beam (and it could be called Hyper Beam)
@@ -22,7 +40,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [-] Multicast that draws 2 spells, but calls the last one at the origin point after a delay equal to the wand's cast delay
 
-[ ] Upgrade: Always-Cast
+[x] Upgrade: Always-Cast
 	"May promote a random spell on the wand (25% chance per spell)"
 	(i.e. if you have only one spell on the wand, there's a 75% chance of not a single spell being promoted)
 
