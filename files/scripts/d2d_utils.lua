@@ -154,8 +154,9 @@ end
 
 function held_wand_contains_slotted_spell( player_entity_id, action_id )
     local held_wand = EZWand.GetHeldWand()
+    if not held_wand then return end
+
     local spells, always_casts = held_wand:GetSpells()
-    
     for i,spell in ipairs( spells ) do
         if spell.action_id == action_id then
             return true

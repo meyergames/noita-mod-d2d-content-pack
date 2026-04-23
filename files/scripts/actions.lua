@@ -494,6 +494,7 @@ d2d_actions = {
 		name 		        = "$spell_d2d_shockwave_name",
 		description         = "$spell_d2d_shockwave_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/shockwave.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/deck/shockwave.xml" },
 		type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "0.5,0.5,1,1",
@@ -668,6 +669,7 @@ d2d_actions = {
 	    description         = "$spell_d2d_sniper_bolt_desc",
         inject_after        = { "ARROW" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/snipe_shot.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml" },
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,1,2,1.5,0.6,0.4,0.2",
@@ -685,6 +687,7 @@ d2d_actions = {
 	    description         = "$spell_d2d_sniper_bolt_trigger_desc",
         inject_after        = { "D2D_SNIPE_SHOT", "ARROW" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/snipe_shot_trigger.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml" },
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.2,0.5,1,0.8,0.3,0.2,0.1",
@@ -693,7 +696,7 @@ d2d_actions = {
 	    action              = function()
                                 c.fire_rate_wait = c.fire_rate_wait + 67
 --                                add_projectile("mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml")
-                    			add_projectile_trigger_hit_world("mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml", 1)
+                    			add_projectile_trigger_hit_world( "mods/D2DContentPack/files/entities/projectiles/sniper_bullet_custom.xml", 1 )
 	                        end,
     },
 
@@ -703,7 +706,7 @@ d2d_actions = {
 		description         = "$spell_d2d_ghost_trigger_desc",
         inject_after        = { "SPARK_BOLT_TIMER" },
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/ghost_trigger.png",
-		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml"},
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/deck/ghost_trigger_bullet.xml" },
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
 		spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
@@ -743,6 +746,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_command_attack_name",
 	    description         = "$spell_d2d_command_attack_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/command_attack.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/command_attack_targetter.xml" },
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2",
 		spawn_probability   = "0.4,0.6,0.8",
@@ -758,6 +762,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_command_warp_name",
 	    description         = "$spell_d2d_command_warp_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/command_warp.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/command_warp_targetter.xml" },
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2",
 		spawn_probability   = "0.4,0.6,0.8",
@@ -774,7 +779,7 @@ d2d_actions = {
 		name 		        = "$spell_d2d_glass_shard_name",
 		description         = "$spell_d2d_glass_shard_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/glass_shard.png",
-		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/glass_shard.xml"},
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/glass_shard.xml" },
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3", -- LIGHT_BULLET_TRIGGER
 		spawn_probability   = "1,0.7,0.6,0.5", -- LIGHT_BULLET_TRIGGER
@@ -1039,7 +1044,7 @@ d2d_actions = {
 		name 		        = "$spell_d2d_death_ray_name",
 		description         = "$spell_d2d_death_ray_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/death_ray.png",
-		related_projectiles	= {"mods/D2DContentPack/files/entities/projectiles/death_ray.xml"},
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/death_ray.xml" },
 		type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "6,10",
 		spawn_probability   = "0.1,0.5",
@@ -1062,8 +1067,8 @@ d2d_actions = {
 	    id                  = "D2D_GIGA_DRAIN",
 	    name 		        = "$spell_d2d_giga_drain_name",
 	    description         = "$spell_d2d_giga_drain_desc",
-        inject_after        = { "CHAINSAW" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/giga_drain.png",
+	    related_projectiles = { "mods/D2DContentPack/files/entities/projectiles/giga_drain_bullet.xml" },
 	    type 		        = ACTION_TYPE_PROJECTILE,
 		spawn_level         = "0,1,2,3,4", -- spawning it in The Vault does not make sense
 		spawn_probability   = "0.5,0.8,1,1.1,1",
@@ -1220,13 +1225,14 @@ d2d_actions = {
 	    description         = "$spell_d2d_small_explosion_desc",
         inject_after        = { "EXPLOSION" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/small_explosion.png",
+	    related_projectiles = { "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml" },
 	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
 		spawn_level         = "0,1,2,3",
 		spawn_probability   = "1.2,1,0.8,0.6",
 	    price               = 120,
 	    mana                = 18,
 	    action              = function()
-			                    add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml")
+			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml" )
 			                    c.fire_rate_wait = c.fire_rate_wait + 1.5
 			                    c.screenshake = c.screenshake + 1.25
 	                        end,
@@ -1238,6 +1244,7 @@ d2d_actions = {
 	    description         = "$spell_d2d_concrete_wall_desc",
         inject_after        = { "D2D_PAYDAY", "SUMMON_ROCK" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/concrete_wall.png",
+	    related_projectiles = { "mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml" },
 	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.7,0.8,0.7,0.5,0.3",
@@ -1248,7 +1255,7 @@ d2d_actions = {
 			                    c.fire_rate_wait    = c.fire_rate_wait + 40
 			                    current_reload_time = current_reload_time + 40
 
-                                add_projectile("mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml")
+                                add_projectile( "mods/D2DContentPack/files/entities/projectiles/concrete_wall_bullet_initial.xml" )
 	                        end,
     },
 
@@ -1257,6 +1264,7 @@ d2d_actions = {
 		name 		        = "$spell_d2d_bolt_catcher_name",
 		description         = "$spell_d2d_bolt_catcher_desc",
 		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/bolt_catcher.png",
+	    related_projectiles = { "mods/D2DContentPack/files/entities/projectiles/deck/bolt_catcher.xml" },
 		type 		        = ACTION_TYPE_STATIC_PROJECTILE,
 		spawn_level         = "1,2,3,4,5,6",
 		spawn_probability   = "0.1,0.5,0.6,0.7,0.8,0.5",
@@ -1313,6 +1321,7 @@ d2d_actions = {
 	    name 		        = "$spell_d2d_summon_beacon_name",
 	    description         = "$spell_d2d_summon_beacon_desc",
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/summon_beacon.png",
+	    related_projectiles = { "mods/D2DContentPack/files/entities/projectiles/beacon.xml" },
 	    type 		        = ACTION_TYPE_STATIC_PROJECTILE,
 		spawn_level         = "0,1,2,3,4,5,6",
 		spawn_probability   = "0.4,0.5,0.6,0.7,0.8,0.9,1",

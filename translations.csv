@@ -336,3 +336,5 @@ perk_d2d_lodestone_desc,"Obtain a Lodestone, plus a spell to teleport to it and 
 spell_d2d_upgrade_promote_spell_name,Upgrade: Promote Spell,,,,,,,,,,,,,
 spell_d2d_upgrade_promote_spell_desc,"Drag onto a wand to promote a random spell to an always-cast; may fail with less than 4 spells",,,,,,,,,,,,,
 item_d2d_cursed_chest_open,Press $0 to open...?,,,,,,,,,,,,,
+perk_d2d_prism_kick_name,Prismatic Boot,,,,,,,,,,,,,
+perk_d2d_prism_kick_desc,Kicking casts the spell in your last inventory slot,,,,,,,,,,,,,
