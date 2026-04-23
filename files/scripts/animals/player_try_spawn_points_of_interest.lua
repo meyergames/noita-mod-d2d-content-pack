@@ -6,6 +6,15 @@ local px, py = EntityGetTransform( entity_id )
 -- only try spawning the ghost if the player is in the collapsed mines
 local biome_name = BiomeMapGetName( px, py )
 
+local function try_spawn( filename, spawn_x, spawn_y )
+    if get_distance( px, py, spawn_x, spawn_y ) > 512 then
+        return false
+    end
+
+    EntityLoad( filename, spawn_x, spawn_y )
+    return true
+end
+
 function try_trigger_recent_update_message()
     if GameHasFlagRun( "d2d_poi_recent_update_message_displayed" ) then return end
     if not is_within_bounds( entity_id, 600, 800, -240, -80 ) then return end
@@ -71,13 +80,12 @@ function try_spawn_ancient_lurker()
     end
 end
 
--- function try_spawn_staff_of_finality()
---     if GameHasFlagRun( "d2d_poi_spawned_staff_of_finality" ) then return end
---     if not is_within_bounds( entity_id, 6800, 7900, -5400, -4500 ) then return end
-
---     EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 7380, -5080 )
---     GameAddFlagRun( "d2d_poi_spawned_staff_of_finality" )
--- end
+function try_spawn_staff_of_finality()
+    if GameHasFlagRun( "d2d_poi_spawned_staff_of_finality" ) then return end
+    if try_spawn( "mods/D2DContentPack/files/entities/items/pickup/staff_of_finality_stuck.xml", 250, -26130 ) then
+        GameAddFlagRun( "d2d_poi_spawned_staff_of_finality" )
+    end
+end
 
 function try_convert_chests_into_cursed()
     local chests = EntityGetWithTag( "chest" )

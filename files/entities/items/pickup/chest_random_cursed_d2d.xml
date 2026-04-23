@@ -31,7 +31,7 @@
     item_name="$item_d2d_chest_random_cursed"
     stats_count_as_item_pick_up="0"
     play_spinning_animation="0"
-    custom_pickup_string="$itempickup_open"
+    custom_pickup_string="$item_d2d_cursed_chest_open"
     play_pick_sound="0" >
   </ItemComponent>
 

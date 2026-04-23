@@ -509,14 +509,14 @@ function init_staff_of_finality( x, y )
 	wand.spellsPerCast = 1
 	wand.castDelay = 36
 	wand.rechargeTime = 216
-	wand.manaMax = 4999
+	wand.manaMax = 2147
 	wand.mana = wand.manaMax
-	wand.manaChargeSpeed = 1
+	wand.manaChargeSpeed = 73
 	wand.capacity = 25
 	wand.spread = -13.2
 	-- wand:AttachSpells( "D2D_MANA_LOCK" ) -- disabled until this spell is fixed
 	wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
-	wand:AddSpells( "D2D_RECYCLE_PLUS", "ROCKET", "D2D_RECYCLE_PLUS", "ROCKET_TIER_2", "D2D_RECYCLE_PLUS", "ROCKET_TIER_3" )
+	wand:AddSpells( "D2D_RECYCLE_PLUS", "ROCKET_TIER_3" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_ags.png", 8, 6, 17, 0 )
 
 	return wand
