@@ -7,6 +7,10 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Wand Refresh can be used to give spells unlimited charges...? can this be prevented? (optional anti-cheese)
+
+[ ] limited-use projectile spell intended for use as a main damage dealer. if it kills an enemy, regain 1 charge and permanently increase the spell card's damage by +1.
+
 [ ] Spells To X: Utility-type spell that converts all live projectiles into the next spell
 
 [ ] Summon Lodestone: make it require a few seconds of channelling? + set the recharge time .5s longer than that
@@ -20,7 +24,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] make the effect of Bombs Materialized a standard feature, instead of a perk
 
-[ ] extra max hp's should still mean something when at 1000 hp...
+[x] extra max hp's should still mean something when at 1000 hp...
 	[ ] maybe max hp should increase, but >1000 hp, all damage is deducted from max health as well
 	[x] or: gain a strong shield that doesn't regenerate
 		[ ] problem: certain player projectiles will damage and destroy it pretty quickly (like healing bubbles or path of 		dark flame)
@@ -495,9 +499,9 @@ Right-click:		scan the wand for the first occurrence of this "Alt Fire" spell, a
 
 [ ] Thunder (spell): causes the entity with the most remaining HP on screen to take immense electric damage
 
-[!] passive spell: +0.25/+0.33 fire rate if the wand has shuffle 'Yes'
+[x] passive spell: +0.25/+0.33 fire rate if the wand has shuffle 'Yes'
 
-[ ] 'other' spell (1 max use): if the next spell has 0 uses remaining, refill it
+[x] 'other' spell (1 max use): if the next spell has 0 uses remaining, refill it
 
 [ ] replenish mana (modifier): restore 25-50% of your wand's missing mana; adds cast delay like add mana.
 
