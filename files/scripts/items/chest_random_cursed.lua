@@ -93,12 +93,14 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
    		spawn_staff_of_curses( x, y - 20 )
    		AddFlagPersistent( "d2d_staff_of_curses_obtained" )
 
-	elseif curses_obtained == max_curse_count + 1 then
+	elseif not GameHasFlagRun( "D2D_STAFF_OF_OBLITERATION_SPAWNED" )
+		   and ( curses_obtained == max_curse_count + 1 or cursed_chests_opened == 10 ) then
 
 		-- on the last chest, spawn the Lift Curses perk and the Staff of Obliteration
 		spawn_perk( "D2D_LIFT_CURSES", x, y, false )
 		spawn_staff_of_obliteration( x, y - 20 )
 		AddFlagPersistent( "d2d_staff_of_obliteration_obtained" )
+		GameAddFlagRun( "D2D_STAFF_OF_OBLITERATION_SPAWNED" )
 
 	else
 
