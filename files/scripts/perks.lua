@@ -1074,11 +1074,11 @@ d2d_curses = {
 	},
 
 	{
-		id = "D2D_CURSE_FRAGILE",
-		ui_name = "$perk_d2d_curse_fragile_name",
-		ui_description = "$perk_d2d_curse_fragile_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/fragile_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/fragile.png",
+		id = "D2D_CURSE_VOLATILE_PROPS",
+		ui_name = "$perk_d2d_curse_volatile_props_name",
+		ui_description = "$perk_d2d_curse_volatile_props_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/volatile_props_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/volatile_props.png",
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
@@ -1091,15 +1091,15 @@ d2d_curses = {
 			if pickup_count <= 1 then
 				EntityAddComponent2( entity_who_picked, "LuaComponent", 
 				{
-					_tags = "perk_component,d2d_curse_fragile",
-					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_curse_fragile_on_damage.lua",
-					execute_every_n_frame = -1,
+					_tags = "perk_component,d2d_curse_volatile_props",
+					script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_curse_volatile_props_update.lua",
+					execute_every_n_frame = 30,
 				} )
 			end
         end,
         func_remove = function( entity_who_picked )
         	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-        	remove_lua( entity_who_picked, "d2d_curse_fragile" )
+        	remove_lua( entity_who_picked, "d2d_curse_volatile_props" )
         end
 	},
 

@@ -7,6 +7,11 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Curse ideas:
+	[ ] Corrupting Aura: nearby extremely dense rock is converted into cursed rock
+	[ ] Corrupting Aura (alt): nearby cursed rock is converted into cursed liquid
+	[x] Eager Bombs: nearby explosive props take consistent damage per second
+
 [ ] Wand Refresh can be used to give spells unlimited charges...? can this be prevented? (optional anti-cheese)
 
 [ ] limited-use projectile spell intended for use as a main damage dealer. if it kills an enemy, regain 1 charge and permanently increase the spell card's damage by +1.

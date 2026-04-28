@@ -338,3 +338,5 @@ spell_d2d_upgrade_promote_spell_desc,"Drag onto a wand to promote a random spell
 item_d2d_cursed_chest_open,Press $0 to open...?,,,,,,,,,,,,,
 perk_d2d_prism_kick_name,Prismatic Boot,,,,,,,,,,,,,
 perk_d2d_prism_kick_desc,Kicking casts the spell in your last inventory slot.,,,,,,,,,,,,,
+perk_d2d_curse_volatile_props_name,Volatile Props,,,,,,,,,,,,,
+perk_d2d_curse_volatile_props_desc,"Nearby props take rapid damage, making them explode quickly.",,,,,,,,,,,,,

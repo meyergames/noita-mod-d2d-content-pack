@@ -353,12 +353,13 @@ function spawn_loadout_cannoneer( player )
 	wand:PutInPlayersInventory()
 
 	-- perks
+	give_perk( player, "ABILITY_ACTIONS_MATERIALIZED" )
 	give_perk( player, "EXPLODING_CORPSES" )
 	give_perk( player, "D2D_MASTER_OF_EXPLOSIONS" )
 	-- give_perk( player, "REVENGE_EXPLOSION" )
-	give_perk( player, "ABILITY_ACTIONS_MATERIALIZED" )
+	-- give_perk( player, "EXPLODING_GOLD" )
 	if curses_enabled then
-		give_perk( player, "EXPLODING_GOLD" )
+		give_perk( player, "D2D_CURSE_VOLATILE_PROPS" )
 	end
 
     -- start with a vial of water
