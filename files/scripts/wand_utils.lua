@@ -303,14 +303,36 @@ end
 
 function wand_promote_random_spell( wand )
 	local spells, always_casts = wand:GetSpells()
-	if #spells >= 1 then
+	if #spells >= 1 and #always_casts < 4 then
+		for i,spell in ipairs( spells ) do
+			if spell.action_id == "D2D_UPGRADE_PROMOTE_SPELL" then
+				table.remove( spells, i )
+			end
+		end
+
+		if #spells == 0 then
+			GamePrint( "Your wand isn't carrying any spells!" )
+			return false
+		end
+
 		local chance_to_promote = 25 * #spells
+		SetRandomSeed( GameGetFrameNum(), GameGetFrameNum() )
 		local rnd = Random( 1, 100 )
 		if rnd <= chance_to_promote then
 			local spell_to_promote = random_from_array( spells )
 			local spell_name = GameTextGetTranslatedOrNot( get_actions_lua_data( spell_to_promote.action_id ).name )
 
+			local inventory2 = EntityGetFirstComponent( get_player(), "Inventory2Component" )
+			if inventory2 ~= nil then
+				if inventory2 then
+					-- This will only skip 1 equip message, but it's better than nothing
+					ComponentSetValue2( inventory2, "mDontLogNextItemEquip", true )
+				end
+			end
+
 			GamePrint( "'" .. spell_name .. "' was promoted to an always-cast!" )
+			wand:AttachSpells( spell_to_promote.action_id )
+			EntityKill( spell_to_promote.entity_id )
 		else
 			GamePlaySound( "data/audio/Desktop/misc.bank", "collision/barrel_water/destroy", x, y )
 			GamePrint( "The upgrade failed to promote any spell. (chance was " .. chance_to_promote .. "%)" )
@@ -318,7 +340,11 @@ function wand_promote_random_spell( wand )
 		return true
 	end
 
-	GamePrint( "Your wand isn't carrying any spells!" )
+	if #always_casts < 4 then
+		GamePrint( "Your wand isn't carrying any spells!" )
+	else
+		GamePrint( "Your wand already carries the maximum of 4 always-cast spells." )
+	end
 	return false
 end
 
@@ -818,10 +844,12 @@ function generate_random_toolbox_spells( amount, do_print )
 		-- misc.
 		"D2D_RAPIDFIRE_SALVO",
 		"D2D_CIRCLE_OF_TINKERING",
-		"D2D_AUTO_RELOAD",
 	}
 
 	local rare = {
+		-- upgrades
+		"D2D_UPGRADE_PROMOTE_SPELL",
+
 		-- mana
 		"D2D_MANA_SPLIT",
 
@@ -831,6 +859,7 @@ function generate_random_toolbox_spells( amount, do_print )
 
 		-- misc.
 		"D2D_ALT_FIRE_ANYTHING",
+		"D2D_AUTO_RELOAD",
 		"D2D_RESTART_POINT",
 	}
 
@@ -908,6 +937,7 @@ function spawn_random_upgrade_spells( amount, x, y )
 		"D2D_UPGRADE_MANA_CHARGE_SPEED",
 		"D2D_UPGRADE_SHUFFLE",
 		"D2D_UPGRADE_REMOVE_ALWAYS_CAST",
+		"D2D_UPGRADE_PROMOTE_SPELL",
 	}
 
 	local arc = ( amount - 1 ) * 60
