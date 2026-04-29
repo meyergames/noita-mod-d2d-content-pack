@@ -1519,6 +1519,26 @@ d2d_actions = {
 	                        end,
     },
 
+	{
+		id          		= "D2D_RESET_CAST_DELAY",
+		name 				= "$spell_d2d_reset_cast_delay_name",
+		description 		= "$spell_d2d_reset_cast_delay_desc",
+	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/reset_cast_delay.png",
+		type 				= ACTION_TYPE_UTILITY,
+		spawn_level         = "6,10",
+		spawn_probability   = "0.2,0.5",
+		price 				= 80,
+		mana 				= 12,
+		action 				= function()
+								-- spectral chainsaw
+								-- guarantees the effect of chainsaw without the drawbacks of its projectile-ness,
+								-- i.e. involuntary modifiers such as those from Master of Bombs 
+
+								c.fire_rate_wait = 0
+								current_reload_time = current_reload_time - ACTION_DRAW_RELOAD_TIME_INCREASE - 10 -- this is a hack to get the digger reload time back to 0
+							end,
+	},
+
     -- {
 	--     id                  = "D2D_COOKIE",
 	--     name 		        = "Cookie",
@@ -2153,25 +2173,6 @@ d2d_actions = {
     },
 
     {
-	    id                  = "D2D_UPGRADE_REMOVE_ALWAYS_CAST",
-	    name 		        = "$spell_d2d_upgrade_remove_always_cast_name",
-	    description         = "$spell_d2d_upgrade_remove_always_cast_desc",
-	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_remove_always_cast.png",
-	    type 		        = ACTION_TYPE_OTHER,
-		spawn_level         = "0",
-		spawn_probability   = "0",
-		spawn_requires_flag = "d2d_impossible_spawn",
-		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_remove_always_cast.xml",
-	    price               = 100,
-	    mana                = 0,
-	    max_uses			= 1,
-	    custom_uses_logic	= true,
-	    action              = function()
-	    						-- do nothing here
-	                        end,	
-    },
-
-    {
 	    id                  = "D2D_ANIMATE_WAND_MID_FIRE",
 	    name 		        = "$spell_d2d_animate_wand_mid_fire_name",
 	    description         = "$spell_d2d_animate_wand_mid_fire_desc",
@@ -2397,7 +2398,6 @@ d2d_actions = {
 	    id                  = "D2D_MANA_REFILL_ALT_FIRE",
 	    name 		        = "$spell_d2d_mana_refill_alt_fire_name",
 	    description         = "$spell_d2d_mana_refill_alt_fire_desc",
-        inject_after        = { "D2D_MANA_REFILL_ALT_FIRE", "MANA_REDUCE" },
 	    sprite 		        = "mods/D2DContentPack/files/gfx/ui_gfx/spells/alt_fire_mana_refill.png",
 	    type 		        = ACTION_TYPE_PASSIVE,
         subtype     		= { altfire = true },
@@ -2673,6 +2673,19 @@ if actions ~= nil then
         					end,
 	    },
 	}
+
+	if ModSettingGet( "D2DContentPack.force_spectral_chainsaw" ) then
+		table.insert( actions_to_edit, {
+			["CHAINSAW"] = {
+				spawn_requires_flag = "d2d_impossible_spawn",
+			},
+
+			["D2D_RESET_CAST_DELAY"] = {
+				spawn_level = "0,2,6,10",
+				spawn_probability = "1,1,0.2,0.5",
+			},
+		})
+	end
 
 	for i=1,#actions do
         if actions_to_edit[actions[i].id] then

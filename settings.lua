@@ -549,6 +549,13 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },
+            {
+                id = "force_spectral_chainsaw",
+                ui_name = "Replace Chainsaw with Spectral Chainsaw",
+                ui_description = "When enabled, this mod's Spectral Chainsaw spell will replace\nthe base game's Chainsaw spell spawns.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
         },
     },
     {
