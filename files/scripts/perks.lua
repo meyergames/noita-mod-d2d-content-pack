@@ -676,9 +676,15 @@ d2d_blurses = {
 				script_shot = "mods/D2DContentPack/files/scripts/perks/effect_master_of_explosions_shot.lua",
 				execute_every_n_frame = "-1",
 			} )
+            EntityAddComponent( entity_who_picked, "ShotEffectComponent", 
+            {
+				_tags = "perk_component,d2d_master_of_bombs",
+	            extra_modifier = "d2d_master_of_explosions_boost",
+            } )
         end,
 		func_remove = function( entity_who_picked )
 			remove_lua( entity_who_picked, "d2d_master_of_bombs" )
+			remove_shoteffect( entity_who_picked, "d2d_master_of_bombs" )
 		end,
 	},
 

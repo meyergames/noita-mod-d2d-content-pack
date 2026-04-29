@@ -109,6 +109,32 @@ function multiply_proj_dmg( proj_id, mtp, mtp_source_name )
     end
 end
 
+function multiply_proj_dmg_by_type( proj_id, dmg_type, mtp, mtp_source_name )
+    local existing_mtp_sources = get_internal_string( proj_id, "d2d_proj_dmg_mtp_sources" ) or ""
+
+    if not string.find( existing_mtp_sources, mtp_source_name ) then
+        set_internal_string( proj_id, "d2d_proj_dmg_mtp_sources", existing_mtp_sources .. mtp_source_name .. "," )
+
+        local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
+        if proj_comp then
+            if dmg_type == "explosion" then
+                GamePrint( "a" )
+                local old_expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
+                if exists( old_expl_dmg ) then
+                    ComponentObjectSetValue2( proj_comp, "config_explosion", "damage", old_expl_dmg * mtp )
+                    GamePrint( "a) " .. mtp )
+                end
+            end
+            
+            local old_dmg = ComponentObjectGetValue2( proj_comp, "damage_by_type", dmg_type )
+            if exists( old_dmg ) then
+                ComponentObjectSetValue2( proj_comp, "damage_by_type", dmg_type, old_dmg * mtp )
+                GamePrint( "b) " .. mtp )
+            end
+        end
+    end
+end
+
 -- function trigger_proj_dmg_mtp( proj_id )
 --     local mtp = get_internal_float( proj_id, "d2d_proj_dmg_mtp" )
 --     if not mtp then return end

@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function shot( proj_id )
 	local is_immune_to_explosions = has_game_effect( get_player(), "PROTECTION_EXPLOSION" )
@@ -6,6 +6,8 @@ function shot( proj_id )
 	if is_immune_to_explosions then return end
 
     local proj_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "ProjectileComponent" )
+    if not exists( proj_comp ) then return end
+
     local proj_dmg = ComponentGetValue2( proj_comp, "damage" )
     local expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
     if proj_dmg > 0 and expl_dmg < 0.4 then
@@ -24,7 +26,7 @@ function shot( proj_id )
 		ComponentObjectSetValue2( proj_comp, "config_explosion", "max_durability_to_destroy", current_mdtd_value + 2 + master_of_explosions_pickup_count )
 	end
 
-	local etypes = { "ray_energy", "sparks_count_max", "camera_shake", "damage", "material_sparks_count_max" }
+	local etypes = { "ray_energy", "sparks_count_max", "camera_shake", "material_sparks_count_max" }
 	for a,b in ipairs(etypes) do
 		local value = ComponentObjectGetValue2( proj_comp, "config_explosion", b )
 		if value then

@@ -2,20 +2,22 @@ dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 extra_modifiers["d2d_master_of_explosions_boost"] = function()
 	local is_immune_to_explosions = has_game_effect( get_player(), "PROTECTION_EXPLOSION" )
-	if( not is_immune_to_explosions ) and exists( c ) then
-		c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_explosions_impact.xml,"
-		c.explosion_radius = c.explosion_radius + 15.0
-		c.damage_explosion_add = c.damage_explosion_add + 0.4
-		c.knockback_force = c.knockback_force + 5.0
-		shot_effects.recoil_knockback = shot_effects.recoil_knockback + 15.0
+	if not is_immune_to_explosions then
+        c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_bombs_double_dmg.xml,"
+
+		-- c.explosion_radius = c.explosion_radius + 15.0
+		-- c.knockback_force = c.knockback_force + 5.0
+		-- shot_effects.recoil_knockback = shot_effects.recoil_knockback + 15.0
     end
 end
 
 extra_modifiers["d2d_master_of_lightning_boost"] = function()
     if not is_immune_to_electricity() then
 		c.damage_electricity_add = c.damage_electricity_add + 0.2
+
         c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
         c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_lightning_try_electrify.xml,"
+        c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_lightning_double_dmg.xml,"
         
 		-- c.speed_multiplier  = c.speed_multiplier * 2
 		c.fire_rate_wait    = ( c.fire_rate_wait / 10 ) * 9
@@ -31,7 +33,9 @@ end
 extra_modifiers["d2d_master_of_fire_boost"] = function()
     if not is_immune_to_fire() then
 	    c.damage_fire_add = c.damage_fire_add + 0.2
-		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml," .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
+		c.extra_entities = c.extra_entities .. "data/entities/misc/burn.xml,"
+        c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/hitfx_master_of_fire_impact.xml,"
+        c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_fire_double_dmg.xml,"
     end
 end
 
