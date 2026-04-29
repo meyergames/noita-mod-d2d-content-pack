@@ -118,7 +118,30 @@ local function alter_apotheosis_portals()
 
 end
 
+local function alter_fireball()
+    -- it's supposed to be a *FIRE*ball, for pete's sake!!(!)
+    local file = "data/entities/projectiles/deck/fireball.xml"
+    local content = ModTextFileGetContent( file )
+    content = content:gsub(
+        "speed_min=\"160\"",
+        "speed_min=\"270\"" )
+    content = content:gsub(
+        "speed_max=\"170\"",
+        "speed_max=\"300\"" )
+    content = content:gsub(
+        "fire=\"0.25\"",
+        "fire=\"2\"" )
+    content = content:gsub(
+        "damage=\"2\"",
+        "damage=\"1\"" )
+    content = content:gsub(
+        "explosion_radius=\"15\"",
+        "explosion_radius=\"30\"" )
+    ModTextFileSetContent( file, content )
+end
+
 alter_wand_of_destruction()
 alter_contact_damage()
 add_delta_drop_to_ylialkemisti()
 alter_apotheosis_portals()
+alter_fireball()
