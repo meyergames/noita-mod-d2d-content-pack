@@ -63,11 +63,9 @@ function spawn_loadout_sniper( player )
 	wand.manaChargeSpeed = Random( 12, 15 )
 	wand.capacity = 5
 	wand.spread = -5
-	if ModIsEnabled( "gkbrkn_noita" ) and Random( 1, 2 ) == 2 then
-		wand:AddSpells( "GKBRKN_LASER_SIGHT" )
-	end
 	wand:AddSpells(
 		"D2D_RELOAD_SHIELD",
+		"D2D_DAMAGE_DOUBLE",
 		"D2D_SNIPE_SHOT" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/sniper_1.png", 10, 5, 11, 0 )
 	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
@@ -75,7 +73,8 @@ function spawn_loadout_sniper( player )
 
 	-- spawn perks
 	give_perk( player, "INVISIBILITY" )
-	give_perk( player, "STAINLESS_ARMOUR" )
+	-- give_perk( player, "STAINLESS_ARMOUR" )
+	give_perk( player, "D2D_SPELL_GEMS" )
 	give_perk( player, "D2D_ALL_SEEING_EYE" )
 	if curses_enabled then
 		give_perk( player, "D2D_CURSE_FALL_DAMAGE" )
