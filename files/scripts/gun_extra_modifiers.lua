@@ -12,8 +12,6 @@ extra_modifiers["d2d_master_of_explosions_boost"] = function()
 end
 
 extra_modifiers["d2d_master_of_lightning_boost"] = function()
-    if true then return end
-
     if not is_immune_to_electricity() then
 		c.damage_electricity_add = c.damage_electricity_add + 0.2
         c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"

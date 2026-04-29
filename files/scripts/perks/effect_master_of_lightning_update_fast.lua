@@ -5,7 +5,7 @@ local owner = EntityGetParent( entity_id )
 
 
 local mana_charge_speed_mtp = getInternalVariableValue( owner, "master_of_lightning_mana_charge_speed_mtp", "value_int" )
-if ( mana_charge_speed_mtp == 0 ) then return end
+if mana_charge_speed_mtp == 0 then mana_charge_speed_mtp = 1.0 end
 -- local mana_charge_speed_mtp = 100 -- equals +100% i.e. x2
 
 local children = EntityGetAllChildren( owner )
