@@ -2673,6 +2673,17 @@ if actions ~= nil then
 					            GlobalsSetValue( "D2D_APOTH_BLUE_PORTAL_Y", tostring( y ) )
         					end,
 	    },
+
+	    ["TORCH_ELECTRIC"] = {
+	    	custom_xml_file = "mods/D2DContentPack/files/entities/misc/custom_cards/card_torch_electric.xml",
+	    	action 			= function()
+	    						c.damage_electricity_add = c.damage_electricity_add + 0.32
+	    						if reflecting then return end
+	    						c.damage_electricity_add = c.damage_electricity_add - 0.32
+
+								draw_actions( 1, true )
+					    	end,
+	    }
 	}
 
 	if ModSettingGet( "D2DContentPack.force_spectral_chainsaw" ) then

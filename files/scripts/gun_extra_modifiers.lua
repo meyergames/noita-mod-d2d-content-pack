@@ -17,7 +17,7 @@ extra_modifiers["d2d_master_of_lightning_boost"] = function()
         c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
         c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_lightning_try_electrify.xml,"
         
-		c.speed_multiplier  = c.speed_multiplier * 2
+		-- c.speed_multiplier  = c.speed_multiplier * 2
 		c.fire_rate_wait    = ( c.fire_rate_wait / 10 ) * 9
 	    current_reload_time = ( current_reload_time / 10 ) * 9
     end
@@ -133,4 +133,13 @@ end
 
 extra_modifiers["d2d_proj_dmg_mtp"] = function()
     -- c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/proj_dmg_mtp_apply.xml,"
+end
+
+extra_modifiers["d2d_torch_electric"] = function()
+    local is_enabled = get_internal_bool( get_player(), "d2d_torch_electric_enabled", is_enabled )
+    if not is_enabled then return end
+
+    c.damage_electricity_add = c.damage_electricity_add + 0.32
+    c.extra_entities = c.extra_entities .. "data/entities/particles/electricity.xml,"
+    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/master_of_lightning_try_electrify.xml,"
 end

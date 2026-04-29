@@ -403,7 +403,6 @@ function spawn_loadout_thunderlord( player )
 	wand.manaChargeSpeed = 150
 	wand.capacity = 1
 	wand.spread = 0
-	wand:AttachSpells( "TORCH_ELECTRIC" )
 	if HasFlagPersistent( "card_unlocked_paint" ) then
 		wand:AttachSpells( "COLOUR_BLUE" )
 	end
@@ -426,6 +425,7 @@ function spawn_loadout_thunderlord( player )
 	wand.manaChargeSpeed = 35
 	wand.capacity = 5
 	wand.spread = 0
+	wand:AttachSpells( "TORCH_ELECTRIC" )
 	wand:AddSpells( "LIGHTNING" )
 	if ModIsEnabled( "Apotheosis" ) then
 		wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "APOTHEOSIS_ALT_FIRE_TELEPORT_SHORT" )

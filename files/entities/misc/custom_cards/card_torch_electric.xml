@@ -1,0 +1,22 @@
+<Entity>
+	
+	<Base file="data/entities/misc/custom_cards/torch_electric.xml" ></Base>
+
+	<LuaComponent
+        script_item_picked_up="mods/D2DContentPack/files/scripts/projectiles/torch_electric_on_pickup.lua"
+        execute_every_n_frame="-1"
+    ></LuaComponent>
+
+	<LuaComponent
+        _tags="enabled_in_hand"
+        script_source_file="mods/D2DContentPack/files/scripts/projectiles/torch_electric_on_spawn.lua"
+        execute_times="1"
+    ></LuaComponent>
+
+	<LuaComponent
+        _tags="enabled_in_hand"
+        script_enabled_changed="mods/D2DContentPack/files/scripts/projectiles/torch_electric_on_enabled_changed.lua"
+        execute_every_n_frame="-1"
+    ></LuaComponent>
+
+</Entity>
