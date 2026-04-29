@@ -12,8 +12,8 @@ function shot( projectile_entity_id )
 		local max_hp = ComponentGetValue2( dmgcomp, "max_hp" )
 		local ratio = hp / max_hp
 
-		-- apply a multiplier of 1.0-2.0, based on how much health the player has left
-		local mtp = 1.0 + ratio
+		-- apply a multiplier of 1.0-4.0, based on how much health the player has left
+		local mtp = 1.0 + ( ratio * 3.0 )
 		multiply_proj_dmg( projectile_entity_id, mtp, "juggernaut" )
 	end
 end
