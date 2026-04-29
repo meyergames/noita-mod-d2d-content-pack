@@ -1025,7 +1025,7 @@ function trigger_wand_refresh( wand, mtp, min_reload_time )
 end
 
 function try_upgrade_loadout_wands()
-    local children = EntityGetAllChildren( player ) or {}
+    local children = EntityGetAllChildren( get_player() ) or {}
     for key, child in pairs( children ) do
         if EntityGetName( child ) == "inventory_quick" then
             local may_be_wands = EntityGetAllChildren( child ) or {}
