@@ -12,7 +12,7 @@ end
 -- if the player is too far away, teleport this enemy to the player - unless they're in a HM
 local px, py = EntityGetTransform( get_player() )
 local dist = get_distance( x, y, px, py )
-if dist > 200 and not EntityHasTag( entity_id, "glue_NOT" ) and is_in_holy_mountain( get_player() ) then
+if dist > 200 and not EntityHasTag( entity_id, "glue_NOT" ) and not is_in_holy_mountain( get_player() ) then
 	teleport( owner, px, py )
 end
 
