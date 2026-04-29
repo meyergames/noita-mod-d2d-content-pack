@@ -187,7 +187,7 @@ function spawn_loadout_pyromancer( player )
 	wand.manaChargeSpeed = 10
 	wand.capacity = 1
 	wand.spread = -15
-	wand:AttachSpells( "SPEED", "EXPLOSIVE_PROJECTILE", "D2D_MISSING_MANA_TO_DMG" )
+	wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
 	wand:AddSpells( "FIREBALL" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_2.png", 7, 5, 13, 0 )
 	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
@@ -197,22 +197,22 @@ function spawn_loadout_pyromancer( player )
 	wand:SetName( "Wildfire", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
-	wand.castDelay = Random( 1, 3 )
-	wand.rechargeTime = Random( 15, 20 )
+	wand.castDelay = Random( 5, 7 )
+	wand.rechargeTime = Random( 45, 47 )
 	wand.manaMax = Random( 221, 229 )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = Random( 12, 15 )
 	wand.capacity = 5
 	wand.spread = 3
-	wand:AttachSpells( "LIGHT", "CHAOTIC_ARC", "BOUNCE" )
-	wand:AddSpells( "FIREBOMB", "FIREBOMB", "FIREBOMB" )
+	wand:AttachSpells( "LIGHT" )
+	wand:AddSpells( "AIR_BULLET", "AIR_BULLET", "AIR_BULLET" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_1.png", 5, 5, 10, 0 )
 	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
 	wand:PutInPlayersInventory()
 
 	-- perks
-	give_perk( player, "D2D_MASTER_OF_FIRE" )
 	give_perk( player, "FIRE_GAS" )
+	give_perk( player, "D2D_MASTER_OF_FIRE" )
 	if curses_enabled then
 		give_perk( player, "D2D_CURSE_STENDARI" )
 	end
