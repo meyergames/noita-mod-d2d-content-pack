@@ -9,7 +9,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] Perk that drastically reduces your damage dealt, but makes Infatuation permanent / buffs allies someway
 
-[ ] Spell that functions like Chainsaw, but specifically does what chainsaw does and nothing else
+[x] Spell that functions like Chainsaw, minus the projectile
 
 [ ] Curse ideas:
 	[ ] Corrupting Aura: nearby extremely dense rock is converted into cursed rock

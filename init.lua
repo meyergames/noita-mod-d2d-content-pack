@@ -18,6 +18,8 @@ ModLuaFileAppend( "data/scripts/gun/gun.lua", "mods/D2DContentPack/files/scripts
 
 if ModIsEnabled( "Apotheosis" ) then
     ModLuaFileAppend( "mods/Apotheosis/files/scripts/animals/cat_pet.lua", "mods/D2DContentPack/files/scripts/animals/cat_pet.lua" )
+    ModLuaFileAppend( "mods/Apotheosis/files/scripts/magic/materia_spell_conversion.lua",
+        "mods/D2DContentPack/files/scripts/mod_appends/apoth_materia_spell_conversion_append.lua" )
 end
 
 if ModIsEnabled("anvil_of_destiny") then

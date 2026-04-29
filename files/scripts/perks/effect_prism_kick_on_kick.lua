@@ -27,6 +27,8 @@ function kick( entity_who_kicked )
             	if ia_comp then
             		local action_id = ComponentGetValue2( ia_comp, "action_id" )
             		local data = get_actions_lua_data( action_id )
+            		if #data.related_projectiles == 0 then return end
+            		
             		local proj_path = data.related_projectiles[1]
             		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
 					if not data.recursive and uses_remaining ~= 0 and exists( proj_path ) then
