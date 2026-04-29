@@ -44,7 +44,7 @@ perk_d2d_curse_levitation_cramps_desc,"Running out of levitation power hurts, an
 perk_d2d_evolving_wands_name,Evolving Wands,,,,,,,,,,,,,
 perk_d2d_evolving_wands_desc,Upgrade your held wand each time you enter a new biome.,,,,,,,,,,,,,
 perk_d2d_borrowed_time_name,Borrowed Time,,,,,,,,,,,,,
-perk_d2d_borrowed_time_desc,"75% of damage taken is slowly dealt over time instead.",,,,,,,,,,,,,
+perk_d2d_borrowed_time_desc,"75% of all damage taken is slowly dealt over time instead.\nTaking a temple heart sets the remaining damage to 0.",,,,,,,,,,,,,
 item_d2d_chest_random_cursed,Cursed Chest,,,,,,,,,,,,,
 item_d2d_chest_time_trial_bronze,Bronze Trophy Chest,,,,,,,,,,,,,
 item_d2d_chest_time_trial_silver,Silver Trophy Chest,,,,,,,,,,,,,

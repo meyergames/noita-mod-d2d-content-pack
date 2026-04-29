@@ -316,45 +316,6 @@ d2d_perks = {
 	-- 		remove_lua( entity_who_picked, "d2d_panic_button" )
 	-- 	end,
 	-- },
-
-	{
-		id = "D2D_BORROWED_TIME", -- discontinued as of 22/01/26
-		ui_name = "$perk_d2d_borrowed_time_name",
-		ui_description = "$perk_d2d_borrowed_time_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/borrowed_time_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/borrowed_time.png",
-		stackable = STACKABLE_NO,
-		one_off_effect = false,
-		usable_by_enemies = false,
-		not_in_default_perk_pool = true, -- discontinued as of 22/01/26
-		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
-			if pickup_count <= 1 then
-				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_borrowed_time.xml" )
-
-				EntityAddComponent2( entity_who_picked, "LuaComponent",
-				{ 
-					_tags="perk_component,d2d_perk_borrowed_time",
-					script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage_incoming.lua",
-					execute_every_n_frame = -1,
-				} )
-				EntityAddComponent2( entity_who_picked, "LuaComponent",
-				{ 
-					_tags="perk_component,d2d_perk_borrowed_time",
-					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage.lua",
-					execute_every_n_frame = -1,
-				} )
-			end
-        end,
-        func_remove = function( entity_who_picked )
-        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-        	remove_lua( entity_who_picked, "d2d_perk_borrowed_time" )
-        	for i,child in ipairs( EntityGetAllChildren( get_player() ) ) do
-        		if EntityHasTag( child, "d2d_perk_borrowed_time" ) then
-        			EntityKill( child )
-        		end
-        	end
-        end
-	},
 	
 	{
 		id = "D2D_BLESSINGS_AND_CURSE",
@@ -859,6 +820,45 @@ d2d_blurses = {
         	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
         	EntityKill( get_child_by_filename( entity_who_picked, "effect_juggernaut_d2d.xml" ) )
         	remove_lua( entity_who_picked, "d2d_perk_juggernaut" )
+        end
+	},
+
+	{
+		id = "D2D_BORROWED_TIME",
+		ui_name = "$perk_d2d_borrowed_time_name",
+		ui_description = "$perk_d2d_borrowed_time_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/borrowed_time_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/borrowed_time.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if pickup_count <= 1 then
+				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_borrowed_time.xml" )
+
+				EntityAddComponent2( entity_who_picked, "LuaComponent",
+				{ 
+					_tags="perk_component,d2d_perk_borrowed_time",
+					script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage_incoming.lua",
+					execute_every_n_frame = -1,
+				} )
+				EntityAddComponent2( entity_who_picked, "LuaComponent",
+				{ 
+					_tags="perk_component,d2d_perk_borrowed_time",
+					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage.lua",
+					execute_every_n_frame = -1,
+				} )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	remove_lua( entity_who_picked, "d2d_perk_borrowed_time" )
+        	for i,child in ipairs( EntityGetAllChildren( get_player() ) ) do
+        		if EntityHasTag( child, "d2d_perk_borrowed_time" ) then
+        			EntityKill( child )
+        		end
+        	end
         end
 	},
 	

@@ -7,7 +7,6 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
     for _,dcomp in ipairs( EntityGetComponent( player, "DamageModelComponent" ) or {} ) do
     	-- first do x4 since it was reduced by x4 in on_damage_incoming
 		raise_internal_float( player, "d2d_borrowed_time_stored_dmg", damage * 4 * 0.75 )
-		GamePrint( "original damage: " .. damage * 4 * 25 )
 	end
 end
 
