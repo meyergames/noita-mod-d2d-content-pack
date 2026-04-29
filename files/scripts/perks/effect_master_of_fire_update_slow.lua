@@ -93,6 +93,8 @@ for i,creature_id in ipairs(creatures) do
                 EntityInflictDamage( owner, heal_dmg, "DAMAGE_HEALING", "master of fire healing", "NONE", 0, 0, owner, x, y, 0 )
 
                 GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+            -- else
+            --     EntityInflictDamage( owner, e_max_hp * -0.0035, "DAMAGE_HEALING", "master of fire healing", "NONE", 0, 0, owner, x, y, 0 )
             end
         end
     end

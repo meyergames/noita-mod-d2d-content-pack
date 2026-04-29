@@ -7,6 +7,11 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Perk: "While below 10% health, any damage less than that amount is reduced to 1."
+	[ ] or: "Any damage over 10% of your max health is reduced by 75%; the rest is doubled."
+	[ ] or: "Direct damage lower than 10% of your max health is reduced to 1." (rewards high health)
+	[ ] or: "Any damage higher than 10% of your max health is halved." (rewards low health)
+
 [ ] Perk that drastically reduces your damage dealt, but makes Infatuation permanent / buffs allies someway
 
 [x] Spell that functions like Chainsaw, minus the projectile

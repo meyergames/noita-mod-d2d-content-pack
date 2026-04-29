@@ -186,7 +186,7 @@ function spawn_loadout_pyromancer( player )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = 10
 	wand.capacity = 1
-	wand.spread = -15
+	wand.spread = 0
 	wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
 	wand:AddSpells( "FIREBALL" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_2.png", 7, 5, 13, 0 )
@@ -211,7 +211,7 @@ function spawn_loadout_pyromancer( player )
 	wand:PutInPlayersInventory()
 
 	-- perks
-	give_perk( player, "FIRE_GAS" )
+	give_perk( player, "LOW_HP_DAMAGE_BOOST" )
 	give_perk( player, "D2D_MASTER_OF_FIRE" )
 	if curses_enabled then
 		give_perk( player, "D2D_CURSE_STENDARI" )

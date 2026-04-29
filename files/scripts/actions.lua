@@ -2707,7 +2707,11 @@ if actions ~= nil then
 
 								draw_actions( 1, true )
 					    	end,
-	    }
+	    },
+
+	    ["FIREBALL"] = {
+			description     = "$spell_d2d_fireball_rework_desc",
+	    },
 	}
 
 	if ModSettingGet( "D2DContentPack.force_spectral_chainsaw" ) then

@@ -11,6 +11,6 @@ addNewInternalVariable( owner, "master_of_lightning_mana_charge_speed_mtp", "val
 local dmg_comp = EntityGetFirstComponent( owner, "DamageModelComponent" )
 if exists( dmg_comp ) then
 	local old_mtp = ComponentObjectGetValue2( dmg_comp, "damage_multipliers", "electricity" )
-	local new_mtp = 0.35
+	local new_mtp = old_mtp * 0.35
 	ComponentObjectSetValue2( dmg_comp, "damage_multipliers", "electricity", new_mtp )
 end

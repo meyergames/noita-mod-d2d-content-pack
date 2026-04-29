@@ -130,7 +130,7 @@ local function alter_fireball()
         "speed_max=\"300\"" )
     content = content:gsub(
         "fire=\"0.25\"",
-        "fire=\"2\"" )
+        "fire=\"2.5\"" )
     content = content:gsub(
         "damage=\"2\"",
         "damage=\"1\"" )

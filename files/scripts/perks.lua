@@ -212,8 +212,9 @@ d2d_perks = {
 		one_off_effect = false,
 		usable_by_enemies = false,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			-- local x,y = EntityGetTransform( entity_perk_item )
-    		-- EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/hammer.xml", x, y - 20 )
+			-- spawn a few spells
+			-- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+			-- spawn_random_upgrade_spells( 4, x, y )
 		end,
 	},
 
@@ -481,6 +482,35 @@ d2d_perks = {
         	remove_lua( entity_who_picked, "d2d_perk_prism_kick" )
         end,
 	},
+
+	-- {
+	-- 	id = "D2D_SHOCK_ABSORBER",
+	-- 	ui_name = "$perk_d2d_shock_absorber_name",
+	-- 	ui_description = "$perk_d2d_shock_absorber_desc",
+	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/shock_absorber_016.png",
+	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/shock_absorber.png",
+	-- 	stackable = STACKABLE_NO,
+	-- 	one_off_effect = false,
+	-- 	usable_by_enemies = true,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+	-- 		if pickup_count <= 1 then
+	-- 			-- EntityAddComponent2( entity_who_picked, "LuaComponent",
+	-- 			-- { 
+	-- 			-- 	_tags = "perk_component,d2d_perk_shock_absorber",
+	-- 			-- 	script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_shock_absorber_on_damage_incoming.lua",
+	-- 			-- } )
+	-- 			EntityAddComponent2( entity_who_picked, "LuaComponent",
+	-- 			{ 
+	-- 				_tags = "perk_component,d2d_perk_shock_absorber",
+	-- 				script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_shock_absorber_on_damage.lua",
+	-- 			} )
+	-- 		end
+    --     end,
+    --     func_remove = function( entity_who_picked )
+    --     	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+    --     	remove_lua( entity_who_picked, "d2d_perk_shock_absorber" )
+    --     end,
+	-- },
 
 	-- {
 	-- 	id = "D2D_HOMEBODY_WANDS",
