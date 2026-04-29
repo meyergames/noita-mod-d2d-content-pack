@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 dofile_once( "mods/D2DContentPack/files/scripts/actions.lua" )
 local EZWand = dofile_once("mods/D2DContentPack/files/scripts/lib/ezwand.lua")
 
@@ -122,6 +122,12 @@ function item_pickup( entity_item, entity_who_picked, item_name )
     local x, y = EntityGetTransform( entity_item )
 	GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/pick_item_generic/create", x, y )
 	EntityLoad( "data/entities/particles/gold_pickup_large.xml", x, y )
+
+	-- reload current wand to accurately show new remaining uses
+	local held_wand = EZWand.GetHeldWand()
+	if exists( held_wand ) then
+		trigger_wand_refresh( held_wand, 1.0 )
+	end
 
     -- destroy the gem
 	EntityKill( entity_item )

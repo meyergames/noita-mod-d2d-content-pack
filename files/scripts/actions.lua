@@ -443,6 +443,30 @@ d2d_actions = {
 	},
 
 	{
+		id                  = "D2D_DAMAGE_DOUBLE",
+		name 		        = "$spell_d2d_damage_double_name",
+		description         = "$spell_d2d_damage_double_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_double.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
+		price               = 200,
+		mana                = 0,
+		max_uses			= 10,
+        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_damage_double.xml",
+		action 		        = function()
+								c.fire_rate_wait = c.fire_rate_wait + 5
+
+								if reflecting then return end
+
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_double.xml,"
+								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	{
 		id                  = "D2D_DAMAGE_RECHARGE",
 		name 		        = "$spell_d2d_damage_recharge_name",
 		description         = "$spell_d2d_damage_recharge_desc",
@@ -2696,6 +2720,14 @@ if actions ~= nil then
 				spawn_level = "0,2,6,10",
 				spawn_probability = "1,1,0.2,0.5",
 			},
+		})
+	end
+
+	if ModSettingGet( "D2DContentPack.D2D_SPELL_GEMS_disabled" ) then
+		table.insert( actions_to_edit, {
+			["D2D_DAMAGE_DOUBLE"] = {
+				never_unlimited = true,
+			}
 		})
 	end
 

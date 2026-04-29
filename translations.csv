@@ -343,3 +343,5 @@ perk_d2d_curse_volatile_props_desc,"Nearby props take rapid damage, making them 
 spell_d2d_reset_cast_delay_name,Spectral Chainsaw,,,,,,,,,,,,,
 spell_d2d_reset_cast_delay_desc,A magical spell with magical properties...,,,,,,,,,,,,,
 loadout_d2d_thunderlord_name,Class: Thunderlord,,,,,,,,,,,,,
+spell_d2d_damage_double_name,Double Damage,,,,,,,,,,,,,
+spell_d2d_damage_double_desc,Doubles a projectile's total damage,,,,,,,,,,,,,
