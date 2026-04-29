@@ -1,15 +1,14 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function damage_about_to_be_received( damage, x, y, entity_thats_responsible, critical_hit_chance )
-	local owner = GetUpdatedEntityID()
-
-	-- reduce the player's max hp by 5% of damage dealt
-    for _,dcomp in ipairs( EntityGetComponent( owner, "DamageModelComponent" ) or {} ) do
-		local hp = ComponentGetValue2( dcomp, "hp" )
-		local max_hp = ComponentGetValue2( dcomp, "max_hp" )
-		ComponentSetValue2( dcomp, "max_hp", max_hp - ( damage * 0.1 ) )
+	if EntityHasTag( entity_thats_responsible, "d2d_perk_borrowed_time" ) then
+		return damage, critical_hit_chance
 	end
 
-	-- reduce the direct damage by 25%
-    return damage * 0.75, critical_hit_chance
+	local player = GetUpdatedEntityID()
+    for _,dcomp in ipairs( EntityGetComponent( player, "DamageModelComponent" ) or {} ) do
+		return damage * 0.25, critical_hit_chance
+	end
+
+    return damage, critical_hit_chance
 end

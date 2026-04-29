@@ -329,24 +329,30 @@ d2d_perks = {
 		not_in_default_perk_pool = true, -- discontinued as of 22/01/26
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if pickup_count <= 1 then
-				EntityAddComponent( entity_who_picked, "LuaComponent",
+				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_borrowed_time.xml" )
+
+				EntityAddComponent2( entity_who_picked, "LuaComponent",
 				{ 
 					_tags="perk_component,d2d_perk_borrowed_time",
-					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_damage_incoming.lua",
-					execute_every_n_frame = "-1",
+					script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage_incoming.lua",
+					execute_every_n_frame = -1,
+				} )
+				EntityAddComponent2( entity_who_picked, "LuaComponent",
+				{ 
+					_tags="perk_component,d2d_perk_borrowed_time",
+					script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage.lua",
+					execute_every_n_frame = -1,
 				} )
 			end
-
-			-- REWORK IN PROGRESS
-			-- EntityAddComponent( entity_who_picked, "LuaComponent", 
-			-- { 
-			-- 	script_damage_about_to_be_received = "mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_on_damage_incoming.lua",
-			-- 	execute_every_n_frame = "-1",
-			-- } )
         end,
         func_remove = function( entity_who_picked )
         	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
         	remove_lua( entity_who_picked, "d2d_perk_borrowed_time" )
+        	for i,child in ipairs( EntityGetAllChildren( get_player() ) ) do
+        		if EntityHasTag( child, "d2d_perk_borrowed_time" ) then
+        			EntityKill( child )
+        		end
+        	end
         end
 	},
 	
@@ -509,6 +515,30 @@ d2d_perks = {
     --     func_remove = function( entity_who_picked )
     --     	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
     --     	remove_lua( entity_who_picked, "d2d_perk_shock_absorber" )
+    --     end,
+	-- },
+
+	-- {
+	-- 	id = "D2D_SAFETY_GOGGLES",
+	-- 	ui_name = "$perk_d2d_safety_goggles_name",
+	-- 	ui_description = "$perk_d2d_safety_goggles_desc",
+	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/safety_goggles_016.png",
+	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/safety_goggles.png",
+	-- 	stackable = STACKABLE_NO,
+	-- 	one_off_effect = false,
+	-- 	usable_by_enemies = false,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+	-- 		if pickup_count <= 1 then
+	-- 			EntityAddComponent2( entity_who_picked, "LuaComponent",
+	-- 			{ 
+	-- 				_tags = "perk_component,d2d_perk_safety_goggles",
+	-- 				script_damage_received = "mods/D2DContentPack/files/scripts/perks/effect_safety_goggles_on_damage.lua",
+	-- 			} )
+	-- 		end
+    --     end,
+    --     func_remove = function( entity_who_picked )
+    --     	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+    --     	remove_lua( entity_who_picked, "d2d_perk_safety_goggles" )
     --     end,
 	-- },
 

@@ -323,27 +323,6 @@ d2d_actions = {
 	},
 
 	{
-		id                  = "D2D_MISSING_MANA_TO_DMG",
-		name 		        = "$spell_d2d_damage_missing_mana_name",
-		description         = "$spell_d2d_damage_missing_mana_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
-		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
-		price               = 220,
-		mana                = 50,
-		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 25
-			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
-								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
-
-								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
-
-			                    draw_actions( 1, true )
-		                    end,
-	},
-
-	{
 		id                  = "D2D_HOVER_TO_DAMAGE",
 		name 		        = "$spell_d2d_hover_to_damage_name",
 		description         = "$spell_d2d_hover_to_damage_desc",
@@ -377,45 +356,6 @@ d2d_actions = {
 										ComponentSetValue2( cdatacomp, "mFlyingTimeLeft", hover_energy - ( 0.15 * proj_count ) )
 									end
 								end
-		                    end,
-	},
-
-	{
-		id                  = "D2D_COMBO_DAMAGE",
-		name 		        = "$spell_d2d_combo_damage_name",
-		description         = "$spell_d2d_combo_damage_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/combo_damage.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
-		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
-		price               = 200,
-		mana                = 20,
-		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 5
-			                    current_reload_time = current_reload_time + 5
-								c.damage_projectile_add = c.damage_projectile_add + 0.32
-								c.damage_critical_chance = c.damage_critical_chance + 8
-								if reflecting then return end
-			                    c.fire_rate_wait = c.fire_rate_wait - 5
-			                    current_reload_time = current_reload_time - 5
-								c.damage_projectile_add = c.damage_projectile_add - 0.32
-								c.damage_critical_chance = c.damage_critical_chance - 8
-
-								local prior_projectiles = 0
-								if #discarded > 0 then
-									for i,v in ipairs( discarded ) do
-										if discarded[i].type == 0 then -- 0 == ACTION_TYPE_PROJECTILE, apparently
-											prior_projectiles = prior_projectiles + 1
-										end
-									end
-			                    	c.fire_rate_wait = c.fire_rate_wait + ( 5 * prior_projectiles )
-			                    	current_reload_time = current_reload_time + ( 5 * prior_projectiles )
-									c.damage_projectile_add = c.damage_projectile_add + ( 0.32 * prior_projectiles )
-									c.damage_critical_chance = c.damage_critical_chance + ( 8 * prior_projectiles )
-									shot_effects.recoil_knockback = shot_effects.recoil_knockback + ( 20 * prior_projectiles )
-								end
-
-			                    draw_actions( 1, true )
 		                    end,
 	},
 
@@ -467,6 +407,45 @@ d2d_actions = {
 	},
 
 	{
+		id                  = "D2D_COMBO_DAMAGE",
+		name 		        = "$spell_d2d_combo_damage_name",
+		description         = "$spell_d2d_combo_damage_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/combo_damage.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
+		price               = 200,
+		mana                = 20,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 5
+			                    current_reload_time = current_reload_time + 5
+								c.damage_projectile_add = c.damage_projectile_add + 0.32
+								c.damage_critical_chance = c.damage_critical_chance + 8
+								if reflecting then return end
+			                    c.fire_rate_wait = c.fire_rate_wait - 5
+			                    current_reload_time = current_reload_time - 5
+								c.damage_projectile_add = c.damage_projectile_add - 0.32
+								c.damage_critical_chance = c.damage_critical_chance - 8
+
+								local prior_projectiles = 0
+								if #discarded > 0 then
+									for i,v in ipairs( discarded ) do
+										if discarded[i].type == 0 then -- 0 == ACTION_TYPE_PROJECTILE, apparently
+											prior_projectiles = prior_projectiles + 1
+										end
+									end
+			                    	c.fire_rate_wait = c.fire_rate_wait + ( 5 * prior_projectiles )
+			                    	current_reload_time = current_reload_time + ( 5 * prior_projectiles )
+									c.damage_projectile_add = c.damage_projectile_add + ( 0.32 * prior_projectiles )
+									c.damage_critical_chance = c.damage_critical_chance + ( 8 * prior_projectiles )
+									shot_effects.recoil_knockback = shot_effects.recoil_knockback + ( 20 * prior_projectiles )
+								end
+
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	{
 		id                  = "D2D_DAMAGE_RECHARGE",
 		name 		        = "$spell_d2d_damage_recharge_name",
 		description         = "$spell_d2d_damage_recharge_desc",
@@ -484,6 +463,27 @@ d2d_actions = {
 
 								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_recharge.xml,"
 								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+
+			                    draw_actions( 1, true )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_MISSING_MANA_TO_DMG",
+		name 		        = "$spell_d2d_damage_missing_mana_name",
+		description         = "$spell_d2d_damage_missing_mana_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_missing_mana.png",
+		type 		        = ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4", -- 2/3 of DAMAGE
+		price               = 220,
+		mana                = 50,
+		action 		        = function()
+			                    c.fire_rate_wait = c.fire_rate_wait + 25
+			                    c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/missing_mana_to_dmg.xml,"
+								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_blue_large.xml,"
+
+								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
 
 			                    draw_actions( 1, true )
 		                    end,

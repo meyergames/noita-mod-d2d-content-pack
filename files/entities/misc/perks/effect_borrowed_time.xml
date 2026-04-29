@@ -1,0 +1,15 @@
+<Entity tags="perk_entity,d2d_perk_borrowed_time">
+
+    <InheritTransformComponent />
+
+    <GameEffectComponent 
+        effect="CUSTOM"
+        custom_effect_id="D2D_GAME_EFFECT_BORROWED_TIME">
+    </GameEffectComponent>
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/perks/effect_borrowed_time_update.lua" 
+		execute_every_n_frame="60">
+	</LuaComponent>
+
+</Entity>
