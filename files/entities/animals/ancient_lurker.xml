@@ -22,7 +22,7 @@
 
 		<DamageModelComponent
 			_tags="lurker_data"
-            hp="72"
+            hp="240"
 			minimum_knockback_force="100000"
             ragdoll_filenames_file=""
 			ragdoll_fx_forced="DISINTEGRATED"
