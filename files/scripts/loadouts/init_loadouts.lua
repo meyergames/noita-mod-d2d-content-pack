@@ -38,6 +38,13 @@ classes = {
         ui_description = "$loadout_d2d_cannoneer_desc",
         sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/cannoneer.png",
     },
+    {
+        id = "D2D_CLASS_THUNDERLORD",
+        function_name = "spawn_loadout_thunderlord",
+        ui_name = "$loadout_d2d_thunderlord_name",
+        ui_description = "$loadout_d2d_thunderlord_desc",
+        sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/thunderlord.png",
+    },
 }
 
 -- this function was copied and adjusted from the Selectable Classes mod

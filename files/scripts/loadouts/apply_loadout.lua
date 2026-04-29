@@ -63,6 +63,9 @@ function spawn_loadout_sniper( player )
 	wand.manaChargeSpeed = Random( 12, 15 )
 	wand.capacity = 5
 	wand.spread = -5
+	if ModIsEnabled( "gkbrkn_noita" ) and Random( 1, 2 ) == 2 then
+		wand:AddSpells( "GKBRKN_LASER_SIGHT" )
+	end
 	wand:AddSpells(
 		"D2D_RELOAD_SHIELD",
 		"D2D_SNIPE_SHOT" )
@@ -72,11 +75,10 @@ function spawn_loadout_sniper( player )
 
 	-- spawn perks
 	give_perk( player, "INVISIBILITY" )
-	-- give_perk( player, "REPELLING_CAPE" )
+	give_perk( player, "STAINLESS_ARMOUR" )
 	give_perk( player, "D2D_ALL_SEEING_EYE" )
-	give_perk( player, "LOWER_SPREAD" )
 	if curses_enabled then
-		give_perk( player, "D2D_CURSE_FRAGILE" )
+		give_perk( player, "D2D_CURSE_FALL_DAMAGE" )
 	end
 
     -- set the player's health
@@ -374,6 +376,78 @@ function spawn_loadout_cannoneer( player )
     	ComponentSetValue2( item_comp, "preferred_inventory", "QUICK" )
     end
     GamePickUpInventoryItem( player, bag_of_bombs, false )
+
+    -- set the player's health
+    local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
+    if exists( dmg_comp ) then
+    	ComponentSetValue2( dmg_comp, "hp", 5 ) -- 125 hp
+    	ComponentSetValue2( dmg_comp, "max_hp", 5 ) -- 125 hp
+    end
+end
+
+function spawn_loadout_thunderlord( player )
+	empty_inventory( player )
+
+	local x, y = EntityGetTransform( player )
+	y = y - 32
+
+	-- spawn the second wand
+    local wand = EZWand()
+	wand:SetName( "Circuitry", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 43
+	wand.rechargeTime = 10
+	wand.manaMax = 15
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 150
+	wand.capacity = 1
+	wand.spread = 0
+	wand:AttachSpells( "TORCH_ELECTRIC" )
+	if HasFlagPersistent( "card_unlocked_paint" ) then
+		wand:AttachSpells( "COLOUR_BLUE" )
+	end
+	wand:AddSpells( "LUMINOUS_DRILL" )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/thunderlord_2.png", 6, 5, 12, 0 )
+	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	wand:PutInPlayersInventory()
+
+
+
+	-- spawn the first wand
+    local wand = EZWand()
+	wand:SetName( "Cloudburst", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = -20
+	wand.rechargeTime = 30
+	wand.manaMax = 105
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 35
+	wand.capacity = 5
+	wand.spread = 0
+	wand:AddSpells( "LIGHTNING" )
+	if ModIsEnabled( "Apotheosis" ) then
+		wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "LIGHT_BULLET", "APOTHEOSIS_ALT_FIRE_TELEPORT_SHORT" )
+	else
+		wand:AddSpells( "LIGHT_BULLET", "LIGHT_BULLET", "D2D_ALT_FIRE_ANYTHING", "TELEPORT_PROJECTILE_SHORT" )
+	end
+	wand:RemoveSpells( "LIGHT_BULLET", -1 )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/thunderlord_1.png", 6, 5, 14, 0 )
+	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	wand:PutInPlayersInventory()
+
+	-- perks
+	give_perk( player, "MANA_FROM_KILLS" )
+	give_perk( player, "D2D_MASTER_OF_LIGHTNING" )
+	if curses_enabled then
+		give_perk( player, "D2D_CURSE_VOLATILE_PROPS" )
+	end
+
+    -- start with a vial of water
+    local x, y = EntityGetTransform( player )
+    local water = EntityLoad( "data/entities/items/pickup/potion_water.xml", x, y )
+    GamePickUpInventoryItem( player, water, false )
 
     -- set the player's health
     local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
