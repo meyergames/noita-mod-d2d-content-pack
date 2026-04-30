@@ -137,12 +137,14 @@ for k=1, #targets do
                 local spell_x, spell_y = EntityGetTransform( v )
 
                 if output[k] == "SPECIAL_ACTION" then
-                    if input[k] == "D2D_PRISM" then
+                    if input[k] == "D2D_PRISM" and get_perk_pickup_count( "D2D_PRISM_KICK" ) < 3 then
                         spawn_perk( "D2D_PRISM_KICK", spell_x, spell_y - 8, true )
 
                         EntityLoad( "data/entities/particles/image_emitters/perk_effect.xml", spell_x, spell_y - 8 )
                         GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest/create", spell_x, spell_y - 8 )
                         GamePrintImportant( "A perk has appeared!", "" )
+                    else
+                        CreateItemActionEntity( "D2D_DELTA", spell_x, spell_y )
                     end
                     EntityKill( v )
                 else
