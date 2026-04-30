@@ -45,19 +45,25 @@ if exists( shields ) and #shields >= 1 then
 			-- if there's 3 players, raise the second shield
 			-- if there's 4 players, raise the third shield
 			if max_energy < 1.0 and i <= #nearby_players - 1 then
-				ComponentSetValue2( shield_comp, "max_energy", 1.0 )
+
+				-- the first shield is twice as strong
+				if i == 1 then ComponentSetValue2( shield_comp, "max_energy", 2.0 )
+				else ComponentSetValue2( shield_comp, "max_energy", 1.0 ) end
 				ComponentSetValue2( shield_comp, "is_emitting", true )
 				if i > 1 then
 					local ring_emitter = EntityGetComponent( shield, "ParticleEmitterComponent" )[1]
 					ComponentSetValue2( ring_emitter, "is_emitting", true )
 				end
+
 			elseif max_energy > 0.0 and i > #nearby_players - 1 then
+
 				ComponentSetValue2( shield_comp, "max_energy", 0.0 )
 				ComponentSetValue2( shield_comp, "energy", 0.0 )
 				if i > 1 then
 					local ring_emitter = EntityGetComponent( shield, "ParticleEmitterComponent" )[1]
 					ComponentSetValue2( ring_emitter, "is_emitting", false )
 				end
+
 			end
 
 			-- once per second, update the first shieĺd's mana regen particles based on nearby players

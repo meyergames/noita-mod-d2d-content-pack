@@ -351,4 +351,4 @@ perk_d2d_shock_absorber_desc,"When you survive damage higher than 20% of your ma
 perk_d2d_safety_goggles_name,Safety Goggles,,,,,,,,,,,,,
 perk_d2d_safety_goggles_desc,Your own projectiles can no longer bring you below 1 HP.,,,,,,,,,,,,,
 perk_d2d_mobile_fortress_name,Mobile Fortress,,,,,,,,,,,,,
-perk_d2d_mobile_fortress_desc,"You gain a big mana-regenerating shield that activates when allies are nearby.",,,,,,,,,,,,,
+perk_d2d_mobile_fortress_desc,"You gain a big mana-regenerating shield that activates when other players are nearby.\nThe more players, the better!",,,,,,,,,,,,,
