@@ -639,6 +639,26 @@ d2d_actions = {
 							end,
 	},
 
+	{
+		id          		= "D2D_PHANTOM_CAST",
+		name 				= "$spell_d2d_phantom_cast_name",
+		description 		= "$spell_d2d_phantom_cast_desc",
+		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/phantom_cast.png",
+		type 				= ACTION_TYPE_MODIFIER,
+		spawn_level         = "0", -- only spawns upon killing that elusive enemy concept
+		spawn_probability   = "0",
+		spawn_requires_flag	= "d2d_impossible_spawn",
+		price 				= 400,
+		mana 				= 100,
+		max_uses			= 10,
+		never_unlimited		= true,
+		action 				= function()
+								current_reload_time = current_reload_time + 60
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/phantom_cast.xml,"
+								draw_actions( 1, true )
+							end,
+	},
+
 	-- {
 	-- 	id                  = "D2D_OPENING_SHOT",
 	-- 	name 		        = "Opening Shot",
