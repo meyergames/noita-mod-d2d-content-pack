@@ -1047,3 +1047,19 @@ function try_upgrade_loadout_wands()
         end
     end
 end
+
+function get_held_wand_id_of_player( player )
+	if player then
+		local inventory2_comp = EntityGetFirstComponentIncludingDisabled( player, "Inventory2Component" )
+		local active_item = ComponentGetValue2( inventory2_comp, "mActiveItem" )
+		if not active_item then return end
+
+		local ability_component = EntityGetFirstComponentIncludingDisabled( active_item, "AbilityComponent")
+  		if not ability_component then return end
+
+  		local is_wand = ComponentGetValue2( ability_component, "use_gun_script" ) == true
+  		if not is_wand then return end
+
+		return active_item
+	end
+end

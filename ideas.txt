@@ -7,6 +7,158 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[x] Multiplayer perk (we can (already) do this): a relatively big aura that scans how many other player_units there are within 
+	it. for each player unit beyond yourself, gain +50% mana regen and activate a shield (req. 1+ ally) that regenerates faster the more players there are.
+
+[ ] Controlled Lifetime: when it reaches the spell, instead of discarding all piles, just force a wand reload for 0.5s
+
+[ ] a (mini)boss that, once you enter its radius (like that one spider in the Magical Temple), awakens to emit a big, dangerous
+	aura. within 100 pixels of this enemy, you are safe; within 100-300 pixels, you take rapid curse damage; moving further than 300 pixels away breaks the tether and makes the enemy dormant again.
+	[ ] while it is awake, it slowly moves away from the player (i.e. opposite Houre movement)
+		[ ] unlike Houre however, it is damageable by normal means (strengths and weaknesses aside)
+		[ ] alternatively and/or additionally, it could teleport a short distance at certain HP thresholds
+			(maybe back to its spawn position?)
+		[ ] look into the base game's Houre movement script, if it's accessible
+	[ ] the aura could emit the same particles as the cursed rock damage aura / the desert skull in New Enemies
+	[ ] make music intensify while near the creature
+	[ ] it could be located in the middle of the Temple of the Arts? or the Magical Temple east of it?
+		[ ] if added to the Magical Temple, a weaker version could be added to the early Magical Temple
+	[ ] should have some failsafe to prevent it from going into endless EDR. simply limit its max wander radius, based on
+		exact spawn location?
+		[ ] or just give it a material scanning component that makes it teleport away from the EDR
+	[ ] make it susceptible to stunning, dazing (and maybe freezing? with melee immunity) so it can be brought to a halt
+		creatively
+	[ ] if I wanna be real evil, it should obscure fog of war outside of the safe radius (or outside of the total radius)
+[ ] quest version: it could initially spawn somewhere early, such as the Coal Pits, with a high but reasonable amount of HP
+	(600-800?). bringing it below 20% will cause it to teleport away (it cannot be brought below 1 HP yet) to a different biome, where it gains more max HP and maybe more mechanics. upon teleporting, it'll either leave behind an item that functions as a radar to locate it, or temporarily spawn a portal that can be used to follow it wherever it goes (needless to say, this could be very dangerous)
+	[ ] maybe each time you "defeat" this boss, a cursed chest spawns? as opposed to the current method. for the "final chest",
+		you'd have to kill the boss.
+	[ ] upon moving out of the total radius, it teleports to a deeper biome as if it was defeated, but doesn't drop anything
+	[ ] gradually-introduced extra mechanic ideas:
+		[ ] convert nearby solids into cursed rock (like cursed chests do)
+		[ ] convert nearby liquids into... cursed liquid? (like Apoth but less damaging)
+		[ ] in its final form, when it's below (for example) 10k of its 80k HP, it teleports away and leaves a temporary follow portal to a random biome upon taking more than 1k damage. as a logical solution, heavy hitters will make it teleport less.
+		[ ] the player gains a projectile gravity field while nearby, making surrounding enemies hit them more easily
+		[ ] enemies in its cursed radius become Berserk
+		[ ] occasionally swapping positions with a nearby enemy (emissive vfx to make that visible through the fog of war)
+		[ ] make it occasionally deal a chunk of damage to a nearby enemy (possibly killing it) to spawn a destructible orb 	that floats towards it (through walls). upon absorbing one of these orbs, the boss is healed significantly
+			[ ] alternatively, let it passively heal off all nearby enemies based on their max HP without damaging them,
+				making surrounding enemies important targets for the player even in the midst of this boss fight.
+				[ ] this could be even stronger if it is an occasional phase where the boss itself takes no damage, so the
+					player can and must focus on surrounding enemies
+	[ ] upon fully defeating it: "The gods are grateful"? spawning Peace With Gods and more
+	[ ] to reward players for bringing it to 1 HP despite it already teleporting away at 20%, it could gain a debuff on the
+		next encounter (could be as simple as bringing it to 80% HP)
+	[ ] it would be cool to make The Work (Hell) its final biome
+		[ ] or The Tower!!! going from bottom to top for the final fight
+[ ] ask Spoopy Boi to make sprites for it, once I can demonstrate its mechanics to him with GIFs
+	[ ] for the time being, use the sprite of the flame-spitting floating statue in the Magical Temple (from New Enemies)
+[ ] make it only visible with the eye item / Graham's Ghostly Vision / etc? <--- hmmmm, not the biggest fan
+
+[ ] a duo boss that must be killed at the same time (like Twilight Beasts), with only a few frames margin (requiring a heavy
+	hitter with a Bifurcated pattern, for example)
+
+[ ] Parasiitti, an enemy that can "possess" other (non-boss) enemies, buffing them greatly. killing its host ejects the
+	parasite, which has a TINY hitbox (like one of those tiny slimes in The Vault) and quite some health, requiring a rapidfire wand to defeat it.
+	[ ] candidate biomes:
+		[ ] underground jungle
+		[ ] Apoth toxic biome
+		[ ] fungal caverns
+		[ ] wand mart
+		[ ] hell
+	[ ] candidate buffs:
+		[ ] berserk
+		[-] a strong projectile shield (requires rapidfire or a plasma beam to break through)
+				^ nah, the possessed enemy should require a heavy hitter to kill
+			[ ] an indestructible temporary shield that activates upon taking damage, much like Apoth's corrupt masters
+		[ ] homing modifier (i.e. attunium) <-- least favourite atm
+		[ ] increased max health
+			[ ] with passive healing if we want the parasite to stay on them forever and make the host harder to kill
+			[ ] with passive %hp damage if we want the parasite to eventually kill and leave its host
+	[ ] could be made into a dedicated miniboss.
+		[ ] do entities persist during cessation? i.e. while it has a host, can I temporarily disable the parasite's sprite and hitbox components, while keeping its BossHealthBar visible?
+	[ ] it should "attack" enemies, but enemies should not attack it back. at the same time, it should not attack the player,
+		but instead flee from them. how would that work?
+		[ ] a specific faction?
+			[ ] trap faction? making it "invisible" to enemies but hittable by the player? then all of its finding-a-target-and-latching-onto-them behaviour would have to come from a custom script. <-- fave option atm
+		[ ] visually faking its "attack" on potential hosts?
+		[ ] maybe enemies CAN attack it back? since they also don't want to be infected.
+	[ ] how do I make it actively flee from the player, when it has no host?
+		(@ mod dev channel: "can I make an enemy flee from the player, in a way that still respects their normal pathfinding? anyone done this before?")
+
+[ ] an elusive, passive enemy with emissive eye(s) that teleports away whenever it can raycast to the player. then, when the
+	player figures out this is how it works and tries to hit it with something like bouncing projectiles, they find out that it also teleports away when there are player projectiles nearby. one way to kill it would be to stun or freeze it (like using Ukkoskivi while it stands on metal) so that it cannot teleport away - though it should take no damage from the electricity itself.
+	[ ] maybe it should be made immune to damage types that tend to be environmental, or just immune to all damage if player 
+		~= entity_thats_responsible. as for Apoth's "Mass Fire" spell: it could be made immune to the On Fire status.
+	[ ] as the developer, I don't even really have to know how to kill it. if it turns out to be impossible, it can always
+		be tweaked post-release.
+	[ ] reward: "Phantom Cast", a limited-use modifier that causes a projectile to appear at the player's cursor. high mana
+		cost, high reload time.
+	[ ] to make things easier for myself, I could make it a static enemy that just sits in the air and does nothing. on the 
+		other hand, making it have at least *some* movement makes the challenge a bit more dynamic, but that could always be added at a later point as well.
+		[ ] fitting thematically with its reward, it could be a stationary enemy that casts delayed damage spells at the 
+			player, even from behind walls.
+			[ ] maybe copy the Apoth Magical Temple creepy spider's attack?
+
+[ ] consider making "Blink" limited-use, instead of dealing damage?
+	^ spell-unlimiting shenanigans like Greek letters ruin all the fun
+	[ ] maybe Blink can instead create a medium-sized aura around its destination, disabling further Blink casts while the 
+		player is in that aura. comes at the risk of soft-locking the player, though. maybe after ~3 seconds, the aura collapses and deals damage to the player and/or teleports them back to where they came from?
+
+[ ] Righteous Force, a modifier spell that increases a projectile's damage by up to +30 based on how few innocent creatures 
+	the player has killed. can be found on the island of the moose boss.
+
+[ ] modifier that makes a projectile ignore collision with all enemies, except the one that was closest to the player's cursor
+	at the time of firing
+	[ ] alternatively, make it a modifier that causes a projectile to repulse other nearby projectiles.
+
+[ ] Projectile that sets the direction of an enemy projectile to its own, destroying itself in the process
+	(inspired by this Ukko kill https://discord.com/channels/453998283174576133/626947516369338388/1499185890247970897)
+	[ ] alternatively, it causes enemy projectiles to follow the player's cursor (incl. reset their lifetime)
+
+[ ] Consider giving Double Damage a significant mana cost after all; removing that cost won't disturb the wand's flow
+
+[ ] Gem System / An Alternative Limited-Use System (new mod)
+	[ ] Must:
+		[ ] a spritesheet with 6 diamonds next to the player's HUD, each with 4 segments for a total of 24 values
+		[ ] decide on granularity
+				- 24 is the lowest number cleanly divisible by
+				  1 (24), 2 (12), 3 (8), 4 (6), 6 (4), 8 (3), 12 (2), 24 (1)
+				- 60 values is cleanly divisible by
+				  1 (60), 2 (30), 3 (20), 4 (15), 5 (12), 6 (10), 10 (6), 12 (5), 15 (4), 20 (3), 30 (2), 60 (1)
+				- 30 values is cleanly divisible by
+				  1 (30), 2 (15), 3 (10), 5 (6), 6 (5), 10 (3), 15 (2), 30 (1)
+		[ ] using some kind of mass actions_to_edit function, change all limited-use spells' UI cost labels to reflect their
+			new "Gem cost" (i.e. how many segments they consume), and make them all custom_uses_logic = true. example:
+				- circle of vigour: 12 (i.e. 2 uses <-- 24 segments / 2 original uses)
+				- black hole: 8 (3 uses)
+				- dynamite: 1 (24 uses)
+				- bomb: 4 (6 uses)
+				- greek letters: 1 (24 uses)
+			[ ] account for the fact that all spells use the same resource, so all spells should be cheaper than they
+				used to be (i.e. Circle of Vigour: 12 -> 8 or even 6)
+			[ ] maybe 24 segments don't offer enough granularity. 60 would be ideal, but how would that be visualized?
+				a bar? a hink-stap-sprong sequence of 10 gems (i.e. ·:·:·:·)?
+					- circle of vigour: 15 (4 uses)
+					- black hole: 10 (6 uses)
+					- personal gravity field: 2 (30 uses)
+					- dynamite: 2 (30 uses)
+					- bomb: 10 (6 uses)
+					- greek letters: 1 (60 uses) <-- better than 30 uses (because one shared resource)
+		[ ] make enemies dropping Spell Gems a standard feature, instead of a perk
+		[ ] cherry-pick spells to give infinite use by default (e.g. Path of Dark Flame, Flamethrower)
+		[ ] add Recycle and Recycle+ to the mod --> make them reduce a spell's Gem cost by 1 (50/90% chance to spare a 1-cost)
+	[ ] Should:
+		[ ] 
+	[ ] Could:
+		[ ] remove all limited-use spells' UI by making them never_unlimited = false and enabling unlimited spells.
+			instead add a new variable to the UI that indicates their gem cost.
+			[ ] dynamically change limited-use spell sprites to incorporate a little gem symbol in the top-right corner (I think someone (Evaisa?) made a tiny anvil logo to put on spell cards around when I started modding?)
+	[ ] Won't:
+
+[ ] Double Damage --> Triple/Quadruple Damage?
+	-- let's test it as Double for a while first, see if it's worth taking
+
 [ ] Perk: "While below 10% health, any damage less than that amount is reduced to 1."
 	[ ] or: "Any damage over 10% of your max health is reduced by 75%; the rest is doubled."
 	[ ] or: "Direct damage lower than 10% of your max health is reduced to 1." (rewards high health)
@@ -103,13 +255,6 @@ WE POST NEW IDEAS AT THE TOP NOW
 
 [ ] breadcrumb-type spell that spawns luminous orbs for you to remember the way with.
 	[ ] 20 charges: if you touch an orb that's been around for at least 2 seconds, you automatically pick it back up and 					regain a charge.
-
-[ ] weirdo-type enemy that, once you enter its radius, deals continuous chip damage to you while you're outside of the radius - or go REALLY far away from it. aka, it puts you under pressure so you HAVE to deal with it.
-	[ ] more difficult to pull off: make it actively run/teleport away from the player (maybe like the curse-damage enemies ignoring all terrain. simply staying X distance away at all times would create a challenge of finding the right piece of map to be able to hit it properly)
-		[ ] each time chip damage is dealt, play drain particles from the player towards the enemy to hint at its location.
-	[ ] 1% of max health every 2 seconds, giving the player max. 200 seconds (~3 minutes) to kill it
-	[ ] give it a small chance to replace an already-spawned enemy?
-	[ ] name: "uutto" (leech in Finnish)
 
 [ ] gun.lua has a "handle_mana_addition" function --> could be useful for Mana Lock?
 
