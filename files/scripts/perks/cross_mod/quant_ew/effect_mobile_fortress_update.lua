@@ -7,7 +7,7 @@ local player = EntityGetRootEntity( GetUpdatedEntityID() )
 if not exists( player ) then return end
 local x, y = EntityGetTransform( player )
 
-local nearby_players = EntityGetInRadiusWithTag( x, y, EFFECT_RADIUS, "mortal" )
+local nearby_players = EntityGetInRadiusWithTag( x, y, EFFECT_RADIUS, "player_unit" )
 
 local shields = {}
 local children = EntityGetAllChildren( GetUpdatedEntityID() )
