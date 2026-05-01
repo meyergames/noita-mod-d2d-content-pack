@@ -658,7 +658,7 @@ d2d_cross_mod_perks = {
 		stackable = STACKABLE_NO,
 		one_off_effect = false,
 		usable_by_enemies = false,
-		requires_mod = "quant.ew",
+		requires_mod = "quant.ew|iota_multiplayer",
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if pickup_count <= 1 then
 				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/cross_mod/quant_ew/effect_mobile_fortress.xml" )
@@ -1544,8 +1544,18 @@ end
 -- add perks that require other mods
 if perk_list ~= nil then
 	for k,v in pairs( d2d_cross_mod_perks ) do
-		if ModIsEnabled( v.requires_mod ) and not HasSettingFlag( v.id .. "_disabled" ) then
-			table.insert( perk_list, v )
+		if not HasSettingFlag( v.id .. "_disabled" ) then
+			dofile_once( "mods/D2DContentPack/files/scripts/utilities.lua" )
+			local mods = split_string( v.requires_mod, '|' )
+			local add_to_table = false
+			for i,mod in ipairs( mods ) do
+				if ModIsEnabled( mod ) then
+					add_to_table = true
+				end
+			end
+			if add_to_table then
+				table.insert( perk_list, v )
+			end
 		end
 	end
 end
