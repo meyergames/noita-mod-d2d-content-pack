@@ -1,3 +1,5 @@
+
+
 d2d_perks = {
 
 	{
@@ -661,7 +663,7 @@ d2d_cross_mod_perks = {
 		requires_mod = "quant.ew|iota_multiplayer",
 		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
 			if pickup_count <= 1 then
-				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/cross_mod/quant_ew/effect_mobile_fortress.xml" )
+				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/multiplayer/effect_mobile_fortress.xml" )
 
 	            GamePrintDelayed( "[D2D] This is an experimental multiplayer-only mod.", 120 )
 	            GamePrintDelayed( "[D2D] If it doesn't work, please let me know on Steam or Discord!", 240 )

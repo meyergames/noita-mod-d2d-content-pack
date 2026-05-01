@@ -9,13 +9,13 @@
 
     <LuaComponent
       _enabled="1" 
-      script_source_file="mods/D2DContentPack/files/scripts/perks/cross_mod/quant_ew/effect_mobile_fortress_update.lua"
+      script_source_file="mods/D2DContentPack/files/scripts/perks/multiplayer/effect_mobile_fortress_update.lua"
       execute_every_n_frame="1"
     ></LuaComponent>
 
     <!-- 3 shields as children -->
     <Entity>
-        <Base file="mods/D2DContentPack/files/entities/misc/perks/cross_mod/quant_ew/mobile_fortress_shield.xml" />
+        <Base file="mods/D2DContentPack/files/entities/misc/perks/multiplayer/mobile_fortress_shield.xml" />
 
         <!-- only the first one has inner particles -->
         <ParticleEmitterComponent 
@@ -44,7 +44,7 @@
     </Entity>
 
     <Entity>
-        <Base file="mods/D2DContentPack/files/entities/misc/perks/cross_mod/quant_ew/mobile_fortress_shield.xml" >
+        <Base file="mods/D2DContentPack/files/entities/misc/perks/multiplayer/mobile_fortress_shield.xml" >
             <EnergyShieldComponent
                 radius="52.0"
             ></EnergyShieldComponent>
@@ -60,7 +60,7 @@
     </Entity>
 
     <Entity>
-        <Base file="mods/D2DContentPack/files/entities/misc/perks/cross_mod/quant_ew/mobile_fortress_shield.xml" >
+        <Base file="mods/D2DContentPack/files/entities/misc/perks/multiplayer/mobile_fortress_shield.xml" >
             <EnergyShieldComponent
                 radius="56.0"
             ></EnergyShieldComponent>
