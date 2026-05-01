@@ -1060,9 +1060,14 @@ function ModSettingsGui( gui, in_main_menu )
                 table.insert( filtered_perks, perk )
             end
         end
+        dofile_once( "mods/D2DContentPack/files/scripts/utilities.lua" )
         for i,perk in ipairs( d2d_cross_mod_perks ) do
-            if ModIsEnabled( perk.requires_mod ) and not perk.not_in_default_perk_pool then
-                table.insert( filtered_perks, perk )
+            local mods = split_string( perk.requires_mod, '|' )
+            local add_to_table = false
+            for i,mod in ipairs( mods ) do
+                if ModIsEnabled( mod ) then
+                    table.insert( filtered_perks, perk )
+                end
             end
         end
         for i,perk in ipairs( d2d_curses ) do
