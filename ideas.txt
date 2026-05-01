@@ -85,6 +85,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 		[ ] maybe enemies CAN attack it back? since they also don't want to be infected.
 	[ ] how do I make it actively flee from the player, when it has no host?
 		(@ mod dev channel: "can I make an enemy flee from the player, in a way that still respects their normal pathfinding? anyone done this before?")
+		--> "well you can check the vanilla deer.xml to see that they have their preferred_job always set to "Escaping", although not entirely sure how reliable that is"
 
 [ ] an elusive, passive enemy with emissive eye(s) that teleports away whenever it can raycast to the player. then, when the
 	player figures out this is how it works and tries to hit it with something like bouncing projectiles, they find out that it also teleports away when there are player projectiles nearby. one way to kill it would be to stun or freeze it (like using Ukkoskivi while it stands on metal) so that it cannot teleport away - though it should take no damage from the electricity itself.
