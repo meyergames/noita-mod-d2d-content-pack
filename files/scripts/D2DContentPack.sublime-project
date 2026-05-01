@@ -1,0 +1,58 @@
+{
+	"folders":
+	[
+		{
+			"path": "/home/daniel/.steam/debian-installation/steamapps/common/Noita/mods/D2DContentPack",
+		},
+        {
+			"path": "/home/daniel/.config/sublime-text/Packages/User/snippets"
+		},
+    ],
+    "completions": [
+
+        // LUA: test prints
+        ["/p_d2d_PRINT_VALUE", "GamePrint( \"[TEST] \" .. NAME .. \": \" .. VALUE )\n"],
+        ["/p1_PRINT_1", "GamePrint( \"1\" )\n"],
+        ["/p2_PRINT_2", "GamePrint( \"2\" )\n"],
+        ["/p3_PRINT_3", "GamePrint( \"3\" )\n"],
+        ["/p4_PRINT_4", "GamePrint( \"4\" )\n"],
+        ["/p5_PRINT_5", "GamePrint( \"5\" )\n"],
+        ["/pe_PRINT_ENTITY_ID", "GamePrint( entity_id )\n"],
+
+    	// LUA: inits
+        ["/d2d_D2D_UTILS", "dofile_once( \"mods/D2DContentPack/files/scripts/d2d_utils.lua\" )\n\n"],
+        ["/init_INIT_PLAYER_XY", "local player = GetUpdatedEntityID()\nif not exists( player ) then return end\nlocal px, py = EntityGetTransform( player )\n\n"],
+        ["/init_INIT_PROJECTILE_XY", "local proj_id = GetUpdatedEntityID()\nif not exists( proj_id ) then return end\nlocal proj_x, proj_y = EntityGetTransform( proj_id )\n\n"],
+        ["/init_INIT_ENTITY_XY", "local entity_id = GetUpdatedEntityID()\nif not exists( entity_id ) then return end\nlocal x, y = EntityGetTransform( entity_id )\n\n"],
+
+        // LUA: globals
+        ["/gget", "local VALUE = tonumber( GlobalsGetValue( \"VAR\" ) )\n"],
+        ["/gset", "GlobalsSetValue( \"VAR\", tostring( VALUE ) ) )\n"],
+        ["/gsub", "-- don't forget to call this function at the bottom\nlocal function alter_SOMETHING()\n\tlocal file = \"FILEPATH\"\n\tlocal content = ModTextFileGetContent( file )\n\tcontent = content:gsub(\n\t\tesc( \"VALUE_A\" ),\n\t\tesc( \"VALUE_B\" ) )\n\tModTextFileSetContent( file, content )\nend\n"],
+
+        // LUA: assigning entity ids
+        ["/id_PLAYER", "local player = GetUpdatedEntityID()\n"],
+        ["/id_PROJECTILE", "local proj_id = GetUpdatedEntityID()\n"],
+        ["/id_ENTITY", "local entity_id = GetUpdatedEntityID()\n"],
+
+        // LUA: components + checks
+        ["/comp_COMP_ANY", "local COMP = EntityGetFirstComponentIncludingDisabled( ENTITY_ID, \"COMP\" )\nif exists( COMP ) then\n\tlocal VAR = ComponentGetValue2( COMP, \"VAR\" )\n\tif exists( VAR ) then\n\t\t-- LOGIC_GOES_HERE\n\tend\nend\n\n"],
+        ["/compp_COMP_PROJ", "local proj_comp = EntityGetFirstComponentIncludingDisabled( proj_id, \"ProjectileComponent\" )\nif exists( proj_comp ) then\n\tlocal VAR = ComponentGetValue2( proj_comp, \"VAR\" )\n\tif exists( VAR ) then\n\t\t-- LOGIC_GOES_HERE\n\tend\nend\n\n"],
+        ["/compd_COMP_DMG", "local dmg_comp = EntityGetFirstComponentIncludingDisabled( ENTITY_ID, \"DamageModelComponent\" )\nif exists( dmg_comp ) then\n\tlocal hp = ComponentGetValue2( dmg_comp, \"hp\" )\n\tlocal max_hp = ComponentGetValue2( dmg_comp, \"max_hp\" )\n\t\n\t-- LOGIC_GOES_HERE\nend\n\n"],
+
+        // LUA: sounds
+        ["/sound_TICK", "GamePlaySound( \"data/audio/Desktop/misc.bank\", \"game_effect/regeneration/tick\", x, y )\n"],
+
+        // LUA: actions.lua
+        ["/ifreflecting", "if reflecting then return end\n\n"],
+        ["/spawn_0", "spawn_level\t\t\t= \"0\",\nspawn_probability\t= \"0\",\nspawn_requires_flag\t= \"d2d_impossible_spawn\","],
+
+        // XML
+        ["d2de_ENTITY", "Entity>\n\t\n\t\n\t\n</Entity>"],
+        ["d2de_ENTITY_TAG", "Entity tags=\"d2d\">\n\t\n\t\n\t\n</Entity>"],
+        ["d2dl_LUA_INIT", "LuaComponent\n\tscript_source_file=\"mods/D2DContentPack/files/scripts/FOLDER_SLASH_SCRIPT?_init.lua\"\n\texecute_on_added=\"1\"\n\tremove_after_executed=\"1\"\n></LuaComponent>"],
+        ["d2dl_LUA_UPDATE", "LuaComponent\n\tscript_source_file=\"mods/D2DContentPack/files/scripts/FOLDER_SLASH_SCRIPT?_update.lua\"\n\texecute_every_n_frame=\"1\"\n></LuaComponent>"],
+        ["d2dl_LUA_SCAN", "LuaComponent\n\tscript_source_file=\"mods/D2DContentPack/files/scripts/FOLDER_SLASH_SCRIPT?_scan.lua\"\n\texecute_every_n_frame=\"60\"\n></LuaComponent>"],
+        ["d2dl_LUA_END", "LuaComponent\n\tscript_source_file=\"mods/D2DContentPack/files/scripts/FOLDER_SLASH_SCRIPT?_end.lua\"\n\texecute_every_n_frame=\"-1\"\n\texecute_on_removed=\"1\"\n></LuaComponent>"],
+    ],
+}
