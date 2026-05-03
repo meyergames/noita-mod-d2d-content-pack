@@ -7,6 +7,28 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Blurse (One-off): the next time you are poly'd, you turn into an invincible golden sheep.
+	[ ] or: "When you are polymorphed, something good happens when you dodge projectiles after you come out of it"
+
+[ ] Give Fireball a bit more mdtd, while also buffing Meteor? (I don't think that one's used very often either)
+
+[ ] Enemy: "Hämärä Ydin" (Twilight Core)
+	May spawn on top of another enemy, linking to them / orbiting them and gaining their max HP.
+	If it or the linked enemy reaches 1 HP, and the other has >1 HP for longer than 15-30 frames, they are both fully healed.
+	If they are both at 1 HP at the same time, they die.
+  - [ ] (Could visually look like the Twilight Beast mask from LoZ:TP)
+
+[ ] Curse: Martyr
+	"On death, enemies may spawn a big aura for 2-3 seconds that applies ambrosia to all enemies within."
+	(so you have to prioritize who to kill first / work more with AoE knockback / maybe even use homeswapper bolt)
+	(maybe limit to only *some* enemies? i.e. a horde of blobs should not spawn 20 of these auras)
+
+[ ] Curse: Gold Mimics
+	"Enemies may drop dangerous gold nuggets"
+	(they'd look slightly off (maybe toxic?) and explode (in a cloud of poison gas?) on pickup)
+	(has anti-synergy with the Attract Gold perk, perfect)
+	(but also with Repel Gold, which tbh is fine)
+
 [x] Multiplayer perk (we can (already) do this): a relatively big aura that scans how many other player_units there are within 
 	it. for each player unit beyond yourself, gain +50% mana regen and activate a shield (req. 1+ ally) that regenerates faster the more players there are.
 
@@ -86,6 +108,12 @@ WE POST NEW IDEAS AT THE TOP NOW
 	[ ] how do I make it actively flee from the player, when it has no host?
 		(@ mod dev channel: "can I make an enemy flee from the player, in a way that still respects their normal pathfinding? anyone done this before?")
 		--> "well you can check the vanilla deer.xml to see that they have their preferred_job always set to "Escaping", although not entirely sure how reliable that is"
+		--> "Sexiest-of-Bitches"
+				can i make an enemy pathfind away from the player?
+			NathanSnail
+				i think so
+				you just set its target in animalai
+				and itll go to it
 
 [ ] an elusive, passive enemy with emissive eye(s) that teleports away whenever it can raycast to the player. then, when the
 	player figures out this is how it works and tries to hit it with something like bouncing projectiles, they find out that it also teleports away when there are player projectiles nearby. one way to kill it would be to stun or freeze it (like using Ukkoskivi while it stands on metal) so that it cannot teleport away - though it should take no damage from the electricity itself.

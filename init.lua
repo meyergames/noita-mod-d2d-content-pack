@@ -16,6 +16,11 @@ ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/D2DContentPack/files
 ModLuaFileAppend("data/scripts/items/generate_shop_item.lua", "mods/D2DContentPack/files/scripts/items/generate_shop_item.lua")
 ModLuaFileAppend( "data/scripts/gun/gun.lua", "mods/D2DContentPack/files/scripts/gun_append.lua" )
 
+-- biome appends (for enemy spawns)
+ModLuaFileAppend( "data/scripts/biomes/rainforest.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_jungle.lua" )
+ModLuaFileAppend( "data/scripts/biomes/crypt.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_temple_of_the_arts.lua" )
+
+
 if ModIsEnabled( "Apotheosis" ) then
     ModLuaFileAppend( "mods/Apotheosis/files/scripts/animals/cat_pet.lua", "mods/D2DContentPack/files/scripts/animals/cat_pet.lua" )
     ModLuaFileAppend( "mods/Apotheosis/files/scripts/magic/materia_spell_conversion.lua",

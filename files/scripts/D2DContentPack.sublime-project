@@ -11,19 +11,12 @@
     "completions": [
 
         // LUA: test prints
-        ["/p_d2d_PRINT_VALUE", "GamePrint( \"[TEST] \" .. NAME .. \": \" .. VALUE )\n"],
+        // ["/p_d2d_PRINT_VALUE", "GamePrint( \"[TEST] \" .. NAME .. \": \" .. VALUE )\n"],
         ["/p1_PRINT_1", "GamePrint( \"1\" )\n"],
         ["/p2_PRINT_2", "GamePrint( \"2\" )\n"],
         ["/p3_PRINT_3", "GamePrint( \"3\" )\n"],
         ["/p4_PRINT_4", "GamePrint( \"4\" )\n"],
         ["/p5_PRINT_5", "GamePrint( \"5\" )\n"],
-        ["/pe_PRINT_ENTITY_ID", "GamePrint( entity_id )\n"],
-
-    	// LUA: inits
-        ["/d2d_D2D_UTILS", "dofile_once( \"mods/D2DContentPack/files/scripts/d2d_utils.lua\" )\n\n"],
-        ["/init_INIT_PLAYER_XY", "local player = GetUpdatedEntityID()\nif not exists( player ) then return end\nlocal px, py = EntityGetTransform( player )\n\n"],
-        ["/init_INIT_PROJECTILE_XY", "local proj_id = GetUpdatedEntityID()\nif not exists( proj_id ) then return end\nlocal proj_x, proj_y = EntityGetTransform( proj_id )\n\n"],
-        ["/init_INIT_ENTITY_XY", "local entity_id = GetUpdatedEntityID()\nif not exists( entity_id ) then return end\nlocal x, y = EntityGetTransform( entity_id )\n\n"],
 
         // LUA: globals
         ["/gget", "local VALUE = tonumber( GlobalsGetValue( \"VAR\" ) )\n"],
@@ -47,6 +40,10 @@
         ["/ifreflecting", "if reflecting then return end\n\n"],
         ["/spawn_0", "spawn_level\t\t\t= \"0\",\nspawn_probability\t= \"0\",\nspawn_requires_flag\t= \"d2d_impossible_spawn\","],
 
+
+
+
+
         // XML
         ["d2de_ENTITY", "Entity>\n\t\n\t\n\t\n</Entity>"],
         ["d2de_ENTITY_TAG", "Entity tags=\"d2d\">\n\t\n\t\n\t\n</Entity>"],
@@ -54,5 +51,12 @@
         ["d2dl_LUA_UPDATE", "LuaComponent\n\tscript_source_file=\"mods/D2DContentPack/files/scripts/FOLDER_SLASH_SCRIPT?_update.lua\"\n\texecute_every_n_frame=\"1\"\n></LuaComponent>"],
         ["d2dl_LUA_SCAN", "LuaComponent\n\tscript_source_file=\"mods/D2DContentPack/files/scripts/FOLDER_SLASH_SCRIPT?_scan.lua\"\n\texecute_every_n_frame=\"60\"\n></LuaComponent>"],
         ["d2dl_LUA_END", "LuaComponent\n\tscript_source_file=\"mods/D2DContentPack/files/scripts/FOLDER_SLASH_SCRIPT?_end.lua\"\n\texecute_every_n_frame=\"-1\"\n\texecute_on_removed=\"1\"\n></LuaComponent>"],
+
+
+
+
+
+        // CSV
+        ["/,", ",,,,,,,,,,,,,"],
     ],
 }

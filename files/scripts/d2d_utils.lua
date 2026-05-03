@@ -400,3 +400,14 @@ end
 function EntitySetHerd( entity, herd_name )
     EntitySetValue( entity, "GenomeDataComponent", "herd_id", StringToHerdId( herd_name ) )
 end
+
+function get_child_with_tag( entity, tag )
+    local children = EntityGetAllChildren()
+    if exists( children ) then
+        for i,child in ipairs( children ) do
+            if EntityHasTag( child, "d2d_tag" ) then
+                return child
+            end
+        end
+    end
+end
