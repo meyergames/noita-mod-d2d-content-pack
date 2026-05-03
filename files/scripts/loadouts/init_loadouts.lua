@@ -45,6 +45,13 @@ classes = {
         ui_description = "$loadout_d2d_thunderlord_desc",
         sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/thunderlord.png",
     },
+    {
+        id = "D2D_CLASS_PRESERVER",
+        function_name = "spawn_loadout_preserver",
+        ui_name = "$loadout_d2d_preserver_name",
+        ui_description = "$loadout_d2d_preserver_desc",
+        sprite = "mods/D2DContentPack/files/gfx/ui_gfx/loadouts/preserver.png",
+    },
 }
 
 -- this function was copied and adjusted from the Selectable Classes mod

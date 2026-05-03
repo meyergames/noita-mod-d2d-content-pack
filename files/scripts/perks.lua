@@ -452,6 +452,24 @@ d2d_perks = {
         end,
 	},
 
+	{
+		id = "D2D_MANA_BATTERY",
+		ui_name = "$perk_d2d_mana_battery_name",
+		ui_description = "$perk_d2d_mana_battery_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/mana_battery_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/mana_battery.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		not_in_default_perk_pool = true,
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			-- do nothing
+		end,
+		func_remove = function( entity_who_picked )
+			-- do nothing
+		end,
+	},
+
 	-- {
 	-- 	id = "D2D_SHOCK_ABSORBER",
 	-- 	ui_name = "$perk_d2d_shock_absorber_name",

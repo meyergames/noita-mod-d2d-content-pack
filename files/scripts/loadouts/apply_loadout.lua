@@ -456,6 +456,51 @@ function spawn_loadout_thunderlord( player )
     end
 end
 
+function spawn_loadout_preserver( player )
+	empty_inventory( player )
+
+	local x, y = EntityGetTransform( player )
+	y = y - 32
+
+	-- spawn the first wand
+    local wand = EZWand()
+	wand:SetName( "Transience", true )
+	wand.shuffle = false
+	wand.spellsPerCast = 1
+	wand.castDelay = 3
+	wand.rechargeTime = 7
+	wand.manaMax = 251
+	wand.mana = wand.manaMax
+	wand.manaChargeSpeed = 1
+	wand.capacity = 5
+	wand.spread = 0
+	wand:AddSpells( "D2D_GLASS_SHARD", "LIGHT_BULLET", "D2D_ALT_FIRE_ANYTHING", "D2D_MANA_SPLIT", "DYNAMITE" )
+	wand:RemoveSpells( "LIGHT_BULLET", -1 )
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/preserver_1.png", 10, 4, 18, 0 )
+	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	wand:PutInPlayersInventory()
+
+	-- perks
+	give_perk( player, "D2D_MANA_BATTERY" )
+	-- give_perk( player, "D2D_JUGGERNAUT" )
+	-- give_perk( player, "D2D_SPELL_GEMS" )
+	if curses_enabled then
+		give_perk( player, "D2D_CURSE_OVERHEATING" )
+	end
+
+    -- start with a vial of water
+    local x, y = EntityGetTransform( player )
+    local water = EntityLoad( "data/entities/items/pickup/potion_water.xml", x, y )
+    GamePickUpInventoryItem( player, water, false )
+
+    -- set the player's health
+    local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
+    if exists( dmg_comp ) then
+    	ComponentSetValue2( dmg_comp, "hp", 5 ) -- 125 hp
+    	ComponentSetValue2( dmg_comp, "max_hp", 5 ) -- 125 hp
+    end
+end
+
 function item_pickup( entity_item, entity_who_picked, item_name )
 	local function_name = get_internal_string( entity_item, "d2d_class_function_name" )
 	_G[function_name]( entity_who_picked )

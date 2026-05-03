@@ -50,7 +50,7 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 
 	            		-- restore each wand's mana by 10x their charge speed,
 	            		-- as a little extra for the low-mana-charge-wand lovers out there
-	            		wand.mana = wand.mana + ( wand.manaChargeSpeed * 10 )
+	            		wand.mana = wand.mana + math.max( wand.manaChargeSpeed * 10, wand.manaMax * 0.05 )
 	            	end
 	            end
 	        end

@@ -433,6 +433,24 @@ function try_destroy_old_apoth_lukki_portals()
     end
 end
 
+function try_apply_mana_battery()
+    if get_perk_pickup_count( "D2D_MANA_BATTERY" ) == 0 then return end
+
+    local wands = EntityGetWithTag( "wand" )
+    if not exists( wands ) then return end
+    
+    for i,wand_id in ipairs( wands ) do
+        local already_applied = get_internal_bool( wand_id, "d2d_mana_battery_applied" )
+        if not already_applied and EZWand.IsWand( wand_id ) then
+            local wand = EZWand( wand_id )
+            wand.manaMax = wand.manaMax * 10 + Random( 0, 9 )
+            wand.mana = wand.manaMax
+            wand.manaChargeSpeed = 0
+            set_internal_bool( wand_id, "d2d_mana_battery_applied", true )
+        end
+    end
+end
+
 try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
@@ -450,3 +468,4 @@ try_spawn_indulgence_copy_2()
 try_spawn_guaranteed_cursed_chest()
 try_spawn_lodestone()
 try_destroy_old_apoth_lukki_portals()
+try_apply_mana_battery()

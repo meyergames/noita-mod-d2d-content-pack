@@ -355,3 +355,6 @@ perk_d2d_mobile_fortress_desc,"You gain a big mana-regenerating shield that acti
 spell_d2d_upgrade_mana_battery_name,Upgrade Mana Battery,,,,,,,,,,
 spell_d2d_upgrade_mana_battery_desc,"Drag onto a wand to multiply its mana by 10, but set its mana charge speed to 0",,,,,,,,,,,,,
 animal_d2d_parasite,Vihaparasiitti,,,,,,,,,,,,,
+perk_d2d_mana_battery_name,Mana Battery,,,,,,,,,,,,,
+perk_d2d_mana_battery_desc,"All wands have 10x as much mana, but 0 mana charge speed.\nPicking up a Spell Refresher restores all mana on your held wand.",,,,,,,,,,,,,
+loadout_d2d_preserver_name,Class: Preserver,,,,,,,,,,,,,

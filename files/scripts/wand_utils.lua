@@ -252,6 +252,27 @@ function wand_upgrade_max_mana( wand, percent, min_increase, limit )
 	return false
 end
 
+function wand_upgrade_mana_battery( wand )
+	local old_mana_max = wand.manaMax
+	local old_mana_charge_speed = wand.manaChargeSpeed
+
+	if wand.manaMax >= 50000 then
+		GamePrint( "Your wand's max mana cannot be increased further!" )
+		return false
+	end
+	
+	wand.manaMax = math.min( old_mana_max * 10, 50000 )
+	wand.mana = wand.manaMax
+	GamePrint( "Your wand's max mana was increased! (" .. string.format( "%.0f", old_mana_max ) .. " > " .. string.format( "%.0f", wand.manaMax ) .. ")" )
+
+	wand.manaChargeSpeed = math.max( wand.manaChargeSpeed, wand.manaMax * 0.01 )
+	if wand.manaChargeSpeed < old_mana_charge_speed then
+		GamePrint( "Your wand's mana charge speed was decreased! (" .. string.format( "%.0f", old_mana_charge_speed ) .. " > " .. string.format( "%.0f", wand.manaChargeSpeed ) .. ")" )
+	end
+
+	return true
+end
+
 function wand_upgrade_mana_charge_speed( wand, percent, min_increase, limit )
 	local old_value = wand.manaChargeSpeed
 
@@ -849,6 +870,7 @@ function generate_random_toolbox_spells( amount, do_print )
 	local rare = {
 		-- upgrades
 		"D2D_UPGRADE_PROMOTE_SPELL",
+		"D2D_UPGRADE_MANA_BATTERY",
 
 		-- mana
 		"D2D_MANA_SPLIT",
@@ -938,6 +960,7 @@ function spawn_random_upgrade_spells( amount, x, y )
 		"D2D_UPGRADE_SHUFFLE",
 		"D2D_UPGRADE_REMOVE_ALWAYS_CAST",
 		"D2D_UPGRADE_PROMOTE_SPELL",
+		"D2D_UPGRADE_MANA_BATTERY",
 	}
 
 	local arc = ( amount - 1 ) * 60
@@ -1062,4 +1085,25 @@ function get_held_wand_id_of_player( player )
 
 		return active_item
 	end
+end
+
+function get_all_wands( player )
+	if not player then return end
+
+    local wands = {}
+    local children = EntityGetAllChildren( player ) or {}
+    for key, child in pairs( children ) do
+        if EntityGetName( child ) == "inventory_quick" then
+            local may_be_wands = EntityGetAllChildren( child ) or {}
+            if #may_be_wands > 0 then
+                for i,may_be_wand in ipairs( may_be_wands ) do
+                    if EntityHasTag( may_be_wand, "wand" ) then
+                        table.insert( wands, may_be_wand )
+                    end
+                end
+            end
+        end
+    end
+
+    return wands
 end
