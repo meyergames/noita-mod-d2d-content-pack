@@ -1,7 +1,5 @@
 <Entity tags="glue_NOT" name="$animal_d2d_ancient_lurker">
-	<!-- NOTE! This file is used for polymorph purpouses only -->
-	<!-- the spawned player ghost (that has an old wand) is now at entities/animals/apparition/playerghost.xml -->
-	
+		
 	<Base file="data/entities/base_enemy_flying.xml">
 		<ItemChestComponent level="1" > </ItemChestComponent>
 

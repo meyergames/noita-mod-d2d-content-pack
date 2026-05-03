@@ -12,6 +12,7 @@ ModLuaFileAppend("data/scripts/gun/procedural/gun_procedural.lua", "mods/D2DCont
 ModLuaFileAppend("data/scripts/buildings/forge_item_convert.lua", "mods/D2DContentPack/files/scripts/buildings/forge_item_convert.lua")
 ModLuaFileAppend("data/scripts/biomes/temple_altar.lua", "mods/D2DContentPack/files/scripts/biomes/temple_altar.lua")
 ModLuaFileAppend("data/scripts/items/heart_fullhp_temple.lua", "mods/D2DContentPack/files/scripts/items/heart_fullhp_temple_custom.lua")
+ModLuaFileAppend("data/scripts/items/spell_refresh.lua", "mods/D2DContentPack/files/scripts/items/spell_refresh.lua")
 ModLuaFileAppend("data/scripts/items/orb_pickup.lua", "mods/D2DContentPack/files/scripts/items/orb_pickup_custom.lua")
 ModLuaFileAppend("data/scripts/items/generate_shop_item.lua", "mods/D2DContentPack/files/scripts/items/generate_shop_item.lua")
 ModLuaFileAppend( "data/scripts/gun/gun.lua", "mods/D2DContentPack/files/scripts/gun_append.lua" )
@@ -19,6 +20,8 @@ ModLuaFileAppend( "data/scripts/gun/gun.lua", "mods/D2DContentPack/files/scripts
 -- biome appends (for enemy spawns)
 ModLuaFileAppend( "data/scripts/biomes/rainforest.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_jungle.lua" )
 ModLuaFileAppend( "data/scripts/biomes/crypt.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_temple_of_the_arts.lua" )
+ModLuaFileAppend( "data/scripts/biomes/fungicave.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_fungal_caverns.lua" )
+ModLuaFileAppend( "data/scripts/biomes/fungiforest.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_overgrown_cavern.lua" )
 
 
 if ModIsEnabled( "Apotheosis" ) then

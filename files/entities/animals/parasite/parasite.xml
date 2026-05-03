@@ -1,27 +1,6 @@
 <Entity name="$animal_d2d_parasite" tags="d2d_parasite" >
   
 	<Base file="data/entities/base_enemy_basic.xml" >
-		<!-- BLOB ESCAPING AI <AnimalAIComponent 
-			_enabled="1" 
-			preferred_job="Escaping"
-			escape_if_damaged_probability="100"
-			attack_melee_damage_min="0.05"
-			attack_melee_damage_max="0.1"
-			creature_detection_range_x="300"
-			creature_detection_range_y="300"
-			food_material="rotten_meat"
-			needs_food="0"
-			sense_creatures="1"
-			can_fly="1"  
-			attack_melee_enabled="0"
-			attack_melee_max_distance="10"
-			attack_ranged_enabled="0"
-			aggressiveness_min="0"
-			aggressiveness_max="0"
-			attack_dash_enabled="0"
-			attack_dash_distance="120"
-			>
-		</AnimalAIComponent> -->
 		<AnimalAIComponent 
 			_enabled="1" 
 			preferred_job="JobDefault"
@@ -53,8 +32,7 @@
 			attack_ranged_offset_y="0"
 			aggressiveness_min="90"
 			aggressiveness_max="100"
-			>
-		</AnimalAIComponent>
+		></AnimalAIComponent>
 		
 		<DamageModelComponent 
             hp="2"
@@ -77,7 +55,7 @@
 
 		<PathFindingComponent
 			can_jump="1"
-			can_fly="1" 
+			can_fly="1"
 			jump_speed="100"
 			initial_jump_lob="1"
 			initial_jump_max_distance_x="100"

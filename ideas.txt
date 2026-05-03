@@ -80,10 +80,10 @@ WE POST NEW IDEAS AT THE TOP NOW
 [ ] a duo boss that must be killed at the same time (like Twilight Beasts), with only a few frames margin (requiring a heavy
 	hitter with a Bifurcated pattern, for example)
 
-[ ] Parasiitti, an enemy that can "possess" other (non-boss) enemies, buffing them greatly. killing its host ejects the
+[x] Parasiitti, an enemy that can "possess" other (non-boss) enemies, buffing them greatly. killing its host ejects the
 	parasite, which has a TINY hitbox (like one of those tiny slimes in The Vault) and quite some health, requiring a rapidfire wand to defeat it.
-	[ ] candidate biomes:
-		[ ] underground jungle
+	[x] candidate biomes:
+		[x] underground jungle
 		[ ] Apoth toxic biome
 		[ ] fungal caverns
 		[ ] wand mart
