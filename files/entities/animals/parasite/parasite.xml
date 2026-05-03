@@ -137,10 +137,10 @@
 		 >
 	</SpriteComponent>
 
-	<!-- <LuaComponent
+	<LuaComponent
 		script_source_file="mods/D2DContentPack/files/entities/animals/parasite/parasite_update.lua"
 		execute_every_n_frame="1"
-	></LuaComponent> -->
+	></LuaComponent>
 
 	<!-- <LuaComponent
 		script_source_file="mods/D2DContentPack/files/entities/animals/parasite/parasite_scan.lua"
