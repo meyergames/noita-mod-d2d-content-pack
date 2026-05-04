@@ -35,7 +35,7 @@
 		></AnimalAIComponent>
 		
 		<DamageModelComponent 
-            hp="2"
+            hp="1"
             materials_create_messages="1"
 			ragdoll_filenames_file="data/ragdolls/miniblob/filenames.txt" 
 			fire_probability_of_ignition="0"

@@ -85,16 +85,16 @@ WE POST NEW IDEAS AT THE TOP NOW
 	[x] candidate biomes:
 		[x] underground jungle
 		[ ] Apoth toxic biome
-		[ ] fungal caverns
-		[ ] wand mart
-		[ ] hell
-	[ ] candidate buffs:
-		[ ] berserk
+		[x] fungal caverns
+		[x] wand mart
+		[x] hell
+	[x] candidate buffs:
+		[x] berserk
 		[-] a strong projectile shield (requires rapidfire or a plasma beam to break through)
 				^ nah, the possessed enemy should require a heavy hitter to kill
-			[ ] an indestructible temporary shield that activates upon taking damage, much like Apoth's corrupt masters
+			[x] an indestructible temporary shield that activates upon taking damage, much like Apoth's corrupt masters
 		[ ] homing modifier (i.e. attunium) <-- least favourite atm
-		[ ] increased max health
+		[x] increased max health
 			[ ] with passive healing if we want the parasite to stay on them forever and make the host harder to kill
 			[ ] with passive %hp damage if we want the parasite to eventually kill and leave its host
 	[ ] could be made into a dedicated miniboss.

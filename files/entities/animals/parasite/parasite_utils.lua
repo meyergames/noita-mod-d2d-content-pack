@@ -5,6 +5,11 @@ function try_infect( host_id )
 
 	-- cannot infect the player
 	if host_id == get_player() then return end
+
+	-- cannot infect (mini)bosses
+	if EntityHasTag( host_id, "boss" ) then return end
+	if EntityHasTag( host_id, "miniboss" ) then return end
+	if EntityHasTag( host_id, "boss_tag" ) then return end
 	
 	-- cannot infect an already infected enemy
 	if get_internal_bool( host_id, "d2d_is_parasited" ) then return end
@@ -17,13 +22,20 @@ function try_infect( host_id )
 
 
 
-	-- raise the host's (max) hp by 50
+	-- raise the host's (max) hp by the parasite's max hp
 	local dmg_comp = EntityGetFirstComponentIncludingDisabled( host_id, "DamageModelComponent" )
 	if exists( dmg_comp ) then
 		local hp = ComponentGetValue2( dmg_comp, "hp" )
-		local max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
-		ComponentSetValue2( dmg_comp, "max_hp", hp + 2 )
-		ComponentSetValue2( dmg_comp, "hp", hp + 2 )
+
+		local parasite_max_hp = 1
+		local parasite_dmg_comp = EntityGetFirstComponentIncludingDisabled( parasite_id, "DamageModelComponent" )
+		if exists( parasite_dmg_comp ) then
+			parasite_max_hp = ComponentGetValue2( parasite_dmg_comp, "max_hp" )
+			set_internal_int( host_id, "d2d_parasite_max_hp", parasite_max_hp )
+		end
+
+		ComponentSetValue2( dmg_comp, "max_hp", hp + parasite_max_hp )
+		ComponentSetValue2( dmg_comp, "hp", hp + parasite_max_hp )
 	end
 
 	-- give the host a shield
