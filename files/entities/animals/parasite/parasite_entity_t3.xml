@@ -1,6 +1,6 @@
 <Entity name="$animal_d2d_parasite" tags="d2d_parasite" >
   
-	<Base file="mods/D2DContentPack/files/entities/animals/parasite/parasite_t1.xml" >
+	<Base file="mods/D2DContentPack/files/entities/animals/parasite/parasite_entity_t1.xml" >
 		<DamageModelComponent 
             hp="4"
 		></DamageModelComponent>

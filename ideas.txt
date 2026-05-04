@@ -7,6 +7,9 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] make the Parasite shoot at its allies, its allies being "everyone except the player"
+	[ ] when charmed, it would attack the player, i.e. buff them for 50 seconds (at the cost of in total 50 HP)
+
 [ ] Blurse (One-off): the next time you are poly'd, you turn into an invincible golden sheep.
 	[ ] or: "When you are polymorphed, something good happens when you dodge projectiles after you come out of it"
 
