@@ -11,6 +11,6 @@ Things you could be doing with this mod:
 
 ...and much more!
 
-Besides pulling this repo to play it, you can also download this mod through the Steam Workshop:
+You can pull this repo into your mod folder to play it, or you can download it through the Steam Workshop:
 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3559987358
