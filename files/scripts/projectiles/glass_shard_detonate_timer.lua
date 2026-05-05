@@ -32,7 +32,7 @@ if timer then
 		end
 
 		-- apply stored damage
-	    EntityInflictDamage( owner, dmg, "DAMAGE_SLICE", "glass shards", "NORMAL", 0, 0, owner, x, y, 0)
+	    EntityInflictDamage( owner, dmg, "DAMAGE_SLICE", "glass shards", "NORMAL", 0, 0, nil, x, y, 0)
 	    if dmg >= 1.2 and dmg < 4 then
 			GamePlaySound( "data/audio/Desktop/materials.bank", "collision/glass_potion/destroy", x, y )
 		elseif dmg >= 4 then

@@ -697,6 +697,38 @@ d2d_cross_mod_perks = {
         	end
         end,
 	},
+
+	{
+		id = "D2D_TEAM_TANK",
+		ui_name = "$perk_d2d_team_tank_name",
+		ui_description = "$perk_d2d_team_tank_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/team_tank_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/team_tank.png",
+		stackable = STACKABLE_NO,
+		one_off_effect = false,
+		usable_by_enemies = false,
+		requires_mod = "quant.ew|iota_multiplayer",
+		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+			if pickup_count <= 1 then
+				LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/multiplayer/effect_team_tank.xml" )
+				dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+				set_internal_bool( entity_who_picked, "d2d_is_team_tank", true )
+				
+
+	            GamePrintDelayed( "[D2D] This is an experimental multiplayer-only mod.", 120 )
+	            GamePrintDelayed( "[D2D] If it doesn't work, please let me know on Steam or Discord!", 240 )
+			end
+        end,
+        func_remove = function( entity_who_picked )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	remove_lua( entity_who_picked, "d2d_perk_team_tank" )
+        	for i,child in ipairs( EntityGetAllChildren( get_player() ) ) do
+        		if EntityHasTag( child, "d2d_perk_team_tank" ) then
+        			EntityKill( child )
+        		end
+        	end
+        end,
+	},
 }
 
 
