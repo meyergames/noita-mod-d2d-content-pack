@@ -107,6 +107,21 @@ function OnPlayerSpawned( player )
             perk_spawn( 800, -100, v.id, true )
         end
     end
+    for k, v in pairs( d2d_cross_mod_perks ) do
+        if HasSettingFlag( v.id.."_spawn_at_start" ) then
+            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+            local mods = split_string( v.requires_mod, '|' )
+            local add_to_table = false
+            for i,mod in ipairs( mods ) do
+                if ModIsEnabled( mod ) then
+                    do_spawn = true
+                end
+            end
+            if do_spawn then
+                perk_spawn( 800, -100, v.id, true )
+            end
+        end
+    end
     for k, v in pairs( d2d_perk_reworks ) do
         if HasSettingFlag( v.id.."_spawn_at_start" ) then
             perk_spawn( 800, -100, v.id, true )
