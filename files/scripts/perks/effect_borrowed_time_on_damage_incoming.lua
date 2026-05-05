@@ -7,7 +7,7 @@ function damage_about_to_be_received( damage, x, y, entity_thats_responsible, cr
 
 	local player = GetUpdatedEntityID()
     for _,dcomp in ipairs( EntityGetComponent( player, "DamageModelComponent" ) or {} ) do
-		return damage * 0.25, critical_hit_chance
+		return damage * 0.5, critical_hit_chance
 	end
 
     return damage, critical_hit_chance
