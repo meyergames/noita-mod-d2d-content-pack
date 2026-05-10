@@ -209,21 +209,27 @@ d2d_actions = {
                                 	draw_actions( 1, true )
                                 	set_internal_bool( get_player(), "is_fuse_being_controlled", is_fire_pressed() )
                                 else
-                                	for i,v in ipairs( hand ) do
-										table.insert( discarded, v )
-									end
-									hand = {}
+                                	local wand = EZWand.GetHeldWand()
+                                	if exists( wand ) then
+                                		trigger_wand_refresh( wand, 0.5, 1.0 )
+                                		mana = mana + 20
+                                	end
 
-									for i,v in ipairs( deck ) do
-										table.insert( discarded, v )
-									end
-									deck = {}
+                                	-- for i,v in ipairs( hand ) do
+									-- 	table.insert( discarded, v )
+									-- end
+									-- hand = {}
+
+									-- for i,v in ipairs( deck ) do
+									-- 	table.insert( discarded, v )
+									-- end
+									-- deck = {}
 									
-									if ( force_stop_draws == false ) then
-										force_stop_draws = true
-										move_discarded_to_deck()
-										order_deck()
-									end
+									-- if ( force_stop_draws == false ) then
+									-- 	force_stop_draws = true
+									-- 	move_discarded_to_deck()
+									-- 	order_deck()
+									-- end
 								end
 	                        end,
     },
@@ -1049,23 +1055,11 @@ d2d_actions = {
                                 local nucleus = EntityGetWithTag( "d2d_unstable_nucleus" )
                                 if exists( nucleus ) and #nucleus > 0 then
                                 	-- trigger the effect of Wand Refresh
-									for i,v in ipairs( hand ) do
-										table.insert( discarded, v )
-									end
-									for i,v in ipairs( deck ) do
-										table.insert( discarded, v )
-									end
-									hand = {}
-									deck = {}
-									if not force_stop_draws then
-										force_stop_draws = true
-										move_discarded_to_deck()
-										order_deck()
-									end
-
-                                	-- shoot charging "projectile"
-                                	-- draw_actions( 1, true )
-                                	mana = mana + 100
+                                	local wand = EZWand.GetHeldWand()
+                                	if exists( wand ) then
+                                		trigger_wand_refresh( wand, 0.5, 1.0 )
+                                		mana = mana + 100
+                                	end
                                 else
                                 	add_projectile("mods/D2DContentPack/files/entities/projectiles/unstable_nucleus.xml")
                                 	c.fire_rate_wait    = c.fire_rate_wait + 160
