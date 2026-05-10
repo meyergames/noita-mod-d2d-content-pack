@@ -75,11 +75,11 @@ if not is_fire_pressed or wand.mana <= 10 or wand.entity_id ~= wand_id then
 	local light_comp = EntityGetFirstComponentIncludingDisabled( entity_id, "LightComponent" )
 	ComponentSetValue2( light_comp, "radius", 60 + ( charges * 0.12 ) )
 	
-	local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
-	local reload_time = charges * 0.12
-	ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
-	ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
-	ComponentSetValue2( acomp, "reload_time_frames", reload_time )
+	-- local acomp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
+	-- local reload_time = charges * 0.12
+	-- ComponentSetValue2( acomp, "mReloadNextFrameUsable", GameGetFrameNum() + reload_time )
+	-- ComponentSetValue2( acomp, "mReloadFramesLeft", reload_time )
+	-- ComponentSetValue2( acomp, "reload_time_frames", reload_time )
 
 	EntityKill( entity_id )
 

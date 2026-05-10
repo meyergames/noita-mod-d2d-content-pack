@@ -24,7 +24,7 @@ local function alter_wand_of_destruction()
         "gun.reload_time = 597 -- old: " ) -- i.e. 9.95s
     content = content:gsub(
         "gun.deck_capacity = ",
-        "gun.deck_capacity = 10 -- old: " ) -- i.e. 10 capacity
+        "gun.deck_capacity = 20 -- old: " ) -- i.e. 20 capacity
     content = content:gsub(
         "local action_count = 4",
         "local action_count = 0" ) -- i.e. no spells
