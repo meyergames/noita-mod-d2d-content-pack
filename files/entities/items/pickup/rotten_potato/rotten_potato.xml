@@ -1,0 +1,43 @@
+<Entity tags="tablet,normal_tablet">
+
+  <Base file="data/entities/items/books/base_book.xml">
+    <UIInfoComponent
+      name="$item_d2d_rotten_potato_name">
+    </UIInfoComponent>
+
+    <ParticleEmitterComponent
+      is_emitting="0"
+    ></ParticleEmitterComponent>
+  
+    <SpriteComponent
+      _tags="enabled_in_hand"
+      _enabled="0"
+      offset_x="7"
+      offset_y="8"
+      image_file="mods/D2DContentPack/files/gfx/items_gfx/in_hand/rotten_potato.png"
+    ></SpriteComponent>
+
+    <PhysicsImageShapeComponent 
+      body_id="1"
+      centered="1"
+      image_file="mods/D2DContentPack/files/gfx/items_gfx/world/rotten_potato.png"
+      material="rock_box2d_hard"
+    ></PhysicsImageShapeComponent>
+    
+    <ItemComponent
+      item_name="$item_d2d_rotten_potato_name"
+      ui_description="$item_d2d_rotten_potato_desc"
+      ui_sprite="mods/D2DContentPack/files/gfx/items_gfx/rotten_potato.png">
+    </ItemComponent>
+
+    <AbilityComponent
+      ui_name="$item_d2d_rotten_potato_name"
+      entity_file="mods/D2DContentPack/files/entities/items/pickup/rotten_potato/rotten_potato_trigger.xml"
+      throw_as_item="0"
+      ><gun_config
+        deck_capacity="0"
+      ></gun_config>
+    </AbilityComponent>
+  </Base>
+
+</Entity>

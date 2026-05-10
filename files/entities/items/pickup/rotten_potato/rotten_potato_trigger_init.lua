@@ -1,0 +1,1 @@
+dofile( "mods/D2DContentPack/files/entities/items/pickup/rotten_potato/test.lua" )
