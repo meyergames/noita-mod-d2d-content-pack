@@ -360,3 +360,5 @@ perk_d2d_mana_battery_desc,"All wands have 10x as much mana, but 0 mana charge s
 loadout_d2d_preserver_name,Class: Preserver,,,,,,,,,,,,,
 perk_d2d_team_tank_name,Paladin Shield,,,,,,,,,,,,,
 perk_d2d_team_tank_desc,"Nearby allies take 50% less damage from enemies.\nHalf of that damage is redirected to you.",,,,,,,,,,,,,
+item_d2d_treasure_map_name,Treasure Map,,,,,,,,,,,,,
+item_d2d_treasure_map_desc,"X marks the spot!",,,,,,,,,,,,,

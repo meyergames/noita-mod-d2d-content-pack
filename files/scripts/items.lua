@@ -28,16 +28,21 @@ local function register_item(listname, weight, entity, offset) -- use this to re
 end
 
 
-ctq_items = {
+d2d_items = {
     {
         weight = 2,
         entity = "mods/D2DContentPack/files/entities/items/pickup/emergency_injection.xml",
-        offset = -2
+        offset = -2,
+    },
+    {
+        weight = 2,
+        entity = "mods/D2DContentPack/files/entities/items/pickup/treasure_map/treasure_map_entity.xml",
+        offset = -2,
     },
 }
 
-for i, v in ipairs(ctq_items) do
-    register_item("potion_spawnlist", v.weight, v.entity, v.offset)
+for i, v in ipairs( d2d_items ) do
+    register_item( "potion_spawnlist", v.weight, v.entity, v.offset )
 end
 
 

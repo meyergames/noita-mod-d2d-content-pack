@@ -1,0 +1,43 @@
+<Entity tags="tablet,normal_tablet">
+
+  <Base file="data/entities/items/books/base_book.xml">
+    <ParticleEmitterComponent 
+      emitted_material_name="spark_yellow">
+    </ParticleEmitterComponent>
+
+    <UIInfoComponent
+      name="$item_d2d_treasure_map_name">
+    </UIInfoComponent>
+  
+    <SpriteComponent
+      _tags="enabled_in_hand"
+      _enabled="0"
+      offset_x="4"
+      offset_y="4"
+      image_file="mods/D2DContentPack/files/gfx/items_gfx/in_hand/treasure_map_in_hand.png"
+    ></SpriteComponent>
+
+    <PhysicsImageShapeComponent 
+      body_id="1"
+      centered="1"
+      image_file="mods/D2DContentPack/files/gfx/items_gfx/world/treasure_map.png"
+      material="rock_box2d_hard"
+    ></PhysicsImageShapeComponent>
+    
+    <ItemComponent
+      item_name="$item_d2d_treasure_map_name"
+      ui_description="$item_d2d_treasure_map_desc"
+      ui_sprite="mods/D2DContentPack/files/gfx/items_gfx/treasure_map.png">
+    </ItemComponent>
+    
+    <AbilityComponent
+      ui_name="$item_d2d_treasure_map_name">
+    </AbilityComponent>
+  </Base>
+  
+  <LuaComponent
+    _tags="enabled_in_hand"
+    script_source_file="mods/D2DContentPack/files/entities/items/pickup/treasure_map/treasure_map_update.lua" >
+  </LuaComponent>
+
+</Entity>
