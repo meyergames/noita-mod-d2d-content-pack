@@ -4,7 +4,7 @@ local entity_id = GetUpdatedEntityID()
 local pos_x, pos_y = EntityGetTransform( entity_id )
 pos_y = pos_y - 4 -- offset to middle of character
 
-local range = 500
+local range = 512
 local indicator_distance = 24
 
 local function ping( id )

@@ -36,7 +36,7 @@
   </Base>
   
   <LuaComponent
-    _tags="enabled_in_hand"
+    _tags="enabled_in_hand,enabled_in_inventory"
     script_source_file="mods/D2DContentPack/files/entities/items/pickup/treasure_map/treasure_map_update.lua" >
   </LuaComponent>
 
