@@ -91,9 +91,10 @@ function try_convert_chests_into_cursed()
     local chests = EntityGetWithTag( "chest" )
     if exists( chests ) and #chests > 0 then
         for i,chest in ipairs( chests ) do
+            local is_regular_chest = EntityHasTag( chest, "item_pickup" )
             local was_tried_before = get_internal_bool( chest, "d2d_cursed_chest_convert_attempted" )
 
-            if not was_tried_before and distance_between( get_player(), chest ) > 300 then
+            if is_regular_chest and not was_tried_before and distance_between( get_player(), chest ) > 300 then
                 local chance = 5
                 if has_perk( "D2D_HUNT_CURSES" ) then
                     chance = 20

@@ -7,6 +7,15 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Terraria-inspired content:
+	[ ] depth meter: item that, while held, displays the player's exact coordinates
+	[ ] radar: item that enables the minimap mod?
+	[ ] treasure map: item that permanently reveals nearby items (like the Reveal spell but better) <-- only treasure chests?
+	[ ] panic necklace: gain +50% move speed for a few seconds upon taking damage (perk)
+	[ ] 
+
+[ ] Rotten Potato wand that, upon casting its built-in spell, runs 'test.lua' (to more easily test/spawn stuff (e.g. parasite))
+
 [ ] make the Parasite shoot at its allies, its allies being "everyone except the player"
 	[ ] when charmed, it would attack the player, i.e. buff them for 50 seconds (at the cost of in total 50 HP)
 
