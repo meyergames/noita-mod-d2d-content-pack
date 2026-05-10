@@ -126,6 +126,7 @@
 	<LuaComponent
 		script_source_file="mods/D2DContentPack/files/entities/animals/parasite/parasite_status_shield_scan.lua"
 		execute_every_n_frame="60"
+		execute_times="25"
 	></LuaComponent>
 
 	<AudioComponent

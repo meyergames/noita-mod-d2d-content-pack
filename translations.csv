@@ -54,7 +54,7 @@ item_d2d_emergency_injection_desc,A dubious mixture of healthium and some pitch-
 spell_d2d_flurry_name,Burstfire,,,,,,,,,,,,,
 spell_d2d_flurry_desc,Increases fire rate when firing starts,,,,,,,,,,,,,
 spell_d2d_rapidfire_salvo_name,Rapidfire Salvo,,,,,,,,,,,,,
-spell_d2d_rapidfire_salvo_desc,Drastically speeds up your entire wand; increases recharge time,,,,,,,,,,,,,
+spell_d2d_rapidfire_salvo_desc,"Drastically lowers cast delay, but increases recharge time",,,,,,,,,,,,,
 spell_d2d_optimize_name,Optimize,,,,,,,,,,,,,
 spell_d2d_optimize_desc,Makes your wand slightly more efficient,,,,,,,,,,,,,
 spell_d2d_overclock_name,Overclock,,,,,,,,,,,,,

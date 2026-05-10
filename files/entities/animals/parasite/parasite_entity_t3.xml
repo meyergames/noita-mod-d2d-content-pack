@@ -3,7 +3,10 @@
 	<Base file="mods/D2DContentPack/files/entities/animals/parasite/parasite_entity_t1.xml" >
 		<DamageModelComponent 
             hp="4"
-		></DamageModelComponent>
+            ><damage_multipliers
+				fire="1.0">
+			</damage_multipliers>
+		</DamageModelComponent>
 	</Base>
 
 </Entity>
