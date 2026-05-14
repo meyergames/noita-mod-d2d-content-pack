@@ -330,7 +330,7 @@ spell_d2d_blue_magic_trigger_desc,A copied projectile that casts another spell u
 book_d2d_lodestone_name,Domestication,,,,,,,,,,,,,
 book_d2d_lodestone_desc,"To whomever it may concern,\n \nOur work knows many mysteries. Inertia\nmay not satiate the soul, but one must\nconsider that, of all known answers\nworth their pursuit, none could be\nwrung forcibly from the hands of time.\n \nSince you will be here for another while,\nwhy not make yourself at home?"
 spell_d2d_helix_shot_name,Helix Shot,,,,,,,,,,,,,
-spell_d2d_helix_shot_desc,Fires two copies of a projectile in a helix pattern,,,,,,,,,,,,,
+spell_d2d_helix_shot_desc,Fires two copies of a projectile in a helix pattern; only one costs mana,,,,,,,,,,,,,
 perk_d2d_lodestone_name,Summon Lodestone,,,,,,,,,,,,,
 perk_d2d_lodestone_desc,"Obtain a Lodestone, plus a spell to teleport to it and back.",,,,,,,,,,,,,
 spell_d2d_upgrade_promote_spell_name,Upgrade: Promote Spell,,,,,,,,,,,,,
