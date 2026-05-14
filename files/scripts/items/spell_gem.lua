@@ -41,16 +41,27 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 	            for z=1, #inventory_items do
 
 	            	item = inventory_items[z]
-	            	if item > 0 and EZWand.IsWand( item ) then
-	            		local wand = EZWand( item )
-	            		local spells,attached_spells = wand:GetSpells()
-	            		for i,spell in ipairs( spells ) do
-	            			table.insert( all_card_actions, spell.entity_id )
-	            		end
+	            	if item > 0 then
+	            		if EZWand.IsWand( item ) then
+		            		local wand = EZWand( item )
+		            		local spells,attached_spells = wand:GetSpells()
+		            		for i,spell in ipairs( spells ) do
+		            			table.insert( all_card_actions, spell.entity_id )
+		            		end
 
-	            		-- restore each wand's mana by 10x their charge speed,
-	            		-- as a little extra for the low-mana-charge-wand lovers out there
-	            		wand.mana = wand.mana + math.max( wand.manaChargeSpeed * 10, wand.manaMax * 0.05 )
+		            		-- restore each wand's mana by 10x their charge speed,
+		            		-- as a little extra for the low-mana-charge-wand lovers out there
+		            		wand.mana = wand.mana + math.max( wand.manaChargeSpeed * 10, wand.manaMax * 0.05 )
+		            	else
+		            		-- also restore charges to materialized bombs
+		            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
+		            		if exists( item_comp ) then
+		            			local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+		            			if exists( uses_remaining ) then
+		            				table.insert( all_card_actions, item )
+		            			end
+		            		end
+		            	end
 	            	end
 	            end
 	        end
@@ -108,7 +119,7 @@ function item_pickup( entity_item, entity_who_picked, item_name )
 								local diff = ( new_uses - uses_remaining )
 
 								local msg = "+" .. diff .. " " .. GameTextGetTranslatedOrNot( action.name )
-								if diff > 1 then msg = msg .. "s" end
+								-- if diff > 1 then msg = msg .. "s" end
 								GamePrint( msg )
 							end
 						end
