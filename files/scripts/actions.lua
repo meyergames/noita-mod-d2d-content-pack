@@ -409,7 +409,20 @@ d2d_actions = {
 								if reflecting then return end
 
 								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_double.xml,"
-								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+								-- disable the spell if it was called with a Greek letter or similar
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								local data = get_actions_lua_data( hand[#hand].id )
+								local rec = check_recursion( data, recursion_level )
+								if try_cast_ungreeked( "D2D_DAMAGE_DOUBLE", "Double Damage", deck, rec ) then
+							        c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_double.xml,"
+							        c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+							    elseif GetUpdatedEntityID() == get_player() then
+							    	if not ModSettingGet( "D2DContentPack.disable_uncopyable_spell_warning" ) then
+	                    				GamePrint( "[D2D] The 'Double Damage' spell cannot be copied." )
+	                    				local x, y = EntityGetTransform( GetUpdatedEntityID() )
+	                                    GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
+	                                end
+								end
 
 			                    draw_actions( 1, true )
 		                    end,
@@ -582,7 +595,7 @@ d2d_actions = {
 		name 				= "$spell_d2d_helix_shot_name",
 		description 		= "$spell_d2d_helix_shot_desc",
 		sprite 				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/helix_shot.png",
-		type 				= ACTION_TYPE_MODIFIER,
+		type 				= ACTION_TYPE_UTILITY,
 		spawn_level         = "1,2,4,6", -- same as Slithering Path + on tier 1
 		spawn_probability   = "0.25,0.4,0.55,0.4",
 		price 				= 100,

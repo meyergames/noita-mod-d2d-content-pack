@@ -602,21 +602,39 @@ end
 
 function init_staff_of_curses()
     local wand = EZWand()
-	wand:SetName( "Staff of Damnation", true )
+	wand:SetName( "Staff of Curses", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
 	wand.castDelay = Random( 3, 5 )
 	wand.rechargeTime = Random( 23, 25 )
-	wand.manaMax = 512
+	wand.manaMax = 99
 	wand.mana = wand.manaMax
-	wand.manaChargeSpeed = 99
-	wand.capacity = 10
+	wand.manaChargeSpeed = 224
+	wand.capacity = 5
 	wand.spread = 0
 	wand:AttachSpells( "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" )
 	wand:AddSpells( "D2D_BLUE_MAGIC" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed_1.png", 10, 6, 12, 0 )
+	EntityAddTag( wand.entity_id, "d2d_staff_of_curses" )
 
 	return wand
+end
+
+
+function try_upgrade_staff_of_curses()
+	local staff = EntityGetWithTag( "d2d_staff_of_curses" )[1]
+	if not staff then return end
+	-- local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+
+    local wand = EZWand( staff )
+    wand.manaMax = wand.manaMax + 100
+    wand.manaChargeSpeed = wand.manaChargeSpeed + 32
+    wand.capacity = wand.capacity + 2
+
+	local x, y = EntityGetTransform( wand.entity_id )
+	local wand_name, show_name_in_ui = wand:GetName()
+	GamePrint( wand_name .. " was upgraded!" )
+	GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 end
 
 function spawn_staff_of_loyalty( x, y )

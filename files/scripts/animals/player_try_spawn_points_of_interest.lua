@@ -96,7 +96,7 @@ function try_convert_chests_into_cursed()
 
             if is_regular_chest and not was_tried_before and distance_between( get_player(), chest ) > 300 then
                 local chance = 5
-                if has_perk( "D2D_HUNT_CURSES" ) then
+                if #EntityGetInRadiusWithTag( px, py, 20, "d2d_staff_of_curses" ) > 0 then
                     chance = 20
                 end
                 if Random( 1, 100 ) < chance then
@@ -450,6 +450,16 @@ function try_apply_mana_battery()
             set_internal_bool( wand_id, "d2d_mana_battery_applied", true )
         end
     end
+
+    local held_wands = get_all_wands( get_player() )
+    for i,wand_id in ipairs( held_wands ) do      
+        if EZWand.IsWand( wand_id ) then
+            local wand = EZWand( wand_id )
+            if wand.manaChargeSpeed > 0 then
+                wand.manaChargeSpeed = 0
+            end
+        end
+    end
 end
 
 try_trigger_recent_update_message()
@@ -470,3 +480,4 @@ try_spawn_guaranteed_cursed_chest()
 try_spawn_lodestone()
 try_destroy_old_apoth_lukki_portals()
 try_apply_mana_battery()
+try_upgrade_upgradable_wands()

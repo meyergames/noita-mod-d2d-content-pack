@@ -65,8 +65,9 @@ function random_perk_reward( x, y, cursed_chests_opened )
 
 	if cursed_chests_opened == 1 then
 		spawn_random_perk( x - 20, y )
+		spawn_random_perk( x, y )
 		spawn_random_perk( x + 20, y )
-	elseif #blurses > 0 and cursed_chests_opened % 2 == 1 then
+	elseif #blurses > 0 and cursed_chests_opened % 2 == 2 then
 		local random_blurse_id = random_from_array( blurses )
 		spawn_perk( random_blurse_id, x, y, false )
 		GlobalsSetValue( "d2d_blurses_spawned", blurses_already_spawned .. random_blurse_id .. "," )
@@ -87,8 +88,8 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 
 	if cursed_chests_opened == 1 then
 
-		-- on the first chest, spawn the Curse Hunter perk and the Staff of Damnation
-		spawn_perk( "D2D_HUNT_CURSES", x, y, false )
+		-- on the first chest, spawn the Staff of Curses
+		-- spawn_perk( "D2D_HUNT_CURSES", x, y, false )
 		random_perk_reward( x, y, cursed_chests_opened )
    		spawn_staff_of_curses( x, y - 20 )
    		AddFlagPersistent( "d2d_staff_of_curses_obtained" )
@@ -130,6 +131,9 @@ function on_open( entity_item )
 		raise_internal_int( get_player(), "d2d_cursed_chests_opened", 1 )
 
 		local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )
+
+		-- upgrade the staff of curses
+		try_upgrade_staff_of_curses()
 		
 		-- local config_curses_enabled = ModSettingGet("D2DContentPack.enable_curses")
 		-- if config_curses_enabled then
