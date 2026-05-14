@@ -7,6 +7,9 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[x] Staff of Damnation is too strong when found in the first biome. Should be 5-6 capacity max.
+	Blue Magic should ideally also come from elsewhere, make the spells on the Staff random.
+
 [ ] Terraria-inspired content:
 	[ ] depth meter: item that, while held, displays the player's exact coordinates
 	[ ] radar: item that enables the minimap mod?

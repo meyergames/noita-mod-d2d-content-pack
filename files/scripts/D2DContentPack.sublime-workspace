@@ -885,7 +885,7 @@
 			"alt_fire",
 			"reset_cast_",
 			"UTILITY,",
-			"try_upgrade_loadout_wands",
+			"try_upgrade_upgradable_wands",
 			"curses",
 			"GameGetGameEffect",
 			"EAGER",

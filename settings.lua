@@ -781,6 +781,13 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
+            {
+                id = "disable_uncopyable_spell_warning",
+                ui_name = "Disable uncopyable spell warning",
+                ui_description = "Some spells in D2D are truly \"never unlimited\", i.e. Greek letters\nand other means of spell unlimiting won't work. This setting determines\nwhether a warning is displayed when you try to copy such a spell.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_RUNTIME,
+            }
         },
     },
     {

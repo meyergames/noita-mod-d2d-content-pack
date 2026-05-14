@@ -411,3 +411,44 @@ function get_child_with_tag( entity, tag )
         end
     end
 end
+
+local function try_consume_charge( action_entity )
+    local item_comp = EntityGetFirstComponentIncludingDisabled( action_entity, "ItemComponent" )
+    if exists( item_comp ) then
+        uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+        if uses_remaining > 0 then
+            ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+            if uses_remaining == 1 then
+                local x, y = EntityGetTransform( get_player() )
+                GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+                EntityLoad("mods/D2DContentPack/files/particles/fade_damage_double.xml", x, y )
+            end
+        else
+            return false
+        end
+        return true
+    end
+end
+
+function try_cast_ungreeked( action_id, action_name, deck, rec )
+    -- if ModSettingGet( "D2DContentPack.nerf_greek_spells" ) then return true end
+
+    local action_entity = find_action_entity_by_id( action_id )
+    if not action_entity then return true end
+
+    -- first try to deduct a charge if RESET is in deck
+    for i,card in ipairs( deck ) do
+        if card.id == "RESET" then
+            return try_consume_charge( action_entity )
+        end
+    end
+    
+    if rec > 0 then
+        local item_comp = EntityGetFirstComponentIncludingDisabled( action_entity, "ItemComponent" )
+        if exists( item_comp ) then
+            return try_consume_charge( action_entity )
+        end
+    end
+
+    return true
+end
