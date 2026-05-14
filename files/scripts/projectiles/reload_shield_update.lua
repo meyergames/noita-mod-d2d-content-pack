@@ -8,7 +8,7 @@ if not wand then return end
 local ability_comp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )
 if ability_comp then
 	local reload_ready_frame = ComponentGetValue2( ability_comp, "mReloadNextFrameUsable" )
-	if reload_ready_frame < GameGetFrameNum() then
+	if reload_ready_frame < GameGetFrameNum() + 15 then
 
 		local shield_comps = EntityGetComponent( GetUpdatedEntityID(), "EnergyShieldComponent" )
 		if exists( shield_comps ) then
