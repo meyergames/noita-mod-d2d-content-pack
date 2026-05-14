@@ -50,7 +50,6 @@ item_pickup = function( entity_item, entity_who_picked, name )
     EntityRemoveIngestionStatusEffect( entity_who_picked, "VIRAL_INFECTION" )
 
     set_internal_float( entity_who_picked, "d2d_borrowed_time_stored_dmg", 0 )
-    try_upgrade_loadout_wands()
     try_upgrade_staff_of_glass()
     handle_glass_heart( entity_item, entity_who_picked )
     handle_glass_fist_boost( entity_item, entity_who_picked )

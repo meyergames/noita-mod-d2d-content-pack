@@ -48,7 +48,7 @@ function spawn_loadout_sniper( player )
 		"D2D_ALT_FIRE_ANYTHING",
 		"D2D_GIGA_DRAIN" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/sniper_2.png", 3, 3, 8, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- spawn the first wand
@@ -67,14 +67,17 @@ function spawn_loadout_sniper( player )
 		"D2D_RELOAD_SHIELD",
 		"D2D_DAMAGE_DOUBLE",
 		"D2D_SNIPE_SHOT" )
+		-- "D2D_ALT_FIRE_ANYTHING",
+		-- "D2D_DAMAGE_DOUBLE" )
+	wand:RemoveSpells( "LIGHT_BULLET", -1 )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/sniper_1.png", 10, 5, 11, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- spawn perks
 	give_perk( player, "INVISIBILITY" )
 	-- give_perk( player, "STAINLESS_ARMOUR" )
-	give_perk( player, "D2D_SPELL_GEMS" )
+	-- give_perk( player, "D2D_SPELL_GEMS" )
 	give_perk( player, "D2D_ALL_SEEING_EYE" )
 	if curses_enabled then
 		give_perk( player, "D2D_CURSE_FALL_DAMAGE" )
@@ -113,7 +116,7 @@ function spawn_loadout_tinkerer( player )
 	wand.spread = 5
 	wand:AddSpells( "D2D_BAG_OF_BOMBS", "D2D_BAG_OF_BOMBS" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/tinkerer_2.png", 2, 4, 9, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- spawn the first wand
@@ -149,7 +152,7 @@ function spawn_loadout_tinkerer( player )
 		"D2D_GLASS_SHARD",
 		"D2D_ECHO_SHOT" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/tinkerer_1.png", 4, 5, 17, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- perks
@@ -190,7 +193,7 @@ function spawn_loadout_pyromancer( player )
 	wand:AttachSpells( "D2D_MISSING_MANA_TO_DMG" )
 	wand:AddSpells( "FIREBALL" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_2.png", 7, 5, 13, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
     local wand = EZWand()
@@ -207,7 +210,7 @@ function spawn_loadout_pyromancer( player )
 	wand:AttachSpells( "LIGHT" )
 	wand:AddSpells( "AIR_BULLET", "AIR_BULLET", "AIR_BULLET" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/pyromancer_1.png", 5, 5, 10, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- perks
@@ -274,7 +277,7 @@ function spawn_loadout_summoner( player )
 	wand:AddSpells( "D2D_COMMAND_ATTACK", "LIGHT_BULLET", "D2D_ALT_FIRE_ANYTHING", "LIGHT_BULLET", "D2D_COMMAND_WARP" )
 	wand:RemoveSpells( "LIGHT_BULLET", -1 )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/summoner_2.png", 6, 6, 6, -1 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- spawn the first wand
@@ -291,7 +294,7 @@ function spawn_loadout_summoner( player )
 	wand.spread = -12
 	wand:AddSpells( "D2D_CHARMING_ARROW", "D2D_CHARMING_ARROW" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/summoner_1.png", 2, 7, 9, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- perks
@@ -350,7 +353,7 @@ function spawn_loadout_cannoneer( player )
 		"D2D_DAMAGE_RECHARGE" )
 	wand:RemoveSpells( "LIGHT_BULLET", -1 )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/cannoneer_1.png", 5, 4, 8, 1 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- perks
@@ -407,7 +410,7 @@ function spawn_loadout_thunderlord( player )
 	end
 	wand:AddSpells( "LUMINOUS_DRILL" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/thunderlord_2.png", 6, 5, 12, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 
@@ -433,7 +436,7 @@ function spawn_loadout_thunderlord( player )
 	end
 	wand:RemoveSpells( "LIGHT_BULLET", -1 )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/thunderlord_1.png", 6, 5, 14, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- perks
@@ -477,7 +480,7 @@ function spawn_loadout_preserver( player )
 	wand:AddSpells( "D2D_GLASS_SHARD", "LIGHT_BULLET", "D2D_ALT_FIRE_ANYTHING", "D2D_MANA_SPLIT", "DYNAMITE" )
 	wand:RemoveSpells( "LIGHT_BULLET", -1 )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/loadouts/preserver_1.png", 10, 4, 18, 0 )
-	EntityAddTag( wand.entity_id, "d2d_loadout_wand" )
+	EntityAddTag( wand.entity_id, "d2d_upgradable_wand" )
 	wand:PutInPlayersInventory()
 
 	-- perks

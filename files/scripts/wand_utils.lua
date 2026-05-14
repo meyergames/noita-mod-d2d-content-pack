@@ -1065,28 +1065,46 @@ function trigger_wand_refresh( wand, mtp, min_reload_time )
 	end
 end
 
-function try_upgrade_loadout_wands()
+function try_upgrade_upgradable_wands()
+    local prev_hmv = get_internal_int( get_player(), "d2d_wand_upgrs_had" ) or 0
+    local hm_visits = tonumber( GlobalsGetValue( "HOLY_MOUNTAIN_VISITS", "0" ) )
+    if hm_visits <= prev_hmv then return end -- don't upgrade if hm visits hasn't changed since the last check
+
+    set_internal_int( get_player(), "d2d_wand_upgrs_had", hm_visits )
+
     local children = EntityGetAllChildren( get_player() ) or {}
     for key, child in pairs( children ) do
         if EntityGetName( child ) == "inventory_quick" then
             local may_be_wands = EntityGetAllChildren( child ) or {}
             if #may_be_wands > 0 then
                 for i,may_be_wand in ipairs( may_be_wands ) do
-                    if EntityHasTag( may_be_wand, "d2d_loadout_wand" ) then
-                        local wand = EZWand( may_be_wand )
-                        wand.manaMax = wand.manaMax * 1.2
-                        wand.manaChargeSpeed = wand.manaChargeSpeed * 1.2
-                        wand.capacity = wand.capacity + 1
-
-						local x, y = EntityGetTransform( wand.entity_id )
-						local wand_name, show_name_in_ui = wand:GetName()
-						GamePrint( wand_name .. " was upgraded!" )
-						GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+                    if EntityHasTag( may_be_wand, "d2d_upgradable_wand" ) then
+                    	try_upgrade_mana_and_capacity( may_be_wand, hm_visits )
                     end
                 end
             end
         end
     end
+end
+
+function try_upgrade_mana_and_capacity( wand_entity, hm_visits )
+    local wand_upgr_tier = get_internal_int( wand_entity, "d2d_wand_upgr_tier" ) or 0
+    local amt_of_upgrades = hm_visits - wand_upgr_tier
+
+    local wand = EZWand( wand_entity )
+    for i=1, amt_of_upgrades do
+	    wand.manaMax = wand.manaMax * 1.2
+	    wand.manaChargeSpeed = wand.manaChargeSpeed * 1.2
+	    wand.capacity = wand.capacity + 1
+	end
+	raise_internal_int( wand_entity, "d2d_wand_upgr_tier", amt_of_upgrades )
+
+	if amt_of_upgrades == 1 then
+		local x, y = EntityGetTransform( wand.entity_id )
+		local wand_name, show_name_in_ui = wand:GetName()
+		GamePrint( wand_name .. " was upgraded!" )
+		GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+	end
 end
 
 function get_held_wand_id_of_player( player )

@@ -408,7 +408,6 @@ d2d_actions = {
 
 								if reflecting then return end
 
-								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_double.xml,"
 								-- disable the spell if it was called with a Greek letter or similar
 								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 								local data = get_actions_lua_data( hand[#hand].id )
