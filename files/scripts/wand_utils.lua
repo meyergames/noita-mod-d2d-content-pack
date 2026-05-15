@@ -322,6 +322,87 @@ function wand_remove_random_always_cast( wand )
 	return false
 end
 
+local function get_all_spell_entities_in_inventory()
+	local spells = {}
+	local children = EntityGetAllChildren( get_player() )
+	for k=1,#children do
+		child = children[k]
+	    if EntityGetName( child ) == "inventory_full" then
+	        local inventory_items = EntityGetAllChildren(child)
+	        if( inventory_items ~= nil ) then
+            	local item = inventory_items[#inventory_items]
+
+            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+            	if ia_comp then
+            		local do_add = false
+            		if #spells == 0 then
+            			do_add = true
+            		else
+	            		for i,spell in spells do
+
+	            			-- add each unique spell only once
+	            			local other_spell_ia_comp = EntityGetFirstComponentIncludingDisabled( spell, "ItemActionComponent" )
+	            			if exists( other_spell_ia_comp ) then
+	            				local action_id = ComponentGetValue2( ia_comp, "action_id" )
+	            				local other_action_id = ComponentGetValue2( other_spell_ia_comp, "action_id" )
+	            				if action_id ~= other_action_id then
+	            					do_add = true
+	            				end
+	            			end
+		            	end
+		            end
+		            
+	            	if do_add then table.insert( spells, item ) end
+            	end
+            end
+        end
+    end
+
+    return spells
+end
+
+function try_promote_random_inv_spell( wand )		
+	local _,always_casts = wand:GetSpells()
+	local inv_spells = get_all_spell_entities_in_inventory()
+	if #inv_spells == 0 then
+		GamePrintImportant( "The gods are confused", "You have no spells in your inventory!" )
+		return false
+	end
+	if #always_casts >= 4 then
+		GamePrintImportant( "Spell promotion failed", "Your wand already has 4 always-cast spells!" )
+		return false
+	end
+
+	local chance_to_promote = 25 * #inv_spells
+	SetRandomSeed( GameGetFrameNum(), GameGetFrameNum() )
+	local rnd = Random( 1, 100 )
+	if rnd <= chance_to_promote then
+		local spell_to_promote = random_from_array( inv_spells )
+        local ia_comp = EntityGetFirstComponentIncludingDisabled( spell_to_promote, "ItemActionComponent" )
+        if ia_comp then
+        	local action_id = ComponentGetValue2( ia_comp, "action_id" )
+        	local spell_name = GameTextGetTranslatedOrNot( get_actions_lua_data( action_id ).name )
+
+			local inventory2 = EntityGetFirstComponent( get_player(), "Inventory2Component" )
+			if inventory2 ~= nil then
+				if inventory2 then
+					-- This will only skip 1 equip message, but it's better than nothing
+					ComponentSetValue2( inventory2, "mDontLogNextItemEquip", true )
+				end
+			end
+
+			GamePrint( "'" .. spell_name .. "' was promoted to an always-cast!" )
+			wand:AttachSpells( action_id )
+			EntityKill( spell_to_promote )
+		end
+	else
+		GamePrintImportant( "Spell promotion failed", "You had too few spells in your inventory (chance was " .. chance_to_promote .. "%)" )
+		return false
+	end
+
+	return true
+end
+
 function wand_promote_random_spell( wand )
 	local spells, always_casts = wand:GetSpells()
 	if #spells >= 1 and #always_casts < 4 then
@@ -887,7 +968,7 @@ function generate_random_toolbox_spells( amount, do_print )
 
 	local rare = {
 		-- upgrades
-		"D2D_UPGRADE_PROMOTE_SPELL",
+		-- "D2D_UPGRADE_PROMOTE_SPELL",
 		"D2D_UPGRADE_MANA_BATTERY",
 
 		-- mana
@@ -977,7 +1058,7 @@ function spawn_random_upgrade_spells( amount, x, y )
 		"D2D_UPGRADE_MANA_CHARGE_SPEED",
 		"D2D_UPGRADE_SHUFFLE",
 		"D2D_UPGRADE_REMOVE_ALWAYS_CAST",
-		"D2D_UPGRADE_PROMOTE_SPELL",
+		-- "D2D_UPGRADE_PROMOTE_SPELL",
 		"D2D_UPGRADE_MANA_BATTERY",
 	}
 
@@ -1017,6 +1098,24 @@ function has_space_for_wand( player )
     end
 
     return wand_count < 4
+end
+
+function first_wand( player )
+    local children = EntityGetAllChildren( player ) or {}
+    for key, child in pairs( children ) do
+        if EntityGetName( child ) == "inventory_quick" then
+            local may_be_wands = EntityGetAllChildren( child ) or {}
+            if #may_be_wands > 0 then
+                for i,may_be_wand in ipairs( may_be_wands ) do
+                    if EntityHasTag( may_be_wand, "wand" ) then
+                        return may_be_wand
+                    end
+                end
+            end
+        end
+    end
+
+    return nil
 end
 
 function last_wand( player )

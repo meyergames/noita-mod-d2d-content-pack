@@ -1420,6 +1420,36 @@ d2d_perk_reworks = {
 	},
 
 	{
+		id = "D2D_PROMOTE_RANDOM_SPELL",
+		id_vanilla = "ALWAYS_CAST",
+		ui_name_vanilla = "Always Cast",
+		ui_name = "$perk_d2d_promote_random_spell_name",
+		ui_description = "$perk_d2d_promote_random_spell_desc",
+		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/promote_random_spell_016.png",
+		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/promote_random_spell.png",
+		stackable = STACKABLE_YES,
+		one_off_effect = true,
+		usable_by_enemies = false,
+        func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+        	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+        	local wand = EZWand.GetHeldWand()
+        	if not wand then
+        		wand = EZWand( first_wand( get_player() ) )
+        	end
+			local x, y = EntityGetTransform( get_player() )
+
+        	if wand then
+	        	if not try_promote_random_inv_spell( wand ) then
+					GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad/create", x, y )
+	        	end
+	        else
+	        	GamePrintImportant( "The gods are confused", "You carry no wands!" )
+				GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad/create", x, y )
+	        end
+        end,
+	},
+
+	{
 		id = "D2D_STABILIZE",
 		id_vanilla = "NO_MORE_SHUFFLE",
 		ui_name_vanilla = "No More Shuffle",

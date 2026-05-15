@@ -168,6 +168,10 @@ function OnPlayerSpawned( player )
     EntityAddComponent2( player, "ShotEffectComponent", {
         extra_modifier = "d2d_proj_dmg_mtp",
     })
+
+    if HasFlagPersistent( "d2d_spawn_rotten_potato" ) then
+        EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/rotten_potato/rotten_potato.xml", 230, -79 )
+    end
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")
