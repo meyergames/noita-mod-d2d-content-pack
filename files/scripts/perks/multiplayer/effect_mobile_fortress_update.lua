@@ -25,7 +25,7 @@ if exists( nearby_players ) and #nearby_players > 1 then
 			local wand = EZWand( held_wand_id )
 
 			-- -1 because the owner doesn't count
-			local bonus_mtp = -0.5 + ( #nearby_players * 0.5 )
+			local bonus_mtp = -0.75 + ( #nearby_players * 0.25 )
 			wand.mana = math.min( wand.mana + ( ( wand.manaChargeSpeed / 60 ) * bonus_mtp ), wand.manaMax )
 		end
 	end
