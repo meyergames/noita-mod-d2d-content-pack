@@ -50,9 +50,6 @@ local input =  {
     "SINEWAVE",
     "D2D_HELIX_SHOT",
 
-    "DAMAGE",
-    "D2D_DAMAGE_MULT",
-
     "DAMAGE_FOREVER",
     "D2D_MISSING_MANA_TO_DMG",
 
@@ -64,6 +61,9 @@ local input =  {
 
     "LIGHT_BULLET_TRIGGER",
     "D2D_GHOST_TRIGGER",
+
+    "D2D_DAMAGE_DOUBLE",
+    "D2D_OVERKILL",
 }
 
 --Spells we're converting them into
@@ -111,9 +111,6 @@ local output = {
 
     "D2D_HELIX_SHOT",
     "SINEWAVE",
-    
-    "D2D_DAMAGE_MULT",
-    "DAMAGE",
 
     "D2D_MISSING_MANA_TO_DMG",
     "DAMAGE_FOREVER",
@@ -126,6 +123,9 @@ local output = {
 
     "D2D_GHOST_TRIGGER",
     "LIGHT_BULLET_TRIGGER",
+
+    "D2D_OVERKILL",
+    "D2D_DAMAGE_DOUBLE",
 }
 
 for k=1, #targets do
