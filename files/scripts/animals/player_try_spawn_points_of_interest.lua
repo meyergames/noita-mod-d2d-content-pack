@@ -20,16 +20,19 @@ function try_trigger_recent_update_message()
     if not is_within_bounds( entity_id, 600, 800, -240, -80 ) then return end
 
     GameAddFlagRun( "d2d_poi_recent_update_message_displayed" )
-    RemoveFlagPersistent( "d2d_update_msg_displayed_cursed_chests" )
 
-    -- this print was added on 10 apr 2026
-    if not HasFlagPersistent( "d2d_update_msg_displayed_toolbox" ) then
+    -- remove the previous flag since it is no longer used
+    RemoveFlagPersistent( "d2d_update_msg_displayed_toolbox" )
 
-        GamePrint( "[D2D] UPDATE: The Summon Toolbox perk has received a buff!" )
-        GamePrintDelayed( "[D2D] UPDATE: Toolboxes can now contain a variety of Passive and Other-type spells.", 120 )
+    -- this print was added on 18 may 2026
+    -- if not HasFlagPersistent( "d2d_update_msg_beacons" ) then
 
-        AddFlagPersistent( "d2d_update_msg_displayed_toolbox" )
-    end
+    --     GamePrint( "[D2D] UPDATE: Beacons can now be placed with a hotkey! ('B' by default)" )
+    --     GamePrintDelayed( "[D2D] If you prefer placing Beacons with the dedicated spell instead,", 180 )
+    --     GamePrintDelayed( "[D2D] you can disable this setting in the 'Beacons' mod settings.", 300 )
+
+    --     -- AddFlagPersistent( "d2d_update_msg_beacons" )
+    -- end
 end
 
 function try_spawn_ghost_of_memories()

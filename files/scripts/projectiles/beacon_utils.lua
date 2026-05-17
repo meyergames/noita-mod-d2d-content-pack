@@ -1,4 +1,4 @@
-dofile_once( "data/scripts/lib/utilities.lua" )
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 colours = {
 	"white",
@@ -17,6 +17,19 @@ function assign_first_available_colour( beacon_id )
 	-- 	if is_colour_available( colour_index ) then
 	-- 		beacon_set_colour( beacon_id, colour_index )
 	-- 		return
+	-- 	end
+	-- end
+	-- local x, y = EntityGetTransform( beacon_id )
+	-- local nearby_hearts = EntityGetInRadiusWithTag( x, y, 100, "item_pickup" )
+	-- -- -1 because the beacon itself is checked
+	-- if #nearby_hearts - 1 > 0 then
+	-- 	beacon_set_colour( beacon_id, 2 )
+	-- else
+	-- 	local nearby_wands = EntityGetInRadiusWithTag( x, y, 100, "wand" )
+	-- 	if #nearby_wands > #get_all_wands() then
+	-- 		beacon_set_colour( beacon_id, 3 )
+	-- 	else
+	-- 		beacon_set_colour( beacon_id, 1 )
 	-- 	end
 	-- end
 	beacon_set_colour( beacon_id, 1 )
@@ -96,6 +109,32 @@ function beacon_deregister_global( x, y )
 
 		if get_distance( x, y, beacon_x, beacon_y ) > 1 then
 			updated_data = updated_data .. beacon_data[1] .. "|" .. beacon_x .. "|" .. beacon_y .. ","
+		end
+	end
+
+	GlobalsSetValue( "d2d_beacons_data", updated_data )
+end
+
+function beacon_destroy_oldest()
+	local data = GlobalsGetValue( "d2d_beacons_data" )
+	local updated_data = ""
+
+	local split_values = split_string( data, "," )
+	if split_values and #split_values > 0 then
+		local beacon_data = split_string( split_values[1], "|" )
+		local beacon_x = tonumber( beacon_data[2] )
+		local beacon_y = tonumber( beacon_data[3] )
+		local beacons = EntityGetInRadiusWithTag( beacon_x, beacon_y, 2, "d2d_beacon" )
+		if beacons then
+			EntityKill( beacons[1] )
+
+		    local biome_name = GameTextGetTranslatedOrNot( BiomeMapGetName( beacon_x, beacon_y ) )
+	        if biome_name == "_EMPTY_" then biome_name = "the surface" end
+        	GamePrint( "The oldest beacon (in " .. biome_name .. ") was destroyed" )
+		end
+
+		for i=2, #split_values do
+			updated_data = updated_data .. split_values[i] .. ","
 		end
 	end
 

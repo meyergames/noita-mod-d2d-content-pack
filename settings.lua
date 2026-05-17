@@ -3,6 +3,7 @@ dofile("data/scripts/lib/mod_settings.lua")
 --Key binding data
 local listening_alt_fire = false
 local listening_mid_fire = false
+local listening_beacon = false
 local there_has_been_input = false
 local key_inputs ={}
 local mouse_inputs = {}
@@ -14,12 +15,13 @@ local current_keybind = ""
 local keybind_name = "Keybind"
 local keybind_desc_altfire = "Edit your Alt Fire keybind"
 local keybind_desc_midfire = "Edit your Mid Fire keybind"
+local keybind_desc_beacons = "Edit your Beacon keybind"
 local keybind_tutorial_altfire = "\nHit the prompt below to input a new alt-fire binding.\nThe default setting is the right mouse button."
 local keybind_explanation_midfire = "\nSome special wands in this mod use \"Mid Fire\" spells."
 local keybind_tutorial_midfire = "\nHit the prompt below to input a new mid-fire binding.\nThe default setting is the middle mouse button."
+local keybind_tutorial_beacon = "\nHit the prompt below to input a new binding for placing a Beacon.\nThe default setting is 'B'."
 local keybind_newbinding = "SET NEW BINDING"
-local keybind_current_altfire = "Current binding: "
-local keybind_current_midfire = "Current binding: "
+local keybind_current = "Current binding: "
 
 mouse_codes = {
   MOUSE_LEFT = 1,
@@ -394,6 +396,7 @@ function input_listen(key_inputs,mouse_inputs,joystick_inputs,mod_setting)
   if there_has_been_input and not there_is_input then
       listening_alt_fire = false
       listening_mid_fire = false
+      listening_beacon = false
       there_has_been_input = false
       key_inputs = {}
       mouse_inputs = {}
@@ -534,15 +537,6 @@ mod_settings =
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
             {
-                id = "beacon_hide_distance_threshold",
-                ui_name = "Beacon indicator max distance",
-                ui_description = "How far away must a Beacon be, before its indicator is hidden?\nA value of 0 means beacon indicators will always be visible.",
-                value_default = 2000,
-                value_min = 0,
-                value_max = 5000,
-                scope = MOD_SETTING_SCOPE_RUNTIME,
-            },
-            {
                 id = "alt_fire_enable_in_inventory",
                 ui_name = "Enable Alt/Mid Fire spells while inventory is open",
                 ui_description = "When enabled, this mod's Alt/Mid Fire spells will function even\nwhen the inventory is opened.",
@@ -550,12 +544,12 @@ mod_settings =
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },
             {
-                id = "force_spectral_chainsaw",
-                ui_name = "Replace Chainsaw with Spectral Chainsaw",
-                ui_description = "When enabled, this mod's Spectral Chainsaw spell will replace\nthe base game's Chainsaw spell spawns.",
+                id = "disable_uncopyable_spell_warning",
+                ui_name = "Disable uncopyable spell warning",
+                ui_description = "Some spells in D2D are truly \"never unlimited\", i.e. Greek letters\nand other means of spell unlimiting won't work. This setting determines\nwhether a warning is displayed when you try to copy such a spell.",
                 value_default = false,
-                scope = MOD_SETTING_SCOPE_NEW_GAME,
-            },
+                scope = MOD_SETTING_SCOPE_RUNTIME,
+            }
         },
     },
     {
@@ -627,11 +621,13 @@ mod_settings =
                               mouse_inputs = {}
                               joystick_inputs = {}
                               listening_alt_fire = true
+                              listening_mid_fire = false
+                              listening_beacon = false
                               there_has_been_input = false
                               old_binding = ModSettingGet("D2DContentPack.alt_fire_keybind")
                             end
                             GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
-                            GuiText(gui, 5, 5, keybind_current_altfire .. keybind_string)
+                            GuiText(gui, 5, 5, keybind_current .. keybind_string)
                             GuiText(gui, 0, -5, " ")
                             end
             },
@@ -722,12 +718,14 @@ mod_settings =
                               key_inputs = {}
                               mouse_inputs = {}
                               joystick_inputs = {}
+                              listening_alt_fire = false
                               listening_mid_fire = true
+                              listening_beacon = false
                               there_has_been_input = false
                               old_binding = ModSettingGet("D2DContentPack.mid_fire_keybind")
                             end
                             GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
-                            GuiText(gui, 5, 5, keybind_current_midfire .. keybind_string)
+                            GuiText(gui, 5, 5, keybind_current .. keybind_string)
                             GuiText(gui, 0, -5, " ")
                             end
             },
@@ -744,6 +742,120 @@ mod_settings =
                 ui_name = "Always enable middle-click Mid Fire",
                 ui_description = "If enabled, this mod's Mid Fire spells can always be triggered\nwith a middle-click, regardless of the configured keybind.",
                 value_default = true,
+                scope = MOD_SETTING_SCOPE_RUNTIME,
+            },
+        },
+    },
+    {
+        category_id = "keybind_settings",
+        ui_name = "Beacon settings",
+        ui_description = "Which button should be used to place a beacon?",
+        foldable = true,
+        _folded = true,
+        settings = {
+            {
+                id = "disable_beacon_keybind",
+                ui_name = "Use spell instead of keybind",
+                ui_description = "If enabled, Beacons cannot be spawned with a keybind.\nInstead, you'll have to use the Summon Beacon spell.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "beacon_keybind",
+                ui_name = "Keybind",
+                value_default = "key_code,mouse_code,2,joystick_code",
+                ui_fn = function(mod_id, gui, in_main_menu, im_id, setting)
+                            if listening_beacon then
+                                input_listen(key_inputs,mouse_inputs,joystick_inputs,"D2DContentPack.beacon_keybind")
+                            end
+
+                            local _id = 0
+                            local function id()
+                              _id = _id + 1
+                              return _id
+                            end
+
+                            local keybind_string = ""
+                            local keybind_setting = ModSettingGet("D2DContentPack.beacon_keybind")
+                            local mode = "key_code"
+                            for code in string.gmatch(keybind_setting, "[^,]+") do
+                              if code == "mouse_code" or code == "key_code" or code == "joystick_code" then
+                                  mode = code
+                              else
+                                  if keybind_string ~= "" then
+                                      keybind_string = keybind_string .. " + "
+                                  end
+                                  code = tonumber(code)
+                                  if mode == "key_code" then
+                                      for key, value in pairs(key_codes) do
+                                          if value == code then
+                                              keybind_string = keybind_string .. key
+                                              ModSettingSet("D2DContentPack.beacon_keybind_translated",key)
+                                          end
+                                      end
+                                  elseif mode == "mouse_code" then
+                                      for key, value in pairs(mouse_codes) do
+                                          if value == code then
+                                              keybind_string = keybind_string .. key
+                                              ModSettingSet("D2DContentPack.beacon_keybind_translated",key)
+                                          end
+                                      end
+                                  elseif mode == "joystick_code" then
+                                      for key, value in pairs(joystick_codes) do
+                                          if value == code then
+                                              keybind_string = keybind_string .. key
+                                              ModSettingSet("D2DContentPack.beacon_keybind_translated",key)
+                                          end
+                                      end
+                                  end
+                              end
+                            end
+
+                            GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
+                            GuiText(gui, 5, 0, keybind_tutorial_beacon)
+                            if listening_beacon then
+                              GuiColorSetForNextWidget(gui, 1, 0, 0, 1)
+                              GuiOptionsAdd(gui, GUI_OPTION.NonInteractive)
+                            end
+                            if GuiButton(gui, id(), 10, 5, keybind_newbinding) then
+                              key_inputs = {}
+                              mouse_inputs = {}
+                              joystick_inputs = {}
+                              listening_alt_fire = false
+                              listening_mid_fire = false
+                              listening_beacon = true
+                              there_has_been_input = false
+                              old_binding = ModSettingGet("D2DContentPack.beacon_keybind")
+                            end
+                            GuiColorSetForNextWidget(gui, 1, 1, 1, 0.5)
+                            GuiText(gui, 5, 5, keybind_current .. keybind_string)
+                            GuiText(gui, 0, -5, " ")
+                            end
+            },
+            {
+                id = "beacon_keybind_translated",
+                ui_name = "Secret setting",
+                value_default = "M",
+                text_max_length = 20,
+                allowed_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_0123456789",
+                hidden = true,
+            },
+            {
+                id = "max_beacon_count",
+                ui_name = "Max Beacon count",
+                ui_description = "Voluntary difficulty setting that limits how many Beacons\ncan be active at the same time. (0 = infinite)",
+                value_default = 3,
+                value_min = 0,
+                value_max = 20,
+                scope = MOD_SETTING_SCOPE_RUNTIME,
+            },
+            {
+                id = "beacon_hide_distance_threshold",
+                ui_name = "Beacon indicator max distance",
+                ui_description = "How far away must a Beacon be, before its indicator is hidden?\nA value of 0 means beacon indicators will always be visible.",
+                value_default = 2000,
+                value_min = 0,
+                value_max = 5000,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
             },
         },
@@ -781,13 +893,6 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
-            {
-                id = "disable_uncopyable_spell_warning",
-                ui_name = "Disable uncopyable spell warning",
-                ui_description = "Some spells in D2D are truly \"never unlimited\", i.e. Greek letters\nand other means of spell unlimiting won't work. This setting determines\nwhether a warning is displayed when you try to copy such a spell.",
-                value_default = false,
-                scope = MOD_SETTING_SCOPE_RUNTIME,
-            }
         },
     },
     {

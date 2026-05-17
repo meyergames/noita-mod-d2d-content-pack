@@ -157,6 +157,17 @@ function OnPlayerSpawned( player )
     {
         script_damage_received="mods/D2DContentPack/files/scripts/animals/player_damage_received.lua",
     } )
+
+
+    -- if the player has enabled the Beacon keybind, init some related scripts
+    if not ModSettingGet( "D2DContentPack.disable_beacon_keybind") then
+        EntityAddComponent2( player, "LuaComponent", { 
+            script_source_file = "mods/D2DContentPack/files/scripts/projectiles/beacon_radar.lua",
+        })
+        EntityAddComponent2( player, "LuaComponent", {
+            script_source_file = "mods/D2DContentPack/files/scripts/misc/beacon_keybind_listener.lua",
+        })
+    end
     
     local rnd = Random( 1, 100 )
     local spawn_loadout = rnd <= ModSettingGet( "D2DContentPack.loadout_spawn_chance" )
@@ -172,6 +183,13 @@ function OnPlayerSpawned( player )
     if HasFlagPersistent( "d2d_spawn_rotten_potato" ) then
         EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/rotten_potato/rotten_potato.xml", 230, -79 )
     end
+end
+
+-- if beacon keybind is enabled, don't delay the registering of beacons when they spawn
+if not ModSettingGet( "D2DContentPack.disable_beacon_keybind" ) then
+    local content = ModTextFileGetContent( "mods/D2DContentPack/files/entities/projectiles/beacon.xml" )
+    content = content:gsub( "120", "2" )
+    ModTextFileSetContent( "mods/D2DContentPack/files/entities/projectiles/beacon.xml", content )
 end
 
 local translations = ModTextFileGetContent("data/translations/common.csv")

@@ -376,6 +376,7 @@ d2d_actions = {
 		type 		        = ACTION_TYPE_MODIFIER,
 		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
 		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
+		spawn_requires_flag	= "d2d_impossible_spawn",
 		price               = 200,
 		mana                = 50,
 		action 		        = function()
@@ -386,42 +387,6 @@ d2d_actions = {
 
 								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_mult.xml,"
 								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
-
-			                    draw_actions( 1, true )
-		                    end,
-	},
-
-	{
-		id                  = "D2D_DAMAGE_DOUBLE",
-		name 		        = "$spell_d2d_damage_double_name",
-		description         = "$spell_d2d_damage_double_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_double.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
-		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
-		price               = 200,
-		mana                = 0,
-		max_uses			= 10,
-        custom_xml_file     = "mods/D2DContentPack/files/entities/misc/custom_cards/card_damage_double.xml",
-		action 		        = function()
-								c.fire_rate_wait = c.fire_rate_wait + 5
-
-								if reflecting then return end
-
-								-- disable the spell if it was called with a Greek letter or similar
-								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-								local data = get_actions_lua_data( hand[#hand].id )
-								local rec = check_recursion( data, recursion_level )
-								if try_cast_ungreeked( "D2D_DAMAGE_DOUBLE", "Double Damage", deck, rec ) then
-							        c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_double.xml,"
-							        c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
-							    elseif GetUpdatedEntityID() == get_player() then
-							    	if not ModSettingGet( "D2DContentPack.disable_uncopyable_spell_warning" ) then
-	                    				GamePrint( "[D2D] The 'Double Damage' spell cannot be copied." )
-	                    				local x, y = EntityGetTransform( GetUpdatedEntityID() )
-	                                    GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
-	                                end
-								end
 
 			                    draw_actions( 1, true )
 		                    end,
@@ -2780,6 +2745,14 @@ if actions ~= nil then
 			["D2D_DAMAGE_DOUBLE"] = {
 				never_unlimited = true,
 			}
+		})
+	end
+
+	if not ModSettingGet( "D2DContentPack.disable_beacon_keybind" ) then
+		table.insert( actions_to_edit, {
+			["D2D_SUMMON_BEACON"] = {
+				spawn_requires_flag = "d2d_impossible_spawn",
+			},
 		})
 	end
 
