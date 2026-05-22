@@ -7,6 +7,11 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Some way to combine Cessation with Projectile Morph?
+	[ ] Maybe with 'Mass Materia Conversion':
+		- converting Projectile Morph while Cessation is unlocked = True Morph
+		- converting Cessation while Projectile Morph is unlocked = True Morph
+
 [x] Staff of Damnation is too strong when found in the first biome. Should be 5-6 capacity max.
 	Blue Magic should ideally also come from elsewhere, make the spells on the Staff random.
 

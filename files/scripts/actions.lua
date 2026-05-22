@@ -564,7 +564,6 @@ d2d_actions = {
 			c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/projectile_morph_entity.xml,"
 
 			-- TODO:	maybe Piercing makes it more satisfying to use?
-			-- TODO #2: double the damage on anything shot through Projectile Morph?
 			-- TODO #3: make the player automatically immune to anything shot through Projectile Morph?
             -- c.extra_entities = c.extra_entities .. "data/entities/misc/piercing_shot.xml,"
 
@@ -912,6 +911,26 @@ d2d_actions = {
 								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 10.0
 
 			                    add_projectile( "mods/D2DContentPack/files/entities/projectiles/echo_shot.xml" )
+		                    end,
+	},
+
+	{
+		id                  = "D2D_ECHO_SHOT_TIMER",
+		name 		        = "$spell_d2d_echo_shot_timer_name",
+		description         = "$spell_d2d_echo_shot_timer_desc",
+		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/echo_shot_timer.png",
+		related_projectiles	= { "mods/D2DContentPack/files/entities/projectiles/echo_shot_timer.xml" },
+		type 		        = ACTION_TYPE_PROJECTILE,
+		spawn_level         = "1,2,3,4",
+		spawn_probability   = "0.5,0.5,0.5,1",
+		price               = 160,
+		mana                = 37,
+		action 		        = function()
+								c.fire_rate_wait = c.fire_rate_wait + 7
+								c.screenshake = c.screenshake + 1
+								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 10.0
+
+			                    add_projectile_trigger_timer( "mods/D2DContentPack/files/entities/projectiles/echo_shot.xml", 9, 1 )
 		                    end,
 	},
 

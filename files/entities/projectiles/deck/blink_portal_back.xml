@@ -1,0 +1,137 @@
+<Entity tags="d2d_lodestone_return_portal" >
+	<!-- teleport logic -->
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/projectiles/blink_portal_back.lua"
+		execute_every_n_frame="-1"
+		execute_on_removed="1">
+	</LuaComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/misc.bank"
+		event_name="misc/teleport_loop"
+		calculate_material_lowpass="1"
+		auto_play="0"
+		auto_play_if_enabled="1"
+		play_on_component_enable="1" >
+	</AudioLoopComponent>
+
+	<AudioLoopComponent
+		file="data/audio/Desktop/misc.bank"
+		event_name="misc/teleport_emitter_loop"
+		calculate_material_lowpass="1"
+		auto_play="0"
+		auto_play_if_enabled="1"
+		play_on_component_enable="1" >
+	</AudioLoopComponent>
+
+	<LifetimeComponent
+		lifetime="105"
+	></LifetimeComponent>
+
+	<ParticleEmitterComponent
+		_tags="enabled_in_world,enabled_in_hand"
+		emitted_material_name="magic_liquid_teleportation"
+		gravity.y="0.0"
+		lifetime_min="0.10"
+		lifetime_max="0.20"
+		count_min="30"
+		count_max="35"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="35"
+		area_circle_radius.max="35"
+		cosmetic_force_create="0"
+		airflow_force="0.3"
+		airflow_time="0.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="0"
+		emission_interval_max_frames="0"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- inner particles -->
+    <ParticleEmitterComponent
+		_tags="character,enabled_in_hand,item_identified__LEGACY"
+		emitted_material_name="magic_liquid_teleportation"
+		gravity.y="0.0"
+		lifetime_min="0.1"
+		lifetime_max="0.5"
+		count_min="6"
+		count_max="10"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.max="35"
+		cosmetic_force_create="0"
+		airflow_force="0.5"
+		airflow_time="0.1"
+		airflow_scale="0.5"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- outer edge -->
+	<ParticleEmitterComponent 
+		emitted_material_name="magic_liquid_teleportation"
+		gravity.y="0.0"
+		lifetime_min="0.4"
+		lifetime_max="1.4"
+		count_min="4"
+		count_max="5"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="28"
+		area_circle_radius.max="35"
+		cosmetic_force_create="0"
+		airflow_force="1.5"
+		airflow_time="1.9"
+		airflow_scale="0.15"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		draw_as_long="1"
+		x_vel_min="-1"
+		x_vel_max="1"
+		y_vel_min="-1"
+		y_vel_max="1"
+		is_emitting="1" 
+		velocity_always_away_from_center="-10"
+	></ParticleEmitterComponent>
+
+	<ParticleEmitterComponent 
+		_tags="buildup_particles"
+		emitted_material_name="magic_liquid_teleportation"
+		gravity.y="0.0"
+		lifetime_min="0.8"
+		lifetime_max="1.5"
+		count_min="5"
+		count_max="10"
+		render_on_grid="1"
+		fade_based_on_lifetime="1"
+		area_circle_radius.min="0"
+		area_circle_radius.max="0"
+		cosmetic_force_create="0"
+		airflow_force="1.1"
+		airflow_time="1.01"
+		airflow_scale="0.05"
+		emission_interval_min_frames="1"
+		emission_interval_max_frames="1"
+		emit_cosmetic_particles="1"
+		image_animation_file="mods/D2DContentPack/files/particles/image_emitters/blink_portal_back.png"
+		image_animation_speed="2.25"
+		image_animation_loop="0"
+		is_emitting="1" >
+	</ParticleEmitterComponent>
+
+	<!-- <Entity tags="workshop">
+		<HitboxComponent 
+			aabb_min_x="-150" 
+			aabb_min_y="-150"
+			aabb_max_x="150" 
+			aabb_max_y="150" 
+		></HitboxComponent>
+	</Entity> -->
+</Entity>
