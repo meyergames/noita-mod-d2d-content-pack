@@ -965,8 +965,54 @@ d2d_blurses = {
         func_remove = function( entity_who_picked )
         	dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
         	remove_lua( entity_who_picked, "d2d_perk_afterlife" )
+
+			dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+			if not has_perk( "D2D_DISSOLVE_LIQUIDS" ) then
+				GameRemoveFlagRun( "d2d_1000_max_health_cap" )
+			end
         end
 	},
+
+	-- {
+	-- 	id = "D2D_DISSOLVE_LIQUIDS",
+	-- 	ui_name = "$perk_d2d_dissolve_liquids_name",
+	-- 	ui_description = "$perk_d2d_dissolve_liquids_desc",
+	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/dissolve_liquids_016.png",
+	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/dissolve_liquids.png",
+	-- 	stackable = STACKABLE_NO,
+	-- 	one_off_effect = false,
+	-- 	usable_by_enemies = true,
+	-- 	not_in_default_perk_pool = true,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
+	-- 		if pickup_count <= 1 then
+	-- 			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_dissolve_liquids.xml" )
+
+	-- 			local dmg_comp = EntityGetFirstComponentIncludingDisabled( entity_who_picked, "DamageModelComponent" )
+	-- 			if exists( dmg_comp ) then
+	-- 				local p_hp = ComponentGetValue2( dmg_comp, "hp" )
+	-- 				local p_max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
+	-- 				ComponentSetValue2( dmg_comp, "hp", p_hp * 0.25 )
+	-- 				ComponentSetValue2( dmg_comp, "max_hp", p_max_hp * 0.25 )
+	-- 			end
+	-- 			if not has_perk( "GLASS_CANNON" ) then
+	-- 				-- ComponentSetValue2( dcomp, "max_hp_cap", 40 )
+	-- 				GameAddFlagRun( "d2d_1000_max_health_cap" )
+	-- 			end
+	-- 		end
+	-- 	end,
+	-- 	func_remove = function( entity_who_picked )
+	-- 		for i,child in ipairs( EntityGetAllChildren( get_player() ) ) do
+	-- 			if EntityHasTag( child, "d2d_perk_dissolve_liquids" ) then
+	-- 				EntityKill( child )
+	-- 			end
+	-- 		end
+
+	-- 		dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+	-- 		if not has_perk( "D2D_AFTERLIFE" ) then
+	-- 			GameRemoveFlagRun( "d2d_1000_max_health_cap" )
+	-- 		end
+	-- 	end,
+	-- },
 }
 
 

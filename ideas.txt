@@ -7,6 +7,10 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Release "Lodestone + Portal" as a standalone mod
+
+[ ] "Dissolve Liquids" blurse: Converts all liquids around you into air, but you take 4x as much damage from projectiles.
+
 [ ] Some way to combine Cessation with Projectile Morph?
 	[ ] Maybe with 'Mass Materia Conversion':
 		- converting Projectile Morph while Cessation is unlocked = True Morph

@@ -266,7 +266,7 @@ function try_spawn_staff_of_nutrition()
 end
 
 function try_cap_max_health()
-    if not ModSettingGet( "D2DContentPack.cap_max_health" ) and not GameHasFlagRun( "d2d_afterlife_health_cap" ) then return end
+    if not ModSettingGet( "D2DContentPack.cap_max_health" ) and not GameHasFlagRun( "d2d_1000_max_health_cap" ) then return end
 
     local dmg_comp = EntityGetFirstComponent( entity_id, "DamageModelComponent" )
     if exists( dmg_comp ) then
@@ -288,8 +288,10 @@ function try_cap_max_health()
 
                     local shield = EntityLoad( "mods/D2DContentPack/files/entities/misc/health_cap_shield.xml", px, py )
                     EntityAddChild( entity_id, shield )
-                else
+                elseif has_perk( "D2D_AFTERLIFE" ) then
                     GamePrint( "Your max health is limited to 1000 due to Afterlife." )
+                elseif has_perk( "D2D_DISSOLVE_LIQUIDS" ) then
+                    GamePrint( "Your max health is limited to 1000 due to Dissolve Liquids." )
                 end
             end
         end

@@ -569,7 +569,7 @@ d2d_actions = {
 
 			draw_actions( 1, true )
 		end,
-	},
+	},	
 
 	{
 		id                  = "D2D_SHOCKWAVE",

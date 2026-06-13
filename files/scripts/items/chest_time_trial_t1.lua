@@ -14,7 +14,7 @@ function drop_rewards( x, y )
 	wand.spellsPerCast = 1
 	wand.castDelay = 30
 	wand.rechargeTime = 40
-	wand.manaMax = 559
+	wand.manaMax = 360
 	wand.manaChargeSpeed = 60
 	wand.capacity = 6
 	wand.spread = 0

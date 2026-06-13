@@ -1,32 +1,22 @@
 dofile_once("data/scripts/item_spawnlists.lua")
 
---Thankyou Eba (thankyou Apotheosis)
-local function register_item(listname, weight, entity, offset) -- use this to register an item in spawn table
-    if ( type( listname ) == "string" ) then
-        local newmin = spawnlists[listname].rnd_max + 1
-        local newmax = newmin + weight
-        local tbl = {
-            value_min = newmin,
-            value_max = newmax,
-            offset_y = offset,
-            load_entity = entity
-        }
-        table.insert(spawnlists[listname].spawns, tbl)
-        spawnlists[listname].rnd_max = newmax
-    elseif ( type( listname ) == "table" ) then
-        local newmin = listname.rnd_max + 1
-        local newmax = newmin + weight
-        local tbl = {
-            value_min = newmin,
-            value_max = newmax,
-            offset_y = offset,
-            load_entity = entity
-        }
-        table.insert(listname.spawns, tbl)
-        listname.rnd_max = newmax
-    end
+-- nabbed from Apoth + Nathan changes
+---@param listname string
+---@param weight integer
+---@param entity string
+---@param offset integer
+local function register_item(listname, weight, entity, offset)
+    local newmin = spawnlists[listname].rnd_max + 1
+    local newmax = newmin + weight - 1
+    spawnlists[listname].rnd_max = newmax
+    local tbl = {
+        value_min = newmin,
+        value_max = newmax,
+        offset_y = offset,
+        load_entity = entity
+    }
+    table.insert(spawnlists[listname].spawns, tbl)
 end
-
 
 d2d_items = {
     {
@@ -52,7 +42,6 @@ end
 
 function AddSettingFlag(name)
     ModSettingSet(name, true)
-  --  ModSettingSetNextValue(name, true)
 end
 
 function RemoveSettingFlag(name)
