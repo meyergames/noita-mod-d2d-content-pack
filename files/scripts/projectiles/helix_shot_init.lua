@@ -15,6 +15,9 @@ if exists( proj_id ) then
 	end
 end
 
+-- lower its damage slightly
+multiply_proj_dmg( GetUpdatedEntityID(), 0.75, "helix_shot" )
+
 -- inverse the sinewave of every second helix projectile
 local count = tonumber( GlobalsGetValue( "d2d_helix_shot_count", "0" ) )
 GlobalsSetValue( "d2d_helix_shot_count", tostring( count + 1 ) )

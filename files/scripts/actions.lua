@@ -676,12 +676,16 @@ d2d_actions = {
 									local proj_card_id = find_action_entity( proj_action_id )
 									local data = get_actions_lua_data( proj_action_id )
 									if not data.recursive and data.type == 0 then
+										-- if mana >= data.mana then
 										local rec = check_recursion( data, recursion_level )
 										if rec > -1 then
-											-- set_internal_bool( action_entity, "d2d_helix_inverse", true )
 											data.action( rec )
 											-- mana = mana - data.mana
 										end
+										-- else
+                                    	-- 	GamePlaySound("data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y)
+										-- 	mana = mana - data.mana
+                                    	-- end
 				            		end
 								end
 
