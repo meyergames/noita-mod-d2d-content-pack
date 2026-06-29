@@ -549,7 +549,14 @@ mod_settings =
                 ui_description = "Some spells in D2D are truly \"never unlimited\", i.e. Greek letters\nand other means of spell unlimiting won't work. This setting determines\nwhether a warning is displayed when you try to copy such a spell.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_RUNTIME,
-            }
+            },
+            {
+                id = "apoth_portals_last_forever",
+                ui_name = "Make Apotheosis portals last forever",
+                ui_description = "When enabled while Apotheosis is enabled, its red/green/blue portals\nwill last forever instead of disappearing after use. Creating a second\nportal of the same colour will delete the previous one.",
+                value_default = false,
+                scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
         },
     },
     {

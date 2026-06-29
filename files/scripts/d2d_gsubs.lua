@@ -55,6 +55,7 @@ end
 
 local function alter_apotheosis_portals()
     if not ModIsEnabled( "Apotheosis" ) then return end
+    if not ModSettingGet( "D2DContentPack.apoth_portals_last_forever" ) then return end
 
 
 
