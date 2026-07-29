@@ -43,7 +43,7 @@ d2d_actions = {
 
                                     local rand2 = Random( 0, 8 )
                                     if( rand2 < 1 ) then -- 2/250 or 1/125
-                                        EntityInflictDamage( get_player(), 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
+                                        EntityInflictDamage( GetUpdatedEntityID(), 0.4, "DAMAGE_ELECTRICITY", "overheated wand", "ELECTROCUTION", 0, 0, entity_id, x, y, 0)
                                     elseif( rand2 < 3 ) then -- 2/250 or 1/125
                                         EntityLoad( "mods/D2DContentPack/files/entities/projectiles/deck/small_explosion.xml", x, y )
                                     elseif( rand2 < 5 ) then -- 2/250 or 1/125
@@ -80,25 +80,27 @@ d2d_actions = {
 
                                 dofile_once( "data/scripts/lib/utilities.lua" )
 
-                                local ctrlcomp = EntityGetFirstComponentIncludingDisabled( get_player(), "ControlsComponent" )
-                                local fire_frame = ComponentGetValue2( ctrlcomp, "mButtonFrameFire" )
-                                local current_frame = GameGetFrameNum()
+                                local ctrlcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ControlsComponent" )
+                                if ctrlcomp then
+	                                local fire_frame = ComponentGetValue2( ctrlcomp, "mButtonFrameFire" )
+	                                local current_frame = GameGetFrameNum()
 
-                                local last_fire_frame = get_internal_int( get_player(), "flurry_last_fire_frame" )
-                                if last_fire_frame ~= nil then
-	                                local diff = fire_frame - last_fire_frame
-	                                if diff > 0 and diff < 30 then
-	                                	current_frame = current_frame + 20
+	                                local last_fire_frame = get_internal_int( GetUpdatedEntityID(), "flurry_last_fire_frame" )
+	                                if last_fire_frame ~= nil then
+		                                local diff = fire_frame - last_fire_frame
+		                                if diff > 0 and diff < 30 then
+		                                	current_frame = current_frame + 20
+		                                end
 	                                end
-                                end
-                                set_internal_int( get_player(), "flurry_last_fire_frame", fire_frame )
+	                                set_internal_int( GetUpdatedEntityID(), "flurry_last_fire_frame", fire_frame )
 
-                                local frames_firing = current_frame - fire_frame
-                                local burst_duration = 20
-                                if frames_firing < burst_duration then
-                                	c.fire_rate_wait = c.fire_rate_wait - ( ( 15 / burst_duration ) * ( burst_duration - frames_firing ) )
-                                	current_reload_time = current_reload_time - ( ( 20 / burst_duration ) * ( burst_duration - frames_firing ) )
-	                            end
+	                                local frames_firing = current_frame - fire_frame
+	                                local burst_duration = 20
+	                                if frames_firing < burst_duration then
+	                                	c.fire_rate_wait = c.fire_rate_wait - ( ( 15 / burst_duration ) * ( burst_duration - frames_firing ) )
+	                                	current_reload_time = current_reload_time - ( ( 20 / burst_duration ) * ( burst_duration - frames_firing ) )
+		                            end
+		                        end
 
 			                    draw_actions( 1, true )
 	                        end,
@@ -125,19 +127,21 @@ d2d_actions = {
 							    c.fire_rate_wait	= c.fire_rate_wait + 15 -- reset
                                 current_reload_time = current_reload_time + 20 -- reset
 
-                                local ctrlcomp = EntityGetFirstComponentIncludingDisabled( get_player(), "ControlsComponent" )
-                                local fire_frame = ComponentGetValue2( ctrlcomp, "mButtonFrameFire" )
-                                local current_frame = GameGetFrameNum()
+                                local ctrlcomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "ControlsComponent" )
+                                if ctrlcomp then
+	                                local fire_frame = ComponentGetValue2( ctrlcomp, "mButtonFrameFire" )
+	                                local current_frame = GameGetFrameNum()
 
-                                local frames_firing = current_frame - fire_frame
-                                local frames_for_max_effect = 150
-                                if frames_firing < frames_for_max_effect then
-                                	c.fire_rate_wait = c.fire_rate_wait - ( ( 15 / frames_for_max_effect ) * frames_firing )
-                                	current_reload_time = current_reload_time - ( ( 20 / frames_for_max_effect ) * frames_firing )
-                                else
-                                	c.fire_rate_wait = c.fire_rate_wait - 15
-                                	current_reload_time = current_reload_time - 20
-	                            end
+	                                local frames_firing = current_frame - fire_frame
+	                                local frames_for_max_effect = 150
+	                                if frames_firing < frames_for_max_effect then
+	                                	c.fire_rate_wait = c.fire_rate_wait - ( ( 15 / frames_for_max_effect ) * frames_firing )
+	                                	current_reload_time = current_reload_time - ( ( 20 / frames_for_max_effect ) * frames_firing )
+	                                else
+	                                	c.fire_rate_wait = c.fire_rate_wait - 15
+	                                	current_reload_time = current_reload_time - 20
+		                            end
+		                        end
 	                            
 			                    draw_actions( 1, true )
 	                        end,
@@ -204,10 +208,10 @@ d2d_actions = {
 								if reflecting then return end
 
 								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-								if not get_internal_bool( get_player(), "is_fuse_being_controlled" ) then
+								if not get_internal_bool( GetUpdatedEntityID(), "is_fuse_being_controlled" ) then
 									c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/controlled_fuse.xml,"
                                 	draw_actions( 1, true )
-                                	set_internal_bool( get_player(), "is_fuse_being_controlled", is_fire_pressed() )
+                                	set_internal_bool( GetUpdatedEntityID(), "is_fuse_being_controlled", is_fire_pressed() )
                                 else
                                 	local wand = EZWand.GetHeldWand()
                                 	if exists( wand ) then
@@ -349,7 +353,7 @@ d2d_actions = {
 
 			                    draw_actions( 1, true )
 
-								local cdatacomp = EntityGetFirstComponentIncludingDisabled( get_player(), "CharacterDataComponent" )
+								local cdatacomp = EntityGetFirstComponentIncludingDisabled( GetUpdatedEntityID(), "CharacterDataComponent" )
 								if cdatacomp then
 									local is_on_ground = ComponentGetValue2( cdatacomp, "is_on_ground" )
 									local hover_energy = ComponentGetValue2( cdatacomp, "mFlyingTimeLeft" )
@@ -954,38 +958,40 @@ d2d_actions = {
 								if reflecting then return end
 
 								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-								local children = EntityGetAllChildren( get_player() )
 								local success = false
-								for k=1,#children do
-									child = children[k]
-								    if EntityGetName( child ) == "inventory_full" then
-								        local inventory_items = EntityGetAllChildren(child)
-								        if( inventory_items ~= nil ) then
-								            for z=1, #inventory_items do
-								            	item = inventory_items[z]
+								if GetUpdatedEntityID() == get_player() then
+									local children = EntityGetAllChildren( GetUpdatedEntityID() )
+									for k=1,#children do
+										child = children[k]
+									    if EntityGetName( child ) == "inventory_full" then
+									        local inventory_items = EntityGetAllChildren(child)
+									        if( inventory_items ~= nil ) then
+									            for z=1, #inventory_items do
+									            	item = inventory_items[z]
 
-								            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
-								            	if ia_comp then
-								            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
-								            		local data = get_actions_lua_data( action_id )
-								            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
-								            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
-													if not data.recursive and data.type == 0 and uses_remaining ~= 0 then
-														local rec = check_recursion( data, recursion_level )
-														if rec > -1 then
-															data.action( rec )
-															mana = mana - data.mana
-															if uses_remaining > 0 then
-																ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+									            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
+									            	if ia_comp then
+									            		local action_id = ComponentGetValue2( ia_comp, "action_id" )
+									            		local data = get_actions_lua_data( action_id )
+									            		local item_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemComponent" )
+									            		local uses_remaining = ComponentGetValue2( item_comp, "uses_remaining" )
+														if not data.recursive and data.type == 0 and uses_remaining ~= 0 then
+															local rec = check_recursion( data, recursion_level )
+															if rec > -1 then
+																data.action( rec )
+																mana = mana - data.mana
+																if uses_remaining > 0 then
+																	ComponentSetValue2( item_comp, "uses_remaining", uses_remaining - 1 )
+																end
+																success = true
+																break
 															end
-															success = true
-															break
-														end
-								            		end
-								            	end
-								            end
-								        end
-								    end
+									            		end
+									            	end
+									            end
+									        end
+									    end
+									end
 								end
 
 								if not success then
@@ -1540,7 +1546,7 @@ d2d_actions = {
 	    						if reflecting then return end
 	    						
 								-- add_projectile( "data/entities/projectiles/deck/xray.xml" )
-                                LoadGameEffectEntityTo( get_player(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_reveal.xml" )
+                                LoadGameEffectEntityTo( GetUpdatedEntityID(), "mods/D2DContentPack/files/entities/misc/status_effects/effect_reveal.xml" )
 	                        end,
     },
 
@@ -1619,17 +1625,19 @@ d2d_actions = {
 	    mana                = 40,
 	    action              = function()
                                 dofile_once( "data/scripts/lib/utilities.lua" )
-                                local marker_id = get_internal_int( get_player(), "rewind_marker_id" )
-                                if marker_id ~= nil and marker_id ~= -1 then
-                                	local x, y = EntityGetTransform( marker_id )
-    								GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/teleport/destroy", x, y )
-                                	EntitySetTransform( get_player(), x, y )
+                                if GetUpdatedEntityID() == get_player() then
+	                                local marker_id = get_internal_int( GetUpdatedEntityID(), "rewind_marker_id" )
+	                                if marker_id ~= nil and marker_id ~= -1 then
+	                                	local x, y = EntityGetTransform( marker_id )
+	    								GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/teleport/destroy", x, y )
+	                                	EntitySetTransform( get_player(), x, y )
 
-                                	EntityKill( marker_id )
-                                	set_internal_int( get_player(), "rewind_marker_id", -1 )
-                            	else
-                            		mana = mana + 40
-                                end
+	                                	EntityKill( marker_id )
+	                                	set_internal_int( get_player(), "rewind_marker_id", -1 )
+	                            	else
+	                            		mana = mana + 40
+	                                end
+	                            end
 	                        end,
     },
 
@@ -2028,7 +2036,9 @@ d2d_actions = {
 								if reflecting then return end
 
 								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-								local children = EntityGetAllChildren( get_player() )
+								if GetUpdatedEntityID() ~= get_player() then return end
+
+								local children = EntityGetAllChildren( GetUpdatedEntityID() )
 								for k=1,#children do
 									child = children[k]
 								    if EntityGetName( child ) == "inventory_full" then
@@ -2124,7 +2134,9 @@ d2d_actions = {
 								if reflecting then return end
 
 								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-								local children = EntityGetAllChildren( get_player() )
+								if GetUpdatedEntityID() ~= get_player() then return end
+
+								local children = EntityGetAllChildren( GetUpdatedEntityID() )
 								for k=1,#children do
 									child = children[k]
 								    if EntityGetName( child ) == "inventory_full" then
@@ -2724,7 +2736,9 @@ if actions ~= nil then
 									if reflecting then return end
 
 									dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-									local last_wand = last_wand( get_player() )
+									if GetUpdatedEntityID() ~= get_player() then return end
+									
+									local last_wand = last_wand( GetUpdatedEntityID() )
 									if not exists( last_wand ) then return end
 									local actions = get_all_wand_actions( EZWand( last_wand ) )
 									if not exists( actions ) or #actions == 0 then return end
@@ -2772,7 +2786,7 @@ if actions ~= nil then
 
 					            if reflecting then return end
 					            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-					            local x, y = EntityGetTransform( get_player() )
+					            local x, y = EntityGetTransform( GetUpdatedEntityID() )
 					            GlobalsSetValue( "D2D_APOTH_RED_PORTAL_X", tostring( x ) )
 					            GlobalsSetValue( "D2D_APOTH_RED_PORTAL_Y", tostring( y ) )
         					end,
@@ -2786,7 +2800,7 @@ if actions ~= nil then
 
 					            if reflecting then return end
 					            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-					            local x, y = EntityGetTransform( get_player() )
+					            local x, y = EntityGetTransform( GetUpdatedEntityID() )
 					            GlobalsSetValue( "D2D_APOTH_GREEN_PORTAL_X", tostring( x ) )
 					            GlobalsSetValue( "D2D_APOTH_GREEN_PORTAL_Y", tostring( y ) )
         					end,
@@ -2800,7 +2814,7 @@ if actions ~= nil then
 
 					            if reflecting then return end
 					            dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
-					            local x, y = EntityGetTransform( get_player() )
+					            local x, y = EntityGetTransform( GetUpdatedEntityID() )
 					            GlobalsSetValue( "D2D_APOTH_BLUE_PORTAL_X", tostring( x ) )
 					            GlobalsSetValue( "D2D_APOTH_BLUE_PORTAL_Y", tostring( y ) )
         					end,
