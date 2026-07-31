@@ -24,7 +24,7 @@
     body_id="1"
     centered="1"
     image_file="mods/D2DContentPack/files/gfx/buildings_gfx/chest_random_cursed.png"
-    material="wood_prop"
+    material="d2d_cursed_wood"
   ></PhysicsImageShapeComponent>
 
   <ItemComponent

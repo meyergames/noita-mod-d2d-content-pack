@@ -258,4 +258,27 @@
 			color="FFABFE1F"
 		></Graphics> -->
 
+  <CellDataChild
+  	_parent="wood"
+  	_inherit_reactions="1"
+  	name="d2d_cursed_wood" 
+		ui_name="$mat_d2d_cursed_wood"
+		tags="[box2d],[indestructible],[matter_eater_ignore_list]"
+		durability="9001"
+		solid_static_type="0"
+		solid_collide_with_self="1"
+		platform_type="1"
+		hp="999999999"
+		burnable="0"
+		wang_color="ff644621"
+		audio_physics_material_wall="woodwall"
+		audio_physics_material_solid="wood"
+		audio_materialbreakaudio_type="WOOD"
+		><Graphics
+			texture_file="data/materials_gfx/wood.png"
+			color="ff644621" 
+			show_in_creative_mode="1"
+		></Graphics>
+  </CellDataChild>
+
 </Materials>
