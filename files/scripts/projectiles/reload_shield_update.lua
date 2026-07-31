@@ -2,7 +2,9 @@ dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 -- entity id and internal vars
 local player = EntityGetRootEntity( GetUpdatedEntityID() )
-local wand = EZWand( EntityGetParent( GetUpdatedEntityID() ) )
+local wand_id = EntityGetParent( GetUpdatedEntityID() )
+if not EZWand.IsWand( wand_id ) then return end
+local wand = EZWand( wand_id )
 if not wand then return end
 
 local ability_comp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "AbilityComponent" )

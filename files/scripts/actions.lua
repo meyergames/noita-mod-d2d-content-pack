@@ -2526,8 +2526,10 @@ d2d_actions = {
 								c.damage_projectile_add = c.damage_projectile_add - 0.04 -- reset
 
 								dofile_once( "data/scripts/lib/utilities.lua" )
-					            local cats_petted = get_internal_int( GetUpdatedEntityID(), "cats_petted", 1 )
-					            c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * cats_petted )
+					            local cats_petted = get_internal_int( GetUpdatedEntityID(), "cats_petted" )
+					            if exists( cat_petted ) then
+					            	c.damage_projectile_add = c.damage_projectile_add + ( 0.04 * cats_petted )
+					            end
 
 	    						draw_actions( 1, true )
 	                        end,

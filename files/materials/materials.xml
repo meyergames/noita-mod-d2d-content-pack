@@ -30,7 +30,7 @@
 	burnable="1"
 	density="5.53"
 	cell_type="liquid"
-	wang_color="80a1f18b"
+	wang_color="80a1f18d"
 	generates_smoke="0"
 	liquid_gravity="0.8"
 	liquid_sand="0"

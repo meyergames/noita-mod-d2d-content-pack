@@ -39,6 +39,7 @@ end
 
 
 local platcomp = EntityGetFirstComponentIncludingDisabled( owner, "CharacterPlatformingComponent" )
+if not platcomp then return end
 local frames_in_air = ComponentGetValue2( platcomp, "mFramesInAirCounter" )
 
 local controls = EntityGetFirstComponent( owner, "ControlsComponent" )
