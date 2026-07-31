@@ -546,7 +546,7 @@ d2d_actions = {
 	                                    GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
 	                                end
 								end
-
+								
 			                    draw_actions( 1, true )
 		                    end,
 	},
@@ -1434,6 +1434,24 @@ d2d_actions = {
 									end
 								end
 	                        end,
+    },
+
+    {
+    	id					= "D2D_CIRCLE_OF_PHASING",
+    	name				= "$spell_d2d_circle_of_phasing_name",
+    	description			= "$spell_d2d_circle_of_phasing_desc",
+    	sprite				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/circle_of_phasing.png",
+    	type				= ACTION_TYPE_STATIC_PROJECTILE,
+    	spawn_level			= "2,3,4,5,6",
+    	spawn_probability	= "0.15,0.15,0.2,0.25,0.3", -- half that of Circle of Shielding
+    	price				= 160,
+    	mana				= 20,
+    	max_uses			= 10,
+    	action				= function()
+    							-- if reflecting then return end
+								add_projectile( "mods/D2DContentPack/files/entities/projectiles/deck/circle_of_phasing.xml")
+								c.fire_rate_wait = c.fire_rate_wait + 15
+    						end,
     },
 
     {

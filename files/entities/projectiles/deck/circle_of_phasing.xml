@@ -1,0 +1,116 @@
+<Entity name="$projectile_default" tags="d2d_circle_of_phasing">
+  	<GameAreaEffectComponent radius="28"/>
+
+	<Base file="data/entities/projectiles/deck/base_field.xml">
+		<!-- <SpriteComponent 
+			_enabled="1" 
+			offset_x="0"
+			offset_y="0"
+			alpha="0.75"
+			image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/circle_of_phasing.xml"
+			additive="1"
+		></SpriteComponent> -->
+
+		<ProjectileComponent 
+			damage_game_effect_entities=""
+			collide_with_shooter_frames="0"
+			lifetime="1200"
+			><config_explosion
+				explosion_sprite="data/particles/blast_out_shield.xml"
+			></config_explosion>
+		</ProjectileComponent>
+
+		<SpriteParticleEmitterComponent
+			_remove_from_base="1"
+		></SpriteParticleEmitterComponent>
+  
+		<AudioLoopComponent
+			file="data/audio/Desktop/misc.bank"
+			event_name="misc/teleport_emitter_loop"
+			auto_play="1" >
+		</AudioLoopComponent>
+	</Base>
+
+	<HitboxComponent 
+		aabb_min_x="-21" 
+		aabb_min_y="-21"
+		aabb_max_x="21" 
+		aabb_max_y="21" >
+	</HitboxComponent>
+
+	<SpriteComponent 
+		_enabled="1" 
+		offset_x="0"
+		offset_y="0"
+		alpha="1.0"
+		image_file="mods/D2DContentPack/files/gfx/projectiles_gfx/circle_of_phasing.xml"
+		additive="0"
+	></SpriteComponent>
+  
+	<VelocityComponent
+		gravity_y="0"
+		mass="0.07"
+	></VelocityComponent>
+
+	<LuaComponent
+		script_source_file="mods/D2DContentPack/files/scripts/projectiles/circle_of_phasing_update.lua"
+		execute_every_n_frame="1"
+	></LuaComponent>
+	
+	
+
+	<!-- <SpriteParticleEmitterComponent
+		sprite_file="mods/D2DContentPack/files/particles/tinkle_spark.xml"
+		delay="0"
+		lifetime="1.5"
+		color.r="1" color.g="1" color.b="1" color.a="1"
+		color_change.r="0" color_change.g="0" color_change.b="0" color_change.a="-1"
+		velocity.x="0" velocity.y="0"
+		gravity.x="0" gravity.y="10"
+		velocity_slowdown="0"
+		rotation="0"
+		angular_velocity="0"
+		use_velocity_as_rotation="0"
+		scale.x="1" scale.y="1"
+		scale_velocity.x="0" scale_velocity.y="0"
+		emission_interval_min_frames="3"
+		emission_interval_max_frames="6"
+		count_min="1" count_max="1"
+		randomize_position.min_x="-28"
+		randomize_position.max_x="28"
+		randomize_position.min_y="-28"
+		randomize_position.max_y="28"
+		velocity_always_away_from_center="1"
+	></SpriteParticleEmitterComponent> -->
+
+	<ParticleEmitterComponent
+		emitted_material_name="spark_white"
+		gravity.y="0.0"
+		custom_alpha="0.25"
+		lifetime_min="1"
+		lifetime_max="2"
+		x_vel_min="0"
+		x_vel_max="0"
+		y_vel_min="0"
+		y_vel_max="0"
+		count_min="115"
+		count_max="115"
+		render_on_grid="1"
+		fade_based_on_lifetime="0"
+		area_circle_radius.min="28"
+		area_circle_radius.max="28"
+		cosmetic_force_create="1"
+		collide_with_grid="0"
+		airflow_force="0.051"
+		airflow_time="1.01"
+		airflow_scale="0.03"
+		emission_interval_min_frames="12"
+		emission_interval_max_frames="12"
+		emit_cosmetic_particles="1"
+		velocity_always_away_from_center="11"
+		render_back="1"
+		is_emitting="1"
+		set_magic_creation="0">
+	</ParticleEmitterComponent>
+
+</Entity>

@@ -452,3 +452,67 @@ function try_cast_ungreeked( action_id, action_name, deck, rec )
 
     return true
 end
+
+function make_player_spooky( player_id )
+    -- make the player sprite spooky
+    local spritecomp_body = EntityGetFirstComponent( player_id, "SpriteComponent" )
+    if exists( spritecomp_body ) then
+        local image_file = ComponentGetValue2( spritecomp_body, "image_file" )
+        set_internal_string( player_id, "d2d_afterlife_cached_sprite_body", image_file )
+        ComponentSetValue2( spritecomp_body, "image_file", "mods/D2DContentPack/files/gfx/enemies_gfx/player_afterlife.xml" )
+    end
+
+    local children = EntityGetAllChildren( player_id )
+    if exists( children ) then
+        for i,child in ipairs( children ) do
+
+            -- make the arm spooky
+            if EntityGetName( child ) == "arm_r" then
+                local spritecomp_arm = EntityGetFirstComponent( child, "SpriteComponent" )
+                if exists( spritecomp_arm ) then
+                    local image_file = ComponentGetValue2( spritecomp_arm, "image_file" )
+                    set_internal_string( player_id, "d2d_afterlife_cached_sprite_arm", image_file )
+                    ComponentSetValue2( spritecomp_arm, "image_file", "mods/D2DContentPack/files/gfx/enemies_gfx/player_afterlife_arm.xml")
+                end
+            end
+    
+            -- hide the cape
+            if EntityGetName( child ) == "cape" then
+                for i,child_vp_comp in ipairs( EntityGetComponent( child, "VerletPhysicsComponent" ) ) do
+                    ComponentSetValue2( child_vp_comp, "follow_entity_transform", false )
+                end
+            end
+        end
+    end
+end
+
+function make_player_unspooky( player_id )
+    -- return the player sprite to normal
+    local spritecomp_body = EntityGetFirstComponent( player_id, "SpriteComponent" )
+    if exists( spritecomp_body ) then
+        local image_file = get_internal_string( player_id, "d2d_afterlife_cached_sprite_body" )
+        ComponentSetValue2( spritecomp_body, "image_file", image_file )
+    end
+
+    local children = EntityGetAllChildren( player_id )
+    if exists( children ) then
+        for i,child in ipairs( children ) do
+
+            -- make the arm unspooky
+            if EntityGetName( child ) == "arm_r" then
+                local spritecomp_arm = EntityGetFirstComponent( child, "SpriteComponent" )
+                if exists( spritecomp_arm ) then
+                    local image_file = get_internal_string( player_id, "d2d_afterlife_cached_sprite_arm" )
+                    ComponentSetValue2( spritecomp_arm, "image_file", image_file )
+                end
+            end
+    
+            -- unhide the cape
+            if EntityGetName( child ) == "cape" then
+                for i,child_vp_comp in ipairs( EntityGetComponent( child, "VerletPhysicsComponent" ) ) do
+                    ComponentSetValue2( child_vp_comp, "follow_entity_transform", true )
+                end
+            end
+        end
+    end
+end

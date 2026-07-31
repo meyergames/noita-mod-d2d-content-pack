@@ -63,37 +63,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 			end
 
 			GamePrintImportant( "You've entered the Afterlife", "Make it back to your grave to reclaim your life" )
-
-			-- make the player sprite spooky
-			local spritecomp_body = EntityGetFirstComponent( player_id, "SpriteComponent" )
-			if exists( spritecomp_body ) then
-				local image_file = ComponentGetValue2( spritecomp_body, "image_file" )
-				set_internal_string( player_id, "d2d_afterlife_cached_sprite_body", image_file )
-				ComponentSetValue2( spritecomp_body, "image_file", "mods/D2DContentPack/files/gfx/enemies_gfx/player_afterlife.xml" )
-			end
-
-			local children = EntityGetAllChildren( player_id )
-			if exists( children ) then
-				for i,child in ipairs( children ) do
-
-					-- make the arm spooky
-					if EntityGetName( child ) == "arm_r" then
-						local spritecomp_arm = EntityGetFirstComponent( child, "SpriteComponent" )
-						if exists( spritecomp_arm ) then
-							local image_file = ComponentGetValue2( spritecomp_arm, "image_file" )
-							set_internal_string( player_id, "d2d_afterlife_cached_sprite_arm", image_file )
-							ComponentSetValue2( spritecomp_arm, "image_file", "mods/D2DContentPack/files/gfx/enemies_gfx/player_afterlife_arm.xml")
-						end
-					end
-			
-					-- hide the cape
-				    if EntityGetName( child ) == "cape" then
-						for i,child_vp_comp in ipairs( EntityGetComponent( child, "VerletPhysicsComponent" ) ) do
-							ComponentSetValue2( child_vp_comp, "follow_entity_transform", false )
-						end
-				    end
-				end
-			end
+			make_player_spooky( player_id )
 
 			-- delete this effect so it doesn't trigger again
 			EntityRemoveComponent( player_id, GetUpdatedComponentID() )

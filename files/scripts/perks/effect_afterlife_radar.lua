@@ -47,34 +47,7 @@ else
 			removed = true
 		end
 
-		-- return the player sprite to normal
-		local spritecomp_body = EntityGetFirstComponent( player_id, "SpriteComponent" )
-		if exists( spritecomp_body ) then
-			local image_file = get_internal_string( player_id, "d2d_afterlife_cached_sprite_body" )
-			ComponentSetValue2( spritecomp_body, "image_file", image_file )
-		end
-
-		local children = EntityGetAllChildren( player_id )
-		if exists( children ) then
-			for i,child in ipairs( children ) do
-
-				-- make the arm unspooky
-				if EntityGetName( child ) == "arm_r" then
-					local spritecomp_arm = EntityGetFirstComponent( child, "SpriteComponent" )
-					if exists( spritecomp_arm ) then
-						local image_file = get_internal_string( player_id, "d2d_afterlife_cached_sprite_arm" )
-						ComponentSetValue2( spritecomp_arm, "image_file", image_file )
-					end
-				end
-		
-				-- unhide the cape
-			    if EntityGetName( child ) == "cape" then
-					for i,child_vp_comp in ipairs( EntityGetComponent( child, "VerletPhysicsComponent" ) ) do
-						ComponentSetValue2( child_vp_comp, "follow_entity_transform", true )
-					end
-			    end
-			end
-		end
+		make_player_unspooky( player_id )
 
 		-- show reclaim effect
 		local had_over_1000_hp = get_internal_bool( player_id, "d2d_max_hp_was_over_1000", true )
