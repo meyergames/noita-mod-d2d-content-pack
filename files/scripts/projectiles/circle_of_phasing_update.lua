@@ -1,6 +1,5 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
-local RADIUS = 32
 local LIFETIME = 1200 -- 20 seconds
 
 local entity_id = GetUpdatedEntityID()
@@ -20,8 +19,10 @@ local spawn_frame = get_internal_int( entity_id, "d2d_circle_of_phasing_spawn_fr
 if not spawn_frame or spawn_frame > GameGetFrameNum() then
 	set_internal_int( entity_id, "d2d_circle_of_phasing_spawn_frame", GameGetFrameNum() )
 end
+local frames_since_spawn = GameGetFrameNum() - spawn_frame
+local radius = 32 + math.floor( frames_since_spawn / 150.0 ) -- increase to 40 over time, to help with un-stucking
 
-local nearby_players = EntityGetInRadiusWithTag( x, y, RADIUS, "player_unit" )
+local nearby_players = EntityGetInRadiusWithTag( x, y, radius, "player_unit" )
 if exists( nearby_players ) then
 	for i,player in ipairs( nearby_players ) do
 		local ctrlcomp = EntityGetFirstComponentIncludingDisabled( player, "ControlsComponent" )
@@ -82,7 +83,8 @@ if exists( nearby_players ) then
 				dmg_tick_speed = 60
 			end
 			if GameGetFrameNum() % dmg_tick_speed == 0 then
-				set_internal_int( player, "d2d_circle_of_phasing_damage_tick_speed", math.max( dmg_tick_speed - 2, 1 ) )
+				local curse_count = tonumber( GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" ) )
+				set_internal_int( player, "d2d_circle_of_phasing_damage_tick_speed", math.max( dmg_tick_speed - 2, curse_count ) )
 				local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
 				if exists( dmg_comp ) then
 					local p_hp = ComponentGetValue2( dmg_comp, "hp" )
@@ -91,27 +93,13 @@ if exists( nearby_players ) then
 					EntityInflictDamage( player, math.min( dps / 60.0, p_hp - 0.04 ), "DAMAGE_CURSE", "circle of spooky", "NONE", 0, 0, player )
 				end
 			end
-
-			-- local time_since_spawn = GameGetFrameNum() - spawn_frame
-			-- if time_since_spawn > 600 then
-			-- 	local damage_ratio = 0.1 + ( ( time_since_spawn - 600 ) / 600.0 )
-			-- 	if GameGetFrameNum() % math.ceil( 60 - ( 60 * damage_ratio ) ) == 0 then
-			-- 		local dmg_comp = EntityGetFirstComponentIncludingDisabled( player, "DamageModelComponent" )
-			-- 		if exists( dmg_comp ) then
-			-- 			local p_hp = ComponentGetValue2( dmg_comp, "hp" )
-			-- 			local p_max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
-			-- 			local dps = p_max_hp * 0.4
-			-- 			EntityInflictDamage( player, math.min( dps / 60.0, p_hp - 0.04 ), "DAMAGE_CURSE", "circle of spooky", "NONE", 0, 0, player )
-			-- 		end
-			-- 	end
-			-- end
 		end
 	end
 end
 
 
 
-local nearby_projs = EntityGetInRadiusWithTag( x, y, RADIUS, "projectile" )
+local nearby_projs = EntityGetInRadiusWithTag( x, y, radius, "projectile" )
 if exists( nearby_projs ) then
 	for i,proj_id in ipairs( nearby_projs ) do
 		if proj_id ~= entity_id then
