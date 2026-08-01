@@ -98,11 +98,23 @@ function try_convert_chests_into_cursed()
             local was_tried_before = get_internal_bool( chest, "d2d_cursed_chest_convert_attempted" )
 
             if is_regular_chest and not was_tried_before and distance_between( get_player(), chest ) > 300 then
-                local chance = 5
-                if #EntityGetInRadiusWithTag( px, py, 20, "d2d_staff_of_curses" ) > 0 then
-                    chance = 20
+                local convert = false
+                if has_perk( "D2D_HUNT_CURSES" ) then
+                    -- every 4th chest while carrying the staff of curses, guarantee conversion
+                    local previous_attempts = tonumber( GlobalsGetValue( "d2d_cursed_chest_convert_attempts", "0" ) )
+                    if previous_attempts % 4 == 3 then
+                        convert = true
+                        GamePrint( "The Staff of Curses pulsates violently. A cursed chest must be nearby." )
+                        GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/heartbeat/create", x, y )
+                        GamePlaySound( "data/audio/Desktop/projectiles.bank", "projectiles/orb_a/create", x, y )
+                    end
+                    GlobalsSetValue( "d2d_cursed_chest_convert_attempts", tostring( previous_attempts + 1 ) )
                 end
-                if Random( 1, 100 ) < chance then
+                if not convert then
+                    convert = Random( 1, 100 ) < 5 -- fall back to 5% chance
+                end
+
+                if convert then
                     local x, y = EntityGetTransform( chest )
                     EntityKill( chest )
                     EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/chest_random_cursed_d2d.xml", x, y )

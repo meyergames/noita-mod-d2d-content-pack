@@ -379,7 +379,13 @@ d2d_perks = {
 		usable_by_enemies = false,
 		not_in_default_perk_pool = true,
 		func = function( entity_perk_item, entity_who_picked, item_name )
-			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/effect_hunt_curses.xml" )
+			dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+			
+			local x, y = EntityGetTransform( entity_perk_item )
+   			spawn_staff_of_curses( x, y - 20 )
+   			AddFlagPersistent( "d2d_staff_of_curses_obtained" )
+
+   			EntityLoad( "mods/D2DContentPack/files/entities/misc/staff_of_curses_particle_entity.xml", x, y - 20 )
         end,
 	},
 
@@ -396,6 +402,16 @@ d2d_perks = {
 		func = function( entity_perk_item, entity_who_picked, item_name )
 			dofile_once( "data/scripts/lib/utilities.lua" )
 			lift_all_curses( entity_who_picked )
+
+			local staff = EntityGetWithTag( "d2d_staff_of_obliteration" )[1]
+			if staff then
+				EntityKill( staff )
+				
+				local particle_entity = EntityGetWithTag( "d2d_staff_of_curses_particle_entity" )[1]
+				if particle_entity then
+					EntityKill( particle_entity )
+				end
+			end
         end,
 	},
 

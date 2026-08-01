@@ -650,35 +650,109 @@ function init_staff_of_finality( x, y )
 	return wand
 end
 
-function spawn_staff_of_obliteration( x, y )
-	local staff = init_staff_of_obliteration()
-	staff:PlaceAt( x, y )
-end
+function try_transform_staff_of_curses()
+	if not GameHasFlagRun( "d2d_staff_of_curses_picked_up" ) then return end
 
-function init_staff_of_obliteration()
-    local wand = EZWand()
+	local original_id = EntityGetWithTag( "d2d_staff_of_curses" )[1]
+	if not original_id then return end
+	if not EZWand.IsWand( original_id ) then return end
+	local original = EZWand( original_id )
+
+	local wand = EZWand()
 	wand:SetName( "Staff of Obliteration", true )
 	wand.shuffle = false
 	wand.spellsPerCast = 1
-	-- wand.castDelay = 15
-	-- wand.rechargeTime = 20
-	wand.castDelay = 0
-	wand.rechargeTime = 0
-	wand.manaMax = 999
+	wand.castDelay = math.min( 0, original.castDelay )
+	wand.rechargeTime = math.min( 0, original.rechargeTime )
+	wand.manaMax = math.max( 999, original.manaMax )
 	wand.mana = wand.manaMax
-	wand.manaChargeSpeed = 512
-	wand.capacity = 25
-	wand.spread = 0
-	wand:AttachSpells( "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" )
-	wand:AddSpells( "D2D_DEATH_RAY" )
-	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed_2.png", 10, 6, 17, 0 )
+	wand.manaChargeSpeed = math.max( 512, original.manaChargeSpeed )
+	wand.capacity = math.max( 25, original.capacity + 1 )
+	wand.spread = math.min( 0, original.spread )
 
-	return wand
+	-- copy always-casts on the previous tier
+	local spells, always_casts = original:GetSpells()
+	for i,always_cast in ipairs( always_casts ) do
+		wand:AttachSpells( always_cast.action_id )
+	end
+	-- copy normal spells on the previous tier
+	wand:AddSpells( "D2D_DEATH_RAY" )
+	for i,spell in ipairs( spells ) do
+		wand:AddSpells( spell.action_id )
+	end
+	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed_2.png", 10, 6, 17, 0 )
+    EntityAddComponent2( wand.entity_id, "LuaComponent", {
+    	_enabled = true,
+    	script_item_picked_up = "mods/D2DContentPack/files/scripts/items/wands/staff_of_curses_on_pickup.lua",
+		execute_every_n_frame = -1,
+    })
+    EntityAddComponent2( wand.entity_id, "LuaComponent", {
+    	-- _enabled = true,
+    	_tags = "enabled_in_world",
+    	script_source_file = "mods/D2DContentPack/files/scripts/items/wands/staff_of_curses_update.lua",
+		execute_every_n_frame = 1,
+    })
+
+    -- place the wand
+	local x, y = EntityGetTransform( original.entity_id )
+	wand:PlaceAt( x, y - 20 )
+	EntityAddTag( wand.entity_id, "d2d_staff_of_obliteration" )
+
+	-- make it pop
+	GamePrintImportant( "Your loyalty has borne fruit" )
+	EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
+
+	-- destroy the original
+	EntityKill( original.entity_id )
+
+	-- spawn pretty particles
+	local sparticle_comp = EntityGetFirstComponentIncludingDisabled( wand.entity_id, "SpriteParticleEmitterComponent" )
+	if sparticle_comp then
+		EntityRemoveComponent( wand.entity_id, sparticle_comp )
+	end
+   	EntityLoad( "mods/D2DContentPack/files/entities/misc/staff_of_curses_particle_entity.xml", x, y - 20 )
+end
+
+function on_staff_of_curses_picked_up( entity_item, entity_pickupper, is_obliteration )	
+	if ( not GameHasFlagRun( "d2d_staff_of_curses_picked_up" ) ) 
+		or ( is_obliteration and not GameHasFlagRun( "d2d_staff_of_obliteration_picked_up" ) ) then
+		local x, y = EntityGetTransform( entity_pickupper )
+		GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/orb/create", x, y )
+		GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/angered_the_gods/create", x, y )
+		if not is_obliteration then
+			GamePrintImportant( "The staff claims you as its owner", "You are inseparable." )
+			GameAddFlagRun( "d2d_staff_of_curses_picked_up" )
+		else
+			GameAddFlagRun( "d2d_staff_of_obliteration_picked_up" )
+		end
+
+		local rnd = Random( 1000, 9999 )
+		set_internal_int( entity_item, "d2d_staff_of_curses_bind_id", rnd )
+		set_internal_int( entity_pickupper, "d2d_staff_of_curses_bind_id", rnd )
+
+		local particle_entity = EntityGetWithTag( "d2d_staff_of_curses_particle_entity" )[1]
+		if particle_entity then
+			EntityKill( particle_entity )
+		end
+
+		-- this is for destroying the Lift All Curses perk
+		local nearby_perks = EntityGetInRadiusWithTag( x, y, 100, "item_perk" )
+		if exists( nearby_perks ) then
+			for i,perk in ipairs( nearby_perks ) do
+				EntityKill( perk )
+			end
+		end
+	end
 end
 
 function spawn_staff_of_curses( x, y )
 	local staff = init_staff_of_curses()
 	staff:PlaceAt( x, y )
+
+	local sparticle_comp = EntityGetFirstComponentIncludingDisabled( staff.entity_id, "SpriteParticleEmitterComponent" )
+	if sparticle_comp then
+		EntityRemoveComponent( staff.entity_id, sparticle_comp )
+	end
 end
 
 function init_staff_of_curses()
@@ -694,28 +768,45 @@ function init_staff_of_curses()
 	wand.capacity = 5
 	wand.spread = 0
 	wand:AttachSpells( "D2D_CURSES_TO_DAMAGE", "D2D_CURSES_TO_MANA" )
-	wand:AddSpells( "D2D_BLUE_MAGIC" )
+	wand:AddSpells( "D2D_GHOST_TRIGGER", "D2D_CIRCLE_OF_PHASING" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed_1.png", 10, 6, 12, 0 )
 	EntityAddTag( wand.entity_id, "d2d_staff_of_curses" )
+
+    EntityAddComponent2( wand.entity_id, "LuaComponent", {
+    	_enabled = true,
+    	script_item_picked_up = "mods/D2DContentPack/files/scripts/items/wands/staff_of_curses_on_pickup.lua",
+		execute_every_n_frame = -1,
+    })
+    EntityAddComponent2( wand.entity_id, "LuaComponent", {
+    	-- _enabled = true,
+    	_tags = "enabled_in_world",
+    	script_source_file = "mods/D2DContentPack/files/scripts/items/wands/staff_of_curses_update.lua",
+		execute_every_n_frame = 1,
+    })
 
 	return wand
 end
 
 
 function try_upgrade_staff_of_curses()
-	local staff = EntityGetWithTag( "d2d_staff_of_curses" )[1]
-	if not staff then return end
-	-- local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+	if not GameHasFlagRun( "d2d_staff_of_curses_picked_up" ) then return end
 
-    local wand = EZWand( staff )
-    wand.manaMax = wand.manaMax + 100
-    wand.manaChargeSpeed = wand.manaChargeSpeed + 32
-    wand.capacity = wand.capacity + 2
+	local staffs = EntityGetWithTag( "d2d_staff_of_curses" )
+	if not staffs then return end
 
-	local x, y = EntityGetTransform( wand.entity_id )
-	local wand_name, show_name_in_ui = wand:GetName()
-	GamePrint( wand_name .. " was upgraded!" )
-	GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+	for i,staff in ipairs( staffs ) do
+		GamePrint( "test 2" )
+
+	    local wand = EZWand( staff )
+	    wand.manaMax = wand.manaMax + 100
+	    wand.manaChargeSpeed = wand.manaChargeSpeed + 32
+	    wand.capacity = wand.capacity + 2
+
+		local x, y = EntityGetTransform( wand.entity_id )
+		local wand_name, show_name_in_ui = wand:GetName()
+		GamePrint( "The Staff of Curses was upgraded!" )
+		GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
+	end
 end
 
 function spawn_staff_of_loyalty( x, y )

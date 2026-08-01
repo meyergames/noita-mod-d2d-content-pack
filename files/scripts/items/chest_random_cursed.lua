@@ -65,13 +65,11 @@ function random_perk_reward( x, y, cursed_chests_opened )
 
 	if cursed_chests_opened == 1 then
 		spawn_random_perk( x - 20, y )
-		spawn_random_perk( x, y )
 		spawn_random_perk( x + 20, y )
-	elseif #blurses > 0 and cursed_chests_opened % 2 == 2 then
+	elseif #blurses > 0 and cursed_chests_opened % 2 == 1 then
 		local random_blurse_id = random_from_array( blurses )
 		spawn_perk( random_blurse_id, x, y, false )
 		GlobalsSetValue( "d2d_blurses_spawned", blurses_already_spawned .. random_blurse_id .. "," )
-
 		spawn_random_perk( x - 20, y )
 		spawn_random_perk( x + 20, y )
 	else
@@ -88,20 +86,18 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 
 	if cursed_chests_opened == 1 then
 
-		-- on the first chest, spawn the Staff of Curses
-		-- spawn_perk( "D2D_HUNT_CURSES", x, y, false )
+		-- on the first chest, spawn the Curse Hunter perk (which spawns the Staff of Curses)
+		spawn_perk( "D2D_HUNT_CURSES", x, y, false )
 		random_perk_reward( x, y, cursed_chests_opened )
-   		spawn_staff_of_curses( x, y - 20 )
-   		AddFlagPersistent( "d2d_staff_of_curses_obtained" )
 
-	elseif not GameHasFlagRun( "D2D_STAFF_OF_OBLITERATION_SPAWNED" )
+	elseif not GameHasFlagRun( "d2d_staff_of_obliteration_spawned" )
 		   and ( curses_obtained == max_curse_count + 1 or cursed_chests_opened == 10 ) then
 
 		-- on the last chest, spawn the Lift Curses perk and the Staff of Obliteration
 		spawn_perk( "D2D_LIFT_CURSES", x, y, false )
-		spawn_staff_of_obliteration( x, y - 20 )
+		try_transform_staff_of_curses()
 		AddFlagPersistent( "d2d_staff_of_obliteration_obtained" )
-		GameAddFlagRun( "D2D_STAFF_OF_OBLITERATION_SPAWNED" )
+		GameAddFlagRun( "d2d_staff_of_obliteration_spawned" )
 
 	else
 
