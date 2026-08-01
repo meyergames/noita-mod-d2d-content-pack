@@ -483,7 +483,7 @@ mod_settings =
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
             },
-        },
+        }
     },
     {
         category_id = "item_settings",
@@ -556,6 +556,13 @@ mod_settings =
                 ui_description = "When enabled while Apotheosis is enabled, its red/green/blue portals\nwill last forever instead of disappearing after use. Creating a second\nportal of the same colour will delete the previous one.",
                 value_default = false,
                 scope = MOD_SETTING_SCOPE_NEW_GAME,
+            },
+            {
+                id = "enable_spooky_player_sprite",
+                ui_name = "Enable spooky player sprite",
+                ui_description = "The Circle of Phasing spell and the Afterlife perk change the player's\nsprite to spooky Minä. If you're using a player reskin mod, you may\nwant to disable this setting.",
+                value_default = true,
+                scope = MOD_SETTING_SCOPE_RUNTIME,
             },
         },
     },

@@ -72,7 +72,7 @@ if exists( nearby_players ) then
 			end
 			local reset_delay = get_internal_int( player, "d2d_circle_of_phasing_reset_delay" )
 			if not reset_delay or reset_delay == 0 then
-				make_player_spooky( player )
+				try_make_player_spooky( player )
 			end
 			set_internal_int( player, "d2d_circle_of_phasing_reset_delay", 2 )
 

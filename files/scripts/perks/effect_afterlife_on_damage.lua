@@ -63,7 +63,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 			end
 
 			GamePrintImportant( "You've entered the Afterlife", "Make it back to your grave to reclaim your life" )
-			make_player_spooky( player_id )
+			try_make_player_spooky( player_id )
 
 			-- delete this effect so it doesn't trigger again
 			EntityRemoveComponent( player_id, GetUpdatedComponentID() )

@@ -64,8 +64,8 @@ function random_perk_reward( x, y, cursed_chests_opened )
 	end
 
 	if cursed_chests_opened == 1 then
-		spawn_random_perk( x - 20, y )
-		spawn_random_perk( x + 20, y )
+		spawn_random_perk( x - 20, y - 20 )
+		spawn_random_perk( x + 20, y - 20 )
 	elseif #blurses > 0 and cursed_chests_opened % 2 == 1 then
 		local random_blurse_id = random_from_array( blurses )
 		spawn_perk( random_blurse_id, x, y, false )
@@ -87,7 +87,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	if cursed_chests_opened == 1 then
 
 		-- on the first chest, spawn the Curse Hunter perk (which spawns the Staff of Curses)
-		spawn_perk( "D2D_HUNT_CURSES", x, y, false )
+		spawn_perk( "D2D_HUNT_CURSES", x, y - 20, false )
 		random_perk_reward( x, y, cursed_chests_opened )
 
 	elseif not GameHasFlagRun( "d2d_staff_of_obliteration_spawned" )

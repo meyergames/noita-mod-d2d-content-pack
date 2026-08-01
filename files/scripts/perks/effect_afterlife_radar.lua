@@ -47,7 +47,7 @@ else
 			removed = true
 		end
 
-		make_player_unspooky( player_id )
+		try_make_player_unspooky( player_id )
 
 		-- show reclaim effect
 		local had_over_1000_hp = get_internal_bool( player_id, "d2d_max_hp_was_over_1000", true )

@@ -6,7 +6,7 @@ local delay = get_internal_int( player_id, "d2d_circle_of_phasing_reset_delay" )
 if exists( delay ) and delay > 0 then
 	set_internal_int( player_id, "d2d_circle_of_phasing_reset_delay", delay - 1 )
 	if delay == 1 then
-		make_player_unspooky( player_id )
+		try_make_player_unspooky( player_id )
 	end
 else
 	local damage_tick_speed = get_internal_int( player_id, "d2d_circle_of_phasing_damage_tick_speed" )

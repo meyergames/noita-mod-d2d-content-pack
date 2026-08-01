@@ -453,7 +453,9 @@ function try_cast_ungreeked( action_id, action_name, deck, rec )
     return true
 end
 
-function make_player_spooky( player_id )
+function try_make_player_spooky( player_id )
+    if not ModSettingGet( "D2DContentPack.enable_spooky_player_sprite" ) then return end
+
     -- make the player sprite spooky
     local spritecomp_body = EntityGetFirstComponent( player_id, "SpriteComponent" )
     if exists( spritecomp_body ) then
@@ -486,7 +488,11 @@ function make_player_spooky( player_id )
     end
 end
 
-function make_player_unspooky( player_id )
+function try_make_player_unspooky( player_id )
+    if ( not get_internal_string( player_id, "d2d_afterlife_cached_sprite_body" ) )
+    or get_internal_string( player_id, "d2d_afterlife_cached_sprite_body") == "" then
+        return end
+
     -- return the player sprite to normal
     local spritecomp_body = EntityGetFirstComponent( player_id, "SpriteComponent" )
     if exists( spritecomp_body ) then
