@@ -96,7 +96,6 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 		-- on the last chest, spawn the Lift Curses perk and the Staff of Obliteration
 		spawn_perk( "D2D_LIFT_CURSES", x, y, false )
 		try_transform_staff_of_curses()
-		AddFlagPersistent( "d2d_staff_of_obliteration_obtained" )
 		GameAddFlagRun( "d2d_staff_of_obliteration_spawned" )
 
 	else

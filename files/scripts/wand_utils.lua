@@ -657,6 +657,7 @@ function try_transform_staff_of_curses()
 	if not original_id then return end
 	if not EZWand.IsWand( original_id ) then return end
 	local original = EZWand( original_id )
+	local x, y = EntityGetTransform( original.entity_id )
 
 	local wand = EZWand()
 	wand:SetName( "Staff of Obliteration", true )
@@ -667,7 +668,7 @@ function try_transform_staff_of_curses()
 	wand.manaMax = math.max( 999, original.manaMax )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = math.max( 512, original.manaChargeSpeed )
-	wand.capacity = math.max( 25, original.capacity + 1 )
+	wand.capacity = 25
 	wand.spread = math.min( 0, original.spread )
 
 	-- copy always-casts on the previous tier
@@ -677,9 +678,19 @@ function try_transform_staff_of_curses()
 	end
 	-- copy normal spells on the previous tier
 	wand:AddSpells( "D2D_DEATH_RAY" )
+	wand:AddSpells( "D2D_HOME_TELEPORT_MID_FIRE" )
+	wand:AddSpells( "D2D_ALT_FIRE_ANYTHING" )
+    local spells_added = 0
 	for i,spell in ipairs( spells ) do
-		wand:AddSpells( spell.action_id )
+		if spells_added < ( wand.capacity - 3 ) then
+			wand:AddSpells( spell.action_id )
+	    	spells_added = spells_added + 1
+	    else
+	    	local x, y = EntityGetTransform( original.entity_id )
+	    	CreateItemActionEntity( spell.action_id, x, y - 20 )
+	    end
 	end
+	wand:RemoveSpells( "D2D_HOME_TELEPORT_MID_FIRE" )
 	wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_cursed_2.png", 10, 6, 17, 0 )
     EntityAddComponent2( wand.entity_id, "LuaComponent", {
     	_enabled = true,
@@ -694,7 +705,6 @@ function try_transform_staff_of_curses()
     })
 
     -- place the wand
-	local x, y = EntityGetTransform( original.entity_id )
 	wand:PlaceAt( x, y - 20 )
 	EntityAddTag( wand.entity_id, "d2d_staff_of_obliteration" )
 
@@ -724,6 +734,7 @@ function on_staff_of_curses_picked_up( entity_item, entity_pickupper, is_obliter
 			GameAddFlagRun( "d2d_staff_of_curses_picked_up" )
 		else
 			GameAddFlagRun( "d2d_staff_of_obliteration_picked_up" )
+			AddFlagPersistent( "d2d_staff_of_obliteration_picked_up" )
 		end
 
 		local rnd = Random( 1000, 9999 )
@@ -795,12 +806,10 @@ function try_upgrade_staff_of_curses()
 	if not staffs then return end
 
 	for i,staff in ipairs( staffs ) do
-		GamePrint( "test 2" )
-
 	    local wand = EZWand( staff )
 	    wand.manaMax = wand.manaMax + 100
 	    wand.manaChargeSpeed = wand.manaChargeSpeed + 32
-	    wand.capacity = wand.capacity + 2
+	    wand.capacity = math.min( wand.capacity + 2, 25 )
 
 		local x, y = EntityGetTransform( wand.entity_id )
 		local wand_name, show_name_in_ui = wand:GetName()
