@@ -468,24 +468,6 @@ d2d_perks = {
         end,
 	},
 
-	{
-		id = "D2D_MANA_BATTERY",
-		ui_name = "$perk_d2d_mana_battery_name",
-		ui_description = "$perk_d2d_mana_battery_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/mana_battery_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/mana_battery.png",
-		stackable = STACKABLE_NO,
-		one_off_effect = false,
-		usable_by_enemies = false,
-		not_in_default_perk_pool = true,
-		func = function( entity_perk_item, entity_who_picked, item_name, pickup_count )
-			-- do nothing
-		end,
-		func_remove = function( entity_who_picked )
-			-- do nothing
-		end,
-	},
-
 	-- {
 	-- 	id = "D2D_SHOCK_ABSORBER",
 	-- 	ui_name = "$perk_d2d_shock_absorber_name",
@@ -1191,24 +1173,24 @@ d2d_curses = {
         end,
 	},
 
-	{
-		id = "D2D_CURSE_COMBUSTION",
-		ui_name = "$perk_d2d_curse_combustion_name",
-		ui_description = "$perk_d2d_curse_combustion_desc",
-		ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/combustion_016.png",
-		perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/combustion.png",
-		stackable = STACKABLE_YES,
-		one_off_effect = false,
-		usable_by_enemies = false,
-		not_in_default_perk_pool = true,
-		func = function( entity_perk_item, entity_who_picked, item_name )
-			if reflecting then return end
-			local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
-			GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
+	-- {
+	-- 	id = "D2D_CURSE_COMBUSTION",
+	-- 	ui_name = "$perk_d2d_curse_combustion_name",
+	-- 	ui_description = "$perk_d2d_curse_combustion_desc",
+	-- 	ui_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/combustion_016.png",
+	-- 	perk_icon = "mods/D2DContentPack/files/gfx/ui_gfx/perks/curses/combustion.png",
+	-- 	stackable = STACKABLE_YES,
+	-- 	one_off_effect = false,
+	-- 	usable_by_enemies = false,
+	-- 	not_in_default_perk_pool = true,
+	-- 	func = function( entity_perk_item, entity_who_picked, item_name )
+	-- 		if reflecting then return end
+	-- 		local curse_count = GlobalsGetValue( "PLAYER_CURSE_COUNT", "0" )
+	-- 		GlobalsSetValue( "PLAYER_CURSE_COUNT", tostring( curse_count + 1 ) )
 
-			LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_combustion.xml" )
-        end,
-	},
+	-- 		LoadGameEffectEntityTo( entity_who_picked, "mods/D2DContentPack/files/entities/misc/perks/curses/effect_curse_combustion.xml" )
+    --     end,
+	-- },
 
 	{
 		id = "D2D_CURSE_LEVITATION_CRAMPS",
@@ -1397,6 +1379,7 @@ d2d_perk_reworks = {
 
 	{
 		id = "D2D_SPELL_GEMS",
+		only_if_mod_disabled = "preservation_mode",
 		id_vanilla = "UNLIMITED_SPELLS",
 		ui_name_vanilla = "Unlimited Spells",
 		ui_name = "$perk_d2d_spell_gems_name",
@@ -1679,7 +1662,9 @@ end
 -- add perks
 if ( perk_list ~= nil ) then
 	for k, v in pairs( d2d_perks )do
-		if not HasSettingFlag( v.id .. "_disabled" ) then
+		if not HasSettingFlag( v.id .. "_disabled" ) 
+		and ( not v.only_if_mod_disabled
+		or not ModIsEnabled( v.only_if_mod_disabled ) ) then
 			table.insert( perk_list, v )
 		end
 	end
