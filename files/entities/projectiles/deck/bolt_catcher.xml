@@ -81,7 +81,7 @@
 	></LuaComponent>
 
     <LifetimeComponent
-    	lifetime="6"
+    	lifetime="12"
     ></LifetimeComponent>
 
 </Entity>

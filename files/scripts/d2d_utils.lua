@@ -260,15 +260,15 @@ function find_action_entity( action )
     end
 end
 
-function debug_piles( deck, hand, discarded )
-    for i,card in ipairs( deck ) do
-        GamePrint( "DECK: " .. card.id )
+function debug_piles( discarded, hand, deck )
+    for i,card in ipairs( discarded ) do
+        GamePrint( "DISCARDED: " .. card.id )
     end
     for i,card in ipairs( hand ) do
         GamePrint( "HAND: " .. card.id )
     end
-    for i,card in ipairs( discarded ) do
-        GamePrint( "DISCARDED: " .. card.id )
+    for i,card in ipairs( deck ) do
+        GamePrint( "DECK: " .. card.id )
     end
 end
 
