@@ -1765,7 +1765,6 @@ d2d_actions = {
 								add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/spells_to_x.xml")
 								
 								local next_proj_file = deck[target_index].related_projectiles[1]
-								GamePrint( next_proj_file )
 								if next_proj_file and next_proj_file ~= "" then
 									set_internal_string( GetUpdatedEntityID(), "d2d_spells_to_x_target_spell", next_proj_file )
 
