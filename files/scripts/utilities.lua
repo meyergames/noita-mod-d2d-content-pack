@@ -715,7 +715,7 @@ function spawn_random_perk_custom( x, y, perk_ids )
 	end
 
     perk_id_to_spawn = random_from_array( perk_ids_to_consider )
-    local perk = perk_spawn( x, y, perk_id_to_spawn )
+    local perk = perk_spawn( x, y, perk_id_to_spawn, dont_remove_others )
 end
 
 

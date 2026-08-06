@@ -64,18 +64,18 @@ function random_perk_reward( x, y, cursed_chests_opened )
 	end
 
 	if cursed_chests_opened == 1 then
-		spawn_random_perk( x - 20, y - 20 )
-		spawn_random_perk( x + 20, y - 20 )
+		spawn_random_perk( x - 20, y - 20, false )
+		spawn_random_perk( x + 20, y - 20, false )
 	elseif #blurses > 0 and cursed_chests_opened % 2 == 1 then
 		local random_blurse_id = random_from_array( blurses )
 		spawn_perk( random_blurse_id, x, y, false )
 		GlobalsSetValue( "d2d_blurses_spawned", blurses_already_spawned .. random_blurse_id .. "," )
-		spawn_random_perk( x - 20, y )
-		spawn_random_perk( x + 20, y )
+		spawn_random_perk( x - 20, y, false )
+		spawn_random_perk( x + 20, y, false )
 	else
-		spawn_random_perk( x - 20, y )
-		spawn_random_perk( x, y )
-		spawn_random_perk( x + 20, y )
+		spawn_random_perk( x - 20, y, false )
+		spawn_random_perk( x, y, false )
+		spawn_random_perk( x + 20, y, false )
 	end
 end
 
