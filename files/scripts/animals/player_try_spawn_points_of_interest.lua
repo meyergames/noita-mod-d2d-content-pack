@@ -111,6 +111,7 @@ function try_convert_chests_into_cursed()
                     GlobalsSetValue( "d2d_cursed_chest_convert_attempts", tostring( previous_attempts + 1 ) )
                 end
                 if not convert then
+                    SetRandomSeed( px + GameGetFrameNum(), py + GameGetFrameNum() )
                     convert = Random( 1, 100 ) < 5 -- fall back to 5% chance
                 end
 
