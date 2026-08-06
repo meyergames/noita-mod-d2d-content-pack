@@ -1721,6 +1721,80 @@ d2d_actions = {
 							end,
 	},
 
+	{
+		id					= "D2D_SPELLS_TO_X",
+		name				= "$spell_d2d_spells_to_x_name",
+		description			= "$spell_d2d_spells_to_x_desc",
+		sprite				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/spells_to_x.png",
+		type				= ACTION_TYPE_UTILITY,
+		spawn_level         = "1,2,3,4,5,6,10",
+		spawn_probability   = "0.2,0.4,0.6,0.8,0.5,0.5,0.5",
+		spawn_requires_flag	= "d2d_moonwalk_unlocked",
+		price				= 140,
+		mana				= 110,
+		action				= function()
+								c.fire_rate_wait = c.fire_rate_wait + 40
+								current_reload_time = current_reload_time + 40
+
+								if reflecting then return end
+								dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+
+								-- find the first spell that has any 'related_projectiles' and not-0 uses
+	    						local target_index = -1
+								for i,v in ipairs( deck ) do
+									local spell_data = deck[i]
+									if exists( spell_data.related_projectiles ) then
+										if spell_data.max_uses and spell_data.max_uses > 0 then
+											local action_eid = find_action_entity_by_id( spell_data.id )
+											local icomp = EntityGetFirstComponentIncludingDisabled( action_eid, "ItemComponent" )
+											if ( icomp ~= nil ) then
+											    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+												if uses_remaining > 0 then
+													target_index = i
+													break
+												end
+											end
+										else
+											target_index = i
+											break
+										end
+									end
+								end
+                                if target_index == -1 then return end
+
+								add_projectile("mods/D2DContentPack/files/entities/projectiles/deck/spells_to_x.xml")
+								
+								local next_proj_file = deck[target_index].related_projectiles[1]
+								GamePrint( next_proj_file )
+								if next_proj_file and next_proj_file ~= "" then
+									set_internal_string( GetUpdatedEntityID(), "d2d_spells_to_x_target_spell", next_proj_file )
+
+									local action_eid = find_action_entity_by_id( deck[target_index].id )
+									local icomp = EntityGetFirstComponentIncludingDisabled( action_eid, "ItemComponent" )
+									if ( icomp ~= nil ) then
+									    uses_remaining = ComponentGetValue2( icomp, "uses_remaining" )
+										if uses_remaining > 0 then
+											ComponentSetValue2( icomp, "uses_remaining", uses_remaining - 1 )
+
+											if uses_remaining - 1 == 0 then
+												GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
+											end
+										else
+											goto continue
+										end
+									end
+
+									-- table.insert( discarded, deck[target_index] )
+									-- table.remove( deck, target_index )
+									-- next_card.uses_remaining = math.min( next_card.uses_remaining + 1, next_card_init_uses + 1 )
+								end
+
+								::continue::
+
+								-- draw_actions( 1, true )
+							end,
+	},
+
     -- {
 	--     id                  = "D2D_COOKIE",
 	--     name 		        = "Cookie",
