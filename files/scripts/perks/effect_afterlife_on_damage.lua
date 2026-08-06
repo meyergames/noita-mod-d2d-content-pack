@@ -1,6 +1,8 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 function damage_received( damage, message, entity_thats_responsible, is_fatal, projectile_thats_responsible )
+	if GameHasFlagRun( "d2d_afterlife_triggered" ) then return end
+
 	local player_id = GetUpdatedEntityID()
 
     for _,dcomp in ipairs( EntityGetComponent( player_id, "DamageModelComponent" ) or {} ) do
@@ -66,6 +68,7 @@ function damage_received( damage, message, entity_thats_responsible, is_fatal, p
 			try_make_player_spooky( player_id )
 
 			-- delete this effect so it doesn't trigger again
+			GameAddFlagRun( "d2d_afterlife_triggered" )
 			EntityRemoveComponent( player_id, GetUpdatedComponentID() )
 
 			-- replace the perk icon with its spent variant
