@@ -562,6 +562,34 @@ function init_ancient_staff()
     return wand
 end
 
+function spawn_lunar_staff( x, y )
+	local staff = init_lunar_staff()
+	staff:PlaceAt( x, y )
+end
+
+function init_lunar_staff()
+    local wand = EZWand()
+    wand:SetName( "Staff of the Moon", true )
+    wand.shuffle = false
+    wand.spellsPerCast = 1
+    wand.castDelay = 5
+    wand.rechargeTime = 117
+    wand.manaMax = 2277
+    wand.manaChargeSpeed = 702
+    wand.capacity = 25
+    wand.spread = 0
+	wand:AddSpells(
+		"D2D_MOONWALK",
+		"LIGHT_BULLET",
+		"D2D_ALT_FIRE_ANYTHING",
+		"D2D_SPELLS_TO_X",
+		"HEAL_BULLET" )
+	wand:RemoveSpells( "LIGHT_BULLET" )
+
+    wand:SetSprite( "mods/D2DContentPack/files/gfx/items_gfx/wands/wand_lunar.png", 9, 5, 17, 0 )
+    return wand
+end
+
 -- switching mods could cause stored spells to no longer 'exist' when the wand is loaded in
 function does_spell_exist( action_id )
 	if spell == "" then return false end

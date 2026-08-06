@@ -90,6 +90,15 @@ function try_spawn_staff_of_finality()
     end
 end
 
+function try_spawn_lunar_staff()
+    if GameHasFlagRun( "d2d_poi_spawned_lunar_staff" ) then return end
+    if get_distance( px, py, 250, -26130 ) > 512 then return end
+
+    spawn_lunar_staff( 250, -26130 )
+    GameAddFlagRun( "d2d_poi_spawned_lunar_staff" )
+    AddFlagPersistent( "d2d_moonwalk_unlocked" )
+end
+
 function try_convert_chests_into_cursed()
     local chests = EntityGetWithTag( "chest" )
     if exists( chests ) and #chests > 0 then
@@ -484,6 +493,7 @@ try_trigger_recent_update_message()
 try_spawn_ghost_of_memories()
 try_spawn_ancient_lurker()
 -- try_spawn_staff_of_finality()
+try_spawn_lunar_staff()
 try_convert_chests_into_cursed()
 try_show_staff_of_loyalty_hints()
 try_upgrade_staff_of_loyalty()
