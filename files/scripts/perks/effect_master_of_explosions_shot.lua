@@ -8,9 +8,15 @@ function shot( proj_id )
     local proj_comp = EntityGetFirstComponentIncludingDisabled( proj_id, "ProjectileComponent" )
     if not exists( proj_comp ) then return end
 
+    local is_teleport = false
+    local tpcomp = EntityGetFirstComponentIncludingDisabled( proj_id, "TeleportProjectileComponent" )
+    if exists( tpcomp ) then
+		is_teleport = true
+    end
+
     local proj_dmg = ComponentGetValue2( proj_comp, "damage" )
     local expl_dmg = ComponentObjectGetValue2( proj_comp, "config_explosion", "damage" )
-    if proj_dmg > 0 and expl_dmg < 0.4 then
+    if proj_dmg > 0 and expl_dmg < 0.4 and not is_teleport then
     	EntityAddComponent2( proj_id, "LuaComponent", {
     		script_source_file = "mods/D2DContentPack/files/scripts/perks/effect_master_of_explosions_create_small_explosion.lua",
     		execute_every_n_frame = -1,

@@ -1,4 +1,4 @@
-dofile_once("data/scripts/lib/utilities.lua")
+dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
 
 local proj_id = GetUpdatedEntityID()
 local proj_comp = EntityGetFirstComponent( proj_id, "ProjectileComponent" )
@@ -10,9 +10,13 @@ if proj_comp then
 	-- ^ *could* check for added damage, but wouldn't that cause lag on a rapidfire wand?
 
 	if dmg_proj > 0 or dmg_expl > 0 then
-		local lightning_count = ComponentObjectGetValue2( proj_comp, "config", "lightning_count" ) or -1
-		local electricity_count = ComponentObjectGetValue2( proj_comp, "config_explosion", "electricity_count" ) or -1
-		ComponentObjectSetValue2( proj_comp, "config", "lightning_count", lightning_count + 1 )
-		ComponentObjectSetValue2( proj_comp, "config_explosion", "electricity_count", electricity_count + 1 )
+	    local is_teleport = false
+	    local tpcomp = EntityGetFirstComponentIncludingDisabled( proj_id, "TeleportProjectileComponent" )
+	    if not exists( tpcomp ) then
+			local lightning_count = ComponentObjectGetValue2( proj_comp, "config", "lightning_count" ) or -1
+			local electricity_count = ComponentObjectGetValue2( proj_comp, "config_explosion", "electricity_count" ) or -1
+			ComponentObjectSetValue2( proj_comp, "config", "lightning_count", lightning_count + 1 )
+			ComponentObjectSetValue2( proj_comp, "config_explosion", "electricity_count", electricity_count + 1 )
+		end
 	end
 end
