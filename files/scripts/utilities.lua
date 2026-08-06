@@ -453,6 +453,10 @@ end
 
 
 function multiply_move_speed( entity_id, effect_name, mtp_x, mtp_y )
+	-- don't execute this function if the same effect already exists
+	local var_store = get_variable_storage_component( entity_id, effect_name .. "_move_speed_mtp" )
+    if var_store then return end
+
     local character_platforming_component = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
 
     if not mtp_y then mtp_y = mtp_x end
@@ -523,6 +527,41 @@ function reset_move_speed( entity_id, effect_name )
 		    end
 		    ComponentSetValue2( character_platforming_component, k, value * v )
 	    end
+
+        --remove the variable storage component
+        EntityRemoveComponent( entity_id, var_store )
+    end
+end
+
+function multiply_gravity( entity_id, effect_name, mtp )
+	-- don't execute this function if the same effect already exists
+	local var_store = get_variable_storage_component( entity_id, effect_name .. "_grav_mtp" )
+    if var_store then return end
+
+	if mtp == 0 then mtp = 0.01 end
+
+    local platcomp = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
+    if platcomp then
+    	local pixel_gravity = ComponentGetValue2( platcomp, "pixel_gravity" )
+    	ComponentSetValue2( platcomp, "pixel_gravity", pixel_gravity * mtp )
+    	
+	    EntityAddComponent2( entity_id, "VariableStorageComponent", {
+		    name = effect_name .. "_grav_mtp",
+		    value_float = mtp,
+	    })
+    end
+end
+
+function reset_gravity( entity_id, effect_name )
+	-- don't execute this function if the effect does NOT exists
+	local var_store = get_variable_storage_component( entity_id, effect_name .. "_grav_mtp" )
+    if not var_store then return end
+
+    local platcomp = EntityGetFirstComponentIncludingDisabled( entity_id, "CharacterPlatformingComponent" )
+    if platcomp then
+	    local mtp = ComponentGetValue2( var_store, "value_float" )
+    	local pixel_gravity = ComponentGetValue2( platcomp, "pixel_gravity" )
+    	ComponentSetValue2( platcomp, "pixel_gravity", pixel_gravity / mtp )
 
         --remove the variable storage component
         EntityRemoveComponent( entity_id, var_store )
@@ -694,7 +733,7 @@ function spawn_random_perk( x, y, dont_remove_others )
 	end
 
     perk_id_to_spawn = random_from_array( perk_ids_to_consider )
-    local perk = perk_spawn( x, y, perk_id_to_spawn )
+    local perk = perk_spawn( x, y, perk_id_to_spawn, dont_remove_others )
 end
 
 
@@ -715,7 +754,7 @@ function spawn_random_perk_custom( x, y, perk_ids )
 	end
 
     perk_id_to_spawn = random_from_array( perk_ids_to_consider )
-    local perk = perk_spawn( x, y, perk_id_to_spawn, dont_remove_others )
+    local perk = perk_spawn( x, y, perk_id_to_spawn )
 end
 
 

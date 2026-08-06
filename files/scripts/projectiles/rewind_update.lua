@@ -49,9 +49,10 @@ local marker_id = get_internal_int( owner, "rewind_marker_id" )
 if frames_in_air == 0 then
     if marker_id ~= nil and marker_id ~= -1 then
         EntityKill( marker_id )
-        set_internal_int( get_player(), "rewind_marker_id", -1 )
+        set_internal_int( owner, "rewind_marker_id", -1 )
     end
 elseif is_fly_pressed and frames_in_air == 1 and is_slotted_in_wand() then
+    -- player jumped
     GamePlaySound( "data/audio/Desktop/projectiles.bank", "player_projectiles/teleport/create", x, y )
 
     if marker_id ~= nil and marker_id ~= -1 then

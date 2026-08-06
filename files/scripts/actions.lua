@@ -1839,6 +1839,23 @@ d2d_actions = {
 	},
 
 	{
+		id					= "D2D_MOONWALK",
+		name				= "$spell_d2d_moonwalk_name",
+		description			= "$spell_d2d_moonwalk_desc",
+		sprite				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/moonwalk.png",
+		type				= ACTION_TYPE_PASSIVE,
+		spawn_level         = "1,2,3,4,5,6,10",
+		spawn_probability   = "0.1,0.2,0.3,0.4,0.5,0.5,0.5",
+		spawn_requires_flag	= "d2d_moonwalk_unlocked",
+		price				= 240,
+		mana				= 20,
+		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_moonwalk.xml",
+		action				= function()
+								if reflecting then return end
+							end,
+	},
+
+	{
 		id                  = "D2D_RELOAD_SHIELD",
 		name 		        = "$spell_d2d_reload_shield_name",
 		description         = "$spell_d2d_reload_shield_desc",
