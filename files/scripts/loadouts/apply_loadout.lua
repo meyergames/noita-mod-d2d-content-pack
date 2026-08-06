@@ -63,6 +63,7 @@ function spawn_loadout_sniper( player )
 	wand.manaChargeSpeed = Random( 12, 15 )
 	wand.capacity = 5
 	wand.spread = -5
+	wand:AttachSpells( "D2D_BIG_SHOT" )
 	wand:AddSpells(
 		"D2D_RELOAD_SHIELD",
 		"D2D_DAMAGE_DOUBLE",

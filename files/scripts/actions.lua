@@ -373,30 +373,6 @@ d2d_actions = {
 	},
 
 	{
-		id                  = "D2D_DAMAGE_MULT",
-		name 		        = "$spell_d2d_damage_mult_name",
-		description         = "$spell_d2d_damage_mult_desc",
-		sprite              = "mods/D2DContentPack/files/gfx/ui_gfx/spells/damage_mult.png",
-		type 		        = ACTION_TYPE_MODIFIER,
-		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
-		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
-		spawn_requires_flag	= "d2d_impossible_spawn",
-		price               = 200,
-		mana                = 50,
-		action 		        = function()
-			                    current_reload_time = current_reload_time + 24
-								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
-
-								if reflecting then return end
-
-								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/damage_mult.xml,"
-								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
-
-			                    draw_actions( 1, true )
-		                    end,
-	},
-
-	{
 		id                  = "D2D_COMBO_DAMAGE",
 		name 		        = "$spell_d2d_combo_damage_name",
 		description         = "$spell_d2d_combo_damage_desc",
@@ -407,12 +383,10 @@ d2d_actions = {
 		price               = 200,
 		mana                = 20,
 		action 		        = function()
-			                    c.fire_rate_wait = c.fire_rate_wait + 5
 			                    current_reload_time = current_reload_time + 5
 								c.damage_projectile_add = c.damage_projectile_add + 0.32
 								c.damage_critical_chance = c.damage_critical_chance + 8
 								if reflecting then return end
-			                    c.fire_rate_wait = c.fire_rate_wait - 5
 			                    current_reload_time = current_reload_time - 5
 								c.damage_projectile_add = c.damage_projectile_add - 0.32
 								c.damage_critical_chance = c.damage_critical_chance - 8
@@ -549,6 +523,74 @@ d2d_actions = {
 								
 			                    draw_actions( 1, true )
 		                    end,
+	},
+
+	{
+		id					= "D2D_BIG_SHOT",
+		name				= "$spell_d2d_big_shot_name",
+		description			= "$spell_d2d_big_shot_desc",
+		sprite				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/big_shot.png",
+		type				= ACTION_TYPE_MODIFIER,
+		spawn_level         = "1,2,3,4,5,6,10", -- 2/3 of DAMAGE
+		spawn_probability   = "0.4,0.4,0.6,0.4,0.4,0.6,0.6", -- 2/3 of DAMAGE
+		price				= 200,
+		mana				= 50,
+		custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_big_shot.xml",
+		action				= function()
+			                    current_reload_time = current_reload_time + 25
+								shot_effects.recoil_knockback = shot_effects.recoil_knockback + 200.0
+
+								if reflecting then return end
+
+								c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/big_shot.xml,"
+								c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+
+			                    draw_actions( 1, true )
+
+
+								-- current_reload_time = current_reload_time + 25
+								-- if reflecting then return end
+								-- shot_effects.recoil_knockback = shot_effects.recoil_knockback + 100.0
+
+								-- local proj_spell_count = 0
+								-- for i,card in ipairs( discarded ) do
+								-- 	local data = get_actions_lua_data( card.id )
+								-- 	if data.type == 0 then
+								-- 		proj_spell_count = proj_spell_count + 1
+								-- 	end
+								-- end
+								-- for i,card in ipairs( hand ) do
+								-- 	local data = get_actions_lua_data( card.id )
+								-- 	if data.type == 0 then
+								-- 		proj_spell_count = proj_spell_count + 1
+								-- 	end
+								-- end
+								-- for i,card in ipairs( deck ) do
+								-- 	local data = get_actions_lua_data( card.id )
+								-- 	if data.type == 0 then
+								-- 		proj_spell_count = proj_spell_count + 1
+								-- 	end
+								-- end
+
+								-- draw_actions( 1, true )
+								-- GamePrint( proj_spell_count )
+								-- if proj_spell_count == 1 then
+								-- -- if ( proj_spell_count == 1 ) then
+								-- 	-- c.damage_projectile_add = c.damage_projectile_add + 0.72
+							    --     c.extra_entities = c.extra_entities .. "mods/D2DContentPack/files/entities/projectiles/deck/big_shot.xml,"
+								-- 	c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
+
+								-- 	-- play a sound
+								-- 	local x, y = EntityGetTransform( GetUpdatedEntityID() )
+								-- 	GamePlaySound( "data/audio/Desktop/projectiles.bank", "projectiles/laser_wraith/create", x, y )
+
+								-- 	-- show vfx at wand tip
+								-- 	-- dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+								-- 	-- GameCreateSpriteForXFrames( "data/particles/explosion_008.png", x, y, true, 0, 0, 9 )
+								-- 	-- EntityLoadAtWandTip( GetUpdatedEntityID(), "data/particles/explosion_008.xml" )
+								-- 	-- EntityLoadAtWandTip( GetUpdatedEntityID(), "mods/D2DContentPack/files/particles/muzzle_flashes/muzzle_flash_laser_death_ray.xml" )
+								-- end
+							end,
 	},
 
 	{
