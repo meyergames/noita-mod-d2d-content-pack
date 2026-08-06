@@ -29,6 +29,11 @@
   
   </Base>
 
+  <VariableStorageComponent
+      name="projectile_file"
+      value_string="mods/D2DContentPack/files/entities/projectiles/banana_bomb_super.xml"
+  ></VariableStorageComponent>
+
   <!-- fx -->
 
   <!--<ParticleEmitterComponent 
