@@ -7,6 +7,63 @@ IDEAS
 
 WE POST NEW IDEAS AT THE TOP NOW
 
+[ ] Projectile Morph QoL: disable that one component so that the camera has the projectile 100% in the center of the screen?
+
+[ ] Curse: max levitation power is halved
+
+[ ] when a class loadout is chosen, offer 2 class-specific reward options in HMs:
+	sniper:
+	- "Noscope" wand: +30 spread, 2 capacity, AC Overkill + the modifier for double gold on kill
+	- Spell Gems perk
+	- Focus Fire perk (100% crit chance after 4s)
+	- Repelling Cape perk
+	- Damage spell pack: Alt Mana To Dmg + Goliath + a few Damage Pluses
+	- 
+
+[ ] Projectile spell that causes all projectiles shot to be absorbed into something that charges at the tip of the player's wand. When the fire button is released, this something is shot as one big projectile that dishes out the accumulated damage all at once.
+
+[x] Big Shot: replace current functionality with "Deals +10% damage for every second since this spell's last use (max. +300%)".
+
+[ ] Velkoz Q: spell that splits in two when the fire button is released (or make this a modifier so it works for any spell)
+
+[ ] exclude brickwork from The Floor Is Lava (also outside of HMs)
+
+[ ] some extra reason to bring the broken wand to the anvil?
+
+[ ] aura spell that increases all healing AND damage on the player by x5.
+
+[ ] Spells To X: Utility-type spell that converts all live projectiles into the next spell
+
+[ ] limited-use projectile spell intended for use as a main damage dealer. if it kills an enemy, regain 1 charge and permanently increase the spell card's damage by +1.
+
+[ ] Righteous Force, a modifier spell that increases a projectile's damage by up to +30 based on how few innocent creatures 
+	the player has killed. can be found on the island of the moose boss.
+
+[ ] Curse: Gold Mimics
+	"Enemies may drop dangerous gold nuggets"
+	(they'd look slightly off (maybe toxic?) and explode (in a cloud of poison gas?) on pickup)
+	(has anti-synergy with the Attract Gold perk, perfect)
+	(but also with Repel Gold, which tbh is fine)
+
+[ ] if Controlled Reach considered the position from which the projectile was cast instead of the player's actual position, Projectile Morph'd Minä would stop at the initial target point
+
+[x] Make the Bolt Catcher window a *bit* bigger (and give it a better icon)
+
+[ ] Simple perk/spell that gives a short speed boost whenever you jump (for hopping)
+    - pogo stick??
+
+[ ] Spell that significantly reduces reload speed if the wand has only one shot (i.e. Double Shot + Spark Bolt + Spark Bolt, instead of Spark Bolt + Spark Bolt + Double Shot) (i.e. discard and deck are empty upon firing)
+
+[ ] Other-type spell that casts the next limited spell for free, but reduces the wand's max mana based on the spell's max uses (and whether it is "never unlimited")
+
+[ ] loadouts seem to apply perks to the wrong person in iota multiplayer
+
+[ ] Concrete: make it a material spell that summons a blob of concrete at the tip of your wand
+
+[ ] Stepping Stone: like summon concrete wall, but it spawns a small blob of concrete beneath your feet
+
+[ ] make loadout icons non-emissive when the game is paused
+
 [ ] Release "Lodestone + Portal" as a standalone mod
 
 [ ] "Dissolve Liquids" blurse: Converts all liquids around you into air, but you take 4x as much damage from projectiles.
@@ -45,12 +102,6 @@ WE POST NEW IDEAS AT THE TOP NOW
 	"On death, enemies may spawn a big aura for 2-3 seconds that applies ambrosia to all enemies within."
 	(so you have to prioritize who to kill first / work more with AoE knockback / maybe even use homeswapper bolt)
 	(maybe limit to only *some* enemies? i.e. a horde of blobs should not spawn 20 of these auras)
-
-[ ] Curse: Gold Mimics
-	"Enemies may drop dangerous gold nuggets"
-	(they'd look slightly off (maybe toxic?) and explode (in a cloud of poison gas?) on pickup)
-	(has anti-synergy with the Attract Gold perk, perfect)
-	(but also with Repel Gold, which tbh is fine)
 
 [x] Multiplayer perk (we can (already) do this): a relatively big aura that scans how many other player_units there are within 
 	it. for each player unit beyond yourself, gain +50% mana regen and activate a shield (req. 1+ ally) that regenerates faster the more players there are.
@@ -153,7 +204,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 			[ ] maybe copy the Apoth Magical Temple creepy spider's attack?
 
 [ ] consider making "Blink" limited-use, instead of dealing damage?
-	^ spell-unlimiting shenanigans like Greek letters ruin all the fun
+	^ spell-unlimiting shenanigans like Greek letters ruin all the fun, smh
 	[ ] maybe Blink can instead create a medium-sized aura around its destination, disabling further Blink casts while the 
 		player is in that aura. comes at the risk of soft-locking the player, though. maybe after ~3 seconds, the aura collapses and deals damage to the player and/or teleports them back to where they came from?
 
@@ -320,7 +371,7 @@ WE POST NEW IDEAS AT THE TOP NOW
 		( things like Chaotic Path, Giant Explosion on Slimy Enemies, Reduce Lifetime, Nolla, Heavy Spread, Anti Homing, 
 		  Recoil, Decelerating Shot, Avoiding Arc, Oil Trail, Blood To Acid, ... )
 
-[ ] some reason to bring the broken wand to the anvil?
+[ ] some extra reason to bring the broken wand to the anvil?
 
 [ ] exclude brickwork from The Floor Is Lava (also outside of HMs)
 
