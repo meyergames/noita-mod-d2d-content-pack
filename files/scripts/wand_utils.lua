@@ -1,5 +1,6 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
+local indexed_gun_actions = dofile_once("mods/D2DContentPack/files/scripts/gun_actions_indexed.lua")
 
 function add_random_cards_to_wand( entity_id, level, deck_capacity )
 
@@ -322,81 +323,73 @@ function wand_remove_random_always_cast( wand )
 	return false
 end
 
-local function get_all_spell_entities_in_inventory()
+local function inventory_get_unique_spells()
 	local spells = {}
+	local logged_spells = {}
 	local children = EntityGetAllChildren( get_player() )
-	for k=1,#children do
-		child = children[k]
-	    if EntityGetName( child ) == "inventory_full" then
-	        local inventory_items = EntityGetAllChildren(child)
-	        if( inventory_items ~= nil ) then
-            	local item = inventory_items[#inventory_items]
-
-            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
-            	if ia_comp then
-            		local do_add = false
-            		if #spells == 0 then
-            			do_add = true
-            		else
-	            		for i,spell in spells do
-
-	            			-- add each unique spell only once
-	            			local other_spell_ia_comp = EntityGetFirstComponentIncludingDisabled( spell, "ItemActionComponent" )
-	            			if exists( other_spell_ia_comp ) then
-	            				local action_id = ComponentGetValue2( ia_comp, "action_id" )
-	            				local other_action_id = ComponentGetValue2( other_spell_ia_comp, "action_id" )
-	            				if action_id ~= other_action_id then
-	            					do_add = true
-	            				end
-	            			end
-		            	end
-		            end
-		            
-	            	if do_add then table.insert( spells, item ) end
-            	end
-            end
+	for _,child in ipairs(children or {}) do
+		if EntityGetName( child ) == "inventory_full" then
+			for _,item in ipairs(EntityGetAllChildren(child) or {}) do
+				local ia_component = EntityGetFirstComponentIncludingDisabled(item, "ItemActionComponent")
+				if ia_component then
+					local spell_id = ComponentGetValue2(ia_component, "action_id")
+					if not logged_spells[spell_id] then
+						logged_spells[spell_id] = true
+						spells[#spells+1] = item
+					end
+				end
+			end
         end
     end
 
     return spells
 end
 
-function try_promote_random_inv_spell( wand )		
+function try_promote_random_inv_spell(wand)
+	local chance_to_promote = .25
+	local max_promotions = 1 --i thought it was 4, so i put a max value :(
+
 	local _,always_casts = wand:GetSpells()
-	local inv_spells = get_all_spell_entities_in_inventory()
-	if #inv_spells == 0 then
-		GamePrintImportant( "The gods are confused", "You have no spells in your inventory!" )
+	local inv_spell_items = inventory_get_unique_spells()
+
+	local spells = {}
+	for _,item in ipairs(inv_spell_items) do
+		local ia_comp = EntityGetFirstComponentIncludingDisabled(item, "ItemActionComponent")
+		if ia_comp then
+			spells[#spells+1] = {
+				eid = item, --Entity ID
+				sid = ComponentGetValue2(ia_comp, "action_id") --Spell ID
+			}
+		end
+	end
+
+	if #spells == 0 then
+		GamePrintImportant( "$log_d2d_promote_ac_fail_empty", "$logdesc_d2d_promote_ac_fail_empty" )
 		return false
 	end
 	if #always_casts >= 4 then
-		GamePrintImportant( "Spell promotion failed", "Your wand already has 4 always-cast spells!" )
+		GamePrintImportant( "$log_d2d_promote_ac_fail", "$logdesc_d2d_promote_ac_fail_capped" )
 		return false
 	end
 
-	local chance_to_promote = 25 * #inv_spells
-	SetRandomSeed( GameGetFrameNum(), GameGetFrameNum() )
-	local rnd = Random( 1, 100 )
-	if rnd <= chance_to_promote then
-		local spell_to_promote = random_from_array( inv_spells )
-        local ia_comp = EntityGetFirstComponentIncludingDisabled( spell_to_promote, "ItemActionComponent" )
-        if ia_comp then
-        	local action_id = ComponentGetValue2( ia_comp, "action_id" )
-        	local spell_name = GameTextGetTranslatedOrNot( get_actions_lua_data( action_id ).name )
-
-			local inventory2 = EntityGetFirstComponent( get_player(), "Inventory2Component" )
-			if inventory2 ~= nil then
-				if inventory2 then
-					-- This will only skip 1 equip message, but it's better than nothing
-					ComponentSetValue2( inventory2, "mDontLogNextItemEquip", true )
-				end
-			end
-
-			GamePrint( "'" .. spell_name .. "' was promoted to an always-cast!" )
-			wand:AttachSpells( action_id )
-			EntityKill( spell_to_promote )
+	local starting_num_spells = #spells
+	max_promotions = 4 - #always_casts --lower the amount of allowed promotions if cap is already taken up
+	local promotions = 0
+	for i = 1, starting_num_spells do
+		local rnd = Random(1,#spells)
+		local target_spell = spells[rnd]
+		table.remove(spells, rnd)
+		if Random() <= chance_to_promote then
+			promotions = promotions + 1
+        	GamePrint(GameTextGet("$log_d2d_promote_ac_success", GameTextGetTranslatedOrNot(indexed_gun_actions[target_spell.sid].name)))
+			wand:AttachSpells(target_spell.sid)
+			EntityKill(target_spell.eid)
+			if promotions >= max_promotions then break end
 		end
-	else
-		GamePrintImportant( "Spell promotion failed", "You had too few spells in your inventory (chance was " .. chance_to_promote .. "%)" )
+	end
+	if promotions == 0 then
+		local absolute_fail_chance = string.format("%.3f%%", ((1-chance_to_promote)^starting_num_spells)*100)
+		GamePrintImportant("$log_d2d_promote_ac_fail", GameTextGet("$logdesc_d2d_promote_ac_fail_unlucky", absolute_fail_chance))
 		return false
 	end
 
@@ -590,19 +583,6 @@ function init_lunar_staff()
     return wand
 end
 
--- switching mods could cause stored spells to no longer 'exist' when the wand is loaded in
-function does_spell_exist( action_id )
-	if spell == "" then return false end
-    dofile_once( "data/scripts/gun/gun_actions.lua" )
-
-    for i,action in ipairs( actions ) do
-    	if action.id == action_id then
-    		return true
-    	end
-    end
-    return false
-end
-
 function init_staff_of_remembrance()
     local wand = EZWand()
     wand:SetName( "Staff of Remembrance", true )
@@ -621,7 +601,7 @@ function init_staff_of_remembrance()
 
         local spells_added = 0
         for i,spell in ipairs( spells ) do
-            if does_spell_exist( spell ) and spells_added < 5 then
+            if indexed_gun_actions[spell] and spells_added < 5 then
                 wand:AddSpells( spell )
                 spells_added = spells_added + 1
             end
