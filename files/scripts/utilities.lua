@@ -816,17 +816,6 @@ function to_roman_numerals( s )
     return ret
 end
 
-function fetch_spell_data( action_id )
-	dofile_once( "data/scripts/gun/gun_actions.lua" )
-	for k,v in pairs( actions ) do
-		if ( v.id == action_id ) then
-			return v
-		end
-	end
-
-	return nil
-end
-
 function spawn_random_cat( x, y )
 	local cats = { "cat_mocreeps", "cat_mocreeps_black", "cat_mocreeps", "cat_mocreeps_black", "cat_mocreeps_white", "cat_mocreeps_spoopy", "cat_mocreeps_spoopy_skittle", "cat_mocreeps_spoopy_frisky", "cat_mocreeps_spoopy_tiger" }
 	cat_to_spawn = random_from_array( cats )
@@ -921,6 +910,7 @@ function lift_all_curses( entity_id )
 
 	-- crude fix to Heal Block not being removed
     remove_lua( entity_id, "d2d_curse_heal_block" )
+    remove_lua( entity_id, "d2d_curse_volatile_props" )
     
     GlobalsSetValue( "PLAYER_CURSE_COUNT", "0" )
 end
