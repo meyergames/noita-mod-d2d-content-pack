@@ -142,31 +142,31 @@ function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
 		if rnd <= 10 and wand.shuffle == true then -- 5% chance to make non-shuffle
 			wand.shuffle = false
 
-			GamePrint("Your " .. wand_name .. " became non-shuffle!")
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_no_shuffle", wand_name))
 
 		elseif rnd <= 20 and wand.capacity < 25 then
 			local old_capacity = wand.capacity
 			wand.capacity = old_capacity + 1
 
-			GamePrint( "Your " .. wand_name .. "'s capacity was increased! (" .. old_capacity .. " > " .. wand.capacity .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_capacity", wand_name, tostring(old_capacity), tostring(wand.capacity)))
 
 		elseif rnd <= 40 and wand.spread > -30.0 then
 			local old_spread = wand.spread
 			wand.spread = math.max( wand.spread - math.max( wand.spread * 0.5, 3.0 ), -30.0 )
 
-			GamePrint("Your " .. wand_name .. "'s accuracy was increased. (" .. old_spread .. " > " .. wand.spread .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_spread", wand_name, tostring(old_spread), tostring(wand.spread)))
 
 		elseif rnd <= 60 and wand.manaMax < 20000 then
 			local old_mana_max = wand.manaMax
 			wand.manaMax = math.min( old_mana_max + math.max( old_mana_max * 0.1, 30 ), 5000 )
 
-			GamePrint("Your " .. wand_name .. "'s max mana was increased. (" .. string.format( "%.0f", old_mana_max ) .. " > " .. string.format( "%.0f", wand.manaMax ) .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_max_mana", wand_name, string.format("%.0f", old_mana_max), string.format("%.0f", wand.manaMax)))
 
 		elseif rnd <= 80 and wand.manaChargeSpeed < 20000 then
 			local old_mana_charge_speed = wand.manaChargeSpeed
 			wand.manaChargeSpeed = math.min( old_mana_charge_speed + math.max( old_mana_charge_speed * 0.1, 30 ), 5000 )
 
-			GamePrint("Your " .. wand_name .. "'s mana charge speed was increased. (" .. string.format("%.0f",old_mana_charge_speed) .. " > " .. string.format("%.0f",wand.manaChargeSpeed) .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_mana_charge", wand_name, string.format("%.0f",old_mana_charge_speed), string.format("%.0f",wand.manaChargeSpeed)))
 
 		elseif rnd <= 100 then
 			local old_cast_delay = wand.castDelay
@@ -179,25 +179,27 @@ function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
 				wand.rechargeTime = math.max( old_recharge_time - math.max( old_recharge_time * 0.1, 3 ), -21 ) -- at least 0.05s reduction
 			end
 
-			GamePrint("Your " .. wand_name .. "'s fire rate was increased! (" .. string.format( "%.2f", old_cast_delay / 60 ) .. "/" .. string.format( "%.2f", old_recharge_time / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. "/" .. string.format( "%.2f", wand.rechargeTime / 60 ) .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_fire_rate", wand_name,
+				string.format("%.2f", old_cast_delay / 60) .. "/" .. string.format( "%.2f", old_recharge_time / 60 ),
+				string.format( "%.2f", wand.castDelay / 60 ) .. "/" .. string.format( "%.2f", wand.rechargeTime / 60 )
+			))
 		end
 	end
 
 	-- change the wand's name and play sfx
-	wand:SetName( base_wand_name .. " Mk." .. ( wand_version + upgrade_amt ), true )
+	wand:SetName(GameTextGet("$log_d2d_wand_upgrade_name", base_wand_name, tostring(wand_version + upgrade_amt)), true )
 	-- GamePlaySound( "mods/D2DContentPack/lib/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit", x, y )
 end
 
 function wand_upgrade_shuffle( wand )
-	local old_value = wand.capacity
 
 	if wand.shuffle then
 		wand.shuffle = false
-		GamePrint( "Your wand became non-shuffle!" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_no_shuffle", wand:GetName()))
 		return true
 	end
 
-	GamePrint( "Your wand is already non-shuffle!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_no_shuffle_fail", wand:GetName()))
 	return false
 end
 
@@ -206,11 +208,11 @@ function wand_upgrade_capacity( wand, increase, limit )
 
 	if wand.capacity < limit then
 		wand.capacity = math.min( old_value + increase, limit )
-		GamePrint( "Your wand's capacity was increased! (" .. old_value .. " > " .. wand.capacity .. ")" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_capacity", wand:GetName(), tostring(old_value), tostring(wand.capacity)))
 		return true
 	end
 
-	GamePrint( "Your wand cannot hold another spell slot!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_capacity_fail", wand:GetName()))
 	return false
 end
 
@@ -219,11 +221,11 @@ function wand_upgrade_cast_delay( wand, percent, min_increase, limit )
 
 	if wand.castDelay > limit then
 		wand.castDelay = math.max( old_value - math.max( old_value * percent, min_increase ), limit )
-		GamePrint( "Your wand's cast delay was reduced! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. ")" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_cast_delay", wand:GetName(), tostring(old_value/60), tostring(wand.castDelay/60)))
 		return true
 	end
 
-	GamePrint( "Your wand's cast delay cannot be reduced further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_cast_delay", wand:GetName()))
 	return false
 end
 
@@ -236,7 +238,7 @@ function wand_upgrade_recharge_time( wand, percent, min_increase, limit )
 		return true
 	end
 
-	GamePrint( "Your wand's recharge time cannot be reduced further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_recharge_time", wand:GetName()))
 	return false
 end
 
@@ -249,7 +251,7 @@ function wand_upgrade_max_mana( wand, percent, min_increase, limit )
 		return true
 	end
 
-	GamePrint( "Your wand's max mana cannot be increased further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_max_mana", wand:GetName()))
 	return false
 end
 
@@ -258,7 +260,7 @@ function wand_upgrade_mana_battery( wand )
 	local old_mana_charge_speed = wand.manaChargeSpeed
 
 	if wand.manaMax >= 50000 then
-		GamePrint( "Your wand's max mana cannot be increased further!" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_max_mana", wand:GetName()))
 		return false
 	end
 	
@@ -283,7 +285,7 @@ function wand_upgrade_mana_charge_speed( wand, percent, min_increase, limit )
 		return true
 	end
 
-	GamePrint( "Your wand's mana charge speed cannot be increased further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_mana_charge", wand:GetName()))
 	return false
 end
 
