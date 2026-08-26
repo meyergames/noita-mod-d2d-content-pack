@@ -348,7 +348,8 @@ local function inventory_get_unique_spells()
 end
 
 function try_promote_random_inv_spell(wand)
-	local chance_to_promote = .25
+	local max_allowed_always_casts = 4 --in case you want to change this
+	local chance_to_promote = .25 --some luck-based perk could increase the odds
 	local max_promotions = 1 --i thought it was 4, so i put a max value :(
 
 	local _,always_casts = wand:GetSpells()
@@ -369,7 +370,7 @@ function try_promote_random_inv_spell(wand)
 		GamePrintImportant( "$log_d2d_promote_ac_fail_empty", "$logdesc_d2d_promote_ac_fail_empty" )
 		return false
 	end
-	if #always_casts >= 4 then
+	if #always_casts >= max_allowed_always_casts then
 		GamePrintImportant( "$log_d2d_promote_ac_fail", "$logdesc_d2d_promote_ac_fail_capped" )
 		return false
 	end
@@ -778,7 +779,7 @@ end
 
 function init_staff_of_curses()
     local wand = EZWand()
-	wand:SetName( "Staff of Curses", true )
+	wand:SetName("$item_d2d_staff_curses", true)
 	wand.shuffle = false
 	wand.spellsPerCast = 1
 	wand.castDelay = Random( 3, 5 )
@@ -819,11 +820,11 @@ function try_upgrade_staff_of_curses()
 	    local wand = EZWand( staff )
 	    wand.manaMax = wand.manaMax + 100
 	    wand.manaChargeSpeed = wand.manaChargeSpeed + 32
-	    wand.capacity = math.min( wand.capacity + 2, 25 )
+	    wand.capacity = math.min(wand.capacity + 2, math.max(wand.capacity, 25))
 
 		local x, y = EntityGetTransform( wand.entity_id )
 		local wand_name, show_name_in_ui = wand:GetName()
-		GamePrint( "The Staff of Curses was upgraded!" )
+		GamePrint("$lod_d2d_curse_staff_upgraded")
 		GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 	end
 end

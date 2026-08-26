@@ -113,7 +113,7 @@ function try_convert_chests_into_cursed()
                     local previous_attempts = tonumber( GlobalsGetValue( "d2d_cursed_chest_convert_attempts", "0" ) )
                     if previous_attempts % 4 == 3 then
                         convert = true
-                        GamePrint( "The Staff of Curses pulsates violently. A cursed chest must be nearby." )
+                        GamePrint("$log_d2d_staff_curses_found_chest")
                         GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/heartbeat/create", x, y )
                         GamePlaySound( "data/audio/Desktop/projectiles.bank", "projectiles/orb_a/create", x, y )
                     end
