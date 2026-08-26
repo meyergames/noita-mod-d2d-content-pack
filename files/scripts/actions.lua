@@ -2157,18 +2157,13 @@ d2d_actions = {
 		spawn_probability   = "0.7,0.9,1,1,1,1", -- MANA_REDUCE
 		price               = 250,
 		mana                = 0,
-		action 		        = function()
-								c.fire_rate_wait = c.fire_rate_wait + 10
-								draw_actions( 1, true )
-
-								if #hand >= 2 and hand[2] then
-									local refund = hand[2].mana * 0.5
-									if refund > 0 then
-										mana = mana + refund
-									end
-								end
-		                    end,
-	},
+		action = function()
+			c.fire_rate_wait = c.fire_rate_wait + 10
+			local mana_old = mana
+			draw_actions(1, true)
+			mana = mana+(mana_old-mana)/2
+		end,
+	}, --Note: Patched this as per Copi's instruction in order to not get mana from hand, as attributes on hand can be incomplete, resulting in nil and throwing an error -K
 
 	{
 		id                  = "D2D_PRISM",

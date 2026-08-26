@@ -679,7 +679,7 @@ function try_transform_staff_of_curses()
 	wand.manaMax = math.max( 999, original.manaMax )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = math.max( 512, original.manaChargeSpeed )
-	wand.capacity = 25
+	wand.capacity = math.max(original.capacity, 25)
 	wand.spread = math.min( 0, original.spread )
 
 	-- copy always-casts on the previous tier

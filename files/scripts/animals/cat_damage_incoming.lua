@@ -9,9 +9,6 @@ function damage_about_to_be_received( damage, x, y, entity_thats_responsible, cr
 		EntityLoad( "mods/D2DContentPack/files/particles/tele_particles.xml", cx, cy )
 		EntityKill( cat_id ) -- they're not really dead... right? --Surely not -K
 		GamePrint( "$log_d2d_feline_affection_scared_cat" )
-
-        return 0, critical_hit_chance
-    elseif damage > 0 then
-		return 0, critical_hit_chance
     end
+	return 0, critical_hit_chance
 end
