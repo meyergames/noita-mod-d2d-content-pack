@@ -402,7 +402,7 @@ function EntitySetHerd( entity, herd_name )
 end
 
 function get_child_with_tag( entity, tag )
-    local children = EntityGetAllChildren()
+    local children = EntityGetAllChildren(entity)
     if exists( children ) then
         for i,child in ipairs( children ) do
             if EntityHasTag( child, "d2d_tag" ) then

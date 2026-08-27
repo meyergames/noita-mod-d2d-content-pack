@@ -478,7 +478,7 @@ d2d_actions = {
 							        c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_yellow.xml,"
 							    elseif GetUpdatedEntityID() == get_player() then
 							    	if not ModSettingGet( "D2DContentPack.disable_uncopyable_spell_warning" ) then
-	                    				GamePrint( "[D2D] The 'Double Damage' spell cannot be copied." )
+	                    				GamePrint( GameTextGet("$log_d2d_cannot_copy_spell", "$spell_d2d_damage_double_name") )
 	                    				local x, y = EntityGetTransform( GetUpdatedEntityID() )
 	                                    GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
 	                                end
@@ -515,7 +515,7 @@ d2d_actions = {
 							        c.extra_entities = c.extra_entities .. "data/entities/particles/tinyspark_red.xml,"
 							    elseif GetUpdatedEntityID() == get_player() then
 							    	if not ModSettingGet( "D2DContentPack.disable_uncopyable_spell_warning" ) then
-	                    				GamePrint( "[D2D] The 'Overkill' spell cannot be copied." )
+	                    				GamePrint( GameTextGet("$log_d2d_cannot_copy_spell", "$spell_d2d_overkill_name") )
 	                    				local x, y = EntityGetTransform( GetUpdatedEntityID() )
 	                                    GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/not_enough_mana_for_action", x, y )
 	                                end
@@ -1471,7 +1471,7 @@ d2d_actions = {
 										EntityKill( action_entity )
 										EntityLoad("mods/D2DContentPack/files/particles/fade_circle_of_tinkering.xml", x, y )
 										GamePlaySound( "data/audio/Desktop/items.bank", "magic_wand/action_consumed", x, y )
-										GamePrint( "The \"Circle of Tinkering\" spell was consumed" )
+										GamePrint( "$log_d2d_circle_of_tinker_used" )
 									end
 								end
 	                        end,
@@ -2157,18 +2157,13 @@ d2d_actions = {
 		spawn_probability   = "0.7,0.9,1,1,1,1", -- MANA_REDUCE
 		price               = 250,
 		mana                = 0,
-		action 		        = function()
-								c.fire_rate_wait = c.fire_rate_wait + 10
-								draw_actions( 1, true )
-
-								if #hand >= 2 and hand[2] then
-									local refund = hand[2].mana * 0.5
-									if refund > 0 then
-										mana = mana + refund
-									end
-								end
-		                    end,
-	},
+		action = function()
+			c.fire_rate_wait = c.fire_rate_wait + 10
+			local mana_old = mana
+			draw_actions(1, true)
+			mana = mana+(mana_old-mana)/2
+		end,
+	}, --Note: Patched this as per Copi's instruction in order to not get mana from hand, as attributes on hand can be incomplete, resulting in nil and throwing an error -K
 
 	{
 		id                  = "D2D_PRISM",
@@ -2549,14 +2544,14 @@ d2d_actions = {
 	    						local ly = tonumber( GlobalsGetValue( "D2D_LODESTONE_Y", "0" ) )
 	    						if not lx or lx == 0 or not ly or ly == 0 then
 	    							mana = mana + 1000
-	    							GamePrint( "There is no Lodestone to teleport to." )
+	    							GamePrint( "$log_d2d_lodestone_missing" )
 	    							return
 	    						end
 
 	    						-- don't open the portal if the player is carrying the Lodestone
 	    						if get_carried_item_with_tag( "d2d_lodestone" ) then
 	    							mana = mana + 1000
-	    							GamePrint( "The Lodestone is too close!")
+	    							GamePrint( "$log_d2d_lodestone_too_close")
 	    							return
 	    						end
 
@@ -2565,7 +2560,7 @@ d2d_actions = {
 	    						local lodestones = EntityGetInRadiusWithTag( px, py, 300, "d2d_lodestone" )
 	    						if exists( lodestones ) and #lodestones > 0 then
 	    							mana = mana + 1000
-	    							GamePrint( "The Lodestone is too close!")
+	    							GamePrint( "$log_d2d_lodestone_too_close")
 	    							return
 	    						end
 
@@ -2573,7 +2568,7 @@ d2d_actions = {
 								local portal = EntityGetWithTag( "d2d_lodestone_portal" )[1]
 								if exists( portal ) then
 									mana = mana + 1000
-	    							GamePrint( "You've already opened a portal!" )
+	    							GamePrint( "$log_d2d_lodestone_already_open" )
 	    							return
 								end
 

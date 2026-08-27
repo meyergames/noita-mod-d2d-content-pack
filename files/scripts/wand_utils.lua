@@ -1,5 +1,6 @@
 dofile_once( "data/scripts/lib/utilities.lua" )
 EZWand = dofile_once( "mods/D2DContentPack/files/scripts/lib/ezwand.lua" )
+local indexed_gun_actions = dofile_once("mods/D2DContentPack/files/scripts/gun_actions_indexed.lua")
 
 function add_random_cards_to_wand( entity_id, level, deck_capacity )
 
@@ -141,31 +142,31 @@ function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
 		if rnd <= 10 and wand.shuffle == true then -- 5% chance to make non-shuffle
 			wand.shuffle = false
 
-			GamePrint("Your " .. wand_name .. " became non-shuffle!")
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_no_shuffle", wand_name))
 
 		elseif rnd <= 20 and wand.capacity < 25 then
 			local old_capacity = wand.capacity
 			wand.capacity = old_capacity + 1
 
-			GamePrint( "Your " .. wand_name .. "'s capacity was increased! (" .. old_capacity .. " > " .. wand.capacity .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_capacity", wand_name, tostring(old_capacity), tostring(wand.capacity)))
 
 		elseif rnd <= 40 and wand.spread > -30.0 then
 			local old_spread = wand.spread
 			wand.spread = math.max( wand.spread - math.max( wand.spread * 0.5, 3.0 ), -30.0 )
 
-			GamePrint("Your " .. wand_name .. "'s accuracy was increased. (" .. old_spread .. " > " .. wand.spread .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_spread", wand_name, tostring(old_spread), tostring(wand.spread)))
 
 		elseif rnd <= 60 and wand.manaMax < 20000 then
 			local old_mana_max = wand.manaMax
 			wand.manaMax = math.min( old_mana_max + math.max( old_mana_max * 0.1, 30 ), 5000 )
 
-			GamePrint("Your " .. wand_name .. "'s max mana was increased. (" .. string.format( "%.0f", old_mana_max ) .. " > " .. string.format( "%.0f", wand.manaMax ) .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_max_mana", wand_name, string.format("%.0f", old_mana_max), string.format("%.0f", wand.manaMax)))
 
 		elseif rnd <= 80 and wand.manaChargeSpeed < 20000 then
 			local old_mana_charge_speed = wand.manaChargeSpeed
 			wand.manaChargeSpeed = math.min( old_mana_charge_speed + math.max( old_mana_charge_speed * 0.1, 30 ), 5000 )
 
-			GamePrint("Your " .. wand_name .. "'s mana charge speed was increased. (" .. string.format("%.0f",old_mana_charge_speed) .. " > " .. string.format("%.0f",wand.manaChargeSpeed) .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_mana_charge", wand_name, string.format("%.0f",old_mana_charge_speed), string.format("%.0f",wand.manaChargeSpeed)))
 
 		elseif rnd <= 100 then
 			local old_cast_delay = wand.castDelay
@@ -178,25 +179,27 @@ function apply_random_wand_upgrades( wand, upgrade_amt, wand_name )
 				wand.rechargeTime = math.max( old_recharge_time - math.max( old_recharge_time * 0.1, 3 ), -21 ) -- at least 0.05s reduction
 			end
 
-			GamePrint("Your " .. wand_name .. "'s fire rate was increased! (" .. string.format( "%.2f", old_cast_delay / 60 ) .. "/" .. string.format( "%.2f", old_recharge_time / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. "/" .. string.format( "%.2f", wand.rechargeTime / 60 ) .. ")" )
+			GamePrint(GameTextGet("$log_d2d_wand_upgrade_fire_rate", wand_name,
+				string.format("%.2f", old_cast_delay / 60) .. "/" .. string.format( "%.2f", old_recharge_time / 60 ),
+				string.format( "%.2f", wand.castDelay / 60 ) .. "/" .. string.format( "%.2f", wand.rechargeTime / 60 )
+			))
 		end
 	end
 
 	-- change the wand's name and play sfx
-	wand:SetName( base_wand_name .. " Mk." .. ( wand_version + upgrade_amt ), true )
+	wand:SetName(GameTextGet("$log_d2d_wand_upgrade_name", base_wand_name, tostring(wand_version + upgrade_amt)), true )
 	-- GamePlaySound( "mods/D2DContentPack/lib/anvil_of_destiny/audio/anvil_of_destiny.bank", "hammer_hit", x, y )
 end
 
 function wand_upgrade_shuffle( wand )
-	local old_value = wand.capacity
 
 	if wand.shuffle then
 		wand.shuffle = false
-		GamePrint( "Your wand became non-shuffle!" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_no_shuffle", wand:GetName()))
 		return true
 	end
 
-	GamePrint( "Your wand is already non-shuffle!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_no_shuffle_fail", wand:GetName()))
 	return false
 end
 
@@ -205,11 +208,11 @@ function wand_upgrade_capacity( wand, increase, limit )
 
 	if wand.capacity < limit then
 		wand.capacity = math.min( old_value + increase, limit )
-		GamePrint( "Your wand's capacity was increased! (" .. old_value .. " > " .. wand.capacity .. ")" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_capacity", wand:GetName(), tostring(old_value), tostring(wand.capacity)))
 		return true
 	end
 
-	GamePrint( "Your wand cannot hold another spell slot!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_capacity_fail", wand:GetName()))
 	return false
 end
 
@@ -218,11 +221,11 @@ function wand_upgrade_cast_delay( wand, percent, min_increase, limit )
 
 	if wand.castDelay > limit then
 		wand.castDelay = math.max( old_value - math.max( old_value * percent, min_increase ), limit )
-		GamePrint( "Your wand's cast delay was reduced! (" .. string.format( "%.2f", old_value / 60 ) .. " > " .. string.format( "%.2f", wand.castDelay / 60 ) .. ")" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_cast_delay", wand:GetName(), tostring(old_value/60), tostring(wand.castDelay/60)))
 		return true
 	end
 
-	GamePrint( "Your wand's cast delay cannot be reduced further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_cast_delay", wand:GetName()))
 	return false
 end
 
@@ -235,7 +238,7 @@ function wand_upgrade_recharge_time( wand, percent, min_increase, limit )
 		return true
 	end
 
-	GamePrint( "Your wand's recharge time cannot be reduced further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_recharge_time", wand:GetName()))
 	return false
 end
 
@@ -248,7 +251,7 @@ function wand_upgrade_max_mana( wand, percent, min_increase, limit )
 		return true
 	end
 
-	GamePrint( "Your wand's max mana cannot be increased further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_max_mana", wand:GetName()))
 	return false
 end
 
@@ -257,7 +260,7 @@ function wand_upgrade_mana_battery( wand )
 	local old_mana_charge_speed = wand.manaChargeSpeed
 
 	if wand.manaMax >= 50000 then
-		GamePrint( "Your wand's max mana cannot be increased further!" )
+		GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_max_mana", wand:GetName()))
 		return false
 	end
 	
@@ -282,7 +285,7 @@ function wand_upgrade_mana_charge_speed( wand, percent, min_increase, limit )
 		return true
 	end
 
-	GamePrint( "Your wand's mana charge speed cannot be increased further!" )
+	GamePrint(GameTextGet("$log_d2d_wand_upgrade_fail_mana_charge", wand:GetName()))
 	return false
 end
 
@@ -322,81 +325,74 @@ function wand_remove_random_always_cast( wand )
 	return false
 end
 
-local function get_all_spell_entities_in_inventory()
+local function inventory_get_unique_spells()
 	local spells = {}
+	local logged_spells = {}
 	local children = EntityGetAllChildren( get_player() )
-	for k=1,#children do
-		child = children[k]
-	    if EntityGetName( child ) == "inventory_full" then
-	        local inventory_items = EntityGetAllChildren(child)
-	        if( inventory_items ~= nil ) then
-            	local item = inventory_items[#inventory_items]
-
-            	local ia_comp = EntityGetFirstComponentIncludingDisabled( item, "ItemActionComponent" )
-            	if ia_comp then
-            		local do_add = false
-            		if #spells == 0 then
-            			do_add = true
-            		else
-	            		for i,spell in spells do
-
-	            			-- add each unique spell only once
-	            			local other_spell_ia_comp = EntityGetFirstComponentIncludingDisabled( spell, "ItemActionComponent" )
-	            			if exists( other_spell_ia_comp ) then
-	            				local action_id = ComponentGetValue2( ia_comp, "action_id" )
-	            				local other_action_id = ComponentGetValue2( other_spell_ia_comp, "action_id" )
-	            				if action_id ~= other_action_id then
-	            					do_add = true
-	            				end
-	            			end
-		            	end
-		            end
-		            
-	            	if do_add then table.insert( spells, item ) end
-            	end
-            end
+	for _,child in ipairs(children or {}) do
+		if EntityGetName( child ) == "inventory_full" then
+			for _,item in ipairs(EntityGetAllChildren(child) or {}) do
+				local ia_component = EntityGetFirstComponentIncludingDisabled(item, "ItemActionComponent")
+				if ia_component then
+					local spell_id = ComponentGetValue2(ia_component, "action_id")
+					if not logged_spells[spell_id] then
+						logged_spells[spell_id] = true
+						spells[#spells+1] = item
+					end
+				end
+			end
         end
     end
 
     return spells
 end
 
-function try_promote_random_inv_spell( wand )		
+function try_promote_random_inv_spell(wand)
+	local max_allowed_always_casts = 4 --in case you want to change this
+	local chance_to_promote = .25 --some luck-based perk could increase the odds
+	local max_promotions = 1 --i thought it was 4, so i put a max value :(
+
 	local _,always_casts = wand:GetSpells()
-	local inv_spells = get_all_spell_entities_in_inventory()
-	if #inv_spells == 0 then
-		GamePrintImportant( "The gods are confused", "You have no spells in your inventory!" )
-		return false
-	end
-	if #always_casts >= 4 then
-		GamePrintImportant( "Spell promotion failed", "Your wand already has 4 always-cast spells!" )
-		return false
-	end
+	local inv_spell_items = inventory_get_unique_spells()
 
-	local chance_to_promote = 25 * #inv_spells
-	SetRandomSeed( GameGetFrameNum(), GameGetFrameNum() )
-	local rnd = Random( 1, 100 )
-	if rnd <= chance_to_promote then
-		local spell_to_promote = random_from_array( inv_spells )
-        local ia_comp = EntityGetFirstComponentIncludingDisabled( spell_to_promote, "ItemActionComponent" )
-        if ia_comp then
-        	local action_id = ComponentGetValue2( ia_comp, "action_id" )
-        	local spell_name = GameTextGetTranslatedOrNot( get_actions_lua_data( action_id ).name )
-
-			local inventory2 = EntityGetFirstComponent( get_player(), "Inventory2Component" )
-			if inventory2 ~= nil then
-				if inventory2 then
-					-- This will only skip 1 equip message, but it's better than nothing
-					ComponentSetValue2( inventory2, "mDontLogNextItemEquip", true )
-				end
-			end
-
-			GamePrint( "'" .. spell_name .. "' was promoted to an always-cast!" )
-			wand:AttachSpells( action_id )
-			EntityKill( spell_to_promote )
+	local spells = {}
+	for _,item in ipairs(inv_spell_items) do
+		local ia_comp = EntityGetFirstComponentIncludingDisabled(item, "ItemActionComponent")
+		if ia_comp then
+			spells[#spells+1] = {
+				eid = item, --Entity ID
+				sid = ComponentGetValue2(ia_comp, "action_id") --Spell ID
+			}
 		end
-	else
-		GamePrintImportant( "Spell promotion failed", "You had too few spells in your inventory (chance was " .. chance_to_promote .. "%)" )
+	end
+
+	if #spells == 0 then
+		GamePrintImportant( "$log_d2d_promote_ac_fail_empty", "$logdesc_d2d_promote_ac_fail_empty" )
+		return false
+	end
+	if #always_casts >= max_allowed_always_casts then
+		GamePrintImportant( "$log_d2d_promote_ac_fail", "$logdesc_d2d_promote_ac_fail_capped" )
+		return false
+	end
+
+	local starting_num_spells = #spells
+	max_promotions = 4 - #always_casts --lower the amount of allowed promotions if cap is already taken up
+	local promotions = 0
+	for i = 1, starting_num_spells do
+		local rnd = Random(1,#spells)
+		local target_spell = spells[rnd]
+		table.remove(spells, rnd)
+		if Random() <= chance_to_promote then
+			promotions = promotions + 1
+        	GamePrint(GameTextGet("$log_d2d_promote_ac_success", GameTextGetTranslatedOrNot(indexed_gun_actions[target_spell.sid].name)))
+			wand:AttachSpells(target_spell.sid)
+			EntityKill(target_spell.eid)
+			if promotions >= max_promotions then break end
+		end
+	end
+	if promotions == 0 then
+		local absolute_fail_chance = string.format("%.3f%%", ((1-chance_to_promote)^starting_num_spells)*100)
+		GamePrintImportant("$log_d2d_promote_ac_fail", GameTextGet("$logdesc_d2d_promote_ac_fail_unlucky", absolute_fail_chance))
 		return false
 	end
 
@@ -590,19 +586,6 @@ function init_lunar_staff()
     return wand
 end
 
--- switching mods could cause stored spells to no longer 'exist' when the wand is loaded in
-function does_spell_exist( action_id )
-	if spell == "" then return false end
-    dofile_once( "data/scripts/gun/gun_actions.lua" )
-
-    for i,action in ipairs( actions ) do
-    	if action.id == action_id then
-    		return true
-    	end
-    end
-    return false
-end
-
 function init_staff_of_remembrance()
     local wand = EZWand()
     wand:SetName( "Staff of Remembrance", true )
@@ -621,7 +604,7 @@ function init_staff_of_remembrance()
 
         local spells_added = 0
         for i,spell in ipairs( spells ) do
-            if does_spell_exist( spell ) and spells_added < 5 then
+            if indexed_gun_actions[spell] and spells_added < 5 then
                 wand:AddSpells( spell )
                 spells_added = spells_added + 1
             end
@@ -696,7 +679,7 @@ function try_transform_staff_of_curses()
 	wand.manaMax = math.max( 999, original.manaMax )
 	wand.mana = wand.manaMax
 	wand.manaChargeSpeed = math.max( 512, original.manaChargeSpeed )
-	wand.capacity = 25
+	wand.capacity = math.max(original.capacity, 25)
 	wand.spread = math.min( 0, original.spread )
 
 	-- copy always-casts on the previous tier
@@ -796,7 +779,7 @@ end
 
 function init_staff_of_curses()
     local wand = EZWand()
-	wand:SetName( "Staff of Curses", true )
+	wand:SetName("$item_d2d_staff_curses", true)
 	wand.shuffle = false
 	wand.spellsPerCast = 1
 	wand.castDelay = Random( 3, 5 )
@@ -837,11 +820,11 @@ function try_upgrade_staff_of_curses()
 	    local wand = EZWand( staff )
 	    wand.manaMax = wand.manaMax + 100
 	    wand.manaChargeSpeed = wand.manaChargeSpeed + 32
-	    wand.capacity = math.min( wand.capacity + 2, 25 )
+	    wand.capacity = math.min(wand.capacity + 2, math.max(wand.capacity, 25))
 
 		local x, y = EntityGetTransform( wand.entity_id )
 		local wand_name, show_name_in_ui = wand:GetName()
-		GamePrint( "The Staff of Curses was upgraded!" )
+		GamePrint("$lod_d2d_curse_staff_upgraded")
 		GamePlaySound( "data/audio/Desktop/misc.bank", "game_effect/regeneration/tick", x, y )
 	end
 end

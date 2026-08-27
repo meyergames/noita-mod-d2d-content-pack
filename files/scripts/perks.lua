@@ -1488,7 +1488,7 @@ d2d_perk_reworks = {
 					GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad/create", x, y )
 	        	end
 	        else
-	        	GamePrintImportant( "The gods are confused", "You carry no wands!" )
+	        	GamePrintImportant( "$log_d2d_promote_ac_fail_empty", "$logdesc_d2d_promote_ac_fail_no_wands" )
 				GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad/create", x, y )
 	        end
         end,

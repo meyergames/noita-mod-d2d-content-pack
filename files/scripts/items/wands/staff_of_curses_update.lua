@@ -21,7 +21,7 @@ if exists( s_bind_id ) then
 						local p_hp = ComponentGetValue2( dmg_comp, "hp" )
 						local p_max_hp = ComponentGetValue2( dmg_comp, "max_hp" )
 						local dmg = math.min( p_max_hp * 0.05, p_hp - 0.04 )
-						EntityInflictDamage( player, dmg, "DAMAGE_CURSE", "staff of curses", "NONE", 0, 0, staff_id, x, y, 0 )
+						EntityInflictDamage( player, dmg, "DAMAGE_CURSE", "$damage_d2d_staff_curses_clingy", "NONE", 0, 0, staff_id, x, y, 0 )
 						GamePrint( "The staff did not appreciate that." )
 					end
 
