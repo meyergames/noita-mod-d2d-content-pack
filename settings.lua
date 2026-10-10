@@ -672,7 +672,7 @@ mod_settings =
             {
                 id = "mid_fire_keybind",
                 ui_name = "",
-                value_default = "key_code,mouse_code,2,joystick_code",
+                value_default = "key_code,mouse_code,3,joystick_code",
                 ui_fn = function(mod_id, gui, in_main_menu, im_id, setting)
                             if listening_mid_fire then
                                 input_listen(key_inputs,mouse_inputs,joystick_inputs,"D2DContentPack.mid_fire_keybind")
@@ -777,7 +777,7 @@ mod_settings =
             {
                 id = "beacon_keybind",
                 ui_name = "Keybind",
-                value_default = "key_code,mouse_code,2,joystick_code",
+                value_default = "key_code,5,mouse_code,joystick_code",
                 ui_fn = function(mod_id, gui, in_main_menu, im_id, setting)
                             if listening_beacon then
                                 input_listen(key_inputs,mouse_inputs,joystick_inputs,"D2DContentPack.beacon_keybind")
@@ -917,19 +917,6 @@ mod_settings =
         }
     },
 }
-
-function ModSettingsUpdate(init_scope)
-    local old_version = mod_settings_get_version(mod_id)
-    mod_settings_update(mod_id, mod_settings, init_scope)
-end
-
-function ModSettingsGuiCount()
-    return mod_settings_gui_count(mod_id, mod_settings)
-end
-
-function ModSettingsGui(gui, in_main_menu)
-    mod_settings_gui(mod_id, mod_settings, gui, in_main_menu)
-end
 
 function do_custom_tooltip( callback, z, x_offset, y_offset )
     if z == nil then z = -12 end
