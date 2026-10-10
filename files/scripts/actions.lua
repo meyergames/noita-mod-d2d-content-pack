@@ -2675,7 +2675,7 @@ d2d_actions = {
 	    type 		        = ACTION_TYPE_PASSIVE,
 		spawn_level         = "1,2,3,4,5,6,10",
 		spawn_probability   = "0.2,0.4,0.6,0.8,1,1,1",
-		only_if_mod_disabled= "alt_fire_anything",
+		only_if_mod_disabled= "alt_fire_anything|noita.hardmod",
 		custom_xml_file 	= "mods/D2DContentPack/files/entities/misc/custom_cards/card_alt_fire_anything.xml",
 	    price               = 400,
 	    mana                = 0,
@@ -2847,11 +2847,27 @@ if actions ~= nil then
 	for k, v in pairs( d2d_actions ) do
 		if not HasSettingFlag( v.id.."_disabled" ) then
 			if v.only_if_mod_enabled then
-				if ModIsEnabled( v.only_if_mod_enabled ) then
+	            local mods = split_string( v.only_if_mod_enabled, '|' )
+	            local add_to_table = false
+	            for i,mod in ipairs( mods ) do
+	                if ModIsEnabled( mod ) then
+	                	add_to_table = true
+	                end
+	            end
+
+				if add_to_table then
 					table.insert( actions, v )
 				end
 			elseif v.only_if_mod_disabled then
-				if not ModIsEnabled( v.only_if_mod_disabled ) then
+	            local mods = split_string( v.only_if_mod_disabled, '|' )
+	            local add_to_table = true
+	            for i,mod in ipairs( mods ) do
+	                if ModIsEnabled( mod ) then
+	                	add_to_table = false
+	                end
+	            end
+
+				if add_to_table then
 					table.insert( actions, v )
 				end
 			else
