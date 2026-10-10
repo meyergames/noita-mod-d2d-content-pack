@@ -167,11 +167,11 @@ function OnPlayerSpawned( player )
             script_source_file = "mods/D2DContentPack/files/scripts/misc/beacon_keybind_listener.lua",
         })
     end
-    
+
+    local _,_,_,h,m,s,_ = GameGetDateAndTimeLocal()
+    SetRandomSeed( h * m * s, -h * m * s )
     local rnd = Random( 1, 100 )
-    local spawn_loadout = rnd <= ModSettingGet( "D2DContentPack.loadout_spawn_chance" )
-                          or not HasFlagPersistent( "d2d_class_loadouts_introduced" )
-    if spawn_loadout then
+    if rnd <= ModSettingGet( "D2DContentPack.loadout_spawn_chance" ) then
         dofile_once( "mods/D2DContentPack/files/scripts/loadouts/init_loadouts.lua" )
     end
     
