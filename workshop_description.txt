@@ -1,4 +1,6 @@
-A collection of spells, perks and items to spice up your run.
+[img]https://i.imgur.com/30Mv2cK.png[/img]
+
+A collection of [b]50+[/b] spells, [b]15+[/b] perks, special wands, new items and enemies; each can be individually toggled on or off through the mod settings.
 
 Things you could be doing with this mod:
 - Sacrificing immunity perks for crazy firepower
@@ -8,6 +10,7 @@ Things you could be doing with this mod:
 - Hitting quickscope collaterals with Snipuhiisi's sniper bolt
 - Blasting worms with the infamous banana bomb
 - Overclocking your wand, only for it to explode in your face
+- Turning yourself into a projectile?!
 
 ...and much more!
 
@@ -48,19 +51,50 @@ Especially strong against worms.
 
 
 
-[h3]Unstable Nucleus[/h3]
-[img]https://i.imgur.com/5FmAUn8.gif[/img]
-Stays alive as long as you hold the fire button.
-Mana fuels it to become more and more powerful.
+[h3]Projectile Morph[/h3]
+[img]https://i.imgur.com/6g3VvcW.gif[/img]
+Experimental modifier that turns you into a projectile!
+Use at your own risk.
+
+
+
+[h3]Glass Shard[/h3]
+[img]https://i.imgur.com/n64FmP9.gif[/img]
+Deals minimal damage at first, but a big chunk of damage after 1 second.
+Shards may then chain to other enemies - or yourself.
+
+
+
+[h3]Circle of Phasing[/h3]
+[img]https://raw.githubusercontent.com/meyergames/noita-mod-d2d-content-pack/main/workshop/demo_circle_of_phasing.gif[/img]
+Lets you shoot projectiles (and yourself!) through terrain.
+
+
+
+[h3]Disintegration Ray[/h3]
+[img]https://i.imgur.com/y83khgQ.gif[/img]
+Utterly obliterates anything in its path.
+Extremely high damage and digging potential; extremely high mana drain rate.
 
 
 
 [h3]Overclock[/h3]
 [img]https://i.imgur.com/sMW6S0N.gif[/img]
 Modifier that pushes your wand's fire rate to its limits, but gives it a chance to overheat.
-
 Overheat chance is higher when mana is low.
-As such, it is advised to fire an overclocked wand in short bursts.
+
+
+
+[h3]Bolt Catcher[/h3]
+[img]https://i.imgur.com/v1eY3EE.gif[/img]
+High-risk, high-reward "parry" spell that converts enemy projectiles into health.
+
+
+
+[h3]Unstable Nucleus[/h3]
+[img]https://i.imgur.com/5FmAUn8.gif[/img]
+Stays alive as long as you hold the fire button.
+Mana fuels it to become more and more powerful.
 
 
 
@@ -71,31 +105,45 @@ A rapidfire wand will effectively make you hover in the air.
 
 
 
-[hr][/hr]
-
-[h1]ITEM HIGHLIGHTS[/h1]
-
-[h3]Emergency Injection[/h3]
-[img]https://i.imgur.com/hUpZRlP.png[/img]
-A dubious mixture of healthium and some pitch-black liquid.
-Instantly restores [i]all[/i] health. At a cost, of course...
+[h3]Summon Concrete Wall[/h3]
+[img]https://i.imgur.com/D1qkp7L.gif[/img]
+Summons a concrete wall in front of you.
+A more brittle, but also more permanent version of the regular Summon Wall spell.
 
 
 
-[h3]Cursed Chest[/h3]
-[img]https://i.imgur.com/DUdt23J.png[/img]
-Open it for a blessing and a [i]Curse[/i].
-Curses are perks with (mostly) subtle negative side effects.
-An example can be found a bit further down.
-
-Potential loot includes (normal) perks and a few unique spells.
-
-
+[h3]Controlled Reach[/h3]
+[img]https://i.imgur.com/yVp6hLt.gif[/img]
+Makes projectiles expire when they reach the cursor.
+The shorter the travel distance, the higher your fire rate.
 
 
 [hr][/hr]
 
 [h1]PERK HIGHLIGHTS[/h1]
+
+[h3]Artisan[/h3]
+[img]https://i.imgur.com/FCfbH11.gif[/img]
+Lets you sacrifice one or both Holy Mountain pickups to upgrade your wands.
+
+
+
+[h3]Master Of Fire[/h3]
+[img]https://i.imgur.com/P2xPUd0.gif[/img]
+Makes your projectiles ignite everything and everyone they touch.
+Burning enemies take more damage and spread the flames further.
+Being on fire grants mobility and increased fire damage.
+
+Only works if you are NOT immune to fire.
+
+
+
+[h3]Master Of Bombs[/h3]
+[img]https://i.imgur.com/yJR8pEY.gif[/img]
+Your explosions can destroy stronger materials.
+Only works if you are NOT immune to explosions.
+
+
 
 [h3]Time Trial[/h3]
 [img]https://i.imgur.com/pGxyYp0.gif[/img]
@@ -112,37 +160,46 @@ Does what it says on the tin.
 
 
 
-[h3]Evolving Wands[/h3]
-[img]https://i.imgur.com/T9KWfEx.png[/img]
-Your wands gain a random upgrade each time you enter a new biome.
-Each 5th upgrade is a bigger, all-round upgrade.
+[hr][/hr]
 
-Rewards holding on to your (starter) wands.
+[h1]OTHER HIGHLIGHTS[/h1]
 
-
-
-[h3]Master Of Bombs[/h3]
-[img]https://i.imgur.com/yJR8pEY.gif[/img]
-Your explosions are bigger and can destroy stronger materials.
-Non-explosive projectiles become explosive, as well.
-
-Only works if you are NOT immune to explosions.
+[h3]Ancient Lurker[/h3]
+[img]https://i.imgur.com/pvFwy6b.gif[/img]
+Found deep within the Lukki Lair, this boss will test your aerial positioning and levitation management skills. Better bring a teleport bolt!
 
 
 
-[h3]Master Of Lightning[/h3]
-[img]https://i.imgur.com/wumG5Hi.gif[/img]
-Permanently increases your fire rate.
-Gives all your projectiles an electric charge.
-After being electrocuted, gain an even stronger buff.
+[h3]Emergency Injection[/h3]
+[img]https://i.imgur.com/hUpZRlP.png[/img]
+A dubious mixture of healthium and some pitch-black liquid.
+Instantly restores [i]all[/i] health, but obviously, there is a catch...
 
-Only works if you are NOT immune to electricity.
-
+Used automatically when you fall below 5% health. (can be changed/disabled in mod settings)
 
 
-[h3]Borrowed Time[/h3]
-[img]https://i.imgur.com/mIEU62s.gif[/img]
-You survive fatal damage, at the cost of your max health.
+
+[h3]Cursed Chest[/h3]
+[img]https://i.imgur.com/DUdt23J.png[/img]
+Open it for a blessing (a powerful wand + choice between 3 perks) and a [i]Curse[/i].
+
+
+
+[h3]Staff of Glass[/h3]
+[img]https://i.imgur.com/6SBsP20.gif[/img]
+Very powerful, but will break and drop all spells when you take direct damage from an enemy.
+
+A guaranteed reward from the Glass Heart perk.
+
+
+
+[h3]Staff of Time[/h3]
+[img]https://i.imgur.com/js2RxOo.gif[/img]
+Left-click to teleport towards your cursor.
+Middle-click to teleport directly on top of your cursor.
+Right-click to teleport back to where you last jumped.
+
+A guaranteed reward from the Time Trial perk.
 
 
 
@@ -157,16 +214,7 @@ If Apotheosis is not enabled, the aforementioned content will simply be disabled
 
 
 ❓️ [b]Entangled Worlds[/b]
-So far, spells appear to work, but the effects of the "Master Of" perks seem to be invisible to other players.
-
-
-
-[hr][/hr]
-
-[h1]KNOWN ISSUES[/h1]
-(feel free to help)
-
-- [b]Missing Mana To Damage[/b] does not increase damage if it's an always-cast
+Seemed to work alright a couple months ago, though so many new content has been added since that more testing is required.
 
 
 
