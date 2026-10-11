@@ -299,9 +299,12 @@ function is_immune_to_electricity()
 end
 
 -- this function was copied from the Selectable Classes mod
-function give_perk( target, perk_id )
+function give_perk( target, perk_id, fallback_perk_id )
     dofile_once( "data/scripts/perks/perk.lua" )
     local data = get_perk_with_id( perk_list, perk_id )
+    if not exists( data ) and exists( fallback_perk_id ) then
+        data = get_perk_with_id( perk_list, fallback_perk_id )
+    end
 
     -- only apply to enemies if the perk is usable by them
     if target == get_player() then
@@ -521,4 +524,12 @@ function try_make_player_unspooky( player_id )
             end
         end
     end
+end
+
+function GlobalsGet( global_name )
+    return tonumber( GlobalsGetValue( global_name ) )
+end
+
+function GlobalsSet( global_name, global_value )
+    GlobalsSetValue( global_name, tostring( global_value ) )
 end

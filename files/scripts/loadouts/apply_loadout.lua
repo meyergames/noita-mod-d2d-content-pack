@@ -1,4 +1,5 @@
 dofile_once( "mods/D2DContentPack/files/scripts/d2d_utils.lua" )
+dofile_once( "data/scripts/perks/perk.lua" )
 
 local curses_enabled = ModSettingGet( "D2DContentPack.enable_curses_on_loadouts" )
 
@@ -158,7 +159,7 @@ function spawn_loadout_tinkerer( player )
 
 	-- perks
 	give_perk( player, "D2D_SUMMON_TOOLBOX" )
-	give_perk( player, "D2D_TINKER_WITH_WANDS_MORE" )
+	give_perk( player, "D2D_TINKER_WITH_WANDS_MORE", "EDIT_WANDS_EVERYWHERE" )
 	give_perk( player, "WAND_EXPERIMENTER" )
 	if curses_enabled then
 		give_perk( player, "D2D_CURSE_OVERHEATING" )
@@ -462,21 +463,35 @@ end
 
 function item_pickup( entity_item, entity_who_picked, item_name )
 	local function_name = get_internal_string( entity_item, "d2d_class_function_name" )
-	_G[function_name]( entity_who_picked )
 
-	local x, y = EntityGetTransform( entity_who_picked )
-	GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/orb/create", x, y )
-	EntityLoad( "mods/D2DContentPack/files/particles/image_emitters/hammer.xml", x, y-12 )
+	-- only let the player take a class if they don't already have one (in multiplayer)
+	local player_already_has_loadout = get_internal_bool( entity_who_picked, "d2d_using_class_loadout" )
+	if not player_already_has_loadout then
+		_G[function_name]( entity_who_picked )
+		set_internal_bool( entity_who_picked, "d2d_using_class_loadout", true )
 
-	local class_cards = EntityGetWithTag( "d2d_class_card" )
-	if exists( class_cards ) then
-		for i,card in ipairs( class_cards ) do
-			EntityKill( card )
-		end
+		local x, y = EntityGetTransform( entity_who_picked )
+		GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/orb/create", x, y )
+		EntityLoad( "mods/D2DContentPack/files/particles/image_emitters/hammer.xml", x, y-12 )
+	else
+		GamePrint( "You already have a class loadout!" )
 	end
 
-	local nearby_aura = EntityGetWithTag( "d2d_class_selection_aura" )[1]
-	if exists( nearby_aura ) then
-		EntityKill( nearby_aura )
+	-- remove other loadouts if there are no more players for the rest of them
+	local classes_taken = GlobalsGet( "D2D_CLASS_LOADOUTS_TAKEN" ) or 0
+	GlobalsSet( "D2D_CLASS_LOADOUTS_TAKEN", classes_taken + 1 )
+	local number_of_players = #EntityGetWithTag( "player_unit" )
+	if GlobalsGet( "D2D_CLASS_LOADOUTS_TAKEN" ) >= number_of_players then
+		local class_cards = EntityGetWithTag( "d2d_class_card" )
+		if exists( class_cards ) then
+			for i,card in ipairs( class_cards ) do
+				EntityKill( card )
+			end
+		end
+
+		local nearby_aura = EntityGetWithTag( "d2d_class_selection_aura" )[1]
+		if exists( nearby_aura ) then
+			EntityKill( nearby_aura )
+		end
 	end
 end

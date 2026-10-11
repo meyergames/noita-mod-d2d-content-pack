@@ -416,19 +416,6 @@ function has_value (table, value)
   return false
 end
 
-function ModSettingsUpdate(init_scope)
-    local old_version = mod_settings_get_version(mod_id)
-    mod_settings_update(mod_id, mod_settings, init_scope)
-end
-
-function ModSettingsGuiCount()
-    return mod_settings_gui_count(mod_id, mod_settings)
-end
-
-function ModSettingsGui(gui, in_main_menu)
-    mod_settings_gui(mod_id, mod_settings, gui, in_main_menu)
-end
-
 local mod_id = "D2DContentPack" -- This should match the name of your mod's folder.
 mod_settings_version = 1      -- This is a magic global that can be used to migrate settings to new mod versions. call mod_settings_get_version() before mod_settings_update() to get the old value.
 mod_settings =
@@ -917,6 +904,19 @@ mod_settings =
         }
     },
 }
+
+function ModSettingsUpdate(init_scope)
+    local old_version = mod_settings_get_version(mod_id)
+    mod_settings_update(mod_id, mod_settings, init_scope)
+end
+
+function ModSettingsGuiCount()
+    return mod_settings_gui_count(mod_id, mod_settings)
+end
+
+function ModSettingsGui(gui, in_main_menu)
+    mod_settings_gui(mod_id, mod_settings, gui, in_main_menu)
+end
 
 function do_custom_tooltip( callback, z, x_offset, y_offset )
     if z == nil then z = -12 end
