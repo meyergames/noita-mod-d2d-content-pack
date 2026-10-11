@@ -1710,3 +1710,5 @@ if ( perk_list ~= nil ) then
 		end
 	end
 end
+
+return { perks = d2d_perks }

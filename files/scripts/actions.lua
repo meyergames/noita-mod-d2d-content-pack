@@ -3110,3 +3110,5 @@ if actions ~= nil and ModSettingGet( "D2DContentPack.nerf_greek_spells" ) then
         end
     end
 end
+
+return { actions = d2d_actions }

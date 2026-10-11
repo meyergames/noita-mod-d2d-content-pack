@@ -79,8 +79,8 @@ function OnPlayerSpawned( player )
 
     dofile_once( "data/scripts/lib/utilities.lua" )
     dofile_once( "data/scripts/perks/perk.lua" )
-    dofile( "mods/D2DContentPack/files/scripts/actions.lua" )
-    dofile( "mods/D2DContentPack/files/scripts/perks.lua" )
+    local d2d_actions = dofile_once( "mods/D2DContentPack/files/scripts/actions.lua" ).actions
+    local d2d_perks = dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" ).perks
 
     -- maybe spawn a challenge perk
     if ModSettingGet( "D2DContentPack.spawn_challenge_perk_sometimes" ) then
