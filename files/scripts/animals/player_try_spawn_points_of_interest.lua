@@ -17,22 +17,18 @@ end
 
 function try_trigger_recent_update_message()
     if GameHasFlagRun( "d2d_poi_recent_update_message_displayed" ) then return end
-    if not is_within_bounds( entity_id, 600, 800, -240, -80 ) then return end
+    -- if not is_within_bounds( entity_id, 600, 800, -240, -80 ) then return end
 
     GameAddFlagRun( "d2d_poi_recent_update_message_displayed" )
 
     -- remove the previous flag since it is no longer used
-    RemoveFlagPersistent( "d2d_update_msg_displayed_toolbox" )
+    RemoveFlagPersistent( "d2d_update_msg_beacons" )
 
-    -- this print was added on 18 may 2026
-    -- if not HasFlagPersistent( "d2d_update_msg_beacons" ) then
-
-    --     GamePrint( "[D2D] UPDATE: Beacons can now be placed with a hotkey! ('B' by default)" )
-    --     GamePrintDelayed( "[D2D] If you prefer placing Beacons with the dedicated spell instead,", 180 )
-    --     GamePrintDelayed( "[D2D] you can disable this setting in the 'Beacons' mod settings.", 300 )
-
-    --     -- AddFlagPersistent( "d2d_update_msg_beacons" )
-    -- end
+    -- this print was added on 11 oct 2026
+    if not HasFlagPersistent( "d2d_update_msg_261011" ) then
+        EntityLoad( "mods/D2DContentPack/files/entities/items/pickup/books/book_update_261011.xml", 676, -124 )
+        AddFlagPersistent( "d2d_update_msg_261011" )
+    end
 end
 
 function try_spawn_ghost_of_memories()
