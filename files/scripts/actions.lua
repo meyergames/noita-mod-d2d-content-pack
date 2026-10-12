@@ -2449,25 +2449,6 @@ d2d_actions = {
     },
 
     {
-    	id					= "D2D_UPGRADE_MANA_BATTERY",
-    	name				= "$spell_d2d_upgrade_mana_battery_name",
-    	description			= "$spell_d2d_upgrade_mana_battery_desc",
-    	sprite				= "mods/D2DContentPack/files/gfx/ui_gfx/spells/upgrade_mana_battery.png",
-    	type				= ACTION_TYPE_OTHER,
-    	spawn_level			= "0",
-    	spawn_probability	= "0",
-    	spawn_requires_flag	= "d2d_impossible_spawn",
-    	price				= 100,
-    	mana				= 0,
-    	max_uses			= 1,
-    	custom_uses_logic	= true,
-    	custom_xml_file		= "mods/D2DContentPack/files/entities/misc/custom_cards/card_upgrade_mana_battery.xml",
-    	action				= function()
-    							-- do nothing here
-    						end,
-    },
-
-    {
 	    id                  = "D2D_ANIMATE_WAND_MID_FIRE",
 	    name 		        = "$spell_d2d_animate_wand_mid_fire_name",
 	    description         = "$spell_d2d_animate_wand_mid_fire_desc",

@@ -1097,7 +1097,7 @@ function generate_random_toolbox_spells( amount, do_print )
 	local rare = {
 		-- upgrades
 		-- "D2D_UPGRADE_PROMOTE_SPELL",
-		"D2D_UPGRADE_MANA_BATTERY",
+		-- "D2D_UPGRADE_MANA_BATTERY",
 
 		-- mana
 		"D2D_MANA_SPLIT",
@@ -1187,7 +1187,7 @@ function spawn_random_upgrade_spells( amount, x, y )
 		"D2D_UPGRADE_SHUFFLE",
 		"D2D_UPGRADE_REMOVE_ALWAYS_CAST",
 		-- "D2D_UPGRADE_PROMOTE_SPELL",
-		"D2D_UPGRADE_MANA_BATTERY",
+		-- "D2D_UPGRADE_MANA_BATTERY",
 	}
 
 	local arc = ( amount - 1 ) * 60
