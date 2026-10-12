@@ -1,15 +1,29 @@
-IDEAS
+IDEAS (and to-do...)
 
 
 
 
 
 
-WE POST NEW IDEAS AT THE TOP NOW
+WE POST NEW IDEAS (and to-do...) AT THE TOP NOW
+
+[ ] "Hello!
+
+	I've noticed that cursed chests now offer a curse as one of the 4 selectable perks. You can choose either the curse or regular perks, and all other options disappear. My wife is certainly happy with this :steamhappy:, but I believe this might be a bug related to Iota multiplayer compatibility.
+
+	Could you look into this?"
+
+[ ] make TWWM wand-editing bubbles disappear once you leave them.
+
+[ ] "reverse hand": 'other' spell that casts your discard pile in reversed order.
+
+[ ] cursed chest shows multiple of the same perk: Midas Meat / Borrowed Time / Midas Meat
+	(https://discord.com/channels/453998283174576133/1532467362098319614/1551413658171740230)
 
 [ ] Projectile Morph QoL: disable that one component so that the camera has the projectile 100% in the center of the screen?
 
 [ ] Curse: max levitation power is halved
+	[ ] better: taking direct enemy (projectile) damage mid-air reduces your levitation power
 
 [ ] when a class loadout is chosen, offer 2 class-specific reward options in HMs:
 	sniper:
