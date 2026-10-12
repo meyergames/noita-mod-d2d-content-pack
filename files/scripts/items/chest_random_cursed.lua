@@ -107,7 +107,7 @@ function drop_random_reward( x, y, entity_id, rand_x, rand_y, set_rnd_  )
 	end
 end
 
-function on_open( entity_item )
+function on_open( entity_item, entity_who_picked )
 	local x, y = EntityGetTransform( entity_item )
 	local rand_x = x
 	local rand_y = y
@@ -120,28 +120,21 @@ function on_open( entity_item )
 	end
 
 	SetRandomSeed( rand_x, rand_y )
-	
-	if ( distance_between( get_player(), entity_item ) <= 100 ) then
-		apply_random_curse( get_player() )
-		raise_internal_int( get_player(), "d2d_cursed_chests_opened", 1 )
+
+	if distance_between( entity_item, entity_who_picked ) <= 100 then
+		apply_random_curse( entity_who_picked )
+		raise_internal_int( entity_who_picked, "d2d_cursed_chests_opened", 1 )
 
 		local good_item_dropped = drop_random_reward( x, y, entity_item, rand_x, rand_y, false )
 
 		-- upgrade the staff of curses
 		try_upgrade_staff_of_curses()
-		
-		-- local config_curses_enabled = ModSettingGet("D2DContentPack.enable_curses")
-		-- if config_curses_enabled then
-		EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
-		-- end
 
+		EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
 		EntityLoad( "data/entities/particles/image_emitters/chest_effect.xml", x, y )
-		-- GamePlaySound( "data/audio/Desktop/event_cues.bank", "event_cues/chest_bad", x, y )
-		-- else
-		--     EntityLoad("data/entities/particles/image_emitters/chest_effect_bad.xml", x, y)
-		-- end
-		if ( has_perk( "D2D_HUNT_CURSES" ) ) then
-			LoadGameEffectEntityTo( get_player(), "data/entities/misc/effect_regeneration.xml" )
+
+		if has_perk( "D2D_HUNT_CURSES" ) then
+			LoadGameEffectEntityTo( entity_who_picked, "data/entities/misc/effect_regeneration.xml" )
 		end
 	end
 end
@@ -149,7 +142,7 @@ end
 function item_pickup( entity_item, entity_who_picked, name )
 	GamePrintImportant( "$log_chest", "" )
 
-	on_open( entity_item )
+	on_open( entity_item, entity_who_picked )
 	
 	EntityKill( entity_item )
 end

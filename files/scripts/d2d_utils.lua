@@ -533,3 +533,21 @@ end
 function GlobalsSet( global_name, global_value )
     GlobalsSetValue( global_name, tostring( global_value ) )
 end
+
+function GetNearestPlayer( x, y )
+    local players = EntityGetWithTag( "player_unit" )
+    if not exists( players ) then return nil end
+
+    local nearest_player = nil
+    local nearest_dist = 9999
+    for i,player in ipairs( players ) do
+        local px, py = EntityGetTransform( player )
+        local dist = get_distance( x, y, px, py )
+        if dist < nearest_dist then
+            nearest_dist = dist
+            nearest_player = player
+        end
+    end
+
+    return nearest_player
+end

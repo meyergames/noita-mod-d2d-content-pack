@@ -680,11 +680,11 @@ function apply_random_curse( entity_id )
 	-- if not config_curses_enabled then return end
 
     dofile_once( "data/scripts/perks/perk.lua" )
-    dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" )
+    local curses = dofile_once( "mods/D2DContentPack/files/scripts/perks.lua" ).curses
     local x, y = EntityGetTransform( entity_id )
 
     local curses_not_picked_up = {}
-	for k,v in ipairs( d2d_curses ) do
+	for k,v in ipairs( curses ) do
 		if ( not has_perk( v.id ) ) then
 			table.insert( curses_not_picked_up, v )
 		end

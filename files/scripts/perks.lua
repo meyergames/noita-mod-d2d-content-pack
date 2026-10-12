@@ -1689,4 +1689,7 @@ if ( perk_list ~= nil ) then
 	end
 end
 
-return { perks = d2d_perks }
+return {
+	perks = d2d_perks,
+	curses = d2d_curses,
+}
