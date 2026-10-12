@@ -18,6 +18,7 @@ end
 local spawn_frame = get_internal_int( entity_id, "d2d_circle_of_phasing_spawn_frame" )
 if not spawn_frame or spawn_frame > GameGetFrameNum() then
 	set_internal_int( entity_id, "d2d_circle_of_phasing_spawn_frame", GameGetFrameNum() )
+	spawn_frame = GameGetFrameNum()
 end
 local frames_since_spawn = GameGetFrameNum() - spawn_frame
 local radius = 32 + math.floor( frames_since_spawn / 150.0 ) -- increase to 40 over time, to help with un-stucking
