@@ -22,7 +22,10 @@ ModLuaFileAppend( "data/scripts/biomes/rainforest.lua", "mods/D2DContentPack/fil
 ModLuaFileAppend( "data/scripts/biomes/fungicave.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_fungal_caverns.lua" )
 ModLuaFileAppend( "data/scripts/biomes/fungiforest.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_overgrown_cavern.lua" )
 ModLuaFileAppend( "data/scripts/biomes/the_end.lua", "mods/D2DContentPack/files/scripts/biomes/spawns_hell.lua" )
-
+-- guaranteed AFA spawns in some of the orb rooms
+ModLuaFileAppend( "data/scripts/biomes/orbrooms/orbroom_05.lua", "mods/D2DContentPack/files/scripts/biomes/orbroom_append.lua" )
+ModLuaFileAppend( "data/scripts/biomes/orbrooms/orbroom_06.lua", "mods/D2DContentPack/files/scripts/biomes/orbroom_append.lua" )
+ModLuaFileAppend( "data/scripts/biomes/orbrooms/orbroom_10.lua", "mods/D2DContentPack/files/scripts/biomes/orbroom_append.lua" )
 
 if ModIsEnabled( "Apotheosis" ) then
     ModLuaFileAppend( "mods/Apotheosis/files/scripts/animals/cat_pet.lua", "mods/D2DContentPack/files/scripts/animals/cat_pet.lua" )
